@@ -1,0 +1,144 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema kbell
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema kbell
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `kbell` DEFAULT CHARACTER SET utf8 ;
+USE `kbell` ;
+
+-- -----------------------------------------------------
+-- Table `kbell`.`category`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`category` (
+  `category_ID` SMALLINT(10) NOT NULL,
+  `description` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`category_ID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`po_type`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`po_type` (
+  `id` SMALLINT(10) NOT NULL,
+  `description` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`product` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(64) NOT NULL,
+  `part_id` VARCHAR(15) NOT NULL,
+  `manufacturer` VARCHAR(15) NOT NULL,
+  `supplier` VARCHAR(15) NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
+  `size` VARCHAR(25) NULL DEFAULT '1 Each',
+  `po_id` SMALLINT(10) NOT NULL DEFAULT '4',
+  `category_id` SMALLINT(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `po_id` (`po_id` ASC),
+  INDEX `category_id` (`category_id` ASC),
+  CONSTRAINT `product_ibfk_1`
+    FOREIGN KEY (`po_id`)
+    REFERENCES `kbell`.`po_type` (`id`),
+  CONSTRAINT `product_ibfk_2`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `kbell`.`category` (`category_ID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`user` (
+  `userid` SMALLINT(10) NOT NULL,
+  `username` VARCHAR(16) NOT NULL,
+  `firstName` VARCHAR(25) NOT NULL,
+  `lastName` VARCHAR(25) NOT NULL,
+  `password` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`userid`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`supplier`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`supplier` (
+  `supplierid` SMALLINT(10) NOT NULL,
+  `companyname` VARCHAR(45) NOT NULL,
+  `contact` VARCHAR(45) NOT NULL,
+  `address1` VARCHAR(120) NOT NULL,
+  `address2` VARCHAR(120) NULL DEFAULT NULL,
+  `city` VARCHAR(45) NULL DEFAULT NULL,
+  `state` VARCHAR(2) NULL DEFAULT NULL,
+  `postalcode` VARCHAR(16) NULL DEFAULT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`supplierid`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`purchaseorder`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
+  `orderid` INT(11) NOT NULL,
+  `job` VARCHAR(45) NULL DEFAULT NULL,
+  `expectedby` DATETIME NULL DEFAULT NULL,
+  `contact` VARCHAR(45) NULL DEFAULT NULL,
+  `quote` INT(11) NULL DEFAULT NULL,
+  `quotedate` DATETIME NULL DEFAULT NULL,
+  `vendor` INT(11) NULL DEFAULT NULL,
+  `terms` VARCHAR(45) NULL DEFAULT NULL,
+  `product` INT(11) NOT NULL,
+  `subtotal` DECIMAL(10,2) NOT NULL,
+  `tax` DECIMAL(10,2) NOT NULL,
+  `total` DECIMAL(10,2) NOT NULL,
+  `createdby` SMALLINT(10) NOT NULL,
+  `supplier` SMALLINT(10) NOT NULL,
+  `shipto` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`orderid`),
+  INDEX `product_idx` (`product` ASC),
+  INDEX `creator_idx` (`createdby` ASC),
+  INDEX `supplier_idx` (`supplier` ASC),
+  CONSTRAINT `creator`
+    FOREIGN KEY (`createdby`)
+    REFERENCES `kbell`.`user` (`userid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `product`
+    FOREIGN KEY (`product`)
+    REFERENCES `kbell`.`product` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `supplier`
+    FOREIGN KEY (`supplier`)
+    REFERENCES `kbell`.`supplier` (`supplierid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
