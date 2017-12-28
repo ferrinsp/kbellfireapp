@@ -70,8 +70,6 @@ public class main_display extends javax.swing.JFrame {
         TabbedView = new javax.swing.JTabbedPane();
         new_purchase_order = new javax.swing.JTabbedPane();
         view_purchase_order = new javax.swing.JTabbedPane();
-        view_supplier_list = new javax.swing.JScrollPane();
-        supplier = new javax.swing.JTable();
         new_supplier_input = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         companyName = new javax.swing.JTextField();
@@ -93,6 +91,8 @@ public class main_display extends javax.swing.JFrame {
         phone = new javax.swing.JTextField();
         fax = new javax.swing.JTextField();
         terms = new javax.swing.JTextField();
+        view_supplier_list = new javax.swing.JScrollPane();
+        supplier = new javax.swing.JTable();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         Print = new javax.swing.JMenuItem();
@@ -100,31 +100,11 @@ public class main_display extends javax.swing.JFrame {
         Logout_Option = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(960, 640));
         setName("MainFrame"); // NOI18N
 
         TabbedView.addTab("New Purchase Order", new_purchase_order);
         TabbedView.addTab("View Purchase Orders", view_purchase_order);
-
-        supplier.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "VendorID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
-            }
-        ));
-        view_supplier_list.setViewportView(supplier);
-
-        TabbedView.addTab("Suppliers", view_supplier_list);
 
         jLabel1.setText("Company Name");
 
@@ -251,7 +231,7 @@ public class main_display extends javax.swing.JFrame {
         new_supplier_inputLayout.setHorizontalGroup(
             new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(new_supplier_inputLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(new_supplier_inputLayout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -341,6 +321,27 @@ public class main_display extends javax.swing.JFrame {
 
         TabbedView.addTab("New Supplier", new_supplier_input);
 
+        supplier.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "VendorID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
+            }
+        ));
+        supplier.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        supplier.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        supplier.setMinimumSize(new java.awt.Dimension(150, 0));
+        view_supplier_list.setViewportView(supplier);
+        if (supplier.getColumnModel().getColumnCount() > 0) {
+            supplier.getColumnModel().getColumn(0).setPreferredWidth(80);
+            supplier.getColumnModel().getColumn(0).setMaxWidth(80);
+            supplier.getColumnModel().getColumn(5).setPreferredWidth(15);
+            supplier.getColumnModel().getColumn(5).setMaxWidth(15);
+        }
+
+        TabbedView.addTab("Suppliers", view_supplier_list);
+
         javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
         Main_Panel.setLayout(Main_PanelLayout);
         Main_PanelLayout.setHorizontalGroup(
@@ -355,7 +356,7 @@ public class main_display extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         TabbedView.getAccessibleContext().setAccessibleName("View Purchase Orders");
