@@ -5,56 +5,17 @@
  */
 package gui;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import net.proteanit.sql.DbUtils;
-
 /**
  *
  * @author ferrinsp
  */
-public class main_display extends javax.swing.JFrame {
+public class Update_suppliers extends javax.swing.JFrame {
 
     /**
-     * Creates new form purchase_orders
+     * Creates new form update_suppliers
      */
-    Connection connObj = null;
-        Statement stateObj = null;
-        ResultSet resultObj = null;
-        //ResultSetMetaData meta = null;
-        //String query = "Select * from user";
-        
-        public void selectall()    {
-            try {
-            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("Select * from supplier");
-            supplier.setModel(DbUtils.resultSetToTableModel(resultObj));
-            supplier.getColumn("supplierid").setHeaderValue("Vendor ID");
-            supplier.getColumn("companyname").setHeaderValue("Company");
-            supplier.getColumn("contact").setHeaderValue("Contact");
-            supplier.getColumn("city").setHeaderValue("City");
-            supplier.getColumn("state").setHeaderValue("State");
-            supplier.getColumn("postalcode").setHeaderValue("Postal Code");
-            supplier.getColumn("phone").setHeaderValue("Phone");
-            supplier.getColumn("fax").setHeaderValue("Fax");
-            supplier.getColumn("terms").setHeaderValue("Terms");
-            supplier.repaint();
-            //meta = resultObj.getMetaData();
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        }
-        
-    public main_display() {
+    public Update_suppliers() {
         initComponents();
-        selectall();
     }
 
     /**
@@ -68,9 +29,6 @@ public class main_display extends javax.swing.JFrame {
 
         Main_Panel = new javax.swing.JPanel();
         TabbedView = new javax.swing.JTabbedPane();
-        new_purchase_order = new javax.swing.JTabbedPane();
-        view_purchase_orders = new javax.swing.JScrollPane();
-        list_pdf_files_from_directory = new javax.swing.JList<>();
         new_supplier_input = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         companyName = new javax.swing.JTextField();
@@ -92,8 +50,6 @@ public class main_display extends javax.swing.JFrame {
         phone = new javax.swing.JTextField();
         fax = new javax.swing.JTextField();
         terms = new javax.swing.JTextField();
-        view_supplier_list = new javax.swing.JScrollPane();
-        supplier = new javax.swing.JTable();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         Print = new javax.swing.JMenuItem();
@@ -101,18 +57,8 @@ public class main_display extends javax.swing.JFrame {
         Logout_Option = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setName("MainFrame"); // NOI18N
 
-        TabbedView.addTab("New Purchase Order", new_purchase_order);
-
-        list_pdf_files_from_directory.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        view_purchase_orders.setViewportView(list_pdf_files_from_directory);
-
-        TabbedView.addTab("View Purchase Orders", view_purchase_orders);
+        TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         jLabel1.setText("Company Name");
 
@@ -280,12 +226,12 @@ public class main_display extends javax.swing.JFrame {
                             .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         new_supplier_inputLayout.setVerticalGroup(
             new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, new_supplier_inputLayout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -329,45 +275,21 @@ public class main_display extends javax.swing.JFrame {
 
         TabbedView.addTab("New Supplier", new_supplier_input);
 
-        supplier.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "VendorID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
-            }
-        ));
-        view_supplier_list.setViewportView(supplier);
-
-        TabbedView.addTab("Suppliers", view_supplier_list);
-
         javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
         Main_Panel.setLayout(Main_PanelLayout);
         Main_PanelLayout.setHorizontalGroup(
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
+            .addGroup(Main_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView)
-                .addContainerGap())
+                .addComponent(TabbedView, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Main_PanelLayout.setVerticalGroup(
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
+            .addGroup(Main_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
         );
-
-        TabbedView.getAccessibleContext().setAccessibleName("View Purchase Orders");
 
         File_List.setText("File");
 
@@ -402,97 +324,96 @@ public class main_display extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void vendoridFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vendoridFocusGained
-        vendorid.setText("");
-    }//GEN-LAST:event_vendoridFocusGained
-
     private void companyNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusGained
         companyName.setText("");
     }//GEN-LAST:event_companyNameFocusGained
+
+    private void companyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusLost
+        if(companyName.getText().equals(""))
+        companyName.setText("Company");
+    }//GEN-LAST:event_companyNameFocusLost
 
     private void contactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusGained
         contact.setText("");
     }//GEN-LAST:event_contactFocusGained
 
+    private void contactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusLost
+        if(contact.getText().equals(""))
+        contact.setText("Contact");
+    }//GEN-LAST:event_contactFocusLost
+
     private void addressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusGained
         address.setText("");
     }//GEN-LAST:event_addressFocusGained
+
+    private void addressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusLost
+        if(address.getText().equals(""))
+        address.setText("Address");
+    }//GEN-LAST:event_addressFocusLost
 
     private void cityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusGained
         city.setText("");
     }//GEN-LAST:event_cityFocusGained
 
+    private void cityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusLost
+        if(city.getText().equals(""))
+        city.setText("City");
+    }//GEN-LAST:event_cityFocusLost
+
     private void stateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusGained
         state.setText("");
     }//GEN-LAST:event_stateFocusGained
+
+    private void stateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusLost
+        if(state.getText().equals(""))
+        state.setText("State");
+    }//GEN-LAST:event_stateFocusLost
 
     private void postalCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusGained
         postalCode.setText("");
     }//GEN-LAST:event_postalCodeFocusGained
 
+    private void postalCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusLost
+        if(postalCode.getText().equals(""))
+        postalCode.setText("Postal Code");
+    }//GEN-LAST:event_postalCodeFocusLost
+
+    private void vendoridFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vendoridFocusGained
+        vendorid.setText("");
+    }//GEN-LAST:event_vendoridFocusGained
+
+    private void vendoridFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vendoridFocusLost
+        if(vendorid.getText().equals(""))
+        vendorid.setText("Vendor ID");
+    }//GEN-LAST:event_vendoridFocusLost
+
     private void phoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusGained
         phone.setText("");
     }//GEN-LAST:event_phoneFocusGained
+
+    private void phoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusLost
+        if(phone.getText().equals(""))
+        phone.setText("Phone Number");
+    }//GEN-LAST:event_phoneFocusLost
 
     private void faxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_faxFocusGained
         fax.setText("");
     }//GEN-LAST:event_faxFocusGained
 
+    private void faxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_faxFocusLost
+        if(fax.getText().equals(""))
+        fax.setText("Fax Number");
+    }//GEN-LAST:event_faxFocusLost
+
     private void termsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_termsFocusGained
         terms.setText("");
     }//GEN-LAST:event_termsFocusGained
 
-    private void vendoridFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vendoridFocusLost
-        if(vendorid.getText().equals(""))
-            vendorid.setText("Vendor ID");
-    }//GEN-LAST:event_vendoridFocusLost
-
-    private void companyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusLost
-        if(companyName.getText().equals(""))
-            companyName.setText("Company");
-    }//GEN-LAST:event_companyNameFocusLost
-
-    private void contactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusLost
-        if(contact.getText().equals(""))
-            contact.setText("Contact");
-    }//GEN-LAST:event_contactFocusLost
-
-    private void addressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusLost
-        if(address.getText().equals(""))
-            address.setText("Address");
-    }//GEN-LAST:event_addressFocusLost
-
-    private void cityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusLost
-        if(city.getText().equals(""))
-            city.setText("City");
-    }//GEN-LAST:event_cityFocusLost
-
-    private void stateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusLost
-        if(state.getText().equals(""))
-            state.setText("State");
-    }//GEN-LAST:event_stateFocusLost
-
-    private void postalCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusLost
-        if(postalCode.getText().equals(""))
-            postalCode.setText("Postal Code");
-    }//GEN-LAST:event_postalCodeFocusLost
-
-    private void phoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusLost
-        if(phone.getText().equals(""))
-            phone.setText("Phone Number");
-    }//GEN-LAST:event_phoneFocusLost
-
-    private void faxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_faxFocusLost
-        if(fax.getText().equals(""))
-            fax.setText("Fax Number");
-    }//GEN-LAST:event_faxFocusLost
-
     private void termsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_termsFocusLost
         if(terms.getText().equals(""))
-            terms.setText("Terms");
+        terms.setText("Terms");
     }//GEN-LAST:event_termsFocusLost
-   
-    
+
     /**
      * @param args the command line arguments
      */
@@ -510,21 +431,23 @@ public class main_display extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(main_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Update_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(main_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Update_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(main_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Update_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(main_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Update_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main_display().setVisible(true);
+                new Update_suppliers().setVisible(true);
             }
         });
     }
@@ -552,16 +475,11 @@ public class main_display extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> list_pdf_files_from_directory;
-    private javax.swing.JTabbedPane new_purchase_order;
     private javax.swing.JPanel new_supplier_input;
     private javax.swing.JTextField phone;
     private javax.swing.JTextField postalCode;
     private javax.swing.JTextField state;
-    private javax.swing.JTable supplier;
     private javax.swing.JTextField terms;
     private javax.swing.JTextField vendorid;
-    private javax.swing.JScrollPane view_purchase_orders;
-    private javax.swing.JScrollPane view_supplier_list;
     // End of variables declaration//GEN-END:variables
 }
