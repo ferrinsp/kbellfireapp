@@ -27,27 +27,28 @@ public class Button_display extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        update_suppliers = new javax.swing.JButton();
-        view_suppliers = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         view_purchase_order = new javax.swing.JButton();
         new_purchase_order = new javax.swing.JButton();
-<<<<<<< HEAD
         view_suppliers = new javax.swing.JButton();
         update_suppliers = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         logo = new javax.swing.JLabel();
-=======
-        jLabel1 = new javax.swing.JLabel();
->>>>>>> ca079b9145f7a8f0628f2467b7a7c396608b06e1
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        update_suppliers.setText("Update Suppliers");
-        update_suppliers.addActionListener(new java.awt.event.ActionListener() {
+        view_purchase_order.setText("View Purchase Order");
+        view_purchase_order.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                update_suppliersActionPerformed(evt);
+                view_purchase_orderActionPerformed(evt);
+            }
+        });
+
+        new_purchase_order.setText("New Purchase Order");
+        new_purchase_order.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                new_purchase_orderActionPerformed(evt);
             }
         });
 
@@ -58,64 +59,19 @@ public class Button_display extends javax.swing.JFrame {
             }
         });
 
-        view_purchase_order.setText("View P.O.");
-        view_purchase_order.addActionListener(new java.awt.event.ActionListener() {
+        update_suppliers.setText("Update Suppliers");
+        update_suppliers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                view_purchase_orderActionPerformed(evt);
+                update_suppliersActionPerformed(evt);
             }
         });
 
-        new_purchase_order.setText("New P.O.");
-        new_purchase_order.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                new_purchase_orderActionPerformed(evt);
-            }
-        });
-
-<<<<<<< HEAD
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/KBellLogo.png")));
-=======
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/logo.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(117, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(119, 119, 119))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(202, 202, 202)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(new_purchase_order, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(view_suppliers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(update_suppliers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(view_purchase_order, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(view_purchase_order)
-                .addGap(18, 18, 18)
-                .addComponent(new_purchase_order)
-                .addGap(18, 18, 18)
-                .addComponent(view_suppliers)
-                .addGap(18, 18, 18)
-                .addComponent(update_suppliers)
-                .addGap(24, 24, 24))
-        );
->>>>>>> ca079b9145f7a8f0628f2467b7a7c396608b06e1
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
@@ -152,33 +108,20 @@ public class Button_display extends javax.swing.JFrame {
                         .addComponent(update_suppliers))
                     .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(34, Short.MAX_VALUE))
-=======
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
->>>>>>> ca079b9145f7a8f0628f2467b7a7c396608b06e1
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void new_purchase_orderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_new_purchase_orderActionPerformed
-        New_purchase_order newPurchaseOrder = new New_purchase_order();
-        newPurchaseOrder.setVisible(true);
-    }//GEN-LAST:event_new_purchase_orderActionPerformed
-
     private void view_purchase_orderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_purchase_orderActionPerformed
         View_purchase_order viewPurchaseOrders = new View_purchase_order();
         viewPurchaseOrders.setVisible(true);
     }//GEN-LAST:event_view_purchase_orderActionPerformed
+
+    private void new_purchase_orderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_new_purchase_orderActionPerformed
+        New_purchase_order newPurchaseOrder = new New_purchase_order();
+        newPurchaseOrder.setVisible(true);
+    }//GEN-LAST:event_new_purchase_orderActionPerformed
 
     private void view_suppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_suppliersActionPerformed
         View_suppliers viewSuppliers = new View_suppliers();
@@ -229,14 +172,9 @@ public class Button_display extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-<<<<<<< HEAD
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel logo;
-=======
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
->>>>>>> ca079b9145f7a8f0628f2467b7a7c396608b06e1
     private javax.swing.JButton new_purchase_order;
     private javax.swing.JButton update_suppliers;
     private javax.swing.JButton view_purchase_order;
