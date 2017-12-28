@@ -69,9 +69,8 @@ public class main_display extends javax.swing.JFrame {
         Main_Panel = new javax.swing.JPanel();
         TabbedView = new javax.swing.JTabbedPane();
         new_purchase_order = new javax.swing.JTabbedPane();
-        view_purchase_order = new javax.swing.JTabbedPane();
-        view_supplier_list = new javax.swing.JScrollPane();
-        supplier = new javax.swing.JTable();
+        view_purchase_orders = new javax.swing.JScrollPane();
+        list_pdf_files_from_directory = new javax.swing.JList<>();
         new_supplier_input = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         companyName = new javax.swing.JTextField();
@@ -93,6 +92,8 @@ public class main_display extends javax.swing.JFrame {
         phone = new javax.swing.JTextField();
         fax = new javax.swing.JTextField();
         terms = new javax.swing.JTextField();
+        view_supplier_list = new javax.swing.JScrollPane();
+        supplier = new javax.swing.JTable();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         Print = new javax.swing.JMenuItem();
@@ -103,28 +104,15 @@ public class main_display extends javax.swing.JFrame {
         setName("MainFrame"); // NOI18N
 
         TabbedView.addTab("New Purchase Order", new_purchase_order);
-        TabbedView.addTab("View Purchase Orders", view_purchase_order);
 
-        supplier.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "VendorID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
-            }
-        ));
-        view_supplier_list.setViewportView(supplier);
+        list_pdf_files_from_directory.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        view_purchase_orders.setViewportView(list_pdf_files_from_directory);
 
-        TabbedView.addTab("Suppliers", view_supplier_list);
+        TabbedView.addTab("View Purchase Orders", view_purchase_orders);
 
         jLabel1.setText("Company Name");
 
@@ -292,7 +280,7 @@ public class main_display extends javax.swing.JFrame {
                             .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(329, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
         new_supplier_inputLayout.setVerticalGroup(
             new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,6 +328,27 @@ public class main_display extends javax.swing.JFrame {
         );
 
         TabbedView.addTab("New Supplier", new_supplier_input);
+
+        supplier.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "VendorID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
+            }
+        ));
+        view_supplier_list.setViewportView(supplier);
+
+        TabbedView.addTab("Suppliers", view_supplier_list);
 
         javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
         Main_Panel.setLayout(Main_PanelLayout);
@@ -543,6 +552,7 @@ public class main_display extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> list_pdf_files_from_directory;
     private javax.swing.JTabbedPane new_purchase_order;
     private javax.swing.JPanel new_supplier_input;
     private javax.swing.JTextField phone;
@@ -551,7 +561,7 @@ public class main_display extends javax.swing.JFrame {
     private javax.swing.JTable supplier;
     private javax.swing.JTextField terms;
     private javax.swing.JTextField vendorid;
-    private javax.swing.JTabbedPane view_purchase_order;
+    private javax.swing.JScrollPane view_purchase_orders;
     private javax.swing.JScrollPane view_supplier_list;
     // End of variables declaration//GEN-END:variables
 }
