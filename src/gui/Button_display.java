@@ -66,6 +66,7 @@ public class Button_display extends javax.swing.JFrame {
             }
         });
 
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/KBellLogo.png"))); // NOI18N
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/images/KBellLogo.png")));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

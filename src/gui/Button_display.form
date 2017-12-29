@@ -125,6 +125,11 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="logo">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/gui/images/KBellLogo.png"/>
+        </Property>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="logo.setIcon(new javax.swing.ImageIcon(getClass().getResource(&quot;/gui/images/KBellLogo.png&quot;)));"/>
       </AuxValues>
