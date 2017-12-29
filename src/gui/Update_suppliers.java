@@ -27,29 +27,28 @@ public class Update_suppliers extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Main_Panel = new javax.swing.JPanel();
-        TabbedView = new javax.swing.JTabbedPane();
-        new_supplier_input = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        companyName = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        contact = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        address = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        city = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        state = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        postalCode = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        vendorid = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        phone = new javax.swing.JTextField();
-        fax = new javax.swing.JTextField();
-        terms = new javax.swing.JTextField();
+        new_supplier_input1 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        companyName1 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        contact1 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        address1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        city1 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        state1 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        postalCode1 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        vendorid1 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        phone1 = new javax.swing.JTextField();
+        fax1 = new javax.swing.JTextField();
+        terms1 = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         Print = new javax.swing.JMenuItem();
@@ -57,239 +56,224 @@ public class Update_suppliers extends javax.swing.JFrame {
         Logout_Option = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel11.setText("Company Name");
 
-        jLabel1.setText("Company Name");
-
-        companyName.setText("Company Name");
-        companyName.addFocusListener(new java.awt.event.FocusAdapter() {
+        companyName1.setText("Company Name");
+        companyName1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                companyNameFocusGained(evt);
+                companyName1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                companyNameFocusLost(evt);
+                companyName1FocusLost(evt);
             }
         });
 
-        jLabel2.setText("Contact");
+        jLabel12.setText("Contact");
 
-        contact.setText("Contact");
-        contact.addFocusListener(new java.awt.event.FocusAdapter() {
+        contact1.setText("Contact");
+        contact1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                contactFocusGained(evt);
+                contact1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                contactFocusLost(evt);
+                contact1FocusLost(evt);
             }
         });
 
-        jLabel3.setText("Address");
+        jLabel13.setText("Address");
 
-        address.setText("Address");
-        address.addFocusListener(new java.awt.event.FocusAdapter() {
+        address1.setText("Address");
+        address1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                addressFocusGained(evt);
+                address1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                addressFocusLost(evt);
+                address1FocusLost(evt);
             }
         });
 
-        jLabel4.setText("City");
+        jLabel14.setText("City");
 
-        city.setText("City");
-        city.addFocusListener(new java.awt.event.FocusAdapter() {
+        city1.setText("City");
+        city1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                cityFocusGained(evt);
+                city1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                cityFocusLost(evt);
+                city1FocusLost(evt);
             }
         });
 
-        jLabel5.setText("State");
+        jLabel15.setText("State");
 
-        state.setText("State");
-        state.addFocusListener(new java.awt.event.FocusAdapter() {
+        state1.setText("State");
+        state1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                stateFocusGained(evt);
+                state1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                stateFocusLost(evt);
+                state1FocusLost(evt);
             }
         });
 
-        jLabel6.setText("Postal Code");
+        jLabel16.setText("Postal Code");
 
-        postalCode.setText("Postal Code");
-        postalCode.addFocusListener(new java.awt.event.FocusAdapter() {
+        postalCode1.setText("Postal Code");
+        postalCode1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                postalCodeFocusGained(evt);
+                postalCode1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                postalCodeFocusLost(evt);
+                postalCode1FocusLost(evt);
             }
         });
 
-        jLabel7.setText("Vendor ID");
+        jLabel17.setText("Vendor ID");
 
-        vendorid.setText("Vendor ID");
-        vendorid.addFocusListener(new java.awt.event.FocusAdapter() {
+        vendorid1.setText("Vendor ID");
+        vendorid1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                vendoridFocusGained(evt);
+                vendorid1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                vendoridFocusLost(evt);
+                vendorid1FocusLost(evt);
             }
         });
 
-        jLabel8.setText("Phone Number");
+        jLabel18.setText("Phone Number");
 
-        jLabel9.setText("Fax Number");
+        jLabel19.setText("Fax Number");
 
-        jLabel10.setText("Terms");
+        jLabel20.setText("Terms");
 
-        phone.setText("Phone Number");
-        phone.addFocusListener(new java.awt.event.FocusAdapter() {
+        phone1.setText("Phone Number");
+        phone1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                phoneFocusGained(evt);
+                phone1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                phoneFocusLost(evt);
+                phone1FocusLost(evt);
             }
         });
 
-        fax.setText("Fax Number");
-        fax.addFocusListener(new java.awt.event.FocusAdapter() {
+        fax1.setText("Fax Number");
+        fax1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                faxFocusGained(evt);
+                fax1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                faxFocusLost(evt);
+                fax1FocusLost(evt);
             }
         });
 
-        terms.setText("Terms");
-        terms.addFocusListener(new java.awt.event.FocusAdapter() {
+        terms1.setText("Terms");
+        terms1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                termsFocusGained(evt);
+                terms1FocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                termsFocusLost(evt);
+                terms1FocusLost(evt);
             }
         });
 
-        javax.swing.GroupLayout new_supplier_inputLayout = new javax.swing.GroupLayout(new_supplier_input);
-        new_supplier_input.setLayout(new_supplier_inputLayout);
-        new_supplier_inputLayout.setHorizontalGroup(
-            new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(new_supplier_inputLayout.createSequentialGroup()
+        javax.swing.GroupLayout new_supplier_input1Layout = new javax.swing.GroupLayout(new_supplier_input1);
+        new_supplier_input1.setLayout(new_supplier_input1Layout);
+        new_supplier_input1Layout.setHorizontalGroup(
+            new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(new_supplier_input1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(new_supplier_inputLayout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(new_supplier_input1Layout.createSequentialGroup()
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(terms, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(new_supplier_inputLayout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(terms1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(new_supplier_input1Layout.createSequentialGroup()
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(fax, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(new_supplier_inputLayout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fax1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(new_supplier_input1Layout.createSequentialGroup()
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(new_supplier_inputLayout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(phone1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(new_supplier_input1Layout.createSequentialGroup()
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(postalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(new_supplier_inputLayout.createSequentialGroup()
-                        .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(postalCode1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(new_supplier_input1Layout.createSequentialGroup()
+                        .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(city, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(new_supplier_inputLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(city1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(address1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(new_supplier_input1Layout.createSequentialGroup()
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(new_supplier_inputLayout.createSequentialGroup()
-                        .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(state1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(new_supplier_input1Layout.createSequentialGroup()
+                        .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(contact1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(companyName1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vendorid1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
-        new_supplier_inputLayout.setVerticalGroup(
-            new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, new_supplier_inputLayout.createSequentialGroup()
+        new_supplier_input1Layout.setVerticalGroup(
+            new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, new_supplier_input1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(vendorid1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(companyName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(contact1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(address1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(city, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(city1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(state1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(postalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(postalCode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(phone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(fax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(fax1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(terms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)))
+                .addGroup(new_supplier_input1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(terms1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20)))
         );
 
-        TabbedView.addTab("New Supplier", new_supplier_input);
-
-        javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
-        Main_Panel.setLayout(Main_PanelLayout);
-        Main_PanelLayout.setHorizontalGroup(
-            Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Main_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        Main_PanelLayout.setVerticalGroup(
-            Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Main_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
-        );
+        jLabel21.setFont(new java.awt.Font("Calibri", 3, 24)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(71, 71, 141));
+        jLabel21.setText("Update Supplier Information");
 
         File_List.setText("File");
 
@@ -310,109 +294,105 @@ public class Update_suppliers extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(new_supplier_input1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(new_supplier_input1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void companyNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusGained
-        companyName.setText("");
-    }//GEN-LAST:event_companyNameFocusGained
+    private void companyName1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyName1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_companyName1FocusGained
 
-    private void companyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusLost
-        if(companyName.getText().equals(""))
-        companyName.setText("Company");
-    }//GEN-LAST:event_companyNameFocusLost
+    private void companyName1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyName1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_companyName1FocusLost
 
-    private void contactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusGained
-        contact.setText("");
-    }//GEN-LAST:event_contactFocusGained
+    private void contact1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contact1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contact1FocusGained
 
-    private void contactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusLost
-        if(contact.getText().equals(""))
-        contact.setText("Contact");
-    }//GEN-LAST:event_contactFocusLost
+    private void contact1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contact1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contact1FocusLost
 
-    private void addressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusGained
-        address.setText("");
-    }//GEN-LAST:event_addressFocusGained
+    private void address1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_address1FocusGained
 
-    private void addressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusLost
-        if(address.getText().equals(""))
-        address.setText("Address");
-    }//GEN-LAST:event_addressFocusLost
+    private void address1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_address1FocusLost
 
-    private void cityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusGained
-        city.setText("");
-    }//GEN-LAST:event_cityFocusGained
+    private void city1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_city1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_city1FocusGained
 
-    private void cityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusLost
-        if(city.getText().equals(""))
-        city.setText("City");
-    }//GEN-LAST:event_cityFocusLost
+    private void city1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_city1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_city1FocusLost
 
-    private void stateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusGained
-        state.setText("");
-    }//GEN-LAST:event_stateFocusGained
+    private void state1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_state1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_state1FocusGained
 
-    private void stateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusLost
-        if(state.getText().equals(""))
-        state.setText("State");
-    }//GEN-LAST:event_stateFocusLost
+    private void state1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_state1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_state1FocusLost
 
-    private void postalCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusGained
-        postalCode.setText("");
-    }//GEN-LAST:event_postalCodeFocusGained
+    private void postalCode1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCode1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_postalCode1FocusGained
 
-    private void postalCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusLost
-        if(postalCode.getText().equals(""))
-        postalCode.setText("Postal Code");
-    }//GEN-LAST:event_postalCodeFocusLost
+    private void postalCode1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCode1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_postalCode1FocusLost
 
-    private void vendoridFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vendoridFocusGained
-        vendorid.setText("");
-    }//GEN-LAST:event_vendoridFocusGained
+    private void vendorid1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vendorid1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vendorid1FocusGained
 
-    private void vendoridFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vendoridFocusLost
-        if(vendorid.getText().equals(""))
-        vendorid.setText("Vendor ID");
-    }//GEN-LAST:event_vendoridFocusLost
+    private void vendorid1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vendorid1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vendorid1FocusLost
 
-    private void phoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusGained
-        phone.setText("");
-    }//GEN-LAST:event_phoneFocusGained
+    private void phone1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phone1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phone1FocusGained
 
-    private void phoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusLost
-        if(phone.getText().equals(""))
-        phone.setText("Phone Number");
-    }//GEN-LAST:event_phoneFocusLost
+    private void phone1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phone1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phone1FocusLost
 
-    private void faxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_faxFocusGained
-        fax.setText("");
-    }//GEN-LAST:event_faxFocusGained
+    private void fax1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fax1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fax1FocusGained
 
-    private void faxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_faxFocusLost
-        if(fax.getText().equals(""))
-        fax.setText("Fax Number");
-    }//GEN-LAST:event_faxFocusLost
+    private void fax1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fax1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fax1FocusLost
 
-    private void termsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_termsFocusGained
-        terms.setText("");
-    }//GEN-LAST:event_termsFocusGained
+    private void terms1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_terms1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_terms1FocusGained
 
-    private void termsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_termsFocusLost
-        if(terms.getText().equals(""))
-        terms.setText("Terms");
-    }//GEN-LAST:event_termsFocusLost
+    private void terms1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_terms1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_terms1FocusLost
 
     /**
      * @param args the command line arguments
@@ -456,30 +436,29 @@ public class Update_suppliers extends javax.swing.JFrame {
     private javax.swing.JMenu File_List;
     private javax.swing.JMenuItem Input_New_User_Button;
     private javax.swing.JMenu Logout_Option;
-    private javax.swing.JPanel Main_Panel;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem Print;
-    private javax.swing.JTabbedPane TabbedView;
-    private javax.swing.JTextField address;
-    private javax.swing.JTextField city;
-    private javax.swing.JTextField companyName;
-    private javax.swing.JTextField contact;
-    private javax.swing.JTextField fax;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel new_supplier_input;
-    private javax.swing.JTextField phone;
-    private javax.swing.JTextField postalCode;
-    private javax.swing.JTextField state;
-    private javax.swing.JTextField terms;
-    private javax.swing.JTextField vendorid;
+    private javax.swing.JTextField address1;
+    private javax.swing.JTextField city1;
+    private javax.swing.JTextField companyName1;
+    private javax.swing.JTextField contact1;
+    private javax.swing.JTextField fax1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JPanel new_supplier_input1;
+    private javax.swing.JTextField phone1;
+    private javax.swing.JTextField postalCode1;
+    private javax.swing.JTextField state1;
+    private javax.swing.JTextField terms1;
+    private javax.swing.JTextField vendorid1;
     // End of variables declaration//GEN-END:variables
 }
