@@ -5,17 +5,42 @@
  */
 package gui;
 
+import java.util.List;
+import kbapp.classes.*;
+import java.awt.*;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ferrinsp
  */
 public class View_suppliers extends javax.swing.JFrame {
+    
+    private Supplier currentSupplier;
+    public Color genericColor = new Color(209, 220, 204);    
+    private AlternatingListCellRenderer cellRenderer = new AlternatingListCellRenderer();
+    
+    
+    // Declare and initialize list models for JLists
+    private DefaultListModel<Supplier> supplierModel = new DefaultListModel<>(); // Blessed be the diamond operator
+    
+    // Declare and initialize lists 
+    private List<Supplier> supplierList = new ArrayList<>(); 
 
     /**
      * Creates new form view_suppliers
      */
     public View_suppliers() {
         initComponents();
+    }
+    
+    private void populateContactList(List<Supplier> list){
+        supplierModel.clear();
+        for(Supplier s: list){
+            supplierModel.addElement(s);
+        }
     }
 
     /**
@@ -31,6 +56,9 @@ public class View_suppliers extends javax.swing.JFrame {
         TabbedView = new javax.swing.JTabbedPane();
         view_supplier_list = new javax.swing.JScrollPane();
         supplier = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        addSupplierButton = new javax.swing.JButton();
+        updateSupplierButton = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         Print = new javax.swing.JMenuItem();
@@ -50,16 +78,60 @@ public class View_suppliers extends javax.swing.JFrame {
             }
         ));
         view_supplier_list.setViewportView(supplier);
+        if (supplier.getColumnModel().getColumnCount() > 0) {
+            supplier.getColumnModel().getColumn(0).setHeaderValue("VendorID");
+            supplier.getColumnModel().getColumn(1).setHeaderValue("Company");
+            supplier.getColumnModel().getColumn(2).setHeaderValue("Contact");
+            supplier.getColumnModel().getColumn(3).setHeaderValue("Address");
+            supplier.getColumnModel().getColumn(4).setHeaderValue("City");
+            supplier.getColumnModel().getColumn(5).setHeaderValue("State");
+            supplier.getColumnModel().getColumn(6).setHeaderValue("Postal Code");
+            supplier.getColumnModel().getColumn(7).setHeaderValue("Phone");
+            supplier.getColumnModel().getColumn(8).setHeaderValue("Fax");
+            supplier.getColumnModel().getColumn(9).setHeaderValue("Terms");
+        }
 
         TabbedView.addTab("Suppliers", view_supplier_list);
+
+        addSupplierButton.setText("Add Supplier");
+        addSupplierButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSupplierButtonActionPerformed(evt);
+            }
+        });
+
+        updateSupplierButton.setText("Update Supplier");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(213, Short.MAX_VALUE)
+                .addComponent(addSupplierButton)
+                .addGap(38, 38, 38)
+                .addComponent(updateSupplierButton)
+                .addGap(211, 211, 211))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addSupplierButton)
+                    .addComponent(updateSupplierButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
         Main_Panel.setLayout(Main_PanelLayout);
         Main_PanelLayout.setHorizontalGroup(
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
+            .addGroup(Main_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         Main_PanelLayout.setVerticalGroup(
@@ -67,6 +139,8 @@ public class View_suppliers extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -104,6 +178,11 @@ public class View_suppliers extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSupplierButtonActionPerformed
+        Add_supplier addSupplier = new Add_supplier();
+        addSupplier.setVisible(true);
+    }//GEN-LAST:event_addSupplierButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,7 +230,10 @@ public class View_suppliers extends javax.swing.JFrame {
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem Print;
     private javax.swing.JTabbedPane TabbedView;
+    private javax.swing.JButton addSupplierButton;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTable supplier;
+    private javax.swing.JButton updateSupplierButton;
     private javax.swing.JScrollPane view_supplier_list;
     // End of variables declaration//GEN-END:variables
 }

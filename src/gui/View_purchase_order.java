@@ -5,12 +5,22 @@
  */
 package gui;
 
+import java.awt.Color;
+import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import kbapp.classes.*; 
+
 /**
  *
  * @author ferrinsp
  */
 public class View_purchase_order extends javax.swing.JFrame {
-
+    
+    public Color genericColor = new Color(209, 220, 204);    
+    private AlternatingListCellRenderer cellRenderer = new AlternatingListCellRenderer();
     /**
      * Creates new form view_purchase_order
      */
@@ -43,6 +53,7 @@ public class View_purchase_order extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        list_pdf_files_from_directory.setCellRenderer(cellRenderer);
         view_purchase_orders.setViewportView(list_pdf_files_from_directory);
 
         TabbedView.addTab("View Purchase Orders", null, view_purchase_orders, "");

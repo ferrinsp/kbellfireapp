@@ -50,11 +50,11 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="logo" min="-2" pref="165" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="filler1" alignment="0" pref="177" max="32767" attributes="0"/>
+                  <Component id="filler1" alignment="0" pref="174" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="view_purchase_order" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -66,7 +66,6 @@
                   </Group>
                   <Component id="filler2" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

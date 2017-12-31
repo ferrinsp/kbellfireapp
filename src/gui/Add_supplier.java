@@ -9,12 +9,12 @@ package gui;
  *
  * @author ferrinsp
  */
-public class Update_suppliers extends javax.swing.JFrame {
+public class Add_supplier extends javax.swing.JFrame {
 
     /**
      * Creates new form update_suppliers
      */
-    public Update_suppliers() {
+    public Add_supplier() {
         initComponents();
     }
 
@@ -48,7 +48,6 @@ public class Update_suppliers extends javax.swing.JFrame {
         phone1 = new javax.swing.JTextField();
         fax1 = new javax.swing.JTextField();
         terms1 = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         Print = new javax.swing.JMenuItem();
@@ -271,10 +270,6 @@ public class Update_suppliers extends javax.swing.JFrame {
                     .addComponent(jLabel20)))
         );
 
-        jLabel21.setFont(new java.awt.Font("Calibri", 3, 24)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(71, 71, 141));
-        jLabel21.setText("Update Supplier Information");
-
         File_List.setText("File");
 
         Print.setLabel("Print");
@@ -296,19 +291,15 @@ public class Update_suppliers extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(new_supplier_input1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
+                .addComponent(new_supplier_input1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(new_supplier_input1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -411,14 +402,18 @@ public class Update_suppliers extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Update_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Add_supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Update_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Add_supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Update_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Add_supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Update_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Add_supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -427,7 +422,7 @@ public class Update_suppliers extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Update_suppliers().setVisible(true);
+                new Add_supplier().setVisible(true);
             }
         });
     }
@@ -453,7 +448,6 @@ public class Update_suppliers extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JPanel new_supplier_input1;
     private javax.swing.JTextField phone1;
     private javax.swing.JTextField postalCode1;

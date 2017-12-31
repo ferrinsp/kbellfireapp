@@ -94,11 +94,11 @@ public class Button_display extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                    .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(view_purchase_order)
                         .addGap(18, 18, 18)
@@ -107,8 +107,7 @@ public class Button_display extends javax.swing.JFrame {
                         .addComponent(view_suppliers)
                         .addGap(18, 18, 18)
                         .addComponent(update_suppliers))
-                    .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -130,7 +129,7 @@ public class Button_display extends javax.swing.JFrame {
     }//GEN-LAST:event_view_suppliersActionPerformed
 
     private void update_suppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_suppliersActionPerformed
-        Update_suppliers updateSuppliers = new Update_suppliers();
+        Add_supplier updateSuppliers = new Add_supplier();
         updateSuppliers.setVisible(true);
     }//GEN-LAST:event_update_suppliersActionPerformed
 
