@@ -101,6 +101,11 @@ public class View_suppliers extends javax.swing.JFrame {
         });
 
         updateSupplierButton.setText("Update Supplier");
+        updateSupplierButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateSupplierButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -184,6 +189,11 @@ public class View_suppliers extends javax.swing.JFrame {
         addSupplier.setVisible(true);
     }//GEN-LAST:event_addSupplierButtonActionPerformed
 
+    private void updateSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSupplierButtonActionPerformed
+        Add_supplier addSupplier = new Add_supplier();
+        addSupplier.setVisible(true);
+    }//GEN-LAST:event_updateSupplierButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -220,6 +230,10 @@ public class View_suppliers extends javax.swing.JFrame {
                 new View_suppliers().setVisible(true);
             }
         });
+    }
+    
+    public void displayCurrent(){
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

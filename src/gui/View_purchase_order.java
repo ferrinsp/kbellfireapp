@@ -132,6 +132,10 @@ public class View_purchase_order extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void displayCurrent(){
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Main_Panel1;
