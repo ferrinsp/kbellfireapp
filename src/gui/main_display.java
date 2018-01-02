@@ -8,7 +8,7 @@ package gui;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+//import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import net.proteanit.sql.DbUtils;
@@ -23,34 +23,34 @@ public class main_display extends javax.swing.JFrame {
      * Creates new form purchase_orders
      */
     Connection connObj = null;
-        Statement stateObj = null;
-        ResultSet resultObj = null;
-        //ResultSetMetaData meta = null;
-        //String query = "Select * from user";
+    Statement stateObj = null;
+    ResultSet resultObj = null;
+    //ResultSetMetaData meta = null;
+    //String query = "Select * from user";
         
-        public void selectall()    {
-            try {
-            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("Select * from supplier");
-            supplier.setModel(DbUtils.resultSetToTableModel(resultObj));
-            supplier.getColumn("supplierid").setHeaderValue("Vendor ID");
-            supplier.getColumn("companyname").setHeaderValue("Company");
-            supplier.getColumn("contact").setHeaderValue("Contact");
-            supplier.getColumn("city").setHeaderValue("City");
-            supplier.getColumn("state").setHeaderValue("State");
-            supplier.getColumn("postalcode").setHeaderValue("Postal Code");
-            supplier.getColumn("phone").setHeaderValue("Phone");
-            supplier.getColumn("fax").setHeaderValue("Fax");
-            supplier.getColumn("terms").setHeaderValue("Terms");
-            supplier.repaint();
-            //meta = resultObj.getMetaData();
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        }
+    public void selectall()    {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        stateObj = connObj.createStatement();
+        resultObj = stateObj.executeQuery("Select * from supplier");
+        supplier.setModel(DbUtils.resultSetToTableModel(resultObj));
+        supplier.getColumn("supplierid").setHeaderValue("Vendor ID");
+        supplier.getColumn("companyname").setHeaderValue("Company");
+        supplier.getColumn("contact").setHeaderValue("Contact");
+        supplier.getColumn("city").setHeaderValue("City");
+        supplier.getColumn("state").setHeaderValue("State");
+        supplier.getColumn("postalcode").setHeaderValue("Postal Code");
+        supplier.getColumn("phone").setHeaderValue("Phone");
+        supplier.getColumn("fax").setHeaderValue("Fax");
+        supplier.getColumn("terms").setHeaderValue("Terms");
+        supplier.repaint();
+        //meta = resultObj.getMetaData();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    }
         
     public main_display() {
         initComponents();
