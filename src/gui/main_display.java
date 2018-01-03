@@ -51,10 +51,33 @@ public class main_display extends javax.swing.JFrame {
         e.printStackTrace();
     }
     }
+    public void selectpo()    {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        stateObj = connObj.createStatement();
+        resultObj = stateObj.executeQuery("select t4.companyname, a.name, t1.expectedby, t3.firstName, b.name, t1.total from purchaseorder t1\n" +
+        "inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
+        "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid;");
+        purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
+        purchaseOrder.getColumn("companyname").setHeaderValue("Company");
+        purchaseOrder.getColumn("name").setHeaderValue("Job");
+        purchaseOrder.getColumn("expectedby").setHeaderValue("Expected By");
+        purchaseOrder.getColumn("firstName").setHeaderValue("Issued By");
+        purchaseOrder.getColumn("name").setHeaderValue("Ship To");
+        purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
+        purchaseOrder.repaint();
+        //meta = resultObj.getMetaData();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    }
         
     public main_display() {
         initComponents();
         selectall();
+        selectpo();
     }
 
     /**
@@ -70,7 +93,9 @@ public class main_display extends javax.swing.JFrame {
         TabbedView = new javax.swing.JTabbedPane();
         new_purchase_order = new javax.swing.JTabbedPane();
         view_purchase_orders = new javax.swing.JScrollPane();
-        list_pdf_files_from_directory = new javax.swing.JList<>();
+        purchaseOrder = new javax.swing.JTable();
+        view_supplier_list = new javax.swing.JScrollPane();
+        supplier = new javax.swing.JTable();
         new_supplier_input = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         companyName = new javax.swing.JTextField();
@@ -92,27 +117,67 @@ public class main_display extends javax.swing.JFrame {
         phone = new javax.swing.JTextField();
         fax = new javax.swing.JTextField();
         terms = new javax.swing.JTextField();
-        view_supplier_list = new javax.swing.JScrollPane();
-        supplier = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         Print = new javax.swing.JMenuItem();
         Input_New_User_Button = new javax.swing.JMenuItem();
-        Logout_Option = new javax.swing.JMenu();
+        Logout = new javax.swing.JMenuItem();
+        Exit = new javax.swing.JMenuItem();
+        Purchase_Order = new javax.swing.JMenu();
+        Create_Purchase_Order = new javax.swing.JMenuItem();
+        Edit_Purchase_Order = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        Credit_Memo = new javax.swing.JMenu();
+        Create_Credit_Memo = new javax.swing.JMenuItem();
+        Update_Credit_Memo = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        Product = new javax.swing.JMenu();
+        Create_Product = new javax.swing.JMenuItem();
+        Update_Product = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        Jobs = new javax.swing.JMenu();
+        Create_Job = new javax.swing.JMenuItem();
+        Update_Job = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        Supplier = new javax.swing.JMenu();
+        Create_Supplier = new javax.swing.JMenuItem();
+        Update_Supplier = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        Reports = new javax.swing.JMenu();
+        Create_Report = new javax.swing.JMenuItem();
+        About = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("MainFrame"); // NOI18N
 
         TabbedView.addTab("New Purchase Order", new_purchase_order);
 
-        list_pdf_files_from_directory.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        view_purchase_orders.setViewportView(list_pdf_files_from_directory);
+        purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Supplier", "Job", "Expected", "Issued By", "shipto", "Invoicetotal"
+            }
+        ));
+        view_purchase_orders.setViewportView(purchaseOrder);
 
         TabbedView.addTab("View Purchase Orders", view_purchase_orders);
+
+        supplier.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "VendorID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
+            }
+        ));
+        view_supplier_list.setViewportView(supplier);
+
+        TabbedView.addTab("Suppliers", view_supplier_list);
 
         jLabel1.setText("Company Name");
 
@@ -234,6 +299,10 @@ public class main_display extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Save");
+
+        jButton2.setText("Cancel");
+
         javax.swing.GroupLayout new_supplier_inputLayout = new javax.swing.GroupLayout(new_supplier_input);
         new_supplier_input.setLayout(new_supplier_inputLayout);
         new_supplier_inputLayout.setHorizontalGroup(
@@ -278,21 +347,29 @@ public class main_display extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(314, Short.MAX_VALUE))
+                            .addGroup(new_supplier_inputLayout.createSequentialGroup()
+                                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(77, 77, 77)
+                                .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
         new_supplier_inputLayout.setVerticalGroup(
             new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, new_supplier_inputLayout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(93, Short.MAX_VALUE)
                 .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(new_supplier_inputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -329,27 +406,6 @@ public class main_display extends javax.swing.JFrame {
 
         TabbedView.addTab("New Supplier", new_supplier_input);
 
-        supplier.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "VendorID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
-            }
-        ));
-        view_supplier_list.setViewportView(supplier);
-
-        TabbedView.addTab("Suppliers", view_supplier_list);
-
         javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
         Main_Panel.setLayout(Main_PanelLayout);
         Main_PanelLayout.setHorizontalGroup(
@@ -363,24 +419,114 @@ public class main_display extends javax.swing.JFrame {
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         TabbedView.getAccessibleContext().setAccessibleName("View Purchase Orders");
 
         File_List.setText("File");
 
+        Print.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         Print.setLabel("Print");
         File_List.add(Print);
 
         Input_New_User_Button.setLabel("New User");
         File_List.add(Input_New_User_Button);
 
+        Logout.setText("Logout");
+        File_List.add(Logout);
+
+        Exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        Exit.setText("Exit");
+        File_List.add(Exit);
+
         MenuBar.add(File_List);
 
-        Logout_Option.setLabel("Logout");
-        MenuBar.add(Logout_Option);
+        Purchase_Order.setText("Purchase Orders");
+
+        Create_Purchase_Order.setText("Create New Purchase Order");
+        Purchase_Order.add(Create_Purchase_Order);
+
+        Edit_Purchase_Order.setText("Update Purchase Order");
+        Purchase_Order.add(Edit_Purchase_Order);
+
+        jMenuItem3.setText("More options");
+        Purchase_Order.add(jMenuItem3);
+
+        MenuBar.add(Purchase_Order);
+
+        Credit_Memo.setText("Credit Memo");
+
+        Create_Credit_Memo.setText("Create New Credit Memo");
+        Credit_Memo.add(Create_Credit_Memo);
+
+        Update_Credit_Memo.setText("Edit Credit Memo");
+        Credit_Memo.add(Update_Credit_Memo);
+
+        jMenuItem6.setText("More Options");
+        Credit_Memo.add(jMenuItem6);
+
+        MenuBar.add(Credit_Memo);
+
+        Product.setText("Product");
+
+        Create_Product.setText("Create New Product");
+        Create_Product.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Create_ProductActionPerformed(evt);
+            }
+        });
+        Product.add(Create_Product);
+
+        Update_Product.setText("Update Product");
+        Update_Product.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Update_ProductActionPerformed(evt);
+            }
+        });
+        Product.add(Update_Product);
+
+        jMenuItem9.setText("More Options");
+        Product.add(jMenuItem9);
+
+        MenuBar.add(Product);
+
+        Jobs.setText("Jobs");
+
+        Create_Job.setText("Create New Job");
+        Jobs.add(Create_Job);
+
+        Update_Job.setText("Update Job");
+        Jobs.add(Update_Job);
+
+        jMenuItem12.setText("More Options");
+        Jobs.add(jMenuItem12);
+
+        MenuBar.add(Jobs);
+
+        Supplier.setText("Suppliers");
+
+        Create_Supplier.setText("Create New Supplier");
+        Supplier.add(Create_Supplier);
+
+        Update_Supplier.setText("Update Supplier");
+        Supplier.add(Update_Supplier);
+
+        jMenuItem15.setText("More Options");
+        Supplier.add(jMenuItem15);
+
+        MenuBar.add(Supplier);
+
+        Reports.setText("Reports");
+
+        Create_Report.setText("Create Report");
+        Reports.add(Create_Report);
+
+        MenuBar.add(Reports);
+
+        About.setText("About");
+        MenuBar.add(About);
 
         setJMenuBar(MenuBar);
 
@@ -491,6 +637,14 @@ public class main_display extends javax.swing.JFrame {
         if(terms.getText().equals(""))
             terms.setText("Terms");
     }//GEN-LAST:event_termsFocusLost
+
+    private void Create_ProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Create_ProductActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Create_ProductActionPerformed
+
+    private void Update_ProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Update_ProductActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Update_ProductActionPerformed
    
     
     /**
@@ -530,18 +684,39 @@ public class main_display extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu About;
+    private javax.swing.JMenuItem Create_Credit_Memo;
+    private javax.swing.JMenuItem Create_Job;
+    private javax.swing.JMenuItem Create_Product;
+    private javax.swing.JMenuItem Create_Purchase_Order;
+    private javax.swing.JMenuItem Create_Report;
+    private javax.swing.JMenuItem Create_Supplier;
+    private javax.swing.JMenu Credit_Memo;
+    private javax.swing.JMenuItem Edit_Purchase_Order;
+    private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu File_List;
     private javax.swing.JMenuItem Input_New_User_Button;
-    private javax.swing.JMenu Logout_Option;
+    private javax.swing.JMenu Jobs;
+    private javax.swing.JMenuItem Logout;
     private javax.swing.JPanel Main_Panel;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem Print;
+    private javax.swing.JMenu Product;
+    private javax.swing.JMenu Purchase_Order;
+    private javax.swing.JMenu Reports;
+    private javax.swing.JMenu Supplier;
     private javax.swing.JTabbedPane TabbedView;
+    private javax.swing.JMenuItem Update_Credit_Memo;
+    private javax.swing.JMenuItem Update_Job;
+    private javax.swing.JMenuItem Update_Product;
+    private javax.swing.JMenuItem Update_Supplier;
     private javax.swing.JTextField address;
     private javax.swing.JTextField city;
     private javax.swing.JTextField companyName;
     private javax.swing.JTextField contact;
     private javax.swing.JTextField fax;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -552,11 +727,16 @@ public class main_display extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> list_pdf_files_from_directory;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JTabbedPane new_purchase_order;
     private javax.swing.JPanel new_supplier_input;
     private javax.swing.JTextField phone;
     private javax.swing.JTextField postalCode;
+    private javax.swing.JTable purchaseOrder;
     private javax.swing.JTextField state;
     private javax.swing.JTable supplier;
     private javax.swing.JTextField terms;
