@@ -56,12 +56,15 @@ public class main_display extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
         stateObj = connObj.createStatement();
-        resultObj = stateObj.executeQuery("select t4.companyname, a.name, t1.expectedby, t3.firstName, b.name, t1.total from purchaseorder t1\n" +
+        resultObj = stateObj.executeQuery("select t1.orderid,t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%d/%m/%Y') as 'expectedby', \n" +
+        "t3.firstName, b.name, t1.total from purchaseorder t1\n" +
         "inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
         "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid;");
         purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
+        purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
         purchaseOrder.getColumn("companyname").setHeaderValue("Company");
         purchaseOrder.getColumn("name").setHeaderValue("Job");
+        purchaseOrder.getColumn("status").setHeaderValue("Status");
         purchaseOrder.getColumn("expectedby").setHeaderValue("Expected By");
         purchaseOrder.getColumn("firstName").setHeaderValue("Issued By");
         purchaseOrder.getColumn("name").setHeaderValue("Ship To");
@@ -158,11 +161,11 @@ public class main_display extends javax.swing.JFrame {
 
         purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Supplier", "Job", "Expected", "Issued By", "shipto", "Invoicetotal"
+                "Purchase Order Number", "Status", "Supplier", "Job", "Expected", "Issued By", "shipto", "Invoicetotal"
             }
         ));
         view_purchase_orders.setViewportView(purchaseOrder);
@@ -449,7 +452,7 @@ public class main_display extends javax.swing.JFrame {
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView)
+                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
                 .addContainerGap())
         );
         Main_PanelLayout.setVerticalGroup(
@@ -585,7 +588,7 @@ public class main_display extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Main_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
