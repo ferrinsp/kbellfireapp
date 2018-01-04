@@ -93,11 +93,6 @@ public class NSupplier extends javax.swing.JFrame {
         save_cancel_buttonpanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        MenuBar = new javax.swing.JMenuBar();
-        File_List = new javax.swing.JMenu();
-        Print = new javax.swing.JMenuItem();
-        Input_New_User_Button = new javax.swing.JMenuItem();
-        Logout_Option = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -281,21 +276,6 @@ public class NSupplier extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        File_List.setText("File");
-
-        Print.setLabel("Print");
-        File_List.add(Print);
-
-        Input_New_User_Button.setLabel("New User");
-        File_List.add(Input_New_User_Button);
-
-        MenuBar.add(File_List);
-
-        Logout_Option.setLabel("Logout");
-        MenuBar.add(Logout_Option);
-
-        setJMenuBar(MenuBar);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -415,11 +395,6 @@ public class NSupplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu File_List;
-    private javax.swing.JMenuItem Input_New_User_Button;
-    private javax.swing.JMenu Logout_Option;
-    private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JMenuItem Print;
     private javax.swing.JTextField address;
     private javax.swing.JTextField city;
     private javax.swing.JTextField companyName;

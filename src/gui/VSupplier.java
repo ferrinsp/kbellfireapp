@@ -93,11 +93,6 @@ public class VSupplier extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         addSupplierButton = new javax.swing.JButton();
         updateSupplierButton = new javax.swing.JButton();
-        MenuBar = new javax.swing.JMenuBar();
-        File_List = new javax.swing.JMenu();
-        Print = new javax.swing.JMenuItem();
-        Input_New_User_Button = new javax.swing.JMenuItem();
-        Logout_Option = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,29 +168,13 @@ public class VSupplier extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        File_List.setText("File");
-
-        Print.setLabel("Print");
-        File_List.add(Print);
-
-        Input_New_User_Button.setLabel("New User");
-        File_List.add(Input_New_User_Button);
-
-        MenuBar.add(File_List);
-
-        Logout_Option.setLabel("Logout");
-        MenuBar.add(Logout_Option);
-
-        setJMenuBar(MenuBar);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Main_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Main_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,12 +244,7 @@ public class VSupplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu File_List;
-    private javax.swing.JMenuItem Input_New_User_Button;
-    private javax.swing.JMenu Logout_Option;
     private javax.swing.JPanel Main_Panel;
-    private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JMenuItem Print;
     private javax.swing.JTabbedPane TabbedView;
     private javax.swing.JButton addSupplierButton;
     private javax.swing.JPanel jPanel1;
