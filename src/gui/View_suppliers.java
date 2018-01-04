@@ -185,12 +185,12 @@ public class View_suppliers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSupplierButtonActionPerformed
-        Add_supplier addSupplier = new Add_supplier();
+        New_supplier addSupplier = new New_supplier();
         addSupplier.setVisible(true);
     }//GEN-LAST:event_addSupplierButtonActionPerformed
 
     private void updateSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSupplierButtonActionPerformed
-        Add_supplier addSupplier = new Add_supplier();
+        New_supplier addSupplier = new New_supplier();
         addSupplier.setVisible(true);
     }//GEN-LAST:event_updateSupplierButtonActionPerformed
 
