@@ -38,7 +38,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
         stateObj = connObj.createStatement();
         resultObj = stateObj.executeQuery("select t1.orderid,t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%d/%m/%Y') as 'expectedby', \n" +
-        "t3.firstName, b.name, t1.total from purchaseorder t1\n" +
+        "t3.name, b.name, t1.total from purchaseorder t1\n" +
         "inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
         "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid;");
         purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
@@ -47,7 +47,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         purchaseOrder.getColumn("name").setHeaderValue("Job");
         purchaseOrder.getColumn("status").setHeaderValue("Status");
         purchaseOrder.getColumn("expectedby").setHeaderValue("Expected By");
-        purchaseOrder.getColumn("firstName").setHeaderValue("Issued By");
+        purchaseOrder.getColumn("name").setHeaderValue("Issued By");
         purchaseOrder.getColumn("name").setHeaderValue("Ship To");
         purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
         purchaseOrder.repaint();

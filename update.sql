@@ -20,7 +20,7 @@ USE `kbell` ;
 -- Table `kbell`.`category`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`category` (
-  `category_ID` SMALLINT(10) NOT NULL,
+  `category_ID` SMALLINT(10) NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`category_ID`))
 ENGINE = InnoDB
@@ -31,7 +31,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `kbell`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`user` (
-  `userid` SMALLINT(10) NOT NULL,
+  `userid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(16) NOT NULL,
   `firstName` VARCHAR(25) NOT NULL,
   `lastName` VARCHAR(25) NOT NULL,
@@ -45,7 +45,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `kbell`.`job`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`job` (
-  `jobid` INT(11) NOT NULL,
+  `jobid` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `address` VARCHAR(45) NOT NULL,
   `city` VARCHAR(45) NOT NULL,
@@ -82,7 +82,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `kbell`.`purchaseorder`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
-  `orderid` INT(11) NOT NULL,
+  `orderid` INT(11) NOT NULL AUTO_INCREMENT,
   `supplier` SMALLINT(10) NOT NULL,
   `job` INT(11) NOT NULL,
   `expectedby` DATETIME NULL DEFAULT NULL,
@@ -129,7 +129,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `kbell`.`creditmemo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
-  `memoid` INT(11) NOT NULL,
+  `memoid` INT(11) NOT NULL AUTO_INCREMENT,
   `poid` INT(11) NOT NULL,
   `supplier` SMALLINT(10) NOT NULL,
   `job` INT(11) NOT NULL,
@@ -195,7 +195,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `kbell`.`creditmemodetail`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
-  `detailid` INT(11) NOT NULL,
+  `detailid` INT(11) NOT NULL AUTO_INCREMENT,
   `creditmemoid` INT(11) NOT NULL,
   `product` INT(11) NOT NULL,
   `cost` DECIMAL(10,2) NOT NULL,
@@ -223,7 +223,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `kbell`.`purchaseorderdetails`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
-  `detailsid` INT(11) NOT NULL,
+  `detailsid` INT(11) NOT NULL AUTO_INCREMENT,
   `orderid` INT(11) NOT NULL,
   `product` INT(11) NOT NULL,
   `cost` DECIMAL(10,2) NOT NULL,

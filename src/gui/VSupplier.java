@@ -47,6 +47,7 @@ public class VSupplier extends javax.swing.JFrame {
         supplier.getColumn("phone").setHeaderValue("Phone");
         supplier.getColumn("fax").setHeaderValue("Fax");
         supplier.getColumn("terms").setHeaderValue("Terms");
+        supplier.getColumn("comments").setHeaderValue("Comments");
         supplier.repaint();
         //meta = resultObj.getMetaData();
     } catch (SQLException e) {
@@ -107,10 +108,10 @@ public class VSupplier extends javax.swing.JFrame {
 
         supplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Supplier ID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
+                "Supplier ID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms", "Comments"
             }
         ));
         view_supplier_list.setViewportView(supplier);

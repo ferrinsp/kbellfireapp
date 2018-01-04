@@ -42,6 +42,10 @@ public class MainPage extends javax.swing.JFrame {
         Print = new javax.swing.JMenuItem();
         Logout = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
+        Jobs = new javax.swing.JMenu();
+        create_Job = new javax.swing.JMenuItem();
+        view_Job = new javax.swing.JMenuItem();
+        update_Job = new javax.swing.JMenuItem();
         Purchase_Order = new javax.swing.JMenu();
         Create_Purchase_Order = new javax.swing.JMenuItem();
         View_Purchase_Order = new javax.swing.JMenuItem();
@@ -54,10 +58,6 @@ public class MainPage extends javax.swing.JFrame {
         Create_Product = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
         Update_Product = new javax.swing.JMenuItem();
-        Jobs = new javax.swing.JMenu();
-        create_Job = new javax.swing.JMenuItem();
-        view_Job = new javax.swing.JMenuItem();
-        update_Job = new javax.swing.JMenuItem();
         Supplier = new javax.swing.JMenu();
         Create_Supplier = new javax.swing.JMenuItem();
         View_Supplier = new javax.swing.JMenuItem();
@@ -75,7 +75,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 944, Short.MAX_VALUE)
+            .addGap(0, 975, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,6 +141,32 @@ public class MainPage extends javax.swing.JFrame {
         File_List.add(Exit);
 
         MenuBar.add(File_List);
+
+        Jobs.setText("Jobs");
+
+        create_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        create_Job.setText("New Job");
+        create_Job.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                create_JobActionPerformed(evt);
+            }
+        });
+        Jobs.add(create_Job);
+
+        view_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
+        view_Job.setText("View Job");
+        view_Job.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view_JobActionPerformed(evt);
+            }
+        });
+        Jobs.add(view_Job);
+
+        update_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, 0));
+        update_Job.setText("Update Job");
+        Jobs.add(update_Job);
+
+        MenuBar.add(Jobs);
 
         Purchase_Order.setText("Purchase Orders");
 
@@ -214,32 +240,6 @@ public class MainPage extends javax.swing.JFrame {
         Product.add(Update_Product);
 
         MenuBar.add(Product);
-
-        Jobs.setText("Jobs");
-
-        create_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
-        create_Job.setText("New Job");
-        create_Job.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                create_JobActionPerformed(evt);
-            }
-        });
-        Jobs.add(create_Job);
-
-        view_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
-        view_Job.setText("View Job");
-        view_Job.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                view_JobActionPerformed(evt);
-            }
-        });
-        Jobs.add(view_Job);
-
-        update_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, 0));
-        update_Job.setText("Update Job");
-        Jobs.add(update_Job);
-
-        MenuBar.add(Jobs);
 
         Supplier.setText("Suppliers");
 
