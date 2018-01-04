@@ -27,6 +27,7 @@ public class Job extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        statusGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         job_input = new javax.swing.JPanel();
         new_vendor_panel = new javax.swing.JPanel();
@@ -125,8 +126,11 @@ public class Job extends javax.swing.JFrame {
             }
         });
 
+        statusGroup.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Active");
 
+        statusGroup.add(jRadioButton2);
         jRadioButton2.setText("Inactive");
 
         javax.swing.GroupLayout new_vendor_panelLayout = new javax.swing.GroupLayout(new_vendor_panel);
@@ -393,5 +397,6 @@ public class Job extends javax.swing.JFrame {
     private javax.swing.JTextField postalCode;
     private javax.swing.JPanel save_cancel_buttonpanel;
     private javax.swing.JTextField state;
+    private javax.swing.ButtonGroup statusGroup;
     // End of variables declaration//GEN-END:variables
 }

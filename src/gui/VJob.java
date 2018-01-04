@@ -5,6 +5,13 @@
  */
 package gui;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author ferrinsp
@@ -14,8 +21,34 @@ public class VJob extends javax.swing.JFrame {
     /**
      * Creates new form VJob
      */
+    Connection connObj = null;
+    Statement stateObj = null;
+    ResultSet resultObj = null;
+        
+    public void getJobs()    {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        stateObj = connObj.createStatement();
+        resultObj = stateObj.executeQuery("Select name, address,city,state,zip,bidamount,status from job");
+        viewJob.setModel(DbUtils.resultSetToTableModel(resultObj));
+        viewJob.getColumn("name").setHeaderValue("Job Name");
+        viewJob.getColumn("address").setHeaderValue("Address");
+        viewJob.getColumn("city").setHeaderValue("City");
+        viewJob.getColumn("state").setHeaderValue("State");
+        viewJob.getColumn("zip").setHeaderValue("Postal Code");
+        viewJob.getColumn("bidamount").setHeaderValue("Bid Amount");
+        viewJob.getColumn("status").setHeaderValue("Status");
+        viewJob.repaint();
+        //meta = resultObj.getMetaData();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    }
+
     public VJob() {
         initComponents();
+        getJobs();
     }
 
     /**

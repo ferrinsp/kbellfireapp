@@ -7,11 +7,17 @@ package gui;
 
 import java.awt.Color;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import kbapp.classes.*; 
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -21,11 +27,44 @@ public class VPurchaseOrder extends javax.swing.JFrame {
     
     public Color genericColor = new Color(209, 220, 204);    
     private AlternatingListCellRenderer cellRenderer = new AlternatingListCellRenderer();
+    Connection connObj = null;
+    Statement stateObj = null;
+    ResultSet resultObj = null;
+
+    
+        public void selectpo()    {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        stateObj = connObj.createStatement();
+        resultObj = stateObj.executeQuery("select t1.orderid,t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%d/%m/%Y') as 'expectedby', \n" +
+        "t3.firstName, b.name, t1.total from purchaseorder t1\n" +
+        "inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
+        "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid;");
+        purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
+        purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
+        purchaseOrder.getColumn("companyname").setHeaderValue("Company");
+        purchaseOrder.getColumn("name").setHeaderValue("Job");
+        purchaseOrder.getColumn("status").setHeaderValue("Status");
+        purchaseOrder.getColumn("expectedby").setHeaderValue("Expected By");
+        purchaseOrder.getColumn("firstName").setHeaderValue("Issued By");
+        purchaseOrder.getColumn("name").setHeaderValue("Ship To");
+        purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
+        purchaseOrder.repaint();
+        //meta = resultObj.getMetaData();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    }
+
+    
     /**
      * Creates new form view_purchase_order
      */
     public VPurchaseOrder() {
         initComponents();
+        selectpo();
     }
 
     /**
@@ -44,15 +83,17 @@ public class VPurchaseOrder extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        Main_Panel1.setPreferredSize(new java.awt.Dimension(1026, 560));
+
         TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total"
+                "Purchase Order", "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total"
             }
         ));
         view_purchase_orders1.setViewportView(purchaseOrder);
@@ -65,14 +106,14 @@ public class VPurchaseOrder extends javax.swing.JFrame {
             Main_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_Panel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
+                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
                 .addContainerGap())
         );
         Main_Panel1Layout.setVerticalGroup(
             Main_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_Panel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

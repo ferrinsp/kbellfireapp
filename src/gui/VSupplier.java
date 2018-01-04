@@ -8,9 +8,15 @@ package gui;
 import java.util.List;
 import kbapp.classes.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -21,7 +27,34 @@ public class VSupplier extends javax.swing.JFrame {
     private NSupplier currentSupplier;
     public Color genericColor = new Color(209, 220, 204);    
     private AlternatingListCellRenderer cellRenderer = new AlternatingListCellRenderer();
-    
+    Connection connObj = null;
+    Statement stateObj = null;
+    ResultSet resultObj = null;
+        
+    public void getsuppliers()    {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        stateObj = connObj.createStatement();
+        resultObj = stateObj.executeQuery("Select * from supplier");
+        supplier.setModel(DbUtils.resultSetToTableModel(resultObj));
+        supplier.getColumn("supplierid").setHeaderValue("Supplier ID");
+        supplier.getColumn("companyname").setHeaderValue("Company");
+        supplier.getColumn("contact").setHeaderValue("Contact");
+        supplier.getColumn("city").setHeaderValue("City");
+        supplier.getColumn("state").setHeaderValue("State");
+        supplier.getColumn("postalcode").setHeaderValue("Postal Code");
+        supplier.getColumn("phone").setHeaderValue("Phone");
+        supplier.getColumn("fax").setHeaderValue("Fax");
+        supplier.getColumn("terms").setHeaderValue("Terms");
+        supplier.repaint();
+        //meta = resultObj.getMetaData();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    }
+
+
     
     // Declare and initialize list models for JLists
     private DefaultListModel<NSupplier> supplierModel = new DefaultListModel<>(); // Blessed be the diamond operator
@@ -34,6 +67,7 @@ public class VSupplier extends javax.swing.JFrame {
      */
     public VSupplier() {
         initComponents();
+        getsuppliers();
     }
     
     private void populateContactList(List<NSupplier> list){
@@ -66,6 +100,8 @@ public class VSupplier extends javax.swing.JFrame {
         Logout_Option = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Main_Panel.setPreferredSize(new java.awt.Dimension(1026, 560));
 
         TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
@@ -100,7 +136,7 @@ public class VSupplier extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(213, Short.MAX_VALUE)
+                .addContainerGap(555, Short.MAX_VALUE)
                 .addComponent(addSupplierButton)
                 .addGap(38, 38, 38)
                 .addComponent(updateSupplierButton)
@@ -121,17 +157,17 @@ public class VSupplier extends javax.swing.JFrame {
         Main_PanelLayout.setHorizontalGroup(
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Main_PanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Main_PanelLayout.setVerticalGroup(
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
