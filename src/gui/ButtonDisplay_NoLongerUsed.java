@@ -9,12 +9,12 @@ package gui;
  *
  * @author ferrinsp
  */
-public class Button_display extends javax.swing.JFrame {
+public class ButtonDisplay_NoLongerUsed extends javax.swing.JFrame {
 
     /**
      * Creates new form button_display
      */
-    public Button_display() {
+    public ButtonDisplay_NoLongerUsed() {
         initComponents();
     }
 
@@ -113,22 +113,22 @@ public class Button_display extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void view_purchase_orderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_purchase_orderActionPerformed
-        View_purchase_order viewPurchaseOrders = new View_purchase_order();
+        VPurchaseOrder viewPurchaseOrders = new VPurchaseOrder();
         viewPurchaseOrders.setVisible(true);
     }//GEN-LAST:event_view_purchase_orderActionPerformed
 
     private void new_purchase_orderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_new_purchase_orderActionPerformed
-        New_purchase_order newPurchaseOrder = new New_purchase_order();
+        NPurchaseOrder newPurchaseOrder = new NPurchaseOrder();
         newPurchaseOrder.setVisible(true);
     }//GEN-LAST:event_new_purchase_orderActionPerformed
 
     private void view_suppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_suppliersActionPerformed
-        View_suppliers viewSuppliers = new View_suppliers();
+        VSupplier viewSuppliers = new VSupplier();
         viewSuppliers.setVisible(true);
     }//GEN-LAST:event_view_suppliersActionPerformed
 
     private void update_suppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_suppliersActionPerformed
-        New_supplier updateSuppliers = new New_supplier();
+        NSupplier updateSuppliers = new NSupplier();
         updateSuppliers.setVisible(true);
     }//GEN-LAST:event_update_suppliersActionPerformed
 
@@ -149,14 +149,18 @@ public class Button_display extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Button_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ButtonDisplay_NoLongerUsed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Button_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ButtonDisplay_NoLongerUsed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Button_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ButtonDisplay_NoLongerUsed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Button_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ButtonDisplay_NoLongerUsed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -165,7 +169,7 @@ public class Button_display extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Button_display().setVisible(true);
+                new ButtonDisplay_NoLongerUsed().setVisible(true);
             }
         });
     }

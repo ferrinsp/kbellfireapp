@@ -16,29 +16,29 @@ import javax.swing.JOptionPane;
  *
  * @author ferrinsp
  */
-public class View_suppliers extends javax.swing.JFrame {
+public class VSupplier extends javax.swing.JFrame {
     
-    private Supplier currentSupplier;
+    private NSupplier currentSupplier;
     public Color genericColor = new Color(209, 220, 204);    
     private AlternatingListCellRenderer cellRenderer = new AlternatingListCellRenderer();
     
     
     // Declare and initialize list models for JLists
-    private DefaultListModel<Supplier> supplierModel = new DefaultListModel<>(); // Blessed be the diamond operator
+    private DefaultListModel<NSupplier> supplierModel = new DefaultListModel<>(); // Blessed be the diamond operator
     
     // Declare and initialize lists 
-    private List<Supplier> supplierList = new ArrayList<>(); 
+    private List<NSupplier> supplierList = new ArrayList<>(); 
 
     /**
      * Creates new form view_suppliers
      */
-    public View_suppliers() {
+    public VSupplier() {
         initComponents();
     }
     
-    private void populateContactList(List<Supplier> list){
+    private void populateContactList(List<NSupplier> list){
         supplierModel.clear();
-        for(Supplier s: list){
+        for(NSupplier s: list){
             supplierModel.addElement(s);
         }
     }
@@ -74,22 +74,10 @@ public class View_suppliers extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "VendorID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
+                "Supplier ID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms"
             }
         ));
         view_supplier_list.setViewportView(supplier);
-        if (supplier.getColumnModel().getColumnCount() > 0) {
-            supplier.getColumnModel().getColumn(0).setHeaderValue("VendorID");
-            supplier.getColumnModel().getColumn(1).setHeaderValue("Company");
-            supplier.getColumnModel().getColumn(2).setHeaderValue("Contact");
-            supplier.getColumnModel().getColumn(3).setHeaderValue("Address");
-            supplier.getColumnModel().getColumn(4).setHeaderValue("City");
-            supplier.getColumnModel().getColumn(5).setHeaderValue("State");
-            supplier.getColumnModel().getColumn(6).setHeaderValue("Postal Code");
-            supplier.getColumnModel().getColumn(7).setHeaderValue("Phone");
-            supplier.getColumnModel().getColumn(8).setHeaderValue("Fax");
-            supplier.getColumnModel().getColumn(9).setHeaderValue("Terms");
-        }
 
         TabbedView.addTab("Suppliers", view_supplier_list);
 
@@ -185,12 +173,12 @@ public class View_suppliers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSupplierButtonActionPerformed
-        New_supplier addSupplier = new New_supplier();
+        NSupplier addSupplier = new NSupplier();
         addSupplier.setVisible(true);
     }//GEN-LAST:event_addSupplierButtonActionPerformed
 
     private void updateSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSupplierButtonActionPerformed
-        New_supplier addSupplier = new New_supplier();
+        NSupplier addSupplier = new NSupplier();
         addSupplier.setVisible(true);
     }//GEN-LAST:event_updateSupplierButtonActionPerformed
 
@@ -211,14 +199,18 @@ public class View_suppliers extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(View_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(View_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(View_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(View_suppliers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -227,7 +219,7 @@ public class View_suppliers extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new View_suppliers().setVisible(true);
+                new VSupplier().setVisible(true);
             }
         });
     }

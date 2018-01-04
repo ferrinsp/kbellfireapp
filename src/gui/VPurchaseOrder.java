@@ -17,14 +17,14 @@ import kbapp.classes.*;
  *
  * @author ferrinsp
  */
-public class View_purchase_order extends javax.swing.JFrame {
+public class VPurchaseOrder extends javax.swing.JFrame {
     
     public Color genericColor = new Color(209, 220, 204);    
     private AlternatingListCellRenderer cellRenderer = new AlternatingListCellRenderer();
     /**
      * Creates new form view_purchase_order
      */
-    public View_purchase_order() {
+    public VPurchaseOrder() {
         initComponents();
     }
 
@@ -39,24 +39,25 @@ public class View_purchase_order extends javax.swing.JFrame {
 
         Main_Panel1 = new javax.swing.JPanel();
         TabbedView = new javax.swing.JTabbedPane();
-        view_purchase_orders = new javax.swing.JScrollPane();
-        list_pdf_files_from_directory = new javax.swing.JList<>();
+        view_purchase_orders1 = new javax.swing.JScrollPane();
+        purchaseOrder = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
-        view_purchase_orders.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total"
+            }
+        ));
+        view_purchase_orders1.setViewportView(purchaseOrder);
 
-        list_pdf_files_from_directory.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        list_pdf_files_from_directory.setCellRenderer(cellRenderer);
-        view_purchase_orders.setViewportView(list_pdf_files_from_directory);
-
-        TabbedView.addTab("View Purchase Orders", null, view_purchase_orders, "");
+        TabbedView.addTab("View Purchase Orders", view_purchase_orders1);
 
         javax.swing.GroupLayout Main_Panel1Layout = new javax.swing.GroupLayout(Main_Panel1);
         Main_Panel1.setLayout(Main_Panel1Layout);
@@ -64,7 +65,7 @@ public class View_purchase_order extends javax.swing.JFrame {
             Main_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_Panel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
                 .addContainerGap())
         );
         Main_Panel1Layout.setVerticalGroup(
@@ -112,14 +113,18 @@ public class View_purchase_order extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(View_purchase_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(View_purchase_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(View_purchase_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(View_purchase_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -128,7 +133,7 @@ public class View_purchase_order extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new View_purchase_order().setVisible(true);
+                new VPurchaseOrder().setVisible(true);
             }
         });
     }
@@ -140,7 +145,7 @@ public class View_purchase_order extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Main_Panel1;
     private javax.swing.JTabbedPane TabbedView;
-    private javax.swing.JList<String> list_pdf_files_from_directory;
-    private javax.swing.JScrollPane view_purchase_orders;
+    private javax.swing.JTable purchaseOrder;
+    private javax.swing.JScrollPane view_purchase_orders1;
     // End of variables declaration//GEN-END:variables
 }
