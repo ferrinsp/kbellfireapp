@@ -128,7 +128,7 @@ public class Button_display extends javax.swing.JFrame {
     }//GEN-LAST:event_view_suppliersActionPerformed
 
     private void update_suppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_suppliersActionPerformed
-        Add_supplier updateSuppliers = new Add_supplier();
+        New_supplier updateSuppliers = new New_supplier();
         updateSuppliers.setVisible(true);
     }//GEN-LAST:event_update_suppliersActionPerformed
 
