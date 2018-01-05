@@ -37,6 +37,7 @@ public class AddItem extends javax.swing.JFrame {
         CategoryList = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         categoryTable = new javax.swing.JTable();
+        n_u_product = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -86,6 +87,13 @@ public class AddItem extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(categoryTable);
 
+        n_u_product.setText("New Item");
+        n_u_product.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                n_u_productActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -96,7 +104,8 @@ public class AddItem extends javax.swing.JFrame {
                     .addComponent(jScrollPane3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(n_u_product, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(searchable))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -112,7 +121,9 @@ public class AddItem extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(searchable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(n_u_product))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -154,6 +165,11 @@ public class AddItem extends javax.swing.JFrame {
         if(searchable.getText().equals(""))
             searchable.setText("Search");
     }//GEN-LAST:event_searchableFocusLost
+
+    private void n_u_productActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n_u_productActionPerformed
+        N_U_Item newProduct = new N_U_Item();
+        newProduct.setVisible(true);
+    }//GEN-LAST:event_n_u_productActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,6 +216,7 @@ public class AddItem extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton n_u_product;
     private javax.swing.JTextField searchable;
     // End of variables declaration//GEN-END:variables
 }

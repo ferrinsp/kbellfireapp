@@ -33,14 +33,13 @@ public class MainPage extends javax.swing.JFrame {
     private void initComponents() {
 
         Main_Panel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TabbedView = new javax.swing.JTabbedPane();
+        view_purchase_orders1 = new javax.swing.JScrollPane();
+        purchaseOrder = new javax.swing.JTable();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         Print = new javax.swing.JMenuItem();
-        Logout = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
         Jobs = new javax.swing.JMenu();
         create_Job = new javax.swing.JMenuItem();
@@ -57,7 +56,6 @@ public class MainPage extends javax.swing.JFrame {
         Product = new javax.swing.JMenu();
         Create_Product = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
-        Update_Product = new javax.swing.JMenuItem();
         Supplier = new javax.swing.JMenu();
         Create_Supplier = new javax.swing.JMenuItem();
         View_Supplier = new javax.swing.JMenuItem();
@@ -71,58 +69,63 @@ public class MainPage extends javax.swing.JFrame {
 
         Main_Panel.setPreferredSize(new java.awt.Dimension(1026, 560));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 975, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 267, Short.MAX_VALUE)
-        );
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/KBellLogo.png"))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+
+        purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Purchase Order", "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        view_purchase_orders1.setViewportView(purchaseOrder);
+
+        TabbedView.addTab("Purchase Order Status", view_purchase_orders1);
 
         javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
         Main_Panel.setLayout(Main_PanelLayout);
         Main_PanelLayout.setHorizontalGroup(
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Main_PanelLayout.createSequentialGroup()
-                .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Main_PanelLayout.createSequentialGroup()
-                        .addContainerGap(433, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(0, 333, Short.MAX_VALUE))
-                    .addGroup(Main_PanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 969, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(272, 272, 272)
+                .addComponent(jLabel1)
+                .addContainerGap(273, Short.MAX_VALUE))
+            .addGroup(Main_PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                 .addContainerGap())
         );
         Main_PanelLayout.setVerticalGroup(
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(TabbedView, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -132,12 +135,8 @@ public class MainPage extends javax.swing.JFrame {
         Print.setLabel("Print");
         File_List.add(Print);
 
-        Logout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        Logout.setText("Logout");
-        File_List.add(Logout);
-
         Exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        Exit.setText("Exit");
+        Exit.setText("Close");
         File_List.add(Exit);
 
         MenuBar.add(File_List);
@@ -171,7 +170,7 @@ public class MainPage extends javax.swing.JFrame {
         Purchase_Order.setText("Purchase Orders");
 
         Create_Purchase_Order.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
-        Create_Purchase_Order.setText("Create New Purchase Order");
+        Create_Purchase_Order.setText("New Purchase Order");
         Create_Purchase_Order.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Create_Purchase_OrderActionPerformed(evt);
@@ -218,7 +217,7 @@ public class MainPage extends javax.swing.JFrame {
         Product.setText("Product");
 
         Create_Product.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK));
-        Create_Product.setText("Create New Product");
+        Create_Product.setText("New Item");
         Create_Product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Create_ProductActionPerformed(evt);
@@ -227,17 +226,13 @@ public class MainPage extends javax.swing.JFrame {
         Product.add(Create_Product);
 
         View_Product.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
-        View_Product.setText("View Product");
-        Product.add(View_Product);
-
-        Update_Product.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
-        Update_Product.setText("Update Product");
-        Update_Product.addActionListener(new java.awt.event.ActionListener() {
+        View_Product.setText("View/Update Item");
+        View_Product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Update_ProductActionPerformed(evt);
+                View_ProductActionPerformed(evt);
             }
         });
-        Product.add(Update_Product);
+        Product.add(View_Product);
 
         MenuBar.add(Product);
 
@@ -286,14 +281,14 @@ public class MainPage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Main_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(Main_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -303,10 +298,6 @@ public class MainPage extends javax.swing.JFrame {
     private void Create_ProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Create_ProductActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Create_ProductActionPerformed
-
-    private void Update_ProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Update_ProductActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Update_ProductActionPerformed
 
     private void create_JobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_JobActionPerformed
         Job job = new Job();
@@ -341,6 +332,11 @@ public class MainPage extends javax.swing.JFrame {
         VSupplier viewSupplier = new VSupplier();
         viewSupplier.setVisible(true);
     }//GEN-LAST:event_View_SupplierActionPerformed
+
+    private void View_ProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View_ProductActionPerformed
+        N_U_Item newItem = new N_U_Item();
+        newItem.setVisible(true);
+    }//GEN-LAST:event_View_ProductActionPerformed
    
     
     /**
@@ -392,7 +388,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu File_List;
     private javax.swing.JMenu Jobs;
-    private javax.swing.JMenuItem Logout;
     private javax.swing.JPanel Main_Panel;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem Print;
@@ -400,8 +395,8 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenu Purchase_Order;
     private javax.swing.JMenu Reports;
     private javax.swing.JMenu Supplier;
+    private javax.swing.JTabbedPane TabbedView;
     private javax.swing.JMenuItem Update_Credit_Memo;
-    private javax.swing.JMenuItem Update_Product;
     private javax.swing.JMenuItem Update_Purchase_Order;
     private javax.swing.JMenuItem Update_Supplier;
     private javax.swing.JMenuItem View_Credit_Memo;
@@ -410,10 +405,9 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem View_Supplier;
     private javax.swing.JMenuItem create_Job;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable purchaseOrder;
     private javax.swing.JMenuItem update_Job;
     private javax.swing.JMenuItem view_Job;
+    private javax.swing.JScrollPane view_purchase_orders1;
     // End of variables declaration//GEN-END:variables
 }
