@@ -251,20 +251,20 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Run this script to load suppliers
--- LOAD DATA local INFILE 'C:/temp/supplier.csv'
--- into table supplier
--- FIELDS TERMINATED BY ','
--- LINES TERMINATED BY '\n'
--- (companyname, contact,address1,city,state,postalcode,phone,fax,terms);
+LOAD DATA local INFILE 'C:/temp/supplier.csv'
+into table supplier
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+(companyname, contact,address1,city,state,postalcode,phone,fax,terms);
 
 -- Run this script to load jobs
--- LOAD DATA local INFILE 'C:/temp/job.csv'
--- into table job
--- FIELDS TERMINATED BY ','
--- LINES TERMINATED BY '\n';
+LOAD DATA local INFILE 'C:/temp/job.csv'
+into table job
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n';
 
 -- Run this script to load categories
--- LOAD DATA local INFILE 'C:/temp/category.csv'
--- into table category
--- FIELDS TERMINATED BY ','
--- LINES TERMINATED BY '\n';
+LOAD DATA local INFILE 'C:/temp/category.csv'
+into table category
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n';

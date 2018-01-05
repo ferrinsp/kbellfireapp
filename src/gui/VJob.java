@@ -71,11 +71,11 @@ public class VJob extends javax.swing.JFrame {
 
         viewJob.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Job Name", "Address", "City", "State", "Postal Code", "Bid Amount", "Status"
+                "Job Name", "Address", "City", "State", "Postal Code", "Bid Amount", "Status", "Comments"
             }
         ));
         view_job.setViewportView(viewJob);

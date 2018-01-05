@@ -83,7 +83,7 @@ public class NSupplier extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         postalCode = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        vendorid = new javax.swing.JTextField();
+        supplierid = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -103,30 +103,86 @@ public class NSupplier extends javax.swing.JFrame {
         jLabel1.setText("Company Name");
 
         companyName.setText("Company Name");
+        companyName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                companyNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                companyNameFocusLost(evt);
+            }
+        });
 
         jLabel2.setText("Contact");
 
         contact.setText("Contact");
+        contact.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                contactFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                contactFocusLost(evt);
+            }
+        });
 
         jLabel3.setText("Address");
 
         address.setText("Address");
+        address.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                addressFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                addressFocusLost(evt);
+            }
+        });
 
         jLabel4.setText("City");
 
         city.setText("City");
+        city.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cityFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cityFocusLost(evt);
+            }
+        });
 
         jLabel5.setText("State");
 
         state.setText("State");
+        state.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                stateFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                stateFocusLost(evt);
+            }
+        });
 
         jLabel6.setText("Postal Code");
 
         postalCode.setText("Postal Code");
+        postalCode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                postalCodeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                postalCodeFocusLost(evt);
+            }
+        });
 
         jLabel7.setText("Supplier ID");
 
-        vendorid.setText("Supplier ID");
+        supplierid.setText("Supplier ID");
+        supplierid.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                supplieridFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                supplieridFocusLost(evt);
+            }
+        });
 
         jLabel8.setText("Phone Number");
 
@@ -135,10 +191,34 @@ public class NSupplier extends javax.swing.JFrame {
         jLabel10.setText("Terms");
 
         phone.setText("Phone Number");
+        phone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                phoneFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                phoneFocusLost(evt);
+            }
+        });
 
         fax.setText("Fax Number");
+        fax.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                faxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                faxFocusLost(evt);
+            }
+        });
 
         terms.setText("Terms");
+        terms.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                termsFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                termsFocusLost(evt);
+            }
+        });
 
         jLabel11.setText("Comments");
 
@@ -186,7 +266,7 @@ public class NSupplier extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(supplierid, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(new_vendor_panelLayout.createSequentialGroup()
                         .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -203,7 +283,7 @@ public class NSupplier extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, new_vendor_panelLayout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vendorid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(supplierid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -312,6 +392,96 @@ public class NSupplier extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void supplieridFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplieridFocusGained
+        supplierid.setText("");
+    }//GEN-LAST:event_supplieridFocusGained
+
+    private void supplieridFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplieridFocusLost
+        if(supplierid.getText().equals(""))
+            supplierid.setText("Supplier ID");
+    }//GEN-LAST:event_supplieridFocusLost
+
+    private void companyNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusGained
+        companyName.setText("");
+    }//GEN-LAST:event_companyNameFocusGained
+
+    private void companyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusLost
+        if(companyName.getText().equals(""))
+            companyName.setText("Company Name");
+    }//GEN-LAST:event_companyNameFocusLost
+
+    private void contactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusGained
+        contact.setText("");
+    }//GEN-LAST:event_contactFocusGained
+
+    private void contactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusLost
+        if(contact.getText().equals(""))
+            contact.setText("Contact");
+    }//GEN-LAST:event_contactFocusLost
+
+    private void addressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusGained
+        address.setText("");
+    }//GEN-LAST:event_addressFocusGained
+
+    private void addressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusLost
+        if(address.getText().equals(""))
+            address.setText("Address");
+    }//GEN-LAST:event_addressFocusLost
+
+    private void cityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusGained
+        city.setText("");
+    }//GEN-LAST:event_cityFocusGained
+
+    private void cityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusLost
+        if(city.getText().equals(""))
+            city.setText("City");
+    }//GEN-LAST:event_cityFocusLost
+
+    private void stateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusGained
+        state.setText("");
+    }//GEN-LAST:event_stateFocusGained
+
+    private void stateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusLost
+        if(state.getText().equals(""))
+            state.setText("State");
+    }//GEN-LAST:event_stateFocusLost
+
+    private void postalCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusGained
+        postalCode.setText("");
+    }//GEN-LAST:event_postalCodeFocusGained
+
+    private void postalCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusLost
+        if(postalCode.getText().equals(""))
+            postalCode.setText("Postal Code");
+    }//GEN-LAST:event_postalCodeFocusLost
+
+    private void phoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusGained
+        phone.setText("");
+    }//GEN-LAST:event_phoneFocusGained
+
+    private void phoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusLost
+        if(phone.getText().equals(""))
+            phone.setText("Phone");
+    }//GEN-LAST:event_phoneFocusLost
+
+    private void faxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_faxFocusGained
+        fax.setText("");
+    }//GEN-LAST:event_faxFocusGained
+
+    private void faxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_faxFocusLost
+        if(fax.getText().equals(""))
+            fax.setText("Fax");
+    }//GEN-LAST:event_faxFocusLost
+
+    private void termsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_termsFocusGained
+        terms.setText("");
+    }//GEN-LAST:event_termsFocusGained
+
+    private void termsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_termsFocusLost
+        if(terms.getText().equals(""))
+            terms.setText("Terms");
+    }//GEN-LAST:event_termsFocusLost
 
     /**
      * @param args the command line arguments
@@ -438,7 +608,7 @@ public class NSupplier extends javax.swing.JFrame {
     private javax.swing.JTextField postalCode;
     private javax.swing.JPanel save_cancel_buttonpanel;
     private javax.swing.JTextField state;
+    private javax.swing.JTextField supplierid;
     private javax.swing.JTextField terms;
-    private javax.swing.JTextField vendorid;
     // End of variables declaration//GEN-END:variables
 }
