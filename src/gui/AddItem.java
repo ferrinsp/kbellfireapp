@@ -45,11 +45,16 @@ public class AddItem extends javax.swing.JFrame {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         addItemButton.setText("Add");
 
         closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
 
         searchable.setText("Search");
         searchable.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -170,6 +175,10 @@ public class AddItem extends javax.swing.JFrame {
         N_U_Item newProduct = new N_U_Item();
         newProduct.setVisible(true);
     }//GEN-LAST:event_n_u_productActionPerformed
+
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
      * @param args the command line arguments

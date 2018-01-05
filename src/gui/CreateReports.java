@@ -32,7 +32,7 @@ public class CreateReports extends javax.swing.JFrame {
         ReportResults = new javax.swing.JPanel();
         ReportFields = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout PrintResultButtonsLayout = new javax.swing.GroupLayout(PrintResultButtons);
         PrintResultButtons.setLayout(PrintResultButtonsLayout);

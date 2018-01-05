@@ -48,19 +48,11 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="F11"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="View Job"/>
+                <Property name="text" type="java.lang.String" value="View/Update Job"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="view_JobActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="update_Job">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F12"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Update Job"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -85,19 +77,11 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+V"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="View Purchase Order"/>
+                <Property name="text" type="java.lang.String" value="View/Update Purchase Order"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="View_Purchase_OrderActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="Update_Purchase_Order">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+U"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Update Purchase Order"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -119,19 +103,8 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="F2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="View Credit Memo"/>
+                <Property name="text" type="java.lang.String" value="View/Update Credit Memo"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="Update_Credit_Memo">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F3"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Update Credit Memo"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Update_Credit_MemoActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -185,19 +158,11 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+V"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="View Suppliers"/>
+                <Property name="text" type="java.lang.String" value="View/Update Suppliers"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="View_SupplierActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="Update_Supplier">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+U"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Update Supplier"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>

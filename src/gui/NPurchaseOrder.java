@@ -5,6 +5,10 @@
  */
 package gui;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ferrinsp
@@ -33,7 +37,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ItemsAddedTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        deleteItemButton = new javax.swing.JButton();
         expectedDate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -42,45 +46,38 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         n_u_product = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         ItemsAddedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Select", "Quantity", "Unit", "Supplier", "Description", "Size", "Unit Price", "Totals"
+                "Quantity", "Unit", "Supplier", "Description", "Size", "Unit Price", "Totals"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                true, true, false, false, false, false, false, true
+                true, false, false, false, false, false, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -95,7 +92,12 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Delete Item");
+        deleteItemButton.setText("Delete Item");
+        deleteItemButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteItemButtonActionPerformed(evt);
+            }
+        });
 
         expectedDate.setText("Expected Date");
         expectedDate.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -162,7 +164,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(n_u_product)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
+                                .addComponent(deleteItemButton)))
                         .addGap(0, 221, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -184,7 +186,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(newPurchaseOrderTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(deleteItemButton)
                     .addComponent(n_u_product))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,6 +259,17 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         newProduct.setVisible(true);
     }//GEN-LAST:event_n_u_productActionPerformed
 
+    private void deleteItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteItemButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) ItemsAddedTable.getModel();
+        
+        int selectedRow = ItemsAddedTable.getSelectedRow();
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(null, "No items selected");
+        } else {
+            model.removeRow(selectedRow);
+        }
+    }//GEN-LAST:event_deleteItemButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -301,9 +314,9 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ItemsAddedTable;
+    private javax.swing.JButton deleteItemButton;
     private javax.swing.JTextField expectedDate;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;

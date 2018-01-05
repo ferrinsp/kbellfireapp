@@ -95,7 +95,7 @@ public class VSupplier extends javax.swing.JFrame {
         addSupplierButton = new javax.swing.JButton();
         updateSupplierButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Main_Panel.setPreferredSize(new java.awt.Dimension(1026, 560));
 

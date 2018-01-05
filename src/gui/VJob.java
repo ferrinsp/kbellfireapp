@@ -65,7 +65,7 @@ public class VJob extends javax.swing.JFrame {
         view_job = new javax.swing.JScrollPane();
         viewJob = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 

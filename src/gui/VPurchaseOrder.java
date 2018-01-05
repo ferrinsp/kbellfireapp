@@ -81,7 +81,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         view_purchase_orders1 = new javax.swing.JScrollPane();
         purchaseOrder = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Main_Panel1.setPreferredSize(new java.awt.Dimension(1026, 560));
 
