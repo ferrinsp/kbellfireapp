@@ -5,9 +5,7 @@
  */
 package gui;
 
-import java.awt.Toolkit;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JTable;
+import javax.swing.table.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -100,7 +98,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(expectedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,7 +185,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Add Item");
+        jButton1.setText("Add Item/s");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -354,8 +352,20 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_expectedDateFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AddItem_NotNeeded addItem = new AddItem_NotNeeded();
-        addItem.setVisible(true);
+
+        TableModel model1 = itemsSearchTable.getModel();
+        int[] index = itemsSearchTable.getSelectedRows();
+        Object[] row = new Object[4];
+        DefaultTableModel model2 = (DefaultTableModel) ItemsAddedTable.getModel();           
+
+        for(int i = 0; i < index.length; i++)
+        {
+            row[0] = model1.getValueAt(index[i], 0);
+            row[1] = model1.getValueAt(index[i], 1);
+            row[2] = model1.getValueAt(index[i], 2);
+            row[3] = model1.getValueAt(index[i], 3);
+            model2.addRow(row); 
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void n_u_productActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n_u_productActionPerformed
@@ -364,17 +374,26 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_n_u_productActionPerformed
 
     private void itemsAddedDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemsAddedDeleteActionPerformed
-        DefaultTableModel model = (DefaultTableModel) ItemsAddedTable.getModel();
         
-        int selectedRow = ItemsAddedTable.getSelectedRow();
-        if(selectedRow == -1){
+        DefaultTableModel model = (DefaultTableModel) ItemsAddedTable.getModel();
+        int[] index = ItemsAddedTable.getSelectedRows();
+        Object[] row = new Object[4];
+
+        if(index.length == -1){
             JOptionPane.showMessageDialog(null, "No items selected");
         } else {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Confirm Deletion", dialogButton);
             if(dialogResult == 0) {
               System.out.println("Yes");
-              model.removeRow(selectedRow);
+                    for(int i = 0; i < index.length; i++)
+                    {
+                        row[0] = model.getValueAt(index[i], 0);
+                        row[1] = model.getValueAt(index[i], 1);
+                        row[2] = model.getValueAt(index[i], 2);
+                        row[3] = model.getValueAt(index[i], 3);
+                        model.removeRow(i);
+                    }
             } else {
               System.out.println("No");
             } 
@@ -396,16 +415,24 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
     private void itemsSearchDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemsSearchDeleteActionPerformed
         DefaultTableModel model = (DefaultTableModel) itemsSearchTable.getModel();
-        
-        int selectedRow = itemsSearchTable.getSelectedRow();
-        if(selectedRow == -1){
+        int[] index = itemsSearchTable.getSelectedRows();
+        Object[] row = new Object[4];
+
+        if(index.length == -1){
             JOptionPane.showMessageDialog(null, "No items selected");
         } else {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Confirm Deletion", dialogButton);
             if(dialogResult == 0) {
               System.out.println("Yes");
-              model.removeRow(selectedRow);
+                    for(int i = 0; i < index.length; i++)
+                    {
+                        row[0] = model.getValueAt(index[i], 0);
+                        row[1] = model.getValueAt(index[i], 1);
+                        row[2] = model.getValueAt(index[i], 2);
+                        row[3] = model.getValueAt(index[i], 3);
+                        model.removeRow(i);
+                    }
             } else {
               System.out.println("No");
             } 
