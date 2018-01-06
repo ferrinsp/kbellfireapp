@@ -266,7 +266,14 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         if(selectedRow == -1){
             JOptionPane.showMessageDialog(null, "No items selected");
         } else {
-            model.removeRow(selectedRow);
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Confirm Deletion", dialogButton);
+            if(dialogResult == 0) {
+              System.out.println("Yes");
+              model.removeRow(selectedRow);
+            } else {
+              System.out.println("No");
+            } 
         }
     }//GEN-LAST:event_deleteItemButtonActionPerformed
 
