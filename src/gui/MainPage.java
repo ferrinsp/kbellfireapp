@@ -5,6 +5,7 @@
  */
 package gui;
 
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,7 +21,14 @@ import net.proteanit.sql.DbUtils;
 public class MainPage extends javax.swing.JFrame {
 
     public MainPage() {
+        
+        this.setResizable(false);
         initComponents();
+        
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xsize = (int) tk.getScreenSize().getWidth();
+        int ysize = (int) tk.getScreenSize().getHeight();
+        this.setSize(xsize, ysize);
     }
 
     /**
@@ -62,8 +70,6 @@ public class MainPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("MainFrame"); // NOI18N
-
-        Main_Panel.setPreferredSize(new java.awt.Dimension(1026, 560));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/KBellLogo.png"))); // NOI18N
 
@@ -108,7 +114,7 @@ public class MainPage extends javax.swing.JFrame {
         Main_PanelLayout.setHorizontalGroup(
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Main_PanelLayout.createSequentialGroup()
-                .addGap(272, 272, 272)
+                .addContainerGap(272, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap(273, Short.MAX_VALUE))
             .addGroup(Main_PanelLayout.createSequentialGroup()
@@ -133,6 +139,11 @@ public class MainPage extends javax.swing.JFrame {
 
         Exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         Exit.setText("Close");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
         File_List.add(Exit);
 
         MenuBar.add(File_List);
@@ -256,14 +267,14 @@ public class MainPage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Main_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(Main_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -309,6 +320,10 @@ public class MainPage extends javax.swing.JFrame {
         N_U_Item newItem = new N_U_Item();
         newItem.setVisible(true);
     }//GEN-LAST:event_View_ProductActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitActionPerformed
    
     
     /**

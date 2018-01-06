@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author ferrinsp
@@ -15,6 +17,7 @@ public class AddItem extends javax.swing.JFrame {
      * Creates new form AddItem
      */
     public AddItem() {
+        this.setResizable(false);
         initComponents();
     }
 

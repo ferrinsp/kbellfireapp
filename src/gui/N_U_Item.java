@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author ferrinsp
@@ -15,6 +17,8 @@ public class N_U_Item extends javax.swing.JFrame {
      * Creates new form NewProduct
      */
     public N_U_Item() {
+       
+        this.setResizable(false);
         initComponents();
     }
 

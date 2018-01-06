@@ -63,6 +63,8 @@ public class VPurchaseOrder extends javax.swing.JFrame {
      * Creates new form view_purchase_order
      */
     public VPurchaseOrder() {
+        
+        this.setResizable(false);
         initComponents();
         selectpo();
     }
