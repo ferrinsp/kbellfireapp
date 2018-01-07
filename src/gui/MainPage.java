@@ -19,11 +19,43 @@ import net.proteanit.sql.DbUtils;
  * @author ferrinsp
  */
 public class MainPage extends javax.swing.JFrame {
+    
+    Connection connObj = null;
+    Statement stateObj = null;
+    ResultSet resultObj = null;
+
+    
+    public void getPO()    {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        stateObj = connObj.createStatement();
+        resultObj = stateObj.executeQuery("select t1.orderid,t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%d/%m/%Y') as 'expectedby', \n" +
+        "t3.name, b.name, t1.total from purchaseorder t1\n" +
+        "inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
+        "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid;");
+        purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
+        purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
+        purchaseOrder.getColumn("companyname").setHeaderValue("Company");
+        purchaseOrder.getColumn("name").setHeaderValue("Job");
+        purchaseOrder.getColumn("status").setHeaderValue("Status");
+        purchaseOrder.getColumn("expectedby").setHeaderValue("Expected By");
+        purchaseOrder.getColumn("name").setHeaderValue("Issued By");
+        purchaseOrder.getColumn("name").setHeaderValue("Ship To");
+        purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
+        purchaseOrder.repaint();
+        //meta = resultObj.getMetaData();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public MainPage() {
         
         this.setResizable(false);
         initComponents();
+        getPO();
         
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();

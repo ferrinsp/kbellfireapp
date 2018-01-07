@@ -7,10 +7,10 @@ package gui;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -22,30 +22,29 @@ public class NSupplier extends javax.swing.JFrame {
      * Creates new form purchase_orders
      */
     Connection connObj = null;
-    Statement stateObj = null;
-    ResultSet resultObj = null;
-    //ResultSetMetaData meta = null;
-    //String query = "Select * from user";
         
-    public void selectall()    {
-            try {
-            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("Select * from supplier");
-            //supplier.setModel(DbUtils.resultSetToTableModel(resultObj));
-            //supplier.getColumn("supplierid").setHeaderValue("NSupplier ID");
-            //supplier.getColumn("companyname").setHeaderValue("Company");
-            //supplier.getColumn("contact").setHeaderValue("Contact");
-            //supplier.getColumn("city").setHeaderValue("City");
-            //supplier.getColumn("state").setHeaderValue("State");
-            //supplier.getColumn("postalcode").setHeaderValue("Postal Code");
-            //supplier.getColumn("phone").setHeaderValue("Phone");
-            //supplier.getColumn("fax").setHeaderValue("Fax");
-            //supplier.getColumn("terms").setHeaderValue("Terms");
-            //supplier.repaint();
-            //meta = resultObj.getMetaData();
-
+    public void insertSupplier()    {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        String query = "INSERT into supplier (supplierid,companyname,contact,address1,city,state,postalcode,phone,fax,terms,comments)"
+                + "values(?,?,?,?,?,?,?,?,?,?,?)";
+        //Get Values to insert
+        PreparedStatement preparedStmt =connObj.prepareStatement(query);
+        preparedStmt.setInt    (1, Integer.parseInt(supplierid.getText()));
+        preparedStmt.setString (2, companyName.getText());
+        preparedStmt.setString (3, contact.getText());
+        preparedStmt.setString (4, address.getText());
+        preparedStmt.setString (5, city.getText());
+        preparedStmt.setString (6, state.getText());
+        preparedStmt.setString (7, postalCode.getText());
+        preparedStmt.setString (8, phone.getText());
+        preparedStmt.setString (9, fax.getText());
+        preparedStmt.setString (10, terms.getText());
+        preparedStmt.setString (11, comments.getText());
+        preparedStmt.execute();
+      
+        connObj.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,7 +55,6 @@ public class NSupplier extends javax.swing.JFrame {
      */
     public NSupplier() {
         initComponents();
-        selectall();
     }
 
     /**
@@ -93,7 +91,7 @@ public class NSupplier extends javax.swing.JFrame {
         terms = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        comments = new javax.swing.JTextArea();
         save_cancel_buttonpanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -223,9 +221,9 @@ public class NSupplier extends javax.swing.JFrame {
 
         jLabel11.setText("Comments");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        comments.setColumns(20);
+        comments.setRows(5);
+        jScrollPane1.setViewportView(comments);
 
         javax.swing.GroupLayout new_vendor_panelLayout = new javax.swing.GroupLayout(new_vendor_panel);
         new_vendor_panel.setLayout(new_vendor_panelLayout);
@@ -242,24 +240,22 @@ public class NSupplier extends javax.swing.JFrame {
                         .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(terms, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)))
-                    .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, new_vendor_panelLayout.createSequentialGroup()
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(postalCode))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, new_vendor_panelLayout.createSequentialGroup()
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, new_vendor_panelLayout.createSequentialGroup()
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(fax))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, new_vendor_panelLayout.createSequentialGroup()
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(new_vendor_panelLayout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(postalCode))
+                    .addGroup(new_vendor_panelLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(new_vendor_panelLayout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(fax))
+                    .addGroup(new_vendor_panelLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(new_vendor_panelLayout.createSequentialGroup()
                         .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -332,6 +328,11 @@ public class NSupplier extends javax.swing.JFrame {
         );
 
         jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
 
@@ -489,6 +490,11 @@ public class NSupplier extends javax.swing.JFrame {
             terms.setText("Terms");
     }//GEN-LAST:event_termsFocusLost
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        insertSupplier();
+        //TODO: close Item window and return to another page---View supplier or main page.
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -526,6 +532,7 @@ public class NSupplier extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField address;
     private javax.swing.JTextField city;
+    private javax.swing.JTextArea comments;
     private javax.swing.JTextField companyName;
     private javax.swing.JTextField contact;
     private javax.swing.JTextField fax;
@@ -544,7 +551,6 @@ public class NSupplier extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel new_supplier_input;
     private javax.swing.JPanel new_vendor_panel;
     private javax.swing.JTextField phone;

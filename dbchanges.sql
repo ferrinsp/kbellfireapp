@@ -68,5 +68,57 @@ ADD CONSTRAINT `credit`
 -- Will need to change auto_incremements for tables when indexing is determined
 -- ex. Alter 'table' auto_increment = 100;
 
+-- 1/5/18
+ALTER TABLE `kbell`.`product` 
+CHANGE COLUMN `part_id` `part_id` VARCHAR(15) NULL ,
+CHANGE COLUMN `manufacturer` `manufacturer` VARCHAR(15) NULL ;
+
+ALTER TABLE `kbell`.`job` 
+ADD COLUMN `comments` VARCHAR(120) NULL DEFAULT NULL AFTER `status`;
+
+
+-- 1/7/18 Add indexing for job
+ALTER TABLE `kbell`.`creditmemo` 
+DROP FOREIGN KEY `jobcm`;
+ALTER TABLE `kbell`.`creditmemo` 
+DROP INDEX `jobcm_idx` ;
+
+ALTER TABLE `kbell`.`purchaseorder` 
+DROP FOREIGN KEY `pojob`;
+ALTER TABLE `kbell`.`purchaseorder` 
+DROP INDEX `pojob_idx` ;
+
+ALTER TABLE `kbell`.`purchaseorder` 
+DROP FOREIGN KEY `shipto`;
+ALTER TABLE `kbell`.`purchaseorder` 
+DROP INDEX `shipto_idx` ;
+
+ALTER TABLE `kbell`.`job` 
+CHANGE COLUMN `jobid` `jobid` INT(11) NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `kbell`.`creditmemo` 
+ADD INDEX `cmjob_idx` (`job` ASC);
+ALTER TABLE `kbell`.`creditmemo` 
+ADD CONSTRAINT `cmjob`
+  FOREIGN KEY (`job`)
+  REFERENCES `kbell`.`job` (`jobid`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `kbell`.`purchaseorder` 
+ADD INDEX `pojob_id` (`job` ASC);
+ALTER TABLE `kbell`.`purchaseorder` 
+ADD CONSTRAINT `pojob`
+  FOREIGN KEY (`job`)
+  REFERENCES `kbell`.`job` (`jobid`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+ALTER TABLE `kbell`.`purchaseorder` 
+ADD CONSTRAINT `poshipjob`
+  FOREIGN KEY (`job`)
+  REFERENCES `kbell`.`job` (`jobid`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;  
 
 

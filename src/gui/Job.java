@@ -5,11 +5,47 @@
  */
 package gui;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  *
  * @author tatewtaylor
  */
 public class Job extends javax.swing.JFrame {
+    
+    Connection connObj = null;
+        
+    public void insertJob()    {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        String query = "INSERT into job (name,address,city,state,zip,bidamount,status,comments)"
+                + "values(?,?,?,?,?,?,?,?)";
+        String status =null;
+        if (rdbActive.isSelected())
+            status ="Active";
+        else if (rdbInactive.isSelected())
+            status = "Inactive";
+        //Get Values to insert
+        PreparedStatement preparedStmt =connObj.prepareStatement(query);
+        preparedStmt.setString (1, jobName.getText());
+        preparedStmt.setString (2, address.getText());
+        preparedStmt.setString (3, city.getText());
+        preparedStmt.setString (4, state.getText());
+        preparedStmt.setString (5, postalCode.getText());
+        preparedStmt.setInt (6, Integer.parseInt(bidAmount.getText()));
+        preparedStmt.setString (7, status);
+        preparedStmt.setString (8, jobComments.getText());
+        preparedStmt.execute();
+        //Close Connection
+        connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Creates new form Job
@@ -40,18 +76,18 @@ public class Job extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         postalCode = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        job_Name = new javax.swing.JTextField();
+        jobName = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        phone = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        bidAmount = new javax.swing.JTextField();
+        rdbActive = new javax.swing.JRadioButton();
+        rdbInactive = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jobComments = new javax.swing.JTextArea();
         save_cancel_buttonpanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        saveJob = new javax.swing.JButton();
+        Cancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -105,13 +141,13 @@ public class Job extends javax.swing.JFrame {
 
         jLabel7.setText("Job Name");
 
-        job_Name.setText("Job Name");
-        job_Name.addFocusListener(new java.awt.event.FocusAdapter() {
+        jobName.setText("Job Name");
+        jobName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                job_NameFocusGained(evt);
+                jobNameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                job_NameFocusLost(evt);
+                jobNameFocusLost(evt);
             }
         });
 
@@ -119,28 +155,28 @@ public class Job extends javax.swing.JFrame {
 
         jLabel9.setText("Status");
 
-        phone.setText("Bid Amount");
-        phone.addFocusListener(new java.awt.event.FocusAdapter() {
+        bidAmount.setText("Bid Amount");
+        bidAmount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                phoneFocusGained(evt);
+                bidAmountFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                phoneFocusLost(evt);
+                bidAmountFocusLost(evt);
             }
         });
 
-        statusGroup.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Active");
+        statusGroup.add(rdbActive);
+        rdbActive.setSelected(true);
+        rdbActive.setText("Active");
 
-        statusGroup.add(jRadioButton2);
-        jRadioButton2.setText("Inactive");
+        statusGroup.add(rdbInactive);
+        rdbInactive.setText("Inactive");
 
         jLabel11.setText("Comments");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jobComments.setColumns(20);
+        jobComments.setRows(5);
+        jScrollPane1.setViewportView(jobComments);
 
         javax.swing.GroupLayout new_vendor_panelLayout = new javax.swing.GroupLayout(new_vendor_panel);
         new_vendor_panel.setLayout(new_vendor_panelLayout);
@@ -163,16 +199,16 @@ public class Job extends javax.swing.JFrame {
                         .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(job_Name, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                    .addComponent(jobName, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                     .addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                     .addComponent(city, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                     .addComponent(state, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                     .addComponent(postalCode, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-                    .addComponent(phone, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                    .addComponent(bidAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                     .addGroup(new_vendor_panelLayout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(rdbActive)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
+                        .addComponent(rdbInactive))
                     .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -181,7 +217,7 @@ public class Job extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, new_vendor_panelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(job_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jobName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -202,12 +238,12 @@ public class Job extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bidAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rdbActive)
+                    .addComponent(rdbInactive))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,9 +251,14 @@ public class Job extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setText("Save");
+        saveJob.setText("Save");
+        saveJob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveJobActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancel");
+        Cancel.setText("Cancel");
 
         javax.swing.GroupLayout save_cancel_buttonpanelLayout = new javax.swing.GroupLayout(save_cancel_buttonpanel);
         save_cancel_buttonpanel.setLayout(save_cancel_buttonpanelLayout);
@@ -225,9 +266,9 @@ public class Job extends javax.swing.JFrame {
             save_cancel_buttonpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, save_cancel_buttonpanelLayout.createSequentialGroup()
                 .addContainerGap(83, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(saveJob, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(Cancel)
                 .addGap(94, 94, 94))
         );
         save_cancel_buttonpanelLayout.setVerticalGroup(
@@ -235,8 +276,8 @@ public class Job extends javax.swing.JFrame {
             .addGroup(save_cancel_buttonpanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(save_cancel_buttonpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(Cancel)
+                    .addComponent(saveJob))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -322,23 +363,28 @@ public class Job extends javax.swing.JFrame {
         postalCode.setText("Postal Code");
     }//GEN-LAST:event_postalCodeFocusLost
 
-    private void job_NameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_job_NameFocusGained
-        job_Name.setText("");
-    }//GEN-LAST:event_job_NameFocusGained
+    private void jobNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jobNameFocusGained
+        jobName.setText("");
+    }//GEN-LAST:event_jobNameFocusGained
 
-    private void job_NameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_job_NameFocusLost
-        if(job_Name.getText().equals(""))
-        job_Name.setText("Job Name");
-    }//GEN-LAST:event_job_NameFocusLost
+    private void jobNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jobNameFocusLost
+        if(jobName.getText().equals(""))
+        jobName.setText("Job Name");
+    }//GEN-LAST:event_jobNameFocusLost
 
-    private void phoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusGained
-        phone.setText("");
-    }//GEN-LAST:event_phoneFocusGained
+    private void bidAmountFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bidAmountFocusGained
+        bidAmount.setText("");
+    }//GEN-LAST:event_bidAmountFocusGained
 
-    private void phoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusLost
-        if(phone.getText().equals(""))
-        phone.setText("Phone Number");
-    }//GEN-LAST:event_phoneFocusLost
+    private void bidAmountFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bidAmountFocusLost
+        if(bidAmount.getText().equals(""))
+        bidAmount.setText("Bid Amount");
+    }//GEN-LAST:event_bidAmountFocusLost
+
+    private void saveJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveJobActionPerformed
+        insertJob();
+        // TODO add your handling code here: Like closing window
+    }//GEN-LAST:event_saveJobActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,10 +422,10 @@ public class Job extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cancel;
     private javax.swing.JTextField address;
+    private javax.swing.JTextField bidAmount;
     private javax.swing.JTextField city;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -389,15 +435,15 @@ public class Job extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField job_Name;
+    private javax.swing.JTextArea jobComments;
+    private javax.swing.JTextField jobName;
     private javax.swing.JPanel new_vendor_panel;
-    private javax.swing.JTextField phone;
     private javax.swing.JTextField postalCode;
+    private javax.swing.JRadioButton rdbActive;
+    private javax.swing.JRadioButton rdbInactive;
+    private javax.swing.JButton saveJob;
     private javax.swing.JPanel save_cancel_buttonpanel;
     private javax.swing.JTextField state;
     private javax.swing.ButtonGroup statusGroup;
