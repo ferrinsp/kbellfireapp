@@ -335,6 +335,11 @@ public class NSupplier extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout save_cancel_buttonpanelLayout = new javax.swing.GroupLayout(save_cancel_buttonpanel);
         save_cancel_buttonpanel.setLayout(save_cancel_buttonpanelLayout);
@@ -494,6 +499,10 @@ public class NSupplier extends javax.swing.JFrame {
         insertSupplier();
         //TODO: close Item window and return to another page---View supplier or main page.
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -51,7 +51,6 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         purchaseOrder.getColumn("name").setHeaderValue("Ship To");
         purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
         purchaseOrder.repaint();
-        //meta = resultObj.getMetaData();
 
     } catch (SQLException e) {
         e.printStackTrace();

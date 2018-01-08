@@ -30,6 +30,7 @@ public class VSupplier extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
+    
         
     public void getsuppliers()    {
         try {
@@ -49,7 +50,7 @@ public class VSupplier extends javax.swing.JFrame {
         supplier.getColumn("terms").setHeaderValue("Terms");
         supplier.getColumn("comments").setHeaderValue("Comments");
         supplier.repaint();
-        //meta = resultObj.getMetaData();
+       
     } catch (SQLException e) {
         e.printStackTrace();
     }

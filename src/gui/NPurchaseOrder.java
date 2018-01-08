@@ -49,7 +49,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         itemsSearchTable = new javax.swing.JTable();
         n_u_product = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        itemsSearchDelete = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         itemsAddedToPO = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -193,34 +192,25 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
-        itemsSearchDelete.setText("Delete Item");
-        itemsSearchDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemsSearchDeleteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(253, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(n_u_product)
-                .addGap(18, 18, 18)
-                .addComponent(itemsSearchDelete)
-                .addGap(254, 254, 254))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(searchable)
                         .addGap(18, 18, 18)
                         .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(307, 307, 307)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(n_u_product)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,8 +224,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(n_u_product)
-                    .addComponent(itemsSearchDelete))
+                    .addComponent(n_u_product))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -416,32 +405,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CategoryListActionPerformed
 
-    private void itemsSearchDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemsSearchDeleteActionPerformed
-        DefaultTableModel model = (DefaultTableModel) itemsSearchTable.getModel();
-        int[] index = itemsSearchTable.getSelectedRows();
-        Object[] row = new Object[4];
-
-        if(index.length == -1){
-            JOptionPane.showMessageDialog(null, "No items selected");
-        } else {
-            int dialogButton = JOptionPane.YES_NO_OPTION;
-            int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Confirm Deletion", dialogButton);
-            if(dialogResult == 0) {
-              System.out.println("Yes");
-                    for(int i = 0; i < index.length; i++)
-                    {
-                        row[0] = model.getValueAt(index[i], 0);
-                        row[1] = model.getValueAt(index[i], 1);
-                        row[2] = model.getValueAt(index[i], 2);
-                        row[3] = model.getValueAt(index[i], 3);
-                        model.removeRow(i);
-                    }
-            } else {
-              System.out.println("No");
-            } 
-        }
-    }//GEN-LAST:event_itemsSearchDeleteActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -483,7 +446,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JTextField expectedDate;
     private javax.swing.JButton itemsAddedDelete;
     private javax.swing.JTabbedPane itemsAddedToPO;
-    private javax.swing.JButton itemsSearchDelete;
     private javax.swing.JTable itemsSearchTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;

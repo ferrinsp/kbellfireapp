@@ -9,7 +9,6 @@ import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-//import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import net.proteanit.sql.DbUtils;
@@ -44,7 +43,6 @@ public class MainPage extends javax.swing.JFrame {
         purchaseOrder.getColumn("name").setHeaderValue("Ship To");
         purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
         purchaseOrder.repaint();
-        //meta = resultObj.getMetaData();
 
         } catch (SQLException e) {
             e.printStackTrace();

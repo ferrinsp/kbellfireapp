@@ -120,5 +120,15 @@ ADD CONSTRAINT `poshipjob`
   REFERENCES `kbell`.`job` (`jobid`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;  
-
+  
+-- 1/8/18
+ALTER TABLE `kbell`.`product` 
+CHANGE COLUMN `supplier` `supplier` SMALLINT(10) NOT NULL ,
+ADD INDEX `prodSupplier_idx` (`supplier` ASC);
+ALTER TABLE `kbell`.`product` 
+ADD CONSTRAINT `prodSupplier`
+  FOREIGN KEY (`supplier`)
+  REFERENCES `kbell`.`supplier` (`supplierid`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
 
