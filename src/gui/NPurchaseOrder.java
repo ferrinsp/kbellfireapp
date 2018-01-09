@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.*;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -36,7 +37,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             //Dynamically set supplier list size
             resultObj.last();
             job = new String[resultObj.getRow()][2];
-            resultObj.first();
+            resultObj.beforeFirst();
             int i=0;
             while (resultObj.next()){
                 job[i][0] =Integer.toString(resultObj.getInt("jobid"));
@@ -59,7 +60,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             //Dynamically set supplier list size
             resultObj.last();
             category = new String[resultObj.getRow()][2];
-            resultObj.first();
+            resultObj.beforeFirst();
             int i=0;
             while (resultObj.next()){
                 category[i][0] =Integer.toString(resultObj.getInt("category_ID"));
@@ -72,9 +73,35 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    public void getProduct (){
+        try {
+    //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("Select c.description, s.companyname, p.description as pdescription, p.manufacturer,p.size,p.unitMeasure,p.price, 0 as 'Quantity'  from product p inner join\n" +
+            "category c on p.category_id =c.category_ID inner join supplier s on s.supplierid = p.supplier ORDER BY p.description, p.price;");
+            itemsSearchTable.setModel(DbUtils.resultSetToTableModel(resultObj));
+            itemsSearchTable.getColumn("description").setHeaderValue("Category");
+            itemsSearchTable.getColumn("companyname").setHeaderValue("Supplier");
+            itemsSearchTable.getColumn("pdescription").setHeaderValue("Product Description");
+            itemsSearchTable.getColumn("manufacturer").setHeaderValue("Manufacturer");
+            itemsSearchTable.getColumn("size").setHeaderValue("Size");
+            itemsSearchTable.getColumn("unitMeasure").setHeaderValue("Unit");
+            itemsSearchTable.getColumn("price").setHeaderValue("Price");
+            itemsSearchTable.repaint();
+            connObj.close();
+        }  catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     *
+     */
     public NPurchaseOrder() {
         this.setResizable(false);
         initComponents();
+        getProduct();
         getComboJob();
         getComboCategory();
     }
@@ -115,6 +142,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         createPurchaseOrderButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(923, 823));
         setResizable(false);
 
         expectedDate.setText("Expected Date");
@@ -155,7 +183,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(JobCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ShipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(expectedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,21 +246,29 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
         itemsSearchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Category", "Supplier", "Descpription", "MFC", "Size", "Price", "Quanitity"
+                "Category", "Supplier", "Descpription", "MFC", "Size", "Unit", "Price", "Quanitity"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(itemsSearchTable);
 
         n_u_product.setText("New Item");
@@ -256,7 +292,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(searchable)
                         .addGap(18, 18, 18)
@@ -303,11 +339,11 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Quantity", "Unit", "Supplier", "Description", "Size", "Unit Price", "Totals"
+                "Supplier", "Description", "Quantity", "Unit", "Size", "Unit Price", "Totals"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, true, true
+                false, false, true, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -332,14 +368,14 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(257, 257, 257)
                         .addComponent(createPurchaseOrderButton)
                         .addGap(45, 45, 45)
-                        .addComponent(itemsAddedDelete)))
-                .addContainerGap(893, Short.MAX_VALUE))
+                        .addComponent(itemsAddedDelete))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(874, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,9 +402,9 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );

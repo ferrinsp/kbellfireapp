@@ -10,6 +10,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema kbell
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `kbell` ;
+
 -- -----------------------------------------------------
 -- Schema kbell
 -- -----------------------------------------------------
@@ -28,20 +30,6 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`user` (
-  `userid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(16) NOT NULL,
-  `firstName` VARCHAR(25) NOT NULL,
-  `lastName` VARCHAR(25) NOT NULL,
-  `password` VARCHAR(32) NOT NULL,
-  PRIMARY KEY (`userid`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
 -- Table `kbell`.`job`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`job` (
@@ -53,8 +41,24 @@ CREATE TABLE IF NOT EXISTS `kbell`.`job` (
   `zip` VARCHAR(45) NOT NULL,
   `bidamount` INT(11) NULL DEFAULT '0',
   `status` VARCHAR(45) NOT NULL DEFAULT 'Active',
+  `comments` VARCHAR(120) NULL DEFAULT NULL,
   PRIMARY KEY (`jobid`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`user` (
+  `userid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(16) NOT NULL,
+  `name` VARCHAR(25) NOT NULL,
+  `password` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`userid`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -72,9 +76,10 @@ CREATE TABLE IF NOT EXISTS `kbell`.`supplier` (
   `phone` VARCHAR(45) NOT NULL,
   `fax` VARCHAR(45) NOT NULL,
   `terms` VARCHAR(45) NOT NULL,
+  `comments` VARCHAR(120) NULL DEFAULT NULL,
   PRIMARY KEY (`supplierid`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 108
+AUTO_INCREMENT = 101
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -99,8 +104,11 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
   PRIMARY KEY (`orderid`),
   INDEX `creator_idx` (`createdby` ASC),
   INDEX `supplier_idx` (`supplier` ASC),
-  INDEX `shipto_idx` (`shipto` ASC),
   INDEX `pojob_idx` (`job` ASC),
+  INDEX `shipjob_idx` (`shipto` ASC),
+  INDEX `shipjob_id` (`shipto` ASC),
+  INDEX `shipto_idx` (`shipto` ASC),
+  INDEX `pojob_id` (`job` ASC),
   CONSTRAINT `creator`
     FOREIGN KEY (`createdby`)
     REFERENCES `kbell`.`user` (`userid`)
@@ -111,17 +119,14 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
     REFERENCES `kbell`.`job` (`jobid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `shipto`
-    FOREIGN KEY (`shipto`)
-    REFERENCES `kbell`.`job` (`jobid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `supplier`
     FOREIGN KEY (`supplier`)
     REFERENCES `kbell`.`supplier` (`supplierid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+-- Increment may be determined later by user
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -139,20 +144,19 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
   `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `comments` VARCHAR(120) NULL DEFAULT NULL,
   PRIMARY KEY (`memoid`),
-  INDEX `poid_idx` (`poid` ASC),
   INDEX `poid_id` (`poid` ASC),
   INDEX `poid_idcm` (`poid` ASC),
   INDEX `supplierid_idcm` (`supplier` ASC),
   INDEX `createdby_idcm` (`createdby` ASC),
-  INDEX `jobcm_idx` (`job` ASC),
+  INDEX `cmjob_idx` (`job` ASC),
+  CONSTRAINT `cmjob`
+    FOREIGN KEY (`job`)
+    REFERENCES `kbell`.`job` (`jobid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `createdby`
     FOREIGN KEY (`createdby`)
     REFERENCES `kbell`.`user` (`userid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `jobcm`
-    FOREIGN KEY (`job`)
-    REFERENCES `kbell`.`job` (`jobid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `poid`
@@ -166,6 +170,8 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+-- Increment may be determined later by user
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -176,18 +182,27 @@ CREATE TABLE IF NOT EXISTS `kbell`.`product` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `category_id` SMALLINT(10) NOT NULL,
   `description` VARCHAR(64) NOT NULL,
-  `part_id` VARCHAR(15) NOT NULL,
-  `manufacturer` VARCHAR(15) NOT NULL,
-  `supplier` VARCHAR(15) NOT NULL,
+  `unitMeasure` VARCHAR(5) NOT NULL,
+  `part_id` VARCHAR(15) NULL DEFAULT NULL,
+  `manufacturer` VARCHAR(15) NULL DEFAULT NULL,
+  `supplier` SMALLINT(10) NOT NULL,
   `price` DECIMAL(10,2) NOT NULL,
   `size` VARCHAR(25) NULL DEFAULT '1 Each',
   `lastchange` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `category_id` (`category_id` ASC),
+  INDEX `supplier_idx` (`supplier` ASC),
+  INDEX `prodSupplier_idx` (`supplier` ASC),
+  CONSTRAINT `prodSupplier`
+    FOREIGN KEY (`supplier`)
+    REFERENCES `kbell`.`supplier` (`supplierid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `product_ibfk_2`
     FOREIGN KEY (`category_id`)
     REFERENCES `kbell`.`category` (`category_ID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -203,8 +218,8 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
   `tax` DECIMAL(10,2) NOT NULL,
   `total` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`detailid`),
-  INDEX `creditmemoid_idx` (`creditmemoid` ASC),
   INDEX `product_idx` (`product` ASC),
+  INDEX `credit_idx` (`creditmemoid` ASC),
   CONSTRAINT `credit`
     FOREIGN KEY (`creditmemoid`)
     REFERENCES `kbell`.`creditmemo` (`memoid`)
@@ -216,6 +231,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -227,12 +243,13 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
   `orderid` INT(11) NOT NULL,
   `product` INT(11) NOT NULL,
   `cost` DECIMAL(10,2) NOT NULL,
-  `qty` INT(11) NOT NULL,
+  `orderqty` INT(11) NOT NULL,
+  `receivedqty` INT(11) NOT NULL DEFAULT '0',
   `tax` DECIMAL(10,2) NOT NULL,
   `total` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`detailsid`),
-  INDEX `oderid_idx` (`orderid` ASC),
   INDEX `product_idx` (`product` ASC),
+  INDEX `poid_idx` (`orderid` ASC),
   CONSTRAINT `orderid`
     FOREIGN KEY (`orderid`)
     REFERENCES `kbell`.`purchaseorder` (`orderid`)
@@ -244,27 +261,36 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
--- Run this script to load suppliers
-LOAD DATA local INFILE 'C:/temp/supplier.csv'
-into table supplier
-FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n'
-(companyname, contact,address1,city,state,postalcode,phone,fax,terms);
 
+/*
 -- Run this script to load jobs
 LOAD DATA local INFILE 'C:/temp/job.csv'
-into table job
-FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n';
+ into table job
+ FIELDS TERMINATED BY ','
+ ENCLOSED BY '"'
+ LINES TERMINATED BY '\n'
+ (name, address, city, state, zip,bidamount,status);
 
 -- Run this script to load categories
 LOAD DATA local INFILE 'C:/temp/category.csv'
-into table category
-FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n';
+ into table category
+ FIELDS TERMINATED BY ','
+ ENCLOSED BY '"'
+ LINES TERMINATED BY '\n';
+
+-- Run this script to load sample of products
+LOAD DATA local INFILE 'C:/temp/testproduct.csv'
+ into table product
+ FIELDS TERMINATED BY ','
+ ENCLOSED BY '"'
+ LINES TERMINATED BY '\n'
+ (category_id,description,unitMeasure,part_id,manufacturer,supplier,price,size);
+
+*/
