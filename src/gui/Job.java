@@ -392,7 +392,7 @@ public class Job extends javax.swing.JFrame {
     }//GEN-LAST:event_saveJobActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_CancelActionPerformed
 
     /**
