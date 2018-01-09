@@ -27,21 +27,20 @@ public class NSupplier extends javax.swing.JFrame {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-        String query = "INSERT into supplier (supplierid,companyname,contact,address1,city,state,postalcode,phone,fax,terms,comments)"
-                + "values(?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT into supplier (companyname,contact,address1,city,state,postalcode,phone,fax,terms,comments)"
+                + "values(?,?,?,?,?,?,?,?,?,?)";
         //Get Values to insert
         PreparedStatement preparedStmt =connObj.prepareStatement(query);
-        preparedStmt.setInt    (1, Integer.parseInt(supplierid.getText()));
-        preparedStmt.setString (2, companyName.getText());
-        preparedStmt.setString (3, contact.getText());
-        preparedStmt.setString (4, address.getText());
-        preparedStmt.setString (5, city.getText());
-        preparedStmt.setString (6, state.getText());
-        preparedStmt.setString (7, postalCode.getText());
-        preparedStmt.setString (8, phone.getText());
-        preparedStmt.setString (9, fax.getText());
-        preparedStmt.setString (10, terms.getText());
-        preparedStmt.setString (11, comments.getText());
+        preparedStmt.setString (1, companyName.getText());
+        preparedStmt.setString (2, contact.getText());
+        preparedStmt.setString (3, address.getText());
+        preparedStmt.setString (4, city.getText());
+        preparedStmt.setString (5, state.getText());
+        preparedStmt.setString (6, postalCode.getText());
+        preparedStmt.setString (7, phone.getText());
+        preparedStmt.setString (8, fax.getText());
+        preparedStmt.setString (9, terms.getText());
+        preparedStmt.setString (1, comments.getText());
         preparedStmt.execute();
       
         connObj.close();
@@ -81,8 +80,6 @@ public class NSupplier extends javax.swing.JFrame {
         state = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         postalCode = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        supplierid = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -93,8 +90,8 @@ public class NSupplier extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         comments = new javax.swing.JTextArea();
         save_cancel_buttonpanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        saveSupplier = new javax.swing.JButton();
+        Cancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -168,18 +165,6 @@ public class NSupplier extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 postalCodeFocusLost(evt);
-            }
-        });
-
-        jLabel7.setText("Supplier ID");
-
-        supplierid.setText("Supplier ID");
-        supplierid.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                supplieridFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                supplieridFocusLost(evt);
             }
         });
 
@@ -265,14 +250,11 @@ public class NSupplier extends javax.swing.JFrame {
                             .addComponent(address)
                             .addComponent(city)))
                     .addGroup(new_vendor_panelLayout.createSequentialGroup()
-                        .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(supplierid)
                             .addComponent(companyName, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                             .addComponent(contact))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -280,11 +262,7 @@ public class NSupplier extends javax.swing.JFrame {
         new_vendor_panelLayout.setVerticalGroup(
             new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, new_vendor_panelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(supplierid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -324,20 +302,20 @@ public class NSupplier extends javax.swing.JFrame {
                 .addGroup(new_vendor_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Save");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        saveSupplier.setText("Save");
+        saveSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                saveSupplierActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Cancel.setText("Cancel");
+        Cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                CancelActionPerformed(evt);
             }
         });
 
@@ -347,9 +325,9 @@ public class NSupplier extends javax.swing.JFrame {
             save_cancel_buttonpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, save_cancel_buttonpanelLayout.createSequentialGroup()
                 .addContainerGap(116, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(saveSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(Cancel)
                 .addGap(116, 116, 116))
         );
         save_cancel_buttonpanelLayout.setVerticalGroup(
@@ -357,8 +335,8 @@ public class NSupplier extends javax.swing.JFrame {
             .addGroup(save_cancel_buttonpanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(save_cancel_buttonpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(Cancel)
+                    .addComponent(saveSupplier))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -404,15 +382,6 @@ public class NSupplier extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void supplieridFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplieridFocusGained
-        supplierid.setText("");
-    }//GEN-LAST:event_supplieridFocusGained
-
-    private void supplieridFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplieridFocusLost
-        if(supplierid.getText().equals(""))
-            supplierid.setText("Supplier ID");
-    }//GEN-LAST:event_supplieridFocusLost
 
     private void companyNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusGained
         companyName.setText("");
@@ -495,14 +464,14 @@ public class NSupplier extends javax.swing.JFrame {
             terms.setText("Terms");
     }//GEN-LAST:event_termsFocusLost
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void saveSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSupplierActionPerformed
         insertSupplier();
         //TODO: close Item window and return to another page---View supplier or main page.
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_saveSupplierActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_CancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -529,6 +498,7 @@ public class NSupplier extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(NSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -539,14 +509,13 @@ public class NSupplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cancel;
     private javax.swing.JTextField address;
     private javax.swing.JTextField city;
     private javax.swing.JTextArea comments;
     private javax.swing.JTextField companyName;
     private javax.swing.JTextField contact;
     private javax.swing.JTextField fax;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -555,7 +524,6 @@ public class NSupplier extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -564,9 +532,9 @@ public class NSupplier extends javax.swing.JFrame {
     private javax.swing.JPanel new_vendor_panel;
     private javax.swing.JTextField phone;
     private javax.swing.JTextField postalCode;
+    private javax.swing.JButton saveSupplier;
     private javax.swing.JPanel save_cancel_buttonpanel;
     private javax.swing.JTextField state;
-    private javax.swing.JTextField supplierid;
     private javax.swing.JTextField terms;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,8 +30,7 @@ public class VSupplier extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
-    
-        
+      
     public void getsuppliers()    {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -56,8 +55,6 @@ public class VSupplier extends javax.swing.JFrame {
     }
     }
 
-
-    
     // Declare and initialize list models for JLists
     private DefaultListModel<NSupplier> supplierModel = new DefaultListModel<>(); // Blessed be the diamond operator
     
@@ -161,7 +158,7 @@ public class VSupplier extends javax.swing.JFrame {
             .addGroup(Main_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
+                    .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 1031, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -181,7 +178,7 @@ public class VSupplier extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Main_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1051, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -230,13 +227,6 @@ public class VSupplier extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
