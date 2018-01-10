@@ -168,12 +168,38 @@ public class N_U_Item extends javax.swing.JFrame {
         sizeLabel.setText("Size");
 
         description.setText("Description");
+        description.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                descriptionFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                descriptionFocusLost(evt);
+            }
+        });
 
         mfcTextField.setText("Manufacturer");
+        mfcTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                mfcTextFieldFocusGained(evt);
+            }
+        });
 
         priceTextField.setText("Price");
+        priceTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                priceTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                priceTextFieldFocusLost(evt);
+            }
+        });
 
         sizeTextField.setText("Size");
+        sizeTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                sizeTextFieldFocusGained(evt);
+            }
+        });
 
         addNewItem.setText("Add Item");
         addNewItem.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +239,11 @@ public class N_U_Item extends javax.swing.JFrame {
         partLabel.setText("Part Number");
 
         partNumTextField.setText("Part Number");
+        partNumTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                partNumTextFieldFocusGained(evt);
+            }
+        });
 
         SupplierCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Supplier" }));
 
@@ -363,6 +394,36 @@ public class N_U_Item extends javax.swing.JFrame {
         insertProduct();
         // TODO add your handling code here:
     }//GEN-LAST:event_addNewItemActionPerformed
+
+    private void descriptionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descriptionFocusGained
+        description.setText("");
+    }//GEN-LAST:event_descriptionFocusGained
+
+    private void descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descriptionFocusLost
+        if (description.getText().equals(""))
+            description.setText("Description");
+    }//GEN-LAST:event_descriptionFocusLost
+
+    private void partNumTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_partNumTextFieldFocusGained
+        partNumTextField.setText("");
+    }//GEN-LAST:event_partNumTextFieldFocusGained
+
+    private void mfcTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mfcTextFieldFocusGained
+        mfcTextField.setText("");
+    }//GEN-LAST:event_mfcTextFieldFocusGained
+
+    private void priceTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_priceTextFieldFocusGained
+        priceTextField.setText("");
+    }//GEN-LAST:event_priceTextFieldFocusGained
+
+    private void priceTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_priceTextFieldFocusLost
+        if (priceTextField.getText().equals(""))
+            priceTextField.setText("Price");
+    }//GEN-LAST:event_priceTextFieldFocusLost
+
+    private void sizeTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sizeTextFieldFocusGained
+        sizeTextField.setText("");
+    }//GEN-LAST:event_sizeTextFieldFocusGained
 
     /**
      * @param args the command line arguments

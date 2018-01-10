@@ -459,25 +459,17 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) ItemsAddedTable.getModel();
         int[] index = ItemsAddedTable.getSelectedRows();
-        Object[] row = new Object[4];
-
-        if(index.length == -1){
+        if(index.length <= 0){
             JOptionPane.showMessageDialog(null, "No items selected");
         } else {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Confirm Deletion", dialogButton);
             if(dialogResult == 0) {
-              System.out.println("Yes");
-                    for(int i = 0; i < index.length; i++)
+                    for(int i = 0; i <index.length; i++)
                     {
-                        row[0] = model.getValueAt(index[i], 0);
-                        row[1] = model.getValueAt(index[i], 1);
-                        row[2] = model.getValueAt(index[i], 2);
-                        row[3] = model.getValueAt(index[i], 3);
+                        //Need to address multiple selections
                         model.removeRow(i);
                     }
-            } else {
-              System.out.println("No");
             } 
         }
     }//GEN-LAST:event_itemsAddedDeleteActionPerformed

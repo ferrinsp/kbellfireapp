@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JPanel" name="jPanel3">
 
@@ -195,21 +195,35 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Description"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="descriptionFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="descriptionFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="mfcTextField">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Manufacturer"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="mfcTextFieldFocusGained"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="priceTextField">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Price"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="priceTextFieldFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="priceTextFieldFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="sizeTextField">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Size"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="sizeTextFieldFocusGained"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel2">
 
@@ -266,6 +280,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Part Number"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="partNumTextFieldFocusGained"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="SupplierCombo">
               <Properties>
