@@ -10,7 +10,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema kbell
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `kbell` ;
 
 -- -----------------------------------------------------
 -- Schema kbell
@@ -52,13 +51,12 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `kbell`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`user` (
-  `userid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
+  `userid` SMALLINT(10) NOT NULL,
   `username` VARCHAR(16) NOT NULL,
   `name` VARCHAR(25) NOT NULL,
   `password` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`userid`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -125,7 +123,6 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
--- Increment may be determined later by user
 AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
@@ -170,8 +167,19 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
--- Increment may be determined later by user
-AUTO_INCREMENT = 1000
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`productdescription`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`productdescription` (
+  `pdescID` INT(10) NOT NULL AUTO_INCREMENT,
+  `productDescription` VARCHAR(45) NOT NULL,
+  `productsize` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`pdescID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -181,18 +189,24 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `kbell`.`product` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `category_id` SMALLINT(10) NOT NULL,
-  `description` VARCHAR(64) NOT NULL,
+  `description` INT(10) NOT NULL,
   `unitMeasure` VARCHAR(5) NOT NULL,
   `part_id` VARCHAR(15) NULL DEFAULT NULL,
   `manufacturer` VARCHAR(15) NULL DEFAULT NULL,
   `supplier` SMALLINT(10) NOT NULL,
   `price` DECIMAL(10,2) NOT NULL,
-  `size` VARCHAR(25) NULL DEFAULT '1 Each',
+  `status` VARCHAR(45) NULL DEFAULT 'Active',
   `lastchange` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `category_id` (`category_id` ASC),
   INDEX `supplier_idx` (`supplier` ASC),
   INDEX `prodSupplier_idx` (`supplier` ASC),
+  INDEX `prodDescript_idx` (`description` ASC),
+  CONSTRAINT `prodDescript`
+    FOREIGN KEY (`description`)
+    REFERENCES `kbell`.`productdescription` (`pdescID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `prodSupplier`
     FOREIGN KEY (`supplier`)
     REFERENCES `kbell`.`supplier` (`supplierid`)
@@ -231,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -261,13 +275,13 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 /*
 -- Run this script to load jobs
@@ -284,6 +298,14 @@ LOAD DATA local INFILE 'C:/temp/category.csv'
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
  LINES TERMINATED BY '\n';
+ 
+ -- Run this for product descriptions
+  LOAD DATA local INFILE 'C:/temp/prodDesc.csv'
+ into table productdescription
+ FIELDS TERMINATED BY ','
+ ENCLOSED BY '"'
+ LINES TERMINATED BY '\n'
+ (productDescription,productSize);
 
 -- Run this script to load sample of products
 LOAD DATA local INFILE 'C:/temp/testproduct.csv'
@@ -291,7 +313,7 @@ LOAD DATA local INFILE 'C:/temp/testproduct.csv'
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
  LINES TERMINATED BY '\n'
- (category_id,description,unitMeasure,part_id,manufacturer,supplier,price,size);
+ (category_id,description,unitMeasure,part_id,manufacturer,supplier,price,status);
 
 */
 

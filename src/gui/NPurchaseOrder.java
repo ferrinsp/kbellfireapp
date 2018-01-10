@@ -78,16 +78,12 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("Select c.description, s.companyname, p.description as pdescription, p.manufacturer,p.size,p.unitMeasure,p.price, 0 as 'Quantity'  from product p inner join\n" +
-            "category c on p.category_id =c.category_ID inner join supplier s on s.supplierid = p.supplier where p.price > 0.5 ORDER BY p.description, p.price;");
+            resultObj = stateObj.executeQuery("Select c.description, pd.productDescription as pdescription, pd.productsize, 0 as 'Quantity'  from product p inner join\n" +
+"category c on p.category_id =c.category_ID inner join productdescription pd on p.description = pd.pdescID ORDER BY p.description, p.price;");
             itemsSearchTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             itemsSearchTable.getColumn("description").setHeaderValue("Category");
-            itemsSearchTable.getColumn("companyname").setHeaderValue("Supplier");
             itemsSearchTable.getColumn("pdescription").setHeaderValue("Product Description");
-            itemsSearchTable.getColumn("manufacturer").setHeaderValue("Manufacturer");
-            itemsSearchTable.getColumn("size").setHeaderValue("Size");
-            itemsSearchTable.getColumn("unitMeasure").setHeaderValue("Unit");
-            itemsSearchTable.getColumn("price").setHeaderValue("Price");
+            itemsSearchTable.getColumn("productsize").setHeaderValue("Size");
             itemsSearchTable.repaint();
             connObj.close();
         }  catch (SQLException e) {
@@ -246,23 +242,23 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         itemsSearchTable.setAutoCreateRowSorter(true);
         itemsSearchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Category", "Supplier", "Descpription", "MFC", "Size", "Unit", "Price", "Quanitity"
+                "Category", "Description", "Size", "Quanitity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
