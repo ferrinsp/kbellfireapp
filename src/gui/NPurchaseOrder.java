@@ -243,6 +243,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
+        itemsSearchTable.setAutoCreateRowSorter(true);
         itemsSearchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -324,6 +325,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
+        ItemsAddedTable.setAutoCreateRowSorter(true);
         ItemsAddedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

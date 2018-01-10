@@ -104,6 +104,7 @@ public class VSupplier extends javax.swing.JFrame {
 
         view_supplier_list.setPreferredSize(new java.awt.Dimension(800, 402));
 
+        supplier.setAutoCreateRowSorter(true);
         supplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null}

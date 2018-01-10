@@ -76,6 +76,7 @@ public class AddItem extends javax.swing.JFrame {
             }
         });
 
+        categoryTable.setAutoCreateRowSorter(true);
         categoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},

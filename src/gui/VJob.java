@@ -70,6 +70,7 @@ public class VJob extends javax.swing.JFrame {
 
         TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
+        viewJob.setAutoCreateRowSorter(true);
         viewJob.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
