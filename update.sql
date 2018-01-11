@@ -290,6 +290,14 @@ LOAD DATA local INFILE 'C:/temp/job.csv'
  ENCLOSED BY '"'
  LINES TERMINATED BY '\n'
  (name, address, city, state, zip,bidamount,status);
+ 
+ -- Run this script to load contacts
+ LOAD DATA local INFILE 'C:/temp/contact.csv'
+ into table contact
+ FIELDS TERMINATED BY ','
+ ENCLOSED BY '"'
+ LINES TERMINATED BY '\n'
+ (name,phone);
 
 -- Run this script to load suppliers
 LOAD DATA local INFILE 'C:/temp/supplier.csv'

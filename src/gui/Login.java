@@ -18,11 +18,11 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        
+        /*
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
-        this.setSize(xsize, ysize);
+        this.setSize(xsize, ysize);*/
     }
 
     /**

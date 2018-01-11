@@ -34,35 +34,41 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
-    String [][] job = null;
     String [][] category = null;
+    String [][] contact= null;
+    String [][] job = null;
+    
     
     private List<PurchaseOrder> searchList = new ArrayList<>();
     private List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
     private DefaultListModel<PurchaseOrder> purchaseOrderModel = new DefaultListModel<>(); // Blessed be the diamond operator
 
-    private void getComboJob() {
-        try {
-            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+    
+    public int findCategory(String cat){
+        int index =-1;
+        for (int i=0;i<category.length;i++){
+            if(cat.equals(category[i][1]))
+                index =i;
+        }
+        
+        return index;
+    }
+    public int getDescription(String desc){
+        int index =-1;
+        try{
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
-            //Dynamically set supplier list size
-            resultObj.last();
-            job = new String[resultObj.getRow()][2];
-            resultObj.beforeFirst();
-            int i=0;
+            resultObj = stateObj.executeQuery("select pdescID from productdescription where productDescription LIKE '%"+desc+"%';");
             while (resultObj.next()){
-                job[i][0] =Integer.toString(resultObj.getInt("jobid"));
-                job[i][1]=resultObj.getString("name");
-                i++;
-                JobCombo.addItem(resultObj.getString("name"));
-                ShipToCombo.addItem(resultObj.getString("name"));
+                index =resultObj.getInt("pdescID");
             }
             connObj.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        return index;
     }
     private void getComboCategory() {
         try {
@@ -86,12 +92,78 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public void getProduct (){
+    private void getComboContact() {
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select contactid, name,phone from contact ORDER BY name;");
+            //Dynamically set contact list size
+            resultObj.last();
+            contact = new String[resultObj.getRow()][3];
+            resultObj.beforeFirst();
+            int i=0;
+            while (resultObj.next()){
+                contact[i][0] =Integer.toString(resultObj.getInt("contactid"));
+                contact[i][1]=resultObj.getString("name");
+                contact[i][2]=resultObj.getString("phone");
+                i++;
+                deliveryContactCombo.addItem(resultObj.getString("name")+" " + resultObj.getString("phone"));
+            }
+            connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private void getComboJob() {
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
+            //Dynamically set supplier list size
+            resultObj.last();
+            job = new String[resultObj.getRow()][2];
+            resultObj.beforeFirst();
+            int i=0;
+            while (resultObj.next()){
+                job[i][0] =Integer.toString(resultObj.getInt("jobid"));
+                job[i][1]=resultObj.getString("name");
+                i++;
+                JobCombo.addItem(resultObj.getString("name"));
+                ShipToCombo.addItem(resultObj.getString("name"));
+            }
+            connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void getProductDetails (int category, int description){
         try {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select c.description, pd.productDescription as pdescription, pd.productsize, 0 as 'Quantity'  from product p inner join category c on p.category_id =c.category_ID inner join productdescription pd on p.description = pd.pdescID ORDER BY p.description, p.price;");
+            resultObj = stateObj.executeQuery("select s.companyname, p.unitMeasure,part_id,manufacturer, p.price, 0 as 'Quantity' from product p \n" +
+"inner join supplier s on p.supplier =s.supplierid  INNER JOIN productdescription pd on pd.pdescID = p.description \n" +
+"inner join category c on c.category_ID=p.category_id where p.description ="+description +" and p.category_id="+category+" and p.price>0 order by p.price;");
+            PriceTable.setModel(DbUtils.resultSetToTableModel(resultObj));
+            PriceTable.getColumn("companyname").setHeaderValue("Supplier");
+            PriceTable.getColumn("unitMeasure").setHeaderValue("Unit");
+            PriceTable.getColumn("part_id").setHeaderValue("Part ID");
+            PriceTable.getColumn("manufacturer").setHeaderValue("MFC");
+            PriceTable.getColumn("price").setHeaderValue("Unit Price");
+            PriceTable.repaint();
+            connObj.close();
+        }  catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void getProductHeader (){
+        try {
+    //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select DISTINCT c.description, pd.productDescription as pdescription, pd.productsize from product p inner join category c on p.category_id =c.category_ID inner join productdescription pd on p.description = pd.pdescID ORDER BY p.description;");
             itemsSearchTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             itemsSearchTable.getColumn("description").setHeaderValue("Category");
             itemsSearchTable.getColumn("pdescription").setHeaderValue("Product Description");
@@ -109,9 +181,15 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     public NPurchaseOrder() {
         this.setResizable(false);
         initComponents();
-        getProduct();
+        getProductHeader();
         getComboJob();
         getComboCategory();
+        getComboContact();
+        
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xsize = (int) tk.getScreenSize().getWidth();
+        int ysize = (int) tk.getScreenSize().getHeight();
+        this.setSize(xsize, ysize);
     }
 
     /**
@@ -132,6 +210,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         JobCombo = new javax.swing.JComboBox<>();
         expectedDatePicker = new org.jdesktop.swingx.JXDatePicker();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        deliveryContactCombo = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -139,6 +219,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         CategoryList = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         itemsSearchTable = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        PriceTable = new javax.swing.JTable();
         n_u_product = new javax.swing.JButton();
         addItemToPO = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -162,6 +244,10 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
         jLabel3.setText("Expected Date");
 
+        jLabel4.setText("Delivery Contact");
+
+        deliveryContactCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Delivery Contact" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -175,26 +261,33 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(JobCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ShipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(expectedDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(expectedDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(deliveryContactCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JobCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(expectedDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(JobCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
+                        .addComponent(expectedDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ShipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(deliveryContactCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout newPurchaseOrderTabLayout = new javax.swing.GroupLayout(newPurchaseOrderTab);
@@ -236,30 +329,73 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         itemsSearchTable.setAutoCreateRowSorter(true);
         itemsSearchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Category", "Description", "Size", "Quanitity"
+                "Category", "Description", "Size"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        itemsSearchTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemsSearchTableMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(itemsSearchTable);
+
+        PriceTable.setAutoCreateRowSorter(true);
+        PriceTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Supplier", "Part ID", "MFC", "Unit", "Qty", "Unit Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(PriceTable);
 
         n_u_product.setText("New Item");
         n_u_product.addActionListener(new java.awt.event.ActionListener() {
@@ -279,21 +415,23 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(searchField)
-                        .addGap(18, 18, 18)
-                        .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addItemToPO)
                 .addGap(18, 18, 18)
                 .addComponent(n_u_product)
-                .addGap(348, 348, 348))
+                .addGap(62, 62, 62))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,7 +441,9 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addItemToPO)
@@ -464,6 +604,18 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchFieldMouseClicked
 
+    private void itemsSearchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemsSearchTableMouseClicked
+        //Find out how to get values from the table to PriceTable and ulitmately to items to PO table
+        //Call getProductDetails  getProductDetails(category, description);
+        int row = itemsSearchTable.getSelectedRow();
+        int index =0;
+        //index=findCategory(itemsSearchTable.getModel().getValueAt(row, 0).toString());
+        System.out.println("index is "+index);
+        System.out.println(itemsSearchTable.getModel().getValueAt(row, 0).toString() + itemsSearchTable.getModel().getValueAt(row, 1).toString() );
+        getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(row, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(row, 1).toString()));
+        
+    }//GEN-LAST:event_itemsSearchTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -502,9 +654,11 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CategoryList;
     private javax.swing.JTable ItemsAddedTable;
     private javax.swing.JComboBox<String> JobCombo;
+    private javax.swing.JTable PriceTable;
     private javax.swing.JComboBox<String> ShipToCombo;
     private javax.swing.JButton addItemToPO;
     private javax.swing.JButton createPurchaseOrderButton;
+    private javax.swing.JComboBox<String> deliveryContactCombo;
     private org.jdesktop.swingx.JXDatePicker expectedDatePicker;
     private javax.swing.JButton itemsAddedDelete;
     private javax.swing.JTabbedPane itemsAddedToPO;
@@ -512,6 +666,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -519,6 +674,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JButton n_u_product;
