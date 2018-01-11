@@ -99,6 +99,7 @@ public class MainPage extends javax.swing.JFrame {
         About = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("KBell Plumbing");
         setName("MainFrame"); // NOI18N
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/KBellLogo.png"))); // NOI18N

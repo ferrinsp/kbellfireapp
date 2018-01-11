@@ -10,6 +10,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema kbell
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `kbell` ;
 
 -- -----------------------------------------------------
 -- Schema kbell
@@ -25,6 +26,19 @@ CREATE TABLE IF NOT EXISTS `kbell`.`category` (
   `description` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`category_ID`))
 ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`contact`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`contact` (
+  `contactid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`contactid`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -89,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
   `supplier` SMALLINT(10) NOT NULL,
   `job` INT(11) NOT NULL,
   `expectedby` DATETIME NULL DEFAULT NULL,
-  `contact` VARCHAR(45) NULL DEFAULT NULL,
+  `contact` SMALLINT(10) NOT NULL,
   `quote` INT(11) NULL DEFAULT NULL,
   `quotedate` DATETIME NULL DEFAULT NULL,
   `tax` DECIMAL(10,2) NOT NULL,
@@ -107,6 +121,12 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
   INDEX `shipjob_id` (`shipto` ASC),
   INDEX `shipto_idx` (`shipto` ASC),
   INDEX `pojob_id` (`job` ASC),
+  INDEX `contact_idx` (`contact` ASC),
+  CONSTRAINT `contact`
+    FOREIGN KEY (`contact`)
+    REFERENCES `kbell`.`contact` (`contactid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `creator`
     FOREIGN KEY (`createdby`)
     REFERENCES `kbell`.`user` (`userid`)
@@ -167,6 +187,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -245,7 +266,6 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -275,8 +295,8 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

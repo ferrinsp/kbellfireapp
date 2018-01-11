@@ -131,4 +131,38 @@ ADD CONSTRAINT `prodSupplier`
   REFERENCES `kbell`.`supplier` (`supplierid`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+  
+-- 1/9/18
+ALTER TABLE `kbell`.`product` 
+ADD COLUMN `unitMeasure` VARCHAR(5) NOT NULL AFTER `description`;
 
+LOAD DATA local INFILE 'C:/temp/contact.csv'
+ into table contact
+ FIELDS TERMINATED BY ','
+ ENCLOSED BY '"'
+ LINES TERMINATED BY '\n'
+ (name,phone);
+ 
+CREATE TABLE `kbell`.`productdescription` (
+  `pdescID` INT(10) NOT NULL AUTO_INCREMENT,
+  `productDescription` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`pdescID`));
+ALTER TABLE `kbell`.`productdescription` 
+ADD COLUMN `productsize` VARCHAR(45) NULL AFTER `productDescription`;
+
+-- 1/11/18  Added contact table/po information
+CREATE TABLE `kbell`.`contact` (
+  `contactid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`contactid`));
+  
+ALTER TABLE `kbell`.`purchaseorder` 
+CHANGE COLUMN `contact` `contact` SMALLINT(10) NOT NULL ,
+ADD INDEX `contact_idx` (`contact` ASC);
+ALTER TABLE `kbell`.`purchaseorder` 
+ADD CONSTRAINT `contact`
+  FOREIGN KEY (`contact`)
+  REFERENCES `kbell`.`contact` (`contactid`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
