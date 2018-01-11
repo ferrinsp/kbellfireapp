@@ -283,7 +283,6 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
-/*
 -- Run this script to load jobs
 LOAD DATA local INFILE 'C:/temp/job.csv'
  into table job
@@ -291,6 +290,13 @@ LOAD DATA local INFILE 'C:/temp/job.csv'
  ENCLOSED BY '"'
  LINES TERMINATED BY '\n'
  (name, address, city, state, zip,bidamount,status);
+
+-- Run this script to load suppliers
+LOAD DATA local INFILE 'C:/temp/supplier.csv'
+ into table supplier
+ FIELDS TERMINATED BY ','
+ ENCLOSED BY '"'
+ LINES TERMINATED BY '\n';
 
 -- Run this script to load categories
 LOAD DATA local INFILE 'C:/temp/category.csv'
@@ -314,6 +320,4 @@ LOAD DATA local INFILE 'C:/temp/testproduct.csv'
  ENCLOSED BY '"'
  LINES TERMINATED BY '\n'
  (category_id,description,unitMeasure,part_id,manufacturer,supplier,price,status);
-
-*/
 

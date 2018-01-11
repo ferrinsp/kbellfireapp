@@ -6,6 +6,7 @@
 package gui;
 
 import java.awt.Toolkit;
+import kbapp.classes.PurchaseOrder;
 
 /**
  *
@@ -160,6 +161,7 @@ public class AddItem extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CategoryListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoryListActionPerformed
