@@ -143,7 +143,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select s.companyname, p.unitMeasure,part_id,manufacturer, p.price, 0 as 'Quantity' from product p \n" +
+            resultObj = stateObj.executeQuery("select s.companyname, p.unitMeasure,manufacturer, part_id, p.price, 0 as 'Quantity' from product p \n" +
 "inner join supplier s on p.supplier =s.supplierid  INNER JOIN productdescription pd on pd.pdescID = p.description \n" +
 "inner join category c on c.category_ID=p.category_id where p.description ="+description +" and p.category_id="+category+" and p.price>0 order by p.price;");
             PriceTable.setModel(DbUtils.resultSetToTableModel(resultObj));
@@ -377,14 +377,14 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Supplier", "Part ID", "MFC", "Unit", "Qty", "Unit Price"
+                "Supplier", "MFC", "Part ID", "Unit", "Qty", "Unit Price"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, true, true
+                false, false, true, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -461,11 +461,11 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Supplier", "Description", "Quantity", "Unit", "Size", "Unit Price", "Totals"
+                "Supplier", "Description", "MFC", "Part ID", "Quantity", "Unit", "Unit Price", "Totals"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false, true, true
+                false, false, false, false, true, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -488,16 +488,15 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addComponent(createPurchaseOrderButton)
-                        .addGap(45, 45, 45)
-                        .addComponent(itemsAddedDelete)))
-                .addContainerGap(836, Short.MAX_VALUE))
+                .addGap(375, 375, 375)
+                .addComponent(createPurchaseOrderButton)
+                .addGap(18, 18, 18)
+                .addComponent(itemsAddedDelete)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(106, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(811, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,22 +546,28 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
         TableModel model1 = itemsSearchTable.getModel();
         int[] index = itemsSearchTable.getSelectedRows();
-        Object[] row = new Object[7];
-        DefaultTableModel model2 = (DefaultTableModel) ItemsAddedTable.getModel();           
-
-        for(int i = 0; i < index.length; i++)
-        {
-            Double total;
-            row[0] = model1.getValueAt(index[i], 1);
-            row[1] = model1.getValueAt(index[i], 2);
-            row[2] = model1.getValueAt(index[i], 7);
-            row[3] = model1.getValueAt(index[i], 5);
-            row[4] = model1.getValueAt(index[i], 4);
-            row[5] = model1.getValueAt(index[i], 6);
-            total = Double.parseDouble(row[2].toString()) * Double.parseDouble(row[5].toString());
-            row[6] = Double.toString(total); 
-            model2.addRow(row); 
+        TableModel model2 = PriceTable.getModel();
+        int[] index2 = PriceTable.getSelectedRows();
+        Object[] row = new Object[8];
+        DefaultTableModel model3 = (DefaultTableModel) ItemsAddedTable.getModel();
+        if(index.length > 1 || index2.length >1){
+            JOptionPane.showMessageDialog(null, "Please only select one row to add.");
         }
+        else{
+            
+                Double total;
+                row[0] = model2.getValueAt(index2[0], 0); //supplier
+                row[1] = model1.getValueAt(index[0], 1); //description
+                row[2] = model2.getValueAt(index2[0], 2);//MFC
+                row[3] = model2.getValueAt(index2[0], 3);//Part ID
+                row[4] = model2.getValueAt(index2[0], 5); //qty
+                row[5] = model2.getValueAt(index2[0], 1);  //Unit Of Measure
+                row[6] = model2.getValueAt(index2[0], 4);  //Unit Price
+                total = Double.parseDouble(row[4].toString()) * Double.parseDouble(row[6].toString());
+                row[7] = Double.toString(total);  // Total
+                model3.addRow(row); 
+            
+                    }
     }//GEN-LAST:event_addItemToPOActionPerformed
 
     private void n_u_productActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n_u_productActionPerformed
@@ -605,15 +610,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldMouseClicked
 
     private void itemsSearchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemsSearchTableMouseClicked
-        //Find out how to get values from the table to PriceTable and ulitmately to items to PO table
-        //Call getProductDetails  getProductDetails(category, description);
         int row = itemsSearchTable.getSelectedRow();
-        int index =0;
-        //index=findCategory(itemsSearchTable.getModel().getValueAt(row, 0).toString());
-        System.out.println("index is "+index);
-        System.out.println(itemsSearchTable.getModel().getValueAt(row, 0).toString() + itemsSearchTable.getModel().getValueAt(row, 1).toString() );
         getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(row, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(row, 1).toString()));
-        
     }//GEN-LAST:event_itemsSearchTableMouseClicked
 
     /**
