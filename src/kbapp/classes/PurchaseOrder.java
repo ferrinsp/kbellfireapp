@@ -12,7 +12,7 @@ import kbapp.classes.*;
  *
  * @author ferrinsp
  */
-public class purchaseOrder {
+public class PurchaseOrder {
     
         public String purchaseOrderNum; 
         public String jobSite;
