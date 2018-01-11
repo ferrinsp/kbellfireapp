@@ -130,6 +130,7 @@ public class VJob extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewJobCloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewJobCloseButtonActionPerformed
