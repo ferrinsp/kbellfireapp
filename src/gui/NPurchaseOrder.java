@@ -541,18 +541,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
         TableModel original = ItemsAddedTable.getModel();
         DefaultTableModel model = new DefaultTableModel(ItemsAddedTable.getSelectedRowCount(), original.getColumnCount());
-        for (int col = 0; col < original.getColumnCount(); col++) {
-            model.addColumn(original.getColumnName(col));
-        }
-        
-        int[] selectedRows = ItemsAddedTable.getSelectedRows();
-        for (int targetRow = 0; targetRow < selectedRows.length; targetRow++) {
-            int row = selectedRows[targetRow];
-            int modelRow = ItemsAddedTable.convertRowIndexToModel(row);
-            for (int col = 0; col < original.getColumnCount(); col++) {
-                model.setValueAt(original.getValueAt(modelRow, col), targetRow, col);
-            }   
-        }
         PreviewPurchaseOrder previewScreen = new PreviewPurchaseOrder(model);
         previewScreen.setVisible(true);
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
