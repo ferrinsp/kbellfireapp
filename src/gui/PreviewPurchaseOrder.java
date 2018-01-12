@@ -5,12 +5,20 @@
  */
 package gui;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
@@ -37,14 +45,31 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         getComboJob();
         getComboContact();
         getComboSupplier();
+        getItemsTable();
     }
-    
-    public PreviewPurchaseOrder(Vector[][] v) {
-        initComponents();
-        DefaultTableModel newModel = (DefaultTableModel) previewItemsAddedTable.getModel();
-        newModel.addRow(v[0]);
-    }
-    
+        
+    public void getItemsTable() {
+        BufferedReader bfw = null;
+        try {
+            DefaultTableModel tm = (DefaultTableModel) previewItemsAddedTable.getModel();
+            bfw = new BufferedReader(new FileReader("C:\\temp\\ItemsAddedData.txt"));
+            for (int i = 0 ; i < previewItemsAddedTable.getRowCount(); i++)
+            {
+                String line;
+                while( (line = bfw.readLine() ) != null ) {   
+                    tm.addRow( line.split("\t") );
+                }
+            }   bfw.close();
+        } catch (Exception ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                bfw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }   
     
     private void getComboContact() {
         try {

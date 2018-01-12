@@ -549,71 +549,33 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldKeyPressed
 
     private void previewPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewPurchaseOrderButtonActionPerformed
-        DefaultTableModel model = (DefaultTableModel) ItemsAddedTable.getModel();
-//        int row = model.getRowCount();
-//        int column = model.getColumnCount();
-//        Vector[][] v = new Vector[row][column];
-//        
-//        for(int i = 0; i < row; i++) {
-//            for (int j = 0; j < column; j++) {
-//                v[i][j].equals(model.getValueAt(i, j));
-//            }
-//        }
-
-        BufferedWriter bfw = null; 
+        BufferedWriter bfw = null;      
         try {
-            bfw = new BufferedWriter(new FileWriter("C:\\temp\\ItemsAddedData.txt"));        
-            for (int i = 0; i < ItemsAddedTable.getColumnCount(); i++) {//first loop is used for titles of each column
-                String name = String.valueOf(ItemsAddedTable.getColumnName(i));
-                if (name.length() > 20) {//20 (characters long) is the constant I chose to make each value
-                    name = name.substring(0, 20);
-                } else if (name.length() == 20) {
-                } else {
-                    String spaces = "";
-                    int diff = 20 - name.length();
-                    while (diff > 0) {
-                        spaces = spaces + " ";
-                        diff--;
-                    }
-                    name = name.concat(spaces);
-                }                
-                bfw.write(name);
+            bfw = new BufferedWriter(new FileWriter("C:\\temp\\ItemsAddedData.txt"));
+            for(int i = 0 ; i < ItemsAddedTable.getColumnCount() ; i++)
+            {
+                bfw.write(ItemsAddedTable.getColumnName(i));
                 bfw.write("\t");
             }
-            for (int i = 0; i < ItemsAddedTable.getRowCount(); i++) {//for all the data in the Jtable excluding column headers
+            for (int i = 0 ; i < ItemsAddedTable.getRowCount(); i++)
+            {
                 bfw.newLine();
-                for (int j = 0; j < ItemsAddedTable.getColumnCount(); j++) {
-                    if (ItemsAddedTable.getValueAt(i, j) == null) {
-                        bfw.write("                    ");
-                        bfw.write("\t");
-                    }
-                    else {
-                        String name = String.valueOf((ItemsAddedTable.getValueAt(i, j)));
-                        if (name.contains("(")) {
-                            name = name.substring(0, name.indexOf("("));
-                        }
-                        if (name.length() > 20) {
-                            name = name.substring(0, 20);
-                        } else if (name.length() == 20) {
-                        } else {
-                            String spaces = "";
-                            int diff = 20 - name.length();
-                            while (diff > 0) {
-                                spaces = spaces + " ";
-                                diff--;
-                            }
-                            name = name.concat(spaces);
-                        }
-                        bfw.write(name);
-                        bfw.write("\t");
-                    }
-                }  
+                for(int j = 0 ; j < ItemsAddedTable.getColumnCount();j++)
+                {
+                    bfw.write((String)(ItemsAddedTable.getValueAt(i,j)));
+                    bfw.write("\t");;
+                }
             }
+            bfw.close();   
         } catch (IOException ex) {
-        Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                bfw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        //PreviewPurchaseOrder previewScreen = new PreviewPurchaseOrder(v);
-        //previewScreen.setVisible(true);
     }//GEN-LAST:event_previewPurchaseOrderButtonActionPerformed
 
     private void itemsSearchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemsSearchTableKeyPressed
