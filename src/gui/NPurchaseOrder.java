@@ -5,7 +5,6 @@
  */
 package gui;
 
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -550,7 +549,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }   
         }
         PreviewPurchaseOrder previewScreen = new PreviewPurchaseOrder(model);
-        previewScreen.getPOItems(model);
+        previewScreen.setVisible(true);
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
     /**

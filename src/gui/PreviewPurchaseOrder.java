@@ -5,7 +5,6 @@
  */
 package gui;
 
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -41,12 +40,9 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     
     public PreviewPurchaseOrder(DefaultTableModel itemsAddedTable) {
         initComponents();
+        previewItemsAddedTable.setModel(itemsAddedTable);
     }
     
-    public void getPOItems(DefaultTableModel ItemsAddedTable) {
-        DefaultTableModel preview = (DefaultTableModel) previewItemsAddedTable.getModel();
-        preview = ItemsAddedTable;
-    }
     
     private void getComboContact() {
         try {
