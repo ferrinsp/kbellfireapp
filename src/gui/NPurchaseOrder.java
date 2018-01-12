@@ -197,6 +197,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         itemsAddedDelete = new javax.swing.JButton();
         createPurchaseOrderButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         ItemsAddedTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -364,17 +365,15 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
-        createPurchaseOrderButton.setText("Create Purchase Order");
+        createPurchaseOrderButton.setText("Preview Purchase Order");
+        createPurchaseOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPurchaseOrderButtonActionPerformed(evt);
+            }
+        });
 
-        ItemsAddedTable.setAutoCreateRowSorter(true);
         ItemsAddedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -385,35 +384,36 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, true, true
+                false, false, false, false, true, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        ItemsAddedTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(ItemsAddedTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(createPurchaseOrderButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(itemsAddedDelete))
-                    .addComponent(ItemsAddedTable, javax.swing.GroupLayout.PREFERRED_SIZE, 919, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(691, 691, 691)
+                .addComponent(createPurchaseOrderButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(itemsAddedDelete)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ItemsAddedTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(itemsAddedDelete)
                     .addComponent(createPurchaseOrderButton))
@@ -446,7 +446,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itemsAddedToPO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -476,7 +476,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 total = Double.parseDouble(row[4].toString()) * Double.parseDouble(row[6].toString());
                 row[7] = Double.toString(total);  // Total
                 model3.addRow(row); 
-            
             }
     }//GEN-LAST:event_addItemToPOActionPerformed
 
@@ -541,6 +540,13 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchFieldKeyPressed
 
+    private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) ItemsAddedTable.getModel();
+        PreviewPurchaseOrder preview = new PreviewPurchaseOrder();
+        preview.getPOItems(model);
+        preview.setVisible(true);        
+    }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -587,6 +593,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JTable itemsSearchTable;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane2;
