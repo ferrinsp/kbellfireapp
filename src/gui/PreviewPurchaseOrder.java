@@ -40,12 +40,9 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     
     public PreviewPurchaseOrder(DefaultTableModel itemsAddedTable) {
         initComponents();
+        previewItemsAddedTable.setModel(itemsAddedTable);
     }
     
-    public void getPOItems(DefaultTableModel ItemsAddedTable) {
-        DefaultTableModel preview = (DefaultTableModel) previewItemsAddedTable.getModel();
-        preview = ItemsAddedTable;
-    }
     
     private void getComboContact() {
         try {
