@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import static java.time.Instant.now;
+import java.util.Date;
 
 /**
  *
@@ -25,6 +28,7 @@ public class N_U_Item extends javax.swing.JFrame {
     ResultSet resultObj = null;
     String [][] supplier = null;
     String [][] category = null;
+    String [][] description= null;
     
     private void getComboSupplier() {
         try {
@@ -70,7 +74,29 @@ public class N_U_Item extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }    
+    } 
+    public void getDescriptionCombo(){
+       
+        try{
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select pdescID, productDescription from productdescription order by productDescription ;");
+            resultObj.last();
+            description = new String[resultObj.getRow()][2];
+            resultObj.first();
+            int i=0;
+            while (resultObj.next()){
+                description[i][0] =Integer.toString(resultObj.getInt("pdescID"));
+                description[i][1]=resultObj.getString("productDescription");
+                i++;
+                descriptionCombo.addItem(resultObj.getString("productDescription"));
+            }
+            connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void insertProduct() {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -79,9 +105,12 @@ public class N_U_Item extends javax.swing.JFrame {
                 + "values(?,?,?,?,?,?,?)";
         //Get Values to insert
         PreparedStatement preparedStmt =connObj.prepareStatement(query);
+        /*
         //May want a drop down for this
+        //Needs to get INT value for indexes not the string in the combobox
         //preparedStmt.setInt    (1, Integer.parseInt(category.getText()));
-        preparedStmt.setString (2, description.getText());
+        //preparedStmt.setString (2, (String)descriptionCombo.getSelectedItem());
+        */
         preparedStmt.setString (3, partNumTextField.getText());
         preparedStmt.setString (4, mfcTextField.getText());
         //May need to update to have dropdown for this
@@ -102,8 +131,9 @@ public class N_U_Item extends javax.swing.JFrame {
     public N_U_Item() {
         this.setResizable(false);
         initComponents();
-        getComboSupplier();
         getComboCategory();
+        getDescriptionCombo();
+        getComboSupplier();
     }
 
     /**
@@ -115,7 +145,7 @@ public class N_U_Item extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
+        statusGroup = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         descriptionLabel = new javax.swing.JLabel();
@@ -124,7 +154,6 @@ public class N_U_Item extends javax.swing.JFrame {
         mfcLabel = new javax.swing.JLabel();
         priceLabel = new javax.swing.JLabel();
         sizeLabel = new javax.swing.JLabel();
-        description = new javax.swing.JTextField();
         mfcTextField = new javax.swing.JTextField();
         priceTextField = new javax.swing.JTextField();
         sizeTextField = new javax.swing.JTextField();
@@ -137,21 +166,16 @@ public class N_U_Item extends javax.swing.JFrame {
         CategoryCombo = new javax.swing.JComboBox<>();
         sizeLabel1 = new javax.swing.JLabel();
         unitMeasure = new javax.swing.JComboBox<>();
+        descriptionCombo = new javax.swing.JComboBox<>();
+        status = new javax.swing.JLabel();
+        rdbActive = new javax.swing.JRadioButton();
+        rdbInactive = new javax.swing.JRadioButton();
+        status1 = new javax.swing.JLabel();
+        lastChanged = new org.jdesktop.swingx.JXDatePicker();
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Items");
@@ -167,16 +191,6 @@ public class N_U_Item extends javax.swing.JFrame {
         priceLabel.setText("Price");
 
         sizeLabel.setText("Size");
-
-        description.setText("Description");
-        description.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                descriptionFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                descriptionFocusLost(evt);
-            }
-        });
 
         mfcTextField.setText("Manufacturer");
         mfcTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -225,7 +239,7 @@ public class N_U_Item extends javax.swing.JFrame {
                 .addComponent(addNewItem)
                 .addGap(45, 45, 45)
                 .addComponent(cancelAdd)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(374, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,6 +268,22 @@ public class N_U_Item extends javax.swing.JFrame {
 
         unitMeasure.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bndl", "Box", "Ea", "Ft", "Lift", "Roll" }));
 
+        descriptionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Description" }));
+
+        status.setText("Status");
+
+        statusGroup.add(rdbActive);
+        rdbActive.setSelected(true);
+        rdbActive.setText("Active");
+
+        statusGroup.add(rdbInactive);
+        rdbInactive.setText("Inactive");
+
+        status1.setText("Status");
+
+        Date date = new Date();
+        lastChanged.setDate(date);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -262,26 +292,38 @@ public class N_U_Item extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(221, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(sizeLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(sizeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(priceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(supplierLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mfcLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(categoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addComponent(partLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SupplierCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(priceTextField)
-                    .addComponent(description, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addComponent(mfcTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addComponent(partNumTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addComponent(sizeTextField)
-                    .addComponent(CategoryCombo, 0, 299, Short.MAX_VALUE)
-                    .addComponent(unitMeasure, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(status1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lastChanged, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdbActive)
+                        .addGap(18, 18, 18)
+                        .addComponent(rdbInactive))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(sizeLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(sizeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(priceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(supplierLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(mfcLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(categoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                            .addComponent(partLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(SupplierCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(priceTextField)
+                            .addComponent(mfcTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                            .addComponent(partNumTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                            .addComponent(sizeTextField)
+                            .addComponent(CategoryCombo, 0, 299, Short.MAX_VALUE)
+                            .addComponent(unitMeasure, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(descriptionCombo, 0, 299, Short.MAX_VALUE))))
                 .addGap(178, 178, 178))
         );
         jPanel1Layout.setVerticalGroup(
@@ -294,7 +336,7 @@ public class N_U_Item extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descriptionLabel)
-                    .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(descriptionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(partLabel)
@@ -319,9 +361,18 @@ public class N_U_Item extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sizeLabel1)
                     .addComponent(unitMeasure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbActive)
+                    .addComponent(rdbInactive))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(status1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lastChanged, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Add New Item", jPanel1);
@@ -364,8 +415,8 @@ public class N_U_Item extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -402,15 +453,6 @@ public class N_U_Item extends javax.swing.JFrame {
         insertProduct();
         // TODO add your handling code here:
     }//GEN-LAST:event_addNewItemActionPerformed
-
-    private void descriptionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descriptionFocusGained
-        description.setText("");
-    }//GEN-LAST:event_descriptionFocusGained
-
-    private void descriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descriptionFocusLost
-        if (description.getText().equals(""))
-            description.setText("Description");
-    }//GEN-LAST:event_descriptionFocusLost
 
     private void partNumTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_partNumTextFieldFocusGained
         partNumTextField.setText("");
@@ -473,25 +515,30 @@ public class N_U_Item extends javax.swing.JFrame {
     private javax.swing.JButton addNewItem;
     private javax.swing.JButton cancelAdd;
     private javax.swing.JLabel categoryLabel;
-    private javax.swing.JTextField description;
+    private javax.swing.JComboBox<String> descriptionCombo;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
+    private org.jdesktop.swingx.JXDatePicker lastChanged;
     private javax.swing.JLabel mfcLabel;
     private javax.swing.JTextField mfcTextField;
     private javax.swing.JLabel partLabel;
     private javax.swing.JTextField partNumTextField;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JTextField priceTextField;
+    private javax.swing.JRadioButton rdbActive;
+    private javax.swing.JRadioButton rdbInactive;
     private javax.swing.JLabel sizeLabel;
     private javax.swing.JLabel sizeLabel1;
     private javax.swing.JTextField sizeTextField;
+    private javax.swing.JLabel status;
+    private javax.swing.JLabel status1;
+    private javax.swing.ButtonGroup statusGroup;
     private javax.swing.JLabel supplierLabel;
     private javax.swing.JComboBox<String> unitMeasure;
     // End of variables declaration//GEN-END:variables

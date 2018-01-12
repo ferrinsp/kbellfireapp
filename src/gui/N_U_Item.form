@@ -2,21 +2,8 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Container class="javax.swing.JPanel" name="jPanel3">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-    </Container>
+    <Component class="javax.swing.ButtonGroup" name="statusGroup">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -85,27 +72,43 @@
                       <Component id="jPanel2" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="221" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="sizeLabel1" max="32767" attributes="0"/>
-                          <Component id="sizeLabel" alignment="0" max="32767" attributes="0"/>
-                          <Component id="priceLabel" alignment="1" max="32767" attributes="0"/>
-                          <Component id="supplierLabel" alignment="1" max="32767" attributes="0"/>
-                          <Component id="mfcLabel" alignment="1" max="32767" attributes="0"/>
-                          <Component id="descriptionLabel" alignment="1" max="32767" attributes="0"/>
-                          <Component id="categoryLabel" alignment="1" pref="90" max="32767" attributes="0"/>
-                          <Component id="partLabel" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="SupplierCombo" max="32767" attributes="0"/>
-                          <Component id="priceTextField" max="32767" attributes="0"/>
-                          <Component id="description" alignment="0" pref="299" max="32767" attributes="0"/>
-                          <Component id="mfcTextField" alignment="0" pref="299" max="32767" attributes="0"/>
-                          <Component id="partNumTextField" alignment="0" pref="299" max="32767" attributes="0"/>
-                          <Component id="sizeTextField" alignment="0" max="32767" attributes="0"/>
-                          <Component id="CategoryCombo" pref="299" max="32767" attributes="0"/>
-                          <Component id="unitMeasure" max="32767" attributes="0"/>
+                      <EmptySpace pref="261" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="status1" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lastChanged" pref="303" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="status" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="rdbActive" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="rdbInactive" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="sizeLabel1" max="32767" attributes="0"/>
+                                  <Component id="sizeLabel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="priceLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="supplierLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="mfcLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="descriptionLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="categoryLabel" alignment="1" pref="90" max="32767" attributes="0"/>
+                                  <Component id="partLabel" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="SupplierCombo" max="32767" attributes="0"/>
+                                  <Component id="priceTextField" max="32767" attributes="0"/>
+                                  <Component id="mfcTextField" alignment="0" pref="299" max="32767" attributes="0"/>
+                                  <Component id="partNumTextField" alignment="0" pref="299" max="32767" attributes="0"/>
+                                  <Component id="sizeTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="CategoryCombo" pref="299" max="32767" attributes="0"/>
+                                  <Component id="unitMeasure" max="32767" attributes="0"/>
+                                  <Component id="descriptionCombo" alignment="0" pref="299" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
                   </Group>
@@ -122,7 +125,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="descriptionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="description" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="descriptionCombo" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -154,9 +157,20 @@
                           <Component id="sizeLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="unitMeasure" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="status" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="rdbActive" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rdbInactive" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="status1" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="lastChanged" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -191,15 +205,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Size"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="description">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Description"/>
-              </Properties>
-              <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="descriptionFocusGained"/>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="descriptionFocusLost"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="mfcTextField">
               <Properties>
@@ -236,7 +241,7 @@
                           <Component id="addNewItem" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="cancelAdd" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="374" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -331,6 +336,50 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
+            <Component class="javax.swing.JComboBox" name="descriptionCombo">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="1">
+                    <StringItem index="0" value="Description"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="status">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Status"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="rdbActive">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="statusGroup"/>
+                </Property>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Active"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="rdbInactive">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="statusGroup"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Inactive"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="status1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Status"/>
+              </Properties>
+            </Component>
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="lastChanged">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Date date = new Date();&#xa;lastChanged.setDate(date);"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
@@ -346,8 +395,8 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTabbedPane2" pref="246" max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane2" min="-2" pref="284" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
