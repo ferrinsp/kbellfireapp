@@ -58,7 +58,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 contact[i][1]=resultObj.getString("name");
                 contact[i][2]=resultObj.getString("phone");
                 i++;
-                deliveryContactCombo.addItem(resultObj.getString("name" + "phone"));
+                deliveryContactCombo.addItem(resultObj.getString("name")+" " + resultObj.getString("phone"));
             }
             connObj.close();
         } catch (SQLException e) {
@@ -323,6 +323,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
