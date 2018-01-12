@@ -60,29 +60,13 @@ public class VJob extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        TabbedView = new javax.swing.JTabbedPane();
-        view_job = new javax.swing.JScrollPane();
-        viewJob = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         viewJobCloseButton = new javax.swing.JButton();
+        view_job = new javax.swing.JScrollPane();
+        viewJob = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-
-        viewJob.setAutoCreateRowSorter(true);
-        viewJob.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Job Name", "Address", "City", "State", "Postal Code", "Bid Amount", "Status", "Comments"
-            }
-        ));
-        view_job.setViewportView(viewJob);
-
-        TabbedView.addTab("View Job", view_job);
+        setTitle("Current Jobs");
 
         viewJobCloseButton.setText("Close");
         viewJobCloseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +80,7 @@ public class VJob extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(335, 335, 335)
+                .addGap(334, 334, 334)
                 .addComponent(viewJobCloseButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -108,6 +92,18 @@ public class VJob extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        viewJob.setAutoCreateRowSorter(true);
+        viewJob.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Job Name", "Address", "City", "State", "Postal Code", "Bid Amount", "Status", "Comments"
+            }
+        ));
+        view_job.setViewportView(viewJob);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,16 +111,16 @@ public class VJob extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(view_job, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(view_job, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -173,7 +169,6 @@ public class VJob extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane TabbedView;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTable viewJob;
     private javax.swing.JButton viewJobCloseButton;

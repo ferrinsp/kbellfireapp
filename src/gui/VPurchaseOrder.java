@@ -78,15 +78,13 @@ public class VPurchaseOrder extends javax.swing.JFrame {
     private void initComponents() {
 
         Main_Panel1 = new javax.swing.JPanel();
-        TabbedView = new javax.swing.JTabbedPane();
         view_purchase_orders1 = new javax.swing.JScrollPane();
         purchaseOrder = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("View Purchase Order");
 
         Main_Panel1.setPreferredSize(new java.awt.Dimension(1026, 560));
-
-        TabbedView.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -99,23 +97,19 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         ));
         view_purchase_orders1.setViewportView(purchaseOrder);
 
-        TabbedView.addTab("View Purchase Orders", view_purchase_orders1);
-
         javax.swing.GroupLayout Main_Panel1Layout = new javax.swing.GroupLayout(Main_Panel1);
         Main_Panel1.setLayout(Main_Panel1Layout);
         Main_Panel1Layout.setHorizontalGroup(
             Main_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_Panel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
+            .addGroup(Main_Panel1Layout.createSequentialGroup()
+                .addComponent(view_purchase_orders1, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)
                 .addContainerGap())
         );
         Main_Panel1Layout.setVerticalGroup(
             Main_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_Panel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(Main_Panel1Layout.createSequentialGroup()
+                .addComponent(view_purchase_orders1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -128,9 +122,10 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Main_Panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Main_Panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -185,7 +180,6 @@ public class VPurchaseOrder extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Main_Panel1;
-    private javax.swing.JTabbedPane TabbedView;
     private javax.swing.JTable purchaseOrder;
     private javax.swing.JScrollPane view_purchase_orders1;
     // End of variables declaration//GEN-END:variables

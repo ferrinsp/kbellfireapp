@@ -76,8 +76,7 @@ public class MainPage extends javax.swing.JFrame {
         purchaseOrder = new javax.swing.JTable();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
-        Print = new javax.swing.JMenuItem();
-        Exit = new javax.swing.JMenuItem();
+        logOffFileMenu = new javax.swing.JMenuItem();
         Jobs = new javax.swing.JMenu();
         create_Job = new javax.swing.JMenuItem();
         view_Job = new javax.swing.JMenuItem();
@@ -165,18 +164,14 @@ public class MainPage extends javax.swing.JFrame {
 
         File_List.setText("File");
 
-        Print.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        Print.setLabel("Print");
-        File_List.add(Print);
-
-        Exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        Exit.setText("Close");
-        Exit.addActionListener(new java.awt.event.ActionListener() {
+        logOffFileMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        logOffFileMenu.setText("Logoff");
+        logOffFileMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExitActionPerformed(evt);
+                logOffFileMenuActionPerformed(evt);
             }
         });
-        File_List.add(Exit);
+        File_List.add(logOffFileMenu);
 
         MenuBar.add(File_List);
 
@@ -353,9 +348,12 @@ public class MainPage extends javax.swing.JFrame {
         newItem.setVisible(true);
     }//GEN-LAST:event_View_ProductActionPerformed
 
-    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_ExitActionPerformed
+    private void logOffFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOffFileMenuActionPerformed
+        this.dispose();
+        
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_logOffFileMenuActionPerformed
    
     
     /**
@@ -401,12 +399,10 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem Create_Report;
     private javax.swing.JMenuItem Create_Supplier;
     private javax.swing.JMenu Credit_Memo;
-    private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu File_List;
     private javax.swing.JMenu Jobs;
     private javax.swing.JPanel Main_Panel;
     private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JMenuItem Print;
     private javax.swing.JMenu Product;
     private javax.swing.JMenu Purchase_Order;
     private javax.swing.JMenu Reports;
@@ -418,6 +414,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem View_Supplier;
     private javax.swing.JMenuItem create_Job;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem logOffFileMenu;
     private javax.swing.JTable purchaseOrder;
     private javax.swing.JMenuItem view_Job;
     private javax.swing.JScrollPane view_purchase_orders1;

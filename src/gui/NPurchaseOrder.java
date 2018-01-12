@@ -221,7 +221,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         closeWindowButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Create New Purchase order");
+        setTitle("Create New Purchase Order");
         setAlwaysOnTop(true);
         setResizable(false);
 

@@ -50,6 +50,7 @@ public class AddItem extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Items Added");
 
         addItemButton.setText("Add");
 
