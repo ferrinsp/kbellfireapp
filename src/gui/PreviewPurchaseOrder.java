@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
@@ -38,9 +39,10 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         getComboSupplier();
     }
     
-    public PreviewPurchaseOrder(DefaultTableModel itemsAddedTable) {
+    public PreviewPurchaseOrder(Vector[][] v) {
         initComponents();
-        previewItemsAddedTable.setModel(itemsAddedTable);
+        DefaultTableModel newModel = (DefaultTableModel) previewItemsAddedTable.getModel();
+        newModel.addRow(v[0]);
     }
     
     

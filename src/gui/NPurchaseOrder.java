@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.Vector;
 import javax.swing.RowFilter;
 
 /**
@@ -191,7 +192,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         itemsAddedToPO = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         itemsAddedDelete = new javax.swing.JButton();
-        createPurchaseOrderButton = new javax.swing.JButton();
+        previewPurchaseOrderButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ItemsAddedTable = new javax.swing.JTable();
 
@@ -365,10 +366,10 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
-        createPurchaseOrderButton.setText("Preview Purchase Order");
-        createPurchaseOrderButton.addActionListener(new java.awt.event.ActionListener() {
+        previewPurchaseOrderButton.setText("Preview Purchase Order");
+        previewPurchaseOrderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createPurchaseOrderButtonActionPerformed(evt);
+                previewPurchaseOrderButtonActionPerformed(evt);
             }
         });
 
@@ -396,7 +397,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(691, 691, 691)
-                .addComponent(createPurchaseOrderButton)
+                .addComponent(previewPurchaseOrderButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itemsAddedDelete)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -413,7 +414,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(itemsAddedDelete)
-                    .addComponent(createPurchaseOrderButton))
+                    .addComponent(previewPurchaseOrderButton))
                 .addContainerGap())
         );
 
@@ -538,12 +539,20 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchFieldKeyPressed
 
-    private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
-        TableModel original = ItemsAddedTable.getModel();
-        DefaultTableModel model = new DefaultTableModel(ItemsAddedTable.getSelectedRowCount(), original.getColumnCount());
-        PreviewPurchaseOrder previewScreen = new PreviewPurchaseOrder(model);
+    private void previewPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewPurchaseOrderButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) ItemsAddedTable.getModel();
+        int row = model.getRowCount();
+        int column = model.getColumnCount();
+        Vector[][] v = new Vector[row][column];
+        
+        for(int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                v[i][j].equals(model.getValueAt(i, j));
+            }
+        }
+        PreviewPurchaseOrder previewScreen = new PreviewPurchaseOrder(v);
         previewScreen.setVisible(true);
-    }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
+    }//GEN-LAST:event_previewPurchaseOrderButtonActionPerformed
 
     private void itemsSearchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemsSearchTableKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN ) {
@@ -592,7 +601,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JTable PriceTable;
     private javax.swing.JButton addItemToPO;
     private javax.swing.JButton closeWindowButton;
-    private javax.swing.JButton createPurchaseOrderButton;
     private javax.swing.JButton itemsAddedDelete;
     private javax.swing.JTabbedPane itemsAddedToPO;
     private javax.swing.JTable itemsSearchTable;
@@ -603,6 +611,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JButton n_u_product;
+    private javax.swing.JButton previewPurchaseOrderButton;
     private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
 }
