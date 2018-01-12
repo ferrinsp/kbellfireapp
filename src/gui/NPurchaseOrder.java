@@ -5,7 +5,6 @@
  */
 package gui;
 
-import kbapp.classes.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,12 +14,6 @@ import javax.swing.table.*;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import java.awt.Toolkit;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.DefaultListModel;
 
 /**
  *
@@ -37,12 +30,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     String [][] category = null;
     String [][] contact= null;
     String [][] job = null;
-    
-    
-    private List<PurchaseOrder> searchList = new ArrayList<>();
-    private List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
-    private DefaultListModel<PurchaseOrder> purchaseOrderModel = new DefaultListModel<>(); // Blessed be the diamond operator
-
     
     public int findCategory(String cat){
         int index =-1;
@@ -230,6 +217,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         ItemsAddedTable = new javax.swing.JTable();
         itemsAddedDelete = new javax.swing.JButton();
         createPurchaseOrderButton = new javax.swing.JButton();
+        closeWindowButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create New Purchase order");
@@ -426,7 +414,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -490,15 +478,16 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(375, 375, 375)
-                .addComponent(createPurchaseOrderButton)
-                .addGap(18, 18, 18)
-                .addComponent(itemsAddedDelete)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(375, 375, 375)
+                        .addComponent(createPurchaseOrderButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(itemsAddedDelete))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 968, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,6 +505,13 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(itemsAddedToPO);
 
+        closeWindowButton.setText("Close Window");
+        closeWindowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeWindowButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -523,25 +519,29 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jTabbedPane1)
                     .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(closeWindowButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(closeWindowButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addItemToPOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemToPOActionPerformed
@@ -616,6 +616,10 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(row, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(row, 1).toString()));
     }//GEN-LAST:event_itemsSearchTableMouseClicked
 
+    private void closeWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeWindowButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_closeWindowButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -657,6 +661,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JTable PriceTable;
     private javax.swing.JComboBox<String> ShipToCombo;
     private javax.swing.JButton addItemToPO;
+    private javax.swing.JButton closeWindowButton;
     private javax.swing.JButton createPurchaseOrderButton;
     private javax.swing.JComboBox<String> deliveryContactCombo;
     private org.jdesktop.swingx.JXDatePicker expectedDatePicker;
