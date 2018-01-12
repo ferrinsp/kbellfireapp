@@ -14,6 +14,7 @@ import javax.swing.table.*;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.RowFilter;
 
 /**
@@ -163,7 +164,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     public NPurchaseOrder() {
         this.setResizable(false);
         initComponents();
-        getComboCategory();        
+        getComboCategory();
+        getProductHeader();
     }
 
     /**
@@ -260,6 +262,11 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         itemsSearchTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 itemsSearchTableMouseClicked(evt);
+            }
+        });
+        itemsSearchTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                itemsSearchTableKeyPressed(evt);
             }
         });
         jScrollPane3.setViewportView(itemsSearchTable);
@@ -367,10 +374,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
         ItemsAddedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Supplier", "Description", "MFC", "Part ID", "Quantity", "Unit", "Unit Price", "Totals"
@@ -522,7 +526,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
     private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
         String text = searchField.getText();
-        
+        String filter = (String) CategoryList.getSelectedItem();
+        System.out.println(filter);
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) itemsSearchTable.getModel())); 
         if (text.length() ==0){
             sorter.setRowFilter(null);
@@ -539,6 +544,13 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         preview.getPOItems(model);
         preview.setVisible(true);        
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
+
+    private void itemsSearchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemsSearchTableKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN ) {
+            int row = itemsSearchTable.getSelectedRow();
+            getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(row, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(row, 1).toString()));
+        }
+    }//GEN-LAST:event_itemsSearchTableKeyPressed
 
     /**
      * @param args the command line arguments
