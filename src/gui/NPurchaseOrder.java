@@ -576,6 +576,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        PreviewPurchaseOrder preview = new PreviewPurchaseOrder();
+        preview.setVisible(true);
     }//GEN-LAST:event_previewPurchaseOrderButtonActionPerformed
 
     private void itemsSearchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemsSearchTableKeyPressed
