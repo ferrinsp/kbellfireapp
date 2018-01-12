@@ -5,7 +5,6 @@
  */
 package gui;
 
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,6 +15,8 @@ import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.RowFilter;
 
 /**
@@ -528,8 +529,17 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
         String text = searchField.getText();
         String filter = (String) CategoryList.getSelectedItem();
+        List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(2);
         System.out.println(filter);
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) itemsSearchTable.getModel())); 
+        /*
+        if (!filter.equals("Filter By Category")) {
+            filters.add(RowFilter.regexFilter(searchField.getText()),0);
+            filters.add(RowFilter.regexFilter(filter),1);
+            RowFilter<Object,Object> af = RowFilter.andFilter(filters);
+            sorter.setRowFilter(af);
+        }*/
+        
         if (text.length() ==0){
             sorter.setRowFilter(null);
         }
@@ -556,6 +566,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
         PreviewPurchaseOrder previewScreen = new PreviewPurchaseOrder(model);
         previewScreen.getPOItems(model);
+        previewScreen.setVisible(true);
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
     private void itemsSearchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemsSearchTableKeyPressed
