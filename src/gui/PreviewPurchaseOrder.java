@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -22,12 +23,18 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     Statement stateObj = null;
     ResultSet resultObj = null;
     String [][] supplier = null;
+    String [][] category = null;
+    String [][] contact= null;
+    String [][] job = null;
     
     /**
      * Creates new form PreviewPurchaseOrder
      */
     public PreviewPurchaseOrder() {
         initComponents();
+        getComboJob();
+        getComboContact();
+        getComboSupplier();
     }
     
     public void getPOItems(DefaultTableModel ItemsAddedTable) {
@@ -35,6 +42,52 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         preview = ItemsAddedTable;
     }
     
+    private void getComboContact() {
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select contactid, name,phone from contact ORDER BY name;");
+            //Dynamically set contact list size
+            resultObj.last();
+            contact = new String[resultObj.getRow()][3];
+            resultObj.beforeFirst();
+            int i=0;
+            while (resultObj.next()){
+                contact[i][0] =Integer.toString(resultObj.getInt("contactid"));
+                contact[i][1]=resultObj.getString("name");
+                contact[i][2]=resultObj.getString("phone");
+                i++;
+                deliveryContactCombo.addItem(resultObj.getString("name" + "phone"));
+            }
+            connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private void getComboJob() {
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
+            //Dynamically set supplier list size
+            resultObj.last();
+            job = new String[resultObj.getRow()][2];
+            resultObj.beforeFirst();
+            int i=0;
+            while (resultObj.next()){
+                job[i][0] =Integer.toString(resultObj.getInt("jobid"));
+                job[i][1]=resultObj.getString("name");
+                i++;
+                JobCombo.addItem(resultObj.getString("name"));
+                ShipToCombo.addItem(resultObj.getString("name"));
+            }
+            connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void getComboSupplier() {
     try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic

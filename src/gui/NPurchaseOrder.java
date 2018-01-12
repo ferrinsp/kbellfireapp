@@ -160,17 +160,10 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
     }
     
-    /**
-     *
-     */
     public NPurchaseOrder() {
         this.setResizable(false);
         initComponents();
-        getProductHeader();
-        getComboJob();
-        getComboCategory();
-        getComboContact();
-        
+        getComboCategory();        
     }
 
     /**
