@@ -563,7 +563,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 for(int j = 0 ; j < ItemsAddedTable.getColumnCount();j++)
                 {
                     bfw.write((String)(ItemsAddedTable.getValueAt(i,j)));
-                    bfw.write("\t");;
+                    bfw.write("\t");
                 }
             }
             bfw.close();   
