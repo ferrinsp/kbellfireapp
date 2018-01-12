@@ -22,9 +22,8 @@ public class MainPage extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
-
     
-    public void getPO()    {
+    public void getPOStatus()    {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -37,11 +36,11 @@ public class MainPage extends javax.swing.JFrame {
         purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
         purchaseOrder.getColumn("companyname").setHeaderValue("Company");
         purchaseOrder.getColumn("name").setHeaderValue("Job");
-        purchaseOrder.getColumn("status").setHeaderValue("Status");
         purchaseOrder.getColumn("expectedby").setHeaderValue("Expected By");
         purchaseOrder.getColumn("name").setHeaderValue("Issued By");
         purchaseOrder.getColumn("name").setHeaderValue("Ship To");
         purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
+        purchaseOrder.getColumn("status").setHeaderValue("Status");
         purchaseOrder.repaint();
 
         } catch (SQLException e) {
@@ -53,7 +52,7 @@ public class MainPage extends javax.swing.JFrame {
         
         this.setResizable(false);
         initComponents();
-        getPO();
+        getPOStatus();
         
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
@@ -109,28 +108,28 @@ public class MainPage extends javax.swing.JFrame {
         purchaseOrder.setAutoCreateRowSorter(true);
         purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Purchase Order", "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total"
+                "Purchase Order", "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
