@@ -96,7 +96,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 contact[i][1]=resultObj.getString("name");
                 contact[i][2]=resultObj.getString("phone");
                 i++;
-                deliveryContactCombo.addItem(resultObj.getString("name")+" " + resultObj.getString("phone"));
             }
             connObj.close();
         } catch (SQLException e) {
@@ -118,8 +117,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 job[i][0] =Integer.toString(resultObj.getInt("jobid"));
                 job[i][1]=resultObj.getString("name");
                 i++;
-                JobCombo.addItem(resultObj.getString("name"));
-                ShipToCombo.addItem(resultObj.getString("name"));
             }
             connObj.close();
         } catch (SQLException e) {
@@ -174,10 +171,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         getComboCategory();
         getComboContact();
         
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth();
-        int ysize = (int) tk.getScreenSize().getHeight();
-        this.setSize(xsize, ysize);
     }
 
     /**
@@ -189,18 +182,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        newPurchaseOrderTab = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        ShipToCombo = new javax.swing.JComboBox<>();
-        JobCombo = new javax.swing.JComboBox<>();
-        expectedDatePicker = new org.jdesktop.swingx.JXDatePicker();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        deliveryContactCombo = new javax.swing.JComboBox<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        closeWindowButton = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
@@ -211,94 +193,23 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         PriceTable = new javax.swing.JTable();
         n_u_product = new javax.swing.JButton();
         addItemToPO = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
         itemsAddedToPO = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ItemsAddedTable = new javax.swing.JTable();
         itemsAddedDelete = new javax.swing.JButton();
         createPurchaseOrderButton = new javax.swing.JButton();
-        closeWindowButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ItemsAddedTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create New Purchase Order");
         setAlwaysOnTop(true);
-        setResizable(false);
 
-        jLabel2.setText("Ship To:");
-
-        jLabel1.setText("Job:");
-
-        ShipToCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ship To" }));
-
-        JobCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Job List" }));
-
-        jLabel3.setText("Expected Date");
-
-        jLabel4.setText("Delivery Contact");
-
-        deliveryContactCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Delivery Contact" }));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(JobCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ShipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(expectedDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                    .addComponent(deliveryContactCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(JobCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(expectedDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ShipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(deliveryContactCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout newPurchaseOrderTabLayout = new javax.swing.GroupLayout(newPurchaseOrderTab);
-        newPurchaseOrderTab.setLayout(newPurchaseOrderTabLayout);
-        newPurchaseOrderTabLayout.setHorizontalGroup(
-            newPurchaseOrderTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(newPurchaseOrderTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        newPurchaseOrderTabLayout.setVerticalGroup(
-            newPurchaseOrderTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newPurchaseOrderTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("New Purchase Order Details", newPurchaseOrderTab);
+        closeWindowButton.setText("Close Window");
+        closeWindowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeWindowButtonActionPerformed(evt);
+            }
+        });
 
         searchField.setText("Search");
         searchField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -413,21 +324,19 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addItemToPO)
-                .addGap(18, 18, 18)
-                .addComponent(n_u_product)
-                .addGap(62, 62, 62))
+                        .addComponent(addItemToPO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(n_u_product))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 919, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,38 +346,17 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addItemToPO)
                     .addComponent(n_u_product))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Item Search", jPanel3);
-
-        jScrollPane2.setViewportView(jTabbedPane2);
-
-        ItemsAddedTable.setAutoCreateRowSorter(true);
-        ItemsAddedTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Supplier", "Description", "MFC", "Part ID", "Quantity", "Unit", "Unit Price", "Totals"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(ItemsAddedTable);
 
         itemsAddedDelete.setText("Delete Item");
         itemsAddedDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -477,46 +365,62 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
-        createPurchaseOrderButton.setText("Create Purchase Order");
+        createPurchaseOrderButton.setText("Preview Purchase Order");
+        createPurchaseOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPurchaseOrderButtonActionPerformed(evt);
+            }
+        });
+
+        ItemsAddedTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Supplier", "Description", "MFC", "Part ID", "Quantity", "Unit", "Unit Price", "Totals"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(ItemsAddedTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(375, 375, 375)
-                        .addComponent(createPurchaseOrderButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(itemsAddedDelete))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 968, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addGap(691, 691, 691)
+                .addComponent(createPurchaseOrderButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(itemsAddedDelete)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(itemsAddedDelete)
                     .addComponent(createPurchaseOrderButton))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         itemsAddedToPO.addTab("Items Added to Purchase Order", jPanel2);
-
-        jScrollPane4.setViewportView(itemsAddedToPO);
-
-        closeWindowButton.setText("Close Window");
-        closeWindowButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeWindowButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -525,29 +429,28 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1)
-                    .addComponent(jScrollPane2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(closeWindowButton)))
+                    .addComponent(itemsAddedToPO)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(closeWindowButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addComponent(closeWindowButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(itemsAddedToPO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addItemToPOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemToPOActionPerformed
@@ -562,7 +465,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please only select one row to add.");
         }
         else{
-            
                 Double total;
                 row[0] = model2.getValueAt(index2[0], 0); //supplier
                 row[1] = model1.getValueAt(index[0], 1); //description
@@ -574,8 +476,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 total = Double.parseDouble(row[4].toString()) * Double.parseDouble(row[6].toString());
                 row[7] = Double.toString(total);  // Total
                 model3.addRow(row); 
-            
-                    }
+            }
     }//GEN-LAST:event_addItemToPOActionPerformed
 
     private void n_u_productActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n_u_productActionPerformed
@@ -639,6 +540,13 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchFieldKeyPressed
 
+    private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) ItemsAddedTable.getModel();
+        PreviewPurchaseOrder preview = new PreviewPurchaseOrder();
+        preview.getPOItems(model);
+        preview.setVisible(true);        
+    }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -676,33 +584,20 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CategoryList;
     private javax.swing.JTable ItemsAddedTable;
-    private javax.swing.JComboBox<String> JobCombo;
     private javax.swing.JTable PriceTable;
-    private javax.swing.JComboBox<String> ShipToCombo;
     private javax.swing.JButton addItemToPO;
     private javax.swing.JButton closeWindowButton;
     private javax.swing.JButton createPurchaseOrderButton;
-    private javax.swing.JComboBox<String> deliveryContactCombo;
-    private org.jdesktop.swingx.JXDatePicker expectedDatePicker;
     private javax.swing.JButton itemsAddedDelete;
     private javax.swing.JTabbedPane itemsAddedToPO;
     private javax.swing.JTable itemsSearchTable;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JButton n_u_product;
-    private javax.swing.JPanel newPurchaseOrderTab;
     private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
 }
