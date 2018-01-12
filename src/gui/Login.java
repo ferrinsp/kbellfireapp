@@ -6,12 +6,25 @@
 package gui;
 
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author tatewtaylor
  */
 public class Login extends javax.swing.JFrame {
+    
+    Connection connObj = null;
+    Statement stateObj = null;
+    ResultSet resultObj =null;
 
     /**
      * Creates new form for login
@@ -62,6 +75,12 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setLabelFor(userName);
         jLabel1.setText("User Name:");
 
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordKeyPressed(evt);
+            }
+        });
+
         jLabel2.setLabelFor(password);
         jLabel2.setText("Password:");
 
@@ -71,8 +90,23 @@ public class Login extends javax.swing.JFrame {
                 clearActionPerformed(evt);
             }
         });
+        clear.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                clearKeyPressed(evt);
+            }
+        });
 
         login.setText("Login");
+        login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loginMouseClicked(evt);
+            }
+        });
+        login.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                loginKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,6 +185,28 @@ public class Login extends javax.swing.JFrame {
         password.setText("");
     }//GEN-LAST:event_clearActionPerformed
 
+    private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
+
+        login();
+    }//GEN-LAST:event_loginMouseClicked
+
+    private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+   }
+    }//GEN-LAST:event_passwordKeyPressed
+
+    private void loginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_loginKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+        }
+    }//GEN-LAST:event_loginKeyPressed
+
+    private void clearKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clearKeyPressed
+        userName.setText("");
+        password.setText("");
+    }//GEN-LAST:event_clearKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -199,4 +255,42 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField userName;
     // End of variables declaration//GEN-END:variables
+
+    private void login() {
+        String user = userName.getText();
+        char[] pass = password.getPassword();
+        //May need to factor for password encryption
+       try {
+        if (user != null && pass != null) {
+            System.out.println("Username: "+ user);
+            System.out.println("Password: "+ Arrays.toString(pass));
+            String passwd =String.valueOf(pass);
+            System.out.println("Password: "+ passwd);
+             //Implement this query later
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            String query = "Select username,password from user WHERE username=? and password=?";
+            PreparedStatement ps;
+            ps = connObj.prepareStatement(query);
+            ps.setString(1,user);
+            ps.setString(2,passwd);
+            resultObj = ps.executeQuery();
+            
+            if (!resultObj.next()) {
+                System.out.println("Failure");
+                JOptionPane.showMessageDialog(this, "Invalid login information provided.");
+                
+            }
+            else{
+                this.dispose();
+                MainPage main = new MainPage();
+                main.setVisible(true);
+            }
+        }
+        
+
+    } catch (SQLException err) {
+        JOptionPane.showMessageDialog(this, err.getMessage());
+    }
+    }
 }
