@@ -14,6 +14,7 @@ import javax.swing.table.*;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import java.awt.Toolkit;
+import javax.swing.RowFilter;
 
 /**
  *
@@ -311,6 +312,11 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         searchField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 searchFieldMouseClicked(evt);
+            }
+        });
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchFieldKeyPressed(evt);
             }
         });
 
@@ -619,6 +625,19 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private void closeWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeWindowButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_closeWindowButtonActionPerformed
+
+    private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
+        String text = searchField.getText();
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) itemsSearchTable.getModel())); 
+        if (text.length() ==0){
+            sorter.setRowFilter(null);
+        }
+        else {
+            sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
+            itemsSearchTable.setRowSorter(sorter);
+        }
+    }//GEN-LAST:event_searchFieldKeyPressed
 
     /**
      * @param args the command line arguments
