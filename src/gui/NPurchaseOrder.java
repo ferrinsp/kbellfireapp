@@ -5,6 +5,7 @@
  */
 package gui;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -539,10 +540,22 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldKeyPressed
 
     private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
-        DefaultTableModel model = (DefaultTableModel) ItemsAddedTable.getModel();
-        PreviewPurchaseOrder preview = new PreviewPurchaseOrder();
-        preview.getPOItems(model);
-        preview.setVisible(true);        
+        TableModel original = ItemsAddedTable.getModel();
+        DefaultTableModel model = new DefaultTableModel(ItemsAddedTable.getSelectedRowCount(), original.getColumnCount());
+        for (int col = 0; col < original.getColumnCount(); col++) {
+            model.addColumn(original.getColumnName(col));
+        }
+        
+        int[] selectedRows = ItemsAddedTable.getSelectedRows();
+        for (int targetRow = 0; targetRow < selectedRows.length; targetRow++) {
+            int row = selectedRows[targetRow];
+            int modelRow = ItemsAddedTable.convertRowIndexToModel(row);
+            for (int col = 0; col < original.getColumnCount(); col++) {
+                model.setValueAt(original.getValueAt(modelRow, col), targetRow, col);
+            }   
+        }
+        PreviewPurchaseOrder previewScreen = new PreviewPurchaseOrder(model);
+        previewScreen.getPOItems(model);
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
     private void itemsSearchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemsSearchTableKeyPressed

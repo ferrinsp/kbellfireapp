@@ -5,12 +5,14 @@
  */
 package gui;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -35,6 +37,10 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         getComboJob();
         getComboContact();
         getComboSupplier();
+    }
+    
+    public PreviewPurchaseOrder(DefaultTableModel itemsAddedTable) {
+        initComponents();
     }
     
     public void getPOItems(DefaultTableModel ItemsAddedTable) {
