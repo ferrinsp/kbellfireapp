@@ -372,7 +372,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="status1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Status"/>
+                <Property name="text" type="java.lang.String" value="Last Changed"/>
               </Properties>
             </Component>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="lastChanged">

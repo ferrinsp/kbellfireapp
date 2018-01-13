@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +29,36 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     Statement stateObj = null;
     ResultSet resultObj = null;
     String [][] category = null;
-    String [][] contact= null;
-    String [][] job = null;
     
+    public void filter (){
+        String text = searchField.getText();
+        String filter = (String) CategoryList.getSelectedItem();
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) itemsSearchTable.getModel())); 
+        if (text.length() ==0 && filter.equalsIgnoreCase("Filter By Category")){
+            sorter.setRowFilter(null);
+            System.out.println("Case 1 No sort");
+        }
+        else if (text.length() ==0 && !filter.equalsIgnoreCase("Filter By Category")){
+            sorter.setRowFilter(RowFilter.regexFilter(filter));
+            itemsSearchTable.setRowSorter(sorter);
+            System.out.println("Case 2 Sort on category");
+        }
+        else if(text.length() >0 && filter.equalsIgnoreCase("Filter By Category")){
+            sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
+            itemsSearchTable.setRowSorter(sorter);
+            System.out.println("Case 3 Sort on text");
+        }
+        else{
+            //case for both being true
+            System.out.println("Case 4 Sort on both");
+            itemsSearchTable.setRowSorter(sorter);
+            List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(2);
+            filters.add(RowFilter.regexFilter("(?i)" + filter));
+            filters.add(RowFilter.regexFilter("(?i)" + text));
+            RowFilter<Object,Object> serviceFilter = RowFilter.andFilter(filters);
+            sorter.setRowFilter(serviceFilter);
+        }
+    }
     public int findCategory(String cat){
         int index =-1;
         for (int i=0;i<category.length;i++){
@@ -78,49 +107,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    private void getComboContact() {
-        try {
-            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select contactid, name,phone from contact ORDER BY name;");
-            //Dynamically set contact list size
-            resultObj.last();
-            contact = new String[resultObj.getRow()][3];
-            resultObj.beforeFirst();
-            int i=0;
-            while (resultObj.next()){
-                contact[i][0] =Integer.toString(resultObj.getInt("contactid"));
-                contact[i][1]=resultObj.getString("name");
-                contact[i][2]=resultObj.getString("phone");
-                i++;
-            }
-            connObj.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    private void getComboJob() {
-        try {
-            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
-            //Dynamically set supplier list size
-            resultObj.last();
-            job = new String[resultObj.getRow()][2];
-            resultObj.beforeFirst();
-            int i=0;
-            while (resultObj.next()){
-                job[i][0] =Integer.toString(resultObj.getInt("jobid"));
-                job[i][1]=resultObj.getString("name");
-                i++;
-            }
-            connObj.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    
     public void getProductDetails (int category, int description){
         try {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -189,7 +176,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create New Purchase Order");
-        setAlwaysOnTop(true);
 
         closeWindowButton.setText("Close Window");
         closeWindowButton.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +205,11 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         });
 
         CategoryList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filter By Category" }));
+        CategoryList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CategoryListItemStateChanged(evt);
+            }
+        });
 
         itemsSearchTable.setAutoCreateRowSorter(true);
         itemsSearchTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -453,6 +444,9 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         if(index.length > 1 || index2.length >1){
             JOptionPane.showMessageDialog(null, "Please only select one row to add.");
         }
+        else if (index.length < 1 || index2.length <1){
+            JOptionPane.showMessageDialog(null, "Please select one row to add.");
+        }
         else{
                 Double total;
                 row[0] = model2.getValueAt(index2[0], 0); //supplier
@@ -483,9 +477,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Confirm Deletion", dialogButton);
             if(dialogResult == 0) {
-                    for(int i = 0; i <index.length; i++)
-                    {
-                        //Need to address multiple selections
+                    for(int i = 0; i <index.length; i++){
                         model.removeRow(i);
                     }
             } 
@@ -517,59 +509,51 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_closeWindowButtonActionPerformed
 
     private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
-        String text = searchField.getText();
-        String filter = (String) CategoryList.getSelectedItem();
-        System.out.println(filter);
-        TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) itemsSearchTable.getModel())); 
-        if (text.length() ==0){
-            sorter.setRowFilter(null);
-        }
-        else {
-            sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
-            itemsSearchTable.setRowSorter(sorter);
-        }
+        System.out.println("In search");
+        filter();
     }//GEN-LAST:event_searchFieldKeyPressed
 
     private void previewPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewPurchaseOrderButtonActionPerformed
-        BufferedWriter bfw = null;      
-        try {
-            bfw = new BufferedWriter(new FileWriter("C:\\temp\\ItemsAddedData.txt"));
-            for(int i = 0 ; i < ItemsAddedTable.getColumnCount(); i++)
-            {
-                Object ob;
-                ob = ItemsAddedTable.getValueAt(i, NORMAL);
-                if(ob == null || ob.toString().isEmpty()) {
-                    ItemsAddedTable.setValueAt("NA", i, NORMAL);
-                }
-                bfw.write(ItemsAddedTable.getColumnName(i));
-                bfw.write("\t");    
-            }
-            for (int i = 0 ; i < ItemsAddedTable.getRowCount(); i++)
-            {
-                bfw.newLine();
-                for(int j = 0 ; j < ItemsAddedTable.getColumnCount();j++)
-                {
-                    Object ob;
-                    ob = ItemsAddedTable.getValueAt(i, j);
-                    if(ob == null || ob.toString().isEmpty()) {
-                        ItemsAddedTable.setValueAt("NA", i, j);
-                    }    
-                    bfw.write((String)(ItemsAddedTable.getValueAt(i,j)));
-                    bfw.write("\t");
-                }
-            }
-            bfw.close();   
-        } catch (IOException ex) {
-            Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        System.out.println("Number of rows: "+ItemsAddedTable.getRowCount());
+        if(ItemsAddedTable.getRowCount() <= 0){
+            JOptionPane.showMessageDialog(null, "No items added for Purchase Order.");
+        } else {
+            BufferedWriter bfw = null;      
             try {
-                bfw.close();
+                bfw = new BufferedWriter(new FileWriter("C:\\temp\\ItemsAddedData.txt"));
+                for(int i = 0 ; i < ItemsAddedTable.getColumnCount(); i++)
+                {
+                    bfw.write(ItemsAddedTable.getColumnName(i));
+                    bfw.write("\t");    
+                }
+                for (int i = 0 ; i < ItemsAddedTable.getRowCount(); i++)
+                {
+                    bfw.newLine();
+                    for(int j = 0 ; j < ItemsAddedTable.getColumnCount();j++)
+                    {
+                        Object ob;
+                        ob = ItemsAddedTable.getValueAt(i, j);
+                        if(ob == null || ob.toString().isEmpty()) {
+                            ItemsAddedTable.setValueAt("NA", i, j);
+                        }    
+                        bfw.write((String)(ItemsAddedTable.getValueAt(i,j)));
+                        bfw.write("\t");
+                    }
+                }
+                bfw.close();   
             } catch (IOException ex) {
                 Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    bfw.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            PreviewPurchaseOrder preview = new PreviewPurchaseOrder();
+
+            preview.setVisible(true);
         }
-        PreviewPurchaseOrder preview = new PreviewPurchaseOrder();
-        preview.setVisible(true);
     }//GEN-LAST:event_previewPurchaseOrderButtonActionPerformed
 
     private void itemsSearchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemsSearchTableKeyPressed
@@ -578,6 +562,11 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(row, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(row, 1).toString()));
         }
     }//GEN-LAST:event_itemsSearchTableKeyPressed
+
+    private void CategoryListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CategoryListItemStateChanged
+        System.out.println("In combo");
+        filter();
+    }//GEN-LAST:event_CategoryListItemStateChanged
 
     /**
      * @param args the command line arguments

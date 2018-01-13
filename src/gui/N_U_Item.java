@@ -279,7 +279,7 @@ public class N_U_Item extends javax.swing.JFrame {
         statusGroup.add(rdbInactive);
         rdbInactive.setText("Inactive");
 
-        status1.setText("Status");
+        status1.setText("Last Changed");
 
         Date date = new Date();
         lastChanged.setDate(date);
