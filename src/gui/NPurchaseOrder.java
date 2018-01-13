@@ -552,16 +552,26 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         BufferedWriter bfw = null;      
         try {
             bfw = new BufferedWriter(new FileWriter("C:\\temp\\ItemsAddedData.txt"));
-            for(int i = 0 ; i < ItemsAddedTable.getColumnCount() ; i++)
+            for(int i = 0 ; i < ItemsAddedTable.getColumnCount(); i++)
             {
+                Object ob;
+                ob = ItemsAddedTable.getValueAt(i, NORMAL);
+                if(ob == null || ob.toString().isEmpty()) {
+                    ItemsAddedTable.setValueAt("NA", i, NORMAL);
+                }
                 bfw.write(ItemsAddedTable.getColumnName(i));
-                bfw.write("\t");
+                bfw.write("\t");    
             }
             for (int i = 0 ; i < ItemsAddedTable.getRowCount(); i++)
             {
                 bfw.newLine();
                 for(int j = 0 ; j < ItemsAddedTable.getColumnCount();j++)
                 {
+                    Object ob;
+                    ob = ItemsAddedTable.getValueAt(i, j);
+                    if(ob == null || ob.toString().isEmpty()) {
+                        ItemsAddedTable.setValueAt("NA", i, j);
+                    }    
                     bfw.write((String)(ItemsAddedTable.getValueAt(i,j)));
                     bfw.write("\t");
                 }
