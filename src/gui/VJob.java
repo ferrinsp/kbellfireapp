@@ -12,10 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author ferrinsp
- */
+
 public class VJob extends javax.swing.JFrame {
 
     /**

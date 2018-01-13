@@ -5,22 +5,15 @@
  */
 package gui;
 
-import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import static java.time.Instant.now;
 import java.util.Date;
 
-/**
- *
- * @author ferrinsp
- */
+
 public class N_U_Item extends javax.swing.JFrame {
     
     Connection connObj = null;

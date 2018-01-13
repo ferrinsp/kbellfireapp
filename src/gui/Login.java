@@ -5,7 +5,6 @@
  */
 package gui;
 
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,10 +15,7 @@ import java.sql.Statement;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author tatewtaylor
- */
+
 public class Login extends javax.swing.JFrame {
     
     Connection connObj = null;
@@ -31,11 +27,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        /*
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth();
-        int ysize = (int) tk.getScreenSize().getHeight();
-        this.setSize(xsize, ysize);*/
+        
     }
 
     /**

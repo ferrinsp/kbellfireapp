@@ -13,10 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author ferrinsp
- */
+
 public class MainPage extends javax.swing.JFrame {
     
     Connection connObj = null;

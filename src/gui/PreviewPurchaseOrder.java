@@ -40,13 +40,11 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         try {
             DefaultTableModel tm = (DefaultTableModel) previewItemsAddedTable.getModel();
             bfw = new BufferedReader(new FileReader("C:\\temp\\ItemsAddedData.txt"));
-            for (int i = 0 ; i < previewItemsAddedTable.getRowCount(); i++)
-            {
-                String line;
-                while( (line = bfw.readLine() ) != null ) {   
-                    tm.addRow( line.split("\t") );
-                }
-            }   bfw.close();
+            String line;
+            while( (line = bfw.readLine() ) != null ) {   
+                tm.addRow( line.split("\t") );
+            }
+            bfw.close();
         } catch (Exception ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

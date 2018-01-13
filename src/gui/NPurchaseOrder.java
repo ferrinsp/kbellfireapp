@@ -8,19 +8,14 @@ import java.sql.Statement;
 import javax.swing.table.*;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.RowFilter;
 
 public class NPurchaseOrder extends javax.swing.JFrame {
@@ -457,7 +452,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 row[5] = model2.getValueAt(index2[0], 1);  //Unit Of Measure
                 row[6] = model2.getValueAt(index2[0], 4);  //Unit Price
                 total = Double.parseDouble(row[4].toString()) * Double.parseDouble(row[6].toString());
-                row[7] = Double.toString(total);  // Total
+                row[7] = String.format( "%.2f", total);  // Total
                 model3.addRow(row); 
             }
     }//GEN-LAST:event_addItemToPOActionPerformed
@@ -514,31 +509,34 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldKeyPressed
 
     private void previewPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewPurchaseOrderButtonActionPerformed
-        System.out.println("Number of rows: "+ItemsAddedTable.getRowCount());
         if(ItemsAddedTable.getRowCount() <= 0){
             JOptionPane.showMessageDialog(null, "No items added for Purchase Order.");
         } else {
             BufferedWriter bfw = null;      
             try {
                 bfw = new BufferedWriter(new FileWriter("C:\\temp\\ItemsAddedData.txt"));
-                for(int i = 0 ; i < ItemsAddedTable.getColumnCount(); i++)
-                {
-                    bfw.write(ItemsAddedTable.getColumnName(i));
-                    bfw.write("\t");    
-                }
                 for (int i = 0 ; i < ItemsAddedTable.getRowCount(); i++)
-                {
-                    bfw.newLine();
+                { 
                     for(int j = 0 ; j < ItemsAddedTable.getColumnCount();j++)
                     {
-                        Object ob;
-                        ob = ItemsAddedTable.getValueAt(i, j);
-                        if(ob == null || ob.toString().isEmpty()) {
-                            ItemsAddedTable.setValueAt("NA", i, j);
-                        }    
-                        bfw.write((String)(ItemsAddedTable.getValueAt(i,j)));
-                        bfw.write("\t");
+                        if (j >= (ItemsAddedTable.getColumnCount()-2)){
+                        
+                            Object number = ItemsAddedTable.getValueAt(i,j);
+                            bfw.write(number.toString());
+                            bfw.write("\t");
+                        }
+                        else {
+                            Object ob;
+                            ob = ItemsAddedTable.getValueAt(i, j);
+                            if(ob == null || ob.toString().isEmpty()) {
+                                ItemsAddedTable.setValueAt("N/A", i, j);
+                            }
+
+                            bfw.write((String)(ItemsAddedTable.getValueAt(i,j)));
+                            bfw.write("\t");
+                        }
                     }
+                    bfw.newLine();
                 }
                 bfw.close();   
             } catch (IOException ex) {

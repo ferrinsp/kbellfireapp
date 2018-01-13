@@ -10,10 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- *
- * @author tatewtaylor
- */
+
 public class Job extends javax.swing.JFrame {
     
     Connection connObj = null;
