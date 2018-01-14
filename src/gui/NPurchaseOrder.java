@@ -29,25 +29,24 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         String text = searchField.getText();
         String filter = (String) CategoryList.getSelectedItem();
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) itemsSearchTable.getModel())); 
+        //No sort
         if (text.length() ==0 && filter.equalsIgnoreCase("Filter By Category")){
             sorter.setRowFilter(null);
-            System.out.println("Case 1 No sort");
         }
-        else if (text.length() ==0 && !filter.equalsIgnoreCase("Filter By Category")){
+        //Sort by category only
+        else if ((text.length() ==0 || text.equals("Search")) && !filter.equalsIgnoreCase("Filter By Category")){
             sorter.setRowFilter(RowFilter.regexFilter(filter));
             itemsSearchTable.setRowSorter(sorter);
-            System.out.println("Case 2 Sort on category");
         }
+        //Sort on text only
         else if(text.length() >0 && filter.equalsIgnoreCase("Filter By Category")){
             sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
             itemsSearchTable.setRowSorter(sorter);
-            System.out.println("Case 3 Sort on text");
         }
         else{
             //case for both being true
-            System.out.println("Case 4 Sort on both");
             itemsSearchTable.setRowSorter(sorter);
-            List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(2);
+            List<RowFilter<Object,Object>> filters = new ArrayList<>(2);
             filters.add(RowFilter.regexFilter("(?i)" + filter));
             filters.add(RowFilter.regexFilter("(?i)" + text));
             RowFilter<Object,Object> serviceFilter = RowFilter.andFilter(filters);
@@ -209,29 +208,15 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         itemsSearchTable.setAutoCreateRowSorter(true);
         itemsSearchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
                 {null, null, null}
             },
             new String [] {
                 "Category", "Description", "Size"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -242,39 +227,20 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 itemsSearchTableMouseClicked(evt);
             }
         });
-        itemsSearchTable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                itemsSearchTableKeyPressed(evt);
-            }
-        });
         jScrollPane3.setViewportView(itemsSearchTable);
 
         PriceTable.setAutoCreateRowSorter(true);
         PriceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
                 "Supplier", "MFC", "Part ID", "Unit", "Qty", "Unit Price"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, true, true
+                false, false, false, false, true, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -468,13 +434,15 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         int[] index = ItemsAddedTable.getSelectedRows();
         if(index.length <= 0){
             JOptionPane.showMessageDialog(null, "No items selected");
-        } else {
+        } 
+        else if (index.length > 1){
+            JOptionPane.showMessageDialog(null, "Select only one line to delete.");
+        }
+        else {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Confirm Deletion", dialogButton);
             if(dialogResult == 0) {
-                    for(int i = 0; i <index.length; i++){
-                        model.removeRow(i);
-                    }
+                model.removeRow(ItemsAddedTable.convertRowIndexToModel(index[0]));
             } 
         }
     }//GEN-LAST:event_itemsAddedDeleteActionPerformed
@@ -496,7 +464,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
     private void itemsSearchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemsSearchTableMouseClicked
         int row = itemsSearchTable.getSelectedRow();
-        getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(row, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(row, 1).toString()));
+        int realrow = itemsSearchTable.convertRowIndexToModel(row);
+        getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(realrow, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(realrow, 1).toString()));
     }//GEN-LAST:event_itemsSearchTableMouseClicked
 
     private void closeWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeWindowButtonActionPerformed
@@ -504,7 +473,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_closeWindowButtonActionPerformed
 
     private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
-        System.out.println("In search");
         filter();
     }//GEN-LAST:event_searchFieldKeyPressed
 
@@ -537,8 +505,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                         }
                     }
                     bfw.newLine();
-                }
-                bfw.close();   
+                }  
             } catch (IOException ex) {
                 Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -554,15 +521,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_previewPurchaseOrderButtonActionPerformed
 
-    private void itemsSearchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemsSearchTableKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN ) {
-            int row = itemsSearchTable.getSelectedRow();
-            getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(row, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(row, 1).toString()));
-        }
-    }//GEN-LAST:event_itemsSearchTableKeyPressed
-
     private void CategoryListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CategoryListItemStateChanged
-        System.out.println("In combo");
         filter();
     }//GEN-LAST:event_CategoryListItemStateChanged
 
