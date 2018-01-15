@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
-import static javax.swing.KeyStroke.*;
 import javax.swing.RowFilter;
 
 public class NPurchaseOrder extends javax.swing.JFrame {
