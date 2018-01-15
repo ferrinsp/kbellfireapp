@@ -238,6 +238,11 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         jTabbedPane1.addTab("New Purchase Order Details", newPurchaseOrderTab);
 
         createPurchaseOrderButton.setText("Create Purchase Order");
+        createPurchaseOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPurchaseOrderButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -331,6 +336,10 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
     public static void main(String args[]) {
 
