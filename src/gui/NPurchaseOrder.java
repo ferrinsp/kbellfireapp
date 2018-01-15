@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,6 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+import static javax.swing.KeyStroke.*;
 import javax.swing.RowFilter;
 
 public class NPurchaseOrder extends javax.swing.JFrame {
@@ -225,6 +230,18 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         itemsSearchTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 itemsSearchTableMouseClicked(evt);
+            }
+        });
+        itemsSearchTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                itemsSearchTableKeyPressed(evt);
+            }
+        });
+        itemsSearchTable.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
+        itemsSearchTable.getActionMap().put("Enter", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //do something on JTable enter pressed
             }
         });
         jScrollPane3.setViewportView(itemsSearchTable);
@@ -524,6 +541,18 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private void CategoryListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CategoryListItemStateChanged
         filter();
     }//GEN-LAST:event_CategoryListItemStateChanged
+
+    private void itemsSearchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemsSearchTableKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_UP || evt.getKeyCode()==KeyEvent.VK_DOWN){
+            PriceTable.setModel(new DefaultTableModel());
+        }
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            int row = itemsSearchTable.getSelectedRow();
+            int realrow = itemsSearchTable.convertRowIndexToModel(row);
+            getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(realrow, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(realrow, 1).toString()));
+        }
+            
+    }//GEN-LAST:event_itemsSearchTableKeyPressed
 
     /**
      * @param args the command line arguments

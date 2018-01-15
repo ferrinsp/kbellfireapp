@@ -22,10 +22,11 @@ USE `kbell` ;
 -- Table `kbell`.`category`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`category` (
-  `category_ID` SMALLINT(10) NOT NULL,
+  `category_ID` SMALLINT(10) NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`category_ID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -65,12 +66,13 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `kbell`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`user` (
-  `userid` SMALLINT(10) NOT NULL,
+  `userid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(16) NOT NULL,
   `name` VARCHAR(25) NOT NULL,
   `password` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`userid`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -187,7 +189,6 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -266,6 +267,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -298,6 +300,7 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -308,6 +311,7 @@ LOAD DATA local INFILE 'C:/temp/job.csv'
  into table job
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
+ ESCAPED BY ''
  LINES TERMINATED BY '\n'
  (name, address, city, state, zip,bidamount,status);
  
@@ -316,6 +320,7 @@ LOAD DATA local INFILE 'C:/temp/job.csv'
  into table contact
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
+ ESCAPED BY ''
  LINES TERMINATED BY '\n'
  (name,phone);
 
@@ -324,20 +329,25 @@ LOAD DATA local INFILE 'C:/temp/supplier.csv'
  into table supplier
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
- LINES TERMINATED BY '\n';
+ ESCAPED BY ''
+ LINES TERMINATED BY '\n'
+ (companyname, contact, address1, city, state, postalcode, phone, fax, terms);
 
 -- Run this script to load categories
 LOAD DATA local INFILE 'C:/temp/category.csv'
  into table category
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
- LINES TERMINATED BY '\n';
+ ESCAPED BY ''
+ LINES TERMINATED BY '\n'
+ (category_ID,description);
  
  -- Run this for product descriptions
   LOAD DATA local INFILE 'C:/temp/prodDesc.csv'
  into table productdescription
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
+ ESCAPED BY ''
  LINES TERMINATED BY '\n'
  (productDescription,productSize);
 
@@ -346,6 +356,7 @@ LOAD DATA local INFILE 'C:/temp/testproduct.csv'
  into table product
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
+ ESCAPED BY ''
  LINES TERMINATED BY '\n'
  (category_id,description,unitMeasure,part_id,manufacturer,supplier,price,status);
 
