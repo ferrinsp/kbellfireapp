@@ -332,6 +332,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
+        ItemsAddedTable.setAutoCreateRowSorter(true);
         ItemsAddedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
