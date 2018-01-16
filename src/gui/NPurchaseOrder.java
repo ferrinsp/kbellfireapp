@@ -521,7 +521,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                         }
                     }
                     bfw.newLine();
-                }  
+                }
+                this.setVisible(false);
             } catch (IOException ex) {
                 Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
             } finally {

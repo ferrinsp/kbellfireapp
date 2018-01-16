@@ -13,8 +13,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PreviewPurchaseOrder extends javax.swing.JFrame {
@@ -160,6 +165,8 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
 
         JobCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Job List" }));
 
+        expectedDatePicker.setDate(new Date());
+
         jLabel3.setText("Expected Date");
 
         jLabel4.setText("Delivery Contact");
@@ -268,13 +275,14 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, true, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        previewItemsAddedTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(previewItemsAddedTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -338,7 +346,39 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
-        // TODO add your handling code here:
+        //Preparing insert statements will need to insert into table when ready.
+        if (JobCombo.getSelectedItem().equals("Job List") || ShipToCombo.getSelectedItem().equals("Ship To") || 
+                selectSupplierCombo.getSelectedItem().equals("Supplier") || deliveryContactCombo.getSelectedItem().equals("Delivery Contact")){
+            JOptionPane.showMessageDialog(null, "Make a selection for all details to create a Purchase Order.");
+        }
+        else {
+            System.out.println("Job: "+JobCombo.getSelectedItem());
+            System.out.println("Ship To: "+ShipToCombo.getSelectedItem());
+            System.out.println("Supplier: "+selectSupplierCombo.getSelectedItem());
+            System.out.println("Expected Date: "+expectedDatePicker.getDate());
+            System.out.println("Delivery Contact: "+deliveryContactCombo.getSelectedItem());
+            //Loop through table to check for matching supplier name and supplier in the table
+            List<Integer> index = new ArrayList<>();
+            for (int i=0;i<previewItemsAddedTable.getRowCount();i++){
+                if (previewItemsAddedTable.getValueAt(i,0).equals(selectSupplierCombo.getSelectedItem())){
+                    System.out.println("Suppliers matched");
+                    index.add(i);
+                }
+            }
+            if (index.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please select a supplier to create a Purchase Order.");
+            }
+            else{
+                DefaultTableModel model = (DefaultTableModel) previewItemsAddedTable.getModel();
+                //Insert information from this row into purchase order details
+                //Clean up preview Items list for remaining rows.
+                Collections.reverse(index);
+                index.forEach((index1) -> { model.removeRow(index1); });
+                if (model.getRowCount()==0){
+                    this.dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
     public static void main(String args[]) {
