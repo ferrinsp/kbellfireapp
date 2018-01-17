@@ -21,6 +21,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class PreviewPurchaseOrder extends javax.swing.JFrame {
 
@@ -378,7 +384,26 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     this.dispose();
                 }
             }
+        }        
+  
+        //Something like this for the button push to generate the report. I need to figure out what else is needed.
+        //There was some additional code on this stack overflow page that might be needed. I'm going to research,
+        //and see if this is the case. 
+        
+        //The conn error comes from a database connection so I'm not sure how to make this work yet. 
+        //It looks like for the fields we are getting from this page we can take them directly to the report if we want.
+        
+        String poreport = "C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml";
+        JasperReport jpr;
+        try {
+            jpr = JasperCompileManager.compileReport(poreport);
+            JasperPrint jpp = JasperFillManager.fillReport(jpr, null,conn);
+            JasperViewer.viewReport(jpp);
+            //https://stackoverflow.com/questions/13610890/how-to-generate-ireport-when-put-value-jtextfield-then-hit-button-java
+        } catch (JRException ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
     public static void main(String args[]) {
