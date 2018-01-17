@@ -65,9 +65,12 @@
 		</field>
 	</subDataset>
 	<scriptlet name="scriptlet1" class="net.sf.jasperreports.engine.JRDefaultScriptlet"/>
+	<parameter name="orderid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[Select CONCAT("18-",po.orderid) as 'orderid',j.name,1 as 'Quantity','EA' as 'Unit', null as 'MFC',null as 'Part #',total as POTotal,tax as 'TaxTotal', 19.99 as 'Unit Price','Test product' as 'Description', 19.99 as 'Subtotal', 19.99 as 'Total', 'Tate' as 'dname', '8017268377' as 'dphone',DATE_FORMAT(po.expectedby, '%m/%d/%Y' )as 'expectedby', st.name as 'shipname',st.address as 'shipadd', CONCAT(st.city,", ",st.state," ",st.zip) as 'shipcity', u.name as 'createdby'
-from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st.jobid =po.shipto inner join user u on u.userid=po.createdby;]]>
+from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st.jobid =po.shipto inner join user u on u.userid=po.createdby where orderid = $P{orderid};]]>
 	</queryString>
 	<field name="orderid" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

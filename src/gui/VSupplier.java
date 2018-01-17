@@ -24,7 +24,7 @@ import net.proteanit.sql.DbUtils;
  */
 public class VSupplier extends javax.swing.JFrame {
     
-    private NSupplier currentSupplier;
+    //private NSupplier currentSupplier;
     public Color genericColor = new Color(209, 220, 204);    
     private AlternatingListCellRenderer cellRenderer = new AlternatingListCellRenderer();
     Connection connObj = null;
@@ -41,6 +41,7 @@ public class VSupplier extends javax.swing.JFrame {
         supplier.getColumn("supplierid").setHeaderValue("Supplier ID");
         supplier.getColumn("companyname").setHeaderValue("Company");
         supplier.getColumn("contact").setHeaderValue("Contact");
+        supplier.getColumn("address1").setHeaderValue("Address");
         supplier.getColumn("city").setHeaderValue("City");
         supplier.getColumn("state").setHeaderValue("State");
         supplier.getColumn("postalcode").setHeaderValue("Postal Code");
@@ -59,7 +60,7 @@ public class VSupplier extends javax.swing.JFrame {
     private DefaultListModel<NSupplier> supplierModel = new DefaultListModel<>(); // Blessed be the diamond operator
     
     // Declare and initialize lists 
-    private List<NSupplier> supplierList = new ArrayList<>(); 
+   // private List<NSupplier> supplierList = new ArrayList<>(); 
 
     /**
      * Creates new form view_suppliers
@@ -70,13 +71,13 @@ public class VSupplier extends javax.swing.JFrame {
         initComponents();
         getsuppliers();
     }
-    
+    /*
     private void populateContactList(List<NSupplier> list){
         supplierModel.clear();
         for(NSupplier s: list){
             supplierModel.addElement(s);
         }
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,7 +96,7 @@ public class VSupplier extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Suppliers");
-        setPreferredSize(new java.awt.Dimension(900, 316));
+        setPreferredSize(new java.awt.Dimension(1100, 316));
 
         view_supplier_list.setPreferredSize(new java.awt.Dimension(800, 402));
 
@@ -142,7 +143,7 @@ public class VSupplier extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addSupplierButton)
                     .addComponent(updateSupplierButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -161,11 +162,10 @@ public class VSupplier extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(view_supplier_list, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(view_supplier_list, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -173,13 +173,25 @@ public class VSupplier extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSupplierButtonActionPerformed
-        NSupplier addSupplier = new NSupplier();
+        NSupplier addSupplier = new NSupplier(-1);
         addSupplier.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_addSupplierButtonActionPerformed
 
     private void updateSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSupplierButtonActionPerformed
-        NSupplier addSupplier = new NSupplier();
-        addSupplier.setVisible(true);
+        int[] index = supplier.getSelectedRows();
+        if(index.length <= 0){
+            JOptionPane.showMessageDialog(null, "No supplier selected to update.");
+        } 
+        else if (index.length > 1){
+            JOptionPane.showMessageDialog(null, "Select only one supplier to update.");
+        }
+        else{
+            int id = (int) supplier.getValueAt(index[0], 0);
+            NSupplier addSupplier = new NSupplier(id);
+            addSupplier.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_updateSupplierButtonActionPerformed
 
     /**

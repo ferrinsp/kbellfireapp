@@ -8,7 +8,11 @@ package gui;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class NSupplier extends javax.swing.JFrame {
@@ -17,13 +21,46 @@ public class NSupplier extends javax.swing.JFrame {
      * Creates new form purchase_orders
      */
     Connection connObj = null;
-        
-    public void insertSupplier()    {
+    Statement stateObj = null;
+    ResultSet resultObj = null;
+    int id = -1;
+    
+    public void updateSupplier(){
         try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("Select * from supplier where supplierid = "+id);
+            while (resultObj.next()){
+                companyName.setText(resultObj.getString("companyname"));
+                contact.setText(resultObj.getString("contact"));
+                address.setText(resultObj.getString("address1"));
+                city.setText(resultObj.getString("city"));
+                state.setText(resultObj.getString("state"));
+                postalCode.setText(resultObj.getString("postalcode"));
+                phone.setText(resultObj.getString("phone"));
+                fax.setText(resultObj.getString("fax"));
+                terms.setText(resultObj.getString("terms"));
+                comments.setText(resultObj.getString("comments"));
+            }
+            connObj.close();
+        }   catch (SQLException ex) {    
+                Logger.getLogger(NSupplier.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    public void I_U_Supplier()    {
+        try {
+            String query;
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-        String query = "INSERT into supplier (companyname,contact,address1,city,state,postalcode,phone,fax,terms,comments)"
+        if (id == -1) {
+            query = "INSERT into supplier (companyname,contact,address1,city,state,postalcode,phone,fax,terms,comments)"
                 + "values(?,?,?,?,?,?,?,?,?,?)";
+        }
+        else{
+            query = "UPDATE supplier SET companyname=?,contact =?,address1=?,city=?,state=?,postalcode=?,phone=?,"
+                    + "fax=?,terms=?,comments=? where supplierid ="+id;
+        }
         //Get Values to insert
         PreparedStatement preparedStmt =connObj.prepareStatement(query);
         preparedStmt.setString (1, companyName.getText());
@@ -35,10 +72,15 @@ public class NSupplier extends javax.swing.JFrame {
         preparedStmt.setString (7, phone.getText());
         preparedStmt.setString (8, fax.getText());
         preparedStmt.setString (9, terms.getText());
-        preparedStmt.setString (1, comments.getText());
-        preparedStmt.execute();
+        preparedStmt.setString (10, comments.getText());
+        if (id == -1)
+            preparedStmt.execute();
+        else
+            preparedStmt.executeUpdate();
       
         connObj.close();
+        this.id = -1;
+        this.dispose();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,10 +89,14 @@ public class NSupplier extends javax.swing.JFrame {
     /**
      * Creates new form update_suppliers
      */
+    public NSupplier(int id) {
+        initComponents();
+        this.id=id;
+        updateSupplier();
+    }
     public NSupplier() {
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -378,7 +424,8 @@ public class NSupplier extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void companyNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusGained
-        companyName.setText("");
+        if(companyName.getText().equals("Company Name"))
+            companyName.setText("");
     }//GEN-LAST:event_companyNameFocusGained
 
     private void companyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_companyNameFocusLost
@@ -387,7 +434,8 @@ public class NSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_companyNameFocusLost
 
     private void contactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusGained
-        contact.setText("");
+        if(contact.getText().equals("Contact"))
+            contact.setText("");
     }//GEN-LAST:event_contactFocusGained
 
     private void contactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusLost
@@ -396,7 +444,8 @@ public class NSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_contactFocusLost
 
     private void addressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusGained
-        address.setText("");
+        if(address.getText().equals("Address"))
+            address.setText("");
     }//GEN-LAST:event_addressFocusGained
 
     private void addressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusLost
@@ -405,7 +454,8 @@ public class NSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_addressFocusLost
 
     private void cityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusGained
-        city.setText("");
+        if(city.getText().equals("City"))
+            city.setText("");
     }//GEN-LAST:event_cityFocusGained
 
     private void cityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusLost
@@ -414,7 +464,8 @@ public class NSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_cityFocusLost
 
     private void stateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusGained
-        state.setText("");
+        if(state.getText().equals("State"))
+            state.setText("");
     }//GEN-LAST:event_stateFocusGained
 
     private void stateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusLost
@@ -423,7 +474,8 @@ public class NSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_stateFocusLost
 
     private void postalCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusGained
-        postalCode.setText("");
+        if(postalCode.getText().equals("Postal Code"))    
+            postalCode.setText("");
     }//GEN-LAST:event_postalCodeFocusGained
 
     private void postalCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusLost
@@ -432,7 +484,8 @@ public class NSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_postalCodeFocusLost
 
     private void phoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusGained
-        phone.setText("");
+        if(phone.getText().equals("Phone"))
+            phone.setText("");
     }//GEN-LAST:event_phoneFocusGained
 
     private void phoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneFocusLost
@@ -441,7 +494,8 @@ public class NSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_phoneFocusLost
 
     private void faxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_faxFocusGained
-        fax.setText("");
+        if(fax.getText().equals("Fax"))
+            fax.setText("");
     }//GEN-LAST:event_faxFocusGained
 
     private void faxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_faxFocusLost
@@ -450,7 +504,8 @@ public class NSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_faxFocusLost
 
     private void termsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_termsFocusGained
-        terms.setText("");
+        if(terms.getText().equals("Terms"))
+            terms.setText("");
     }//GEN-LAST:event_termsFocusGained
 
     private void termsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_termsFocusLost
@@ -459,8 +514,8 @@ public class NSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_termsFocusLost
 
     private void saveSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSupplierActionPerformed
-        insertSupplier();
-        //TODO: close Item window and return to another page---View supplier or main page.
+            I_U_Supplier();
+            
     }//GEN-LAST:event_saveSupplierActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
