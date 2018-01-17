@@ -397,7 +397,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         JasperReport jpr;
         try {
             jpr = JasperCompileManager.compileReport(poreport);
-            JasperPrint jpp = JasperFillManager.fillReport(jpr, null,conn);
+            JasperPrint jpp = JasperFillManager.fillReport(jpr, null);
             JasperViewer.viewReport(jpp);
             //https://stackoverflow.com/questions/13610890/how-to-generate-ireport-when-put-value-jtextfield-then-hit-button-java
         } catch (JRException ex) {
