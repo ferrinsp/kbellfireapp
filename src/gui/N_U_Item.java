@@ -12,6 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonModel;
+import net.proteanit.sql.DbUtils;
 
 
 public class N_U_Item extends javax.swing.JFrame {
@@ -23,6 +27,30 @@ public class N_U_Item extends javax.swing.JFrame {
     String [][] category = null;
     String [][] description= null;
     
+    private int findCategory(String c){
+        int index=-1;
+        for (int i=0;i<category.length;i++){
+            if(c.equals(category[i][1]))
+                index =i;
+        }
+        return index;
+    }
+    private int findDescription(String d){
+        int index=-1;
+        for (int i=0;i<description.length;i++){
+            if(d.equals(description[i][1]))
+                index =i;
+        }
+        return index;
+    }
+    private int findSupplier(String s){
+        int index=-1;
+        for (int i=0;i<supplier.length;i++){
+            if(s.equals(supplier[i][1]))
+                index =i;
+        }
+        return index;
+    }
     private void getComboSupplier() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -69,7 +97,6 @@ public class N_U_Item extends javax.swing.JFrame {
         }
     } 
     public void getDescriptionCombo(){
-       
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -83,33 +110,60 @@ public class N_U_Item extends javax.swing.JFrame {
                 description[i][0] =Integer.toString(resultObj.getInt("pdescID"));
                 description[i][1]=resultObj.getString("productDescription");
                 i++;
-                descriptionCombo.addItem(resultObj.getString("productDescription"));
+                DescriptionCombo.addItem(resultObj.getString("productDescription"));
             }
             connObj.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    public void getProduct() {
+        try{
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery(" select p.id,c.description, pd.productDescription, pd.productsize, s.companyname, p.price,p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange "
+                    + "from product p inner join category c on p.category_id=c.category_ID inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier;"); 
+       
+            ItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
+            ItemTable.getColumn("id").setHeaderValue("ID");
+            ItemTable.getColumn("description").setHeaderValue("Category");
+            ItemTable.getColumn("productDescription").setHeaderValue("Product Description");
+            ItemTable.getColumn("productsize").setHeaderValue("Size");
+            ItemTable.getColumn("companyname").setHeaderValue("Supplier");
+            ItemTable.getColumn("price").setHeaderValue("Unit Price");
+            ItemTable.getColumn("status").setHeaderValue("Active");
+            ItemTable.getColumn("unitMeasure").setHeaderValue("Unit");
+            ItemTable.getColumn("manufacturer").setHeaderValue("MFC");
+            ItemTable.getColumn("part_id").setHeaderValue("Part Number");
+            ItemTable.getColumn("lastchange").setHeaderValue("Last Change");
+            connObj.close();
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(N_U_Item.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void insertProduct() {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-        String query = "INSERT into product (category_id,description,part_id,manufacturer,supplier,price,size)"
-                + "values(?,?,?,?,?,?,?)";
+        String query = "INSERT into product (category_id,description,part_id,manufacturer,supplier,price,size,unitMeasure)"
+                + "values(?,?,?,?,?,?,?,?)";
         //Get Values to insert
         PreparedStatement preparedStmt =connObj.prepareStatement(query);
-        /*
+        
         //May want a drop down for this
         //Needs to get INT value for indexes not the string in the combobox
-        //preparedStmt.setInt    (1, Integer.parseInt(category.getText()));
-        //preparedStmt.setString (2, (String)descriptionCombo.getSelectedItem());
-        */
+        preparedStmt.setInt    (1, findCategory((String) CategoryCombo.getSelectedItem()));
+        preparedStmt.setInt    (2, findDescription((String) DescriptionCombo.getSelectedItem()));
         preparedStmt.setString (3, partNumTextField.getText());
-        preparedStmt.setString (4, mfcTextField.getText());
-        //May need to update to have dropdown for this
-        //preparedStmt.setInt    (5, Integer.parseInt(supplierTextField.getText()));
+        preparedStmt.setString (4, mfcTextField.getText());//May need to update to have dropdown for this
+        preparedStmt.setInt    (5, findSupplier((String) SupplierCombo.getSelectedItem()));
         preparedStmt.setInt    (6, Integer.parseInt(priceTextField.getText()));
         preparedStmt.setString (7, sizeTextField.getText());
+        preparedStmt.setString (8, (String)unitMeasure.getSelectedItem());
+        //Work on insert based on selection value
+        preparedStmt.setString (9, rdbActive.getText());
         preparedStmt.execute();
       
         connObj.close();
@@ -127,6 +181,7 @@ public class N_U_Item extends javax.swing.JFrame {
         getComboCategory();
         getDescriptionCombo();
         getComboSupplier();
+        getProduct();
     }
 
     /**
@@ -159,7 +214,7 @@ public class N_U_Item extends javax.swing.JFrame {
         CategoryCombo = new javax.swing.JComboBox<>();
         sizeLabel1 = new javax.swing.JLabel();
         unitMeasure = new javax.swing.JComboBox<>();
-        descriptionCombo = new javax.swing.JComboBox<>();
+        DescriptionCombo = new javax.swing.JComboBox<>();
         status = new javax.swing.JLabel();
         rdbActive = new javax.swing.JRadioButton();
         rdbInactive = new javax.swing.JRadioButton();
@@ -168,7 +223,7 @@ public class N_U_Item extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ItemTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Items");
@@ -261,7 +316,7 @@ public class N_U_Item extends javax.swing.JFrame {
 
         unitMeasure.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bndl", "Box", "Ea", "Ft", "Lift", "Roll" }));
 
-        descriptionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Description" }));
+        DescriptionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Description" }));
 
         status.setText("Status");
 
@@ -316,7 +371,7 @@ public class N_U_Item extends javax.swing.JFrame {
                             .addComponent(sizeTextField)
                             .addComponent(CategoryCombo, 0, 299, Short.MAX_VALUE)
                             .addComponent(unitMeasure, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(descriptionCombo, 0, 299, Short.MAX_VALUE))))
+                            .addComponent(DescriptionCombo, 0, 299, Short.MAX_VALUE))))
                 .addGap(178, 178, 178))
         );
         jPanel1Layout.setVerticalGroup(
@@ -329,7 +384,7 @@ public class N_U_Item extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descriptionLabel)
-                    .addComponent(descriptionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DescriptionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(partLabel)
@@ -370,32 +425,32 @@ public class N_U_Item extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Add New Item", jPanel1);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Category", "Description", "Part Number", "MFC", "Supplier", "Price", "Size", "Unit", "Status", "Last Change"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(ItemTable);
 
         jTabbedPane2.addTab("Current Items", jScrollPane1);
 
@@ -443,20 +498,24 @@ public class N_U_Item extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelAddActionPerformed
 
     private void addNewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewItemActionPerformed
+        //Handle update items and rdb selection
         insertProduct();
         // TODO add your handling code here:
     }//GEN-LAST:event_addNewItemActionPerformed
 
     private void partNumTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_partNumTextFieldFocusGained
-        partNumTextField.setText("");
+        if(partNumTextField.getText().equals("Part Number"))
+            partNumTextField.setText("");
     }//GEN-LAST:event_partNumTextFieldFocusGained
 
     private void mfcTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mfcTextFieldFocusGained
-        mfcTextField.setText("");
+        if(mfcTextField.getText().equals("Manufacturer"))
+            mfcTextField.setText("");
     }//GEN-LAST:event_mfcTextFieldFocusGained
 
     private void priceTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_priceTextFieldFocusGained
-        priceTextField.setText("");
+        if(priceTextField.getText().equals("Price"))
+            priceTextField.setText("");
     }//GEN-LAST:event_priceTextFieldFocusGained
 
     private void priceTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_priceTextFieldFocusLost
@@ -465,7 +524,8 @@ public class N_U_Item extends javax.swing.JFrame {
     }//GEN-LAST:event_priceTextFieldFocusLost
 
     private void sizeTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sizeTextFieldFocusGained
-        sizeTextField.setText("");
+        if(sizeTextField.getText().equals("Size"))
+            sizeTextField.setText("");
     }//GEN-LAST:event_sizeTextFieldFocusGained
 
     /**
@@ -504,11 +564,12 @@ public class N_U_Item extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CategoryCombo;
+    private javax.swing.JComboBox<String> DescriptionCombo;
+    private javax.swing.JTable ItemTable;
     private javax.swing.JComboBox<String> SupplierCombo;
     private javax.swing.JButton addNewItem;
     private javax.swing.JButton cancelAdd;
     private javax.swing.JLabel categoryLabel;
-    private javax.swing.JComboBox<String> descriptionCombo;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -516,7 +577,6 @@ public class N_U_Item extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
     private org.jdesktop.swingx.JXDatePicker lastChanged;
     private javax.swing.JLabel mfcLabel;
     private javax.swing.JTextField mfcTextField;
