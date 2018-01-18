@@ -12,10 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ButtonModel;
-import net.proteanit.sql.DbUtils;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
 
 
 public class N_U_Item extends javax.swing.JFrame {
@@ -26,6 +25,7 @@ public class N_U_Item extends javax.swing.JFrame {
     String [][] supplier = null;
     String [][] category = null;
     String [][] description= null;
+    int id =-1;
     
     private int findCategory(String c){
         int index=-1;
@@ -44,11 +44,13 @@ public class N_U_Item extends javax.swing.JFrame {
         return index;
     }
     private int findSupplier(String s){
+        System.out.println(s);
         int index=-1;
         for (int i=0;i<supplier.length;i++){
             if(s.equals(supplier[i][1]))
                 index =i;
         }
+        System.out.println(supplier[index][0]);
         return index;
     }
     private void getComboSupplier() {
@@ -117,56 +119,49 @@ public class N_U_Item extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public void getProduct() {
-        try{
-        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery(" select p.id,c.description, pd.productDescription, pd.productsize, s.companyname, p.price,p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange "
-                    + "from product p inner join category c on p.category_id=c.category_ID inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier;"); 
-       
-            ItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
-            ItemTable.getColumn("id").setHeaderValue("ID");
-            ItemTable.getColumn("description").setHeaderValue("Category");
-            ItemTable.getColumn("productDescription").setHeaderValue("Product Description");
-            ItemTable.getColumn("productsize").setHeaderValue("Size");
-            ItemTable.getColumn("companyname").setHeaderValue("Supplier");
-            ItemTable.getColumn("price").setHeaderValue("Unit Price");
-            ItemTable.getColumn("status").setHeaderValue("Active");
-            ItemTable.getColumn("unitMeasure").setHeaderValue("Unit");
-            ItemTable.getColumn("manufacturer").setHeaderValue("MFC");
-            ItemTable.getColumn("part_id").setHeaderValue("Part Number");
-            ItemTable.getColumn("lastchange").setHeaderValue("Last Change");
-            connObj.close();
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(N_U_Item.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
     public void insertProduct() {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-        String query = "INSERT into product (category_id,description,part_id,manufacturer,supplier,price,size,unitMeasure)"
-                + "values(?,?,?,?,?,?,?,?)";
-        //Get Values to insert
-        PreparedStatement preparedStmt =connObj.prepareStatement(query);
-        
-        //May want a drop down for this
-        //Needs to get INT value for indexes not the string in the combobox
-        preparedStmt.setInt    (1, findCategory((String) CategoryCombo.getSelectedItem()));
-        preparedStmt.setInt    (2, findDescription((String) DescriptionCombo.getSelectedItem()));
-        preparedStmt.setString (3, partNumTextField.getText());
-        preparedStmt.setString (4, mfcTextField.getText());//May need to update to have dropdown for this
-        preparedStmt.setInt    (5, findSupplier((String) SupplierCombo.getSelectedItem()));
-        preparedStmt.setInt    (6, Integer.parseInt(priceTextField.getText()));
-        preparedStmt.setString (7, sizeTextField.getText());
-        preparedStmt.setString (8, (String)unitMeasure.getSelectedItem());
-        //Work on insert based on selection value
-        preparedStmt.setString (9, rdbActive.getText());
-        preparedStmt.execute();
-      
-        connObj.close();
+        String query = "INSERT into product (category_id,description,part_id,manufacturer,supplier,price,unitMeasure,status,lastchange)"
+                + "values(?,?,?,?,?,?,?,?,?)";
+        //Needs form checking to ensure default values are not inserted
+        if (CategoryCombo.getSelectedItem().equals("Category")){
+            JOptionPane.showMessageDialog(null, "Please select a category.");
+        }
+        else if(DescriptionCombo.getSelectedItem().equals("Description")){
+            JOptionPane.showMessageDialog(null, "Please select a description.");
+        }
+        else if(SupplierCombo.getSelectedItem().equals("Supplier")){
+            JOptionPane.showMessageDialog(null, "Please select a supplier.");
+        }
+        else{
+            PreparedStatement preparedStmt =connObj.prepareStatement(query);
+            preparedStmt.setInt    (1, Integer.parseInt(category[findCategory((String) CategoryCombo.getSelectedItem())][0]));
+            preparedStmt.setInt    (2, Integer.parseInt(description[findDescription((String) DescriptionCombo.getSelectedItem())][0]));
+            preparedStmt.setString (3, partNumTextField.getText());
+            preparedStmt.setString (4, mfcTextField.getText());
+            preparedStmt.setInt    (5, Integer.parseInt(supplier[findSupplier((String) SupplierCombo.getSelectedItem())][0]));
+            preparedStmt.setDouble    (6, Double.parseDouble(priceTextField.getText()));
+            preparedStmt.setString (7, (String)unitMeasure.getSelectedItem());
+            //Work on insert based on selection value
+            String status= null;
+            for (Enumeration<AbstractButton> buttons = statusGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+                if (button.isSelected()) {
+                    status = button.getText();
+                }
+            }
+            System.out.println(status);
+            preparedStmt.setString (8, status);
+            java.util.Date lastDate = lastChanged.getDate();
+            java.sql.Date sqlDate = new java.sql.Date(lastDate.getTime());
+            preparedStmt.setDate (9, sqlDate);
+            preparedStmt.execute();
+
+            connObj.close();
+        }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -181,7 +176,6 @@ public class N_U_Item extends javax.swing.JFrame {
         getComboCategory();
         getDescriptionCombo();
         getComboSupplier();
-        getProduct();
     }
 
     /**
@@ -220,10 +214,6 @@ public class N_U_Item extends javax.swing.JFrame {
         rdbInactive = new javax.swing.JRadioButton();
         status1 = new javax.swing.JLabel();
         lastChanged = new org.jdesktop.swingx.JXDatePicker();
-        jPanel4 = new javax.swing.JPanel();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ItemTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Items");
@@ -283,11 +273,11 @@ public class N_U_Item extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(275, 275, 275)
+                .addGap(189, 189, 189)
                 .addComponent(addNewItem)
                 .addGap(45, 45, 45)
                 .addComponent(cancelAdd)
-                .addContainerGap(374, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,12 +330,12 @@ public class N_U_Item extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(261, Short.MAX_VALUE)
+                .addContainerGap(114, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(status1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastChanged, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(status1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lastChanged, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -372,7 +362,7 @@ public class N_U_Item extends javax.swing.JFrame {
                             .addComponent(CategoryCombo, 0, 299, Short.MAX_VALUE)
                             .addComponent(unitMeasure, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(DescriptionCombo, 0, 299, Short.MAX_VALUE))))
-                .addGap(178, 178, 178))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,7 +395,7 @@ public class N_U_Item extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sizeLabel)
                     .addComponent(sizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sizeLabel1)
                     .addComponent(unitMeasure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -420,53 +410,10 @@ public class N_U_Item extends javax.swing.JFrame {
                     .addComponent(lastChanged, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add New Item", jPanel1);
-
-        ItemTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Category", "Description", "Part Number", "MFC", "Supplier", "Price", "Size", "Unit", "Status", "Last Change"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true, true, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(ItemTable);
-
-        jTabbedPane2.addTab("Current Items", jScrollPane1);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -474,19 +421,14 @@ public class N_U_Item extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -565,7 +507,6 @@ public class N_U_Item extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CategoryCombo;
     private javax.swing.JComboBox<String> DescriptionCombo;
-    private javax.swing.JTable ItemTable;
     private javax.swing.JComboBox<String> SupplierCombo;
     private javax.swing.JButton addNewItem;
     private javax.swing.JButton cancelAdd;
@@ -573,10 +514,7 @@ public class N_U_Item extends javax.swing.JFrame {
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private org.jdesktop.swingx.JXDatePicker lastChanged;
     private javax.swing.JLabel mfcLabel;
     private javax.swing.JTextField mfcTextField;

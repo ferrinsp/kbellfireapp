@@ -60,8 +60,13 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     public int findCategory(String cat){
         int index =-1;
         for (int i=0;i<category.length;i++){
-            if(cat.equals(category[i][1]))
+            
+            
+            if(cat.equals(category[i][1])){
+                System.out.println(category[i][0]+" "+category[i][1]);
                 index =i;
+                System.out.println(i);
+            }
         }
         
         return index;
@@ -482,6 +487,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private void itemsSearchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemsSearchTableMouseClicked
         int row = itemsSearchTable.getSelectedRow();
         int realrow = itemsSearchTable.convertRowIndexToModel(row);
+        //May need to update this if Category get numbered differently
         getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(realrow, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(realrow, 1).toString()));
     }//GEN-LAST:event_itemsSearchTableMouseClicked
 
