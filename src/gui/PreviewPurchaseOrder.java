@@ -391,10 +391,10 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 }
             }
         }        
-        //String poreport = "C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\GeneratedPO.jrxml";
        
         try {
-            /*JasperReport jpr = JasperCompileManager.compileReport(poreport);
+            /*String poreport = "C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\GeneratedPO.jrxml";
+            JasperReport jpr = JasperCompileManager.compileReport(poreport);
             JasperPrint jpp = JasperFillManager.fillReport(jpr, null);
             JasperViewer.viewReport(jpp);*/
 
@@ -440,10 +440,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new PreviewPurchaseOrder().setVisible(true);
