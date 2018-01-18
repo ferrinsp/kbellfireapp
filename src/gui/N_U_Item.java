@@ -98,7 +98,7 @@ public class N_U_Item extends javax.swing.JFrame {
             e.printStackTrace();
         }
     } 
-    public void getDescriptionCombo(){
+    private void getDescriptionCombo(){
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -146,15 +146,15 @@ public class N_U_Item extends javax.swing.JFrame {
             preparedStmt.setDouble    (6, Double.parseDouble(priceTextField.getText()));
             preparedStmt.setString (7, (String)unitMeasure.getSelectedItem());
             //Work on insert based on selection value
-            String status= null;
+            String productStatus= null;
             for (Enumeration<AbstractButton> buttons = statusGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
                 if (button.isSelected()) {
-                    status = button.getText();
+                    productStatus = button.getText();
                 }
             }
-            System.out.println(status);
-            preparedStmt.setString (8, status);
+            System.out.println(productStatus);
+            preparedStmt.setString (8, productStatus);
             java.util.Date lastDate = lastChanged.getDate();
             java.sql.Date sqlDate = new java.sql.Date(lastDate.getTime());
             preparedStmt.setDate (9, sqlDate);
@@ -486,21 +486,13 @@ public class N_U_Item extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(N_U_Item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(N_U_Item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(N_U_Item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(N_U_Item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new N_U_Item().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new N_U_Item().setVisible(true);
         });
     }
 

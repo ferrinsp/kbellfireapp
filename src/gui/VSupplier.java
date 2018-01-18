@@ -5,33 +5,26 @@
  */
 package gui;
 
-import java.util.List;
-import kbapp.classes.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author ferrinsp
- */
 public class VSupplier extends javax.swing.JFrame {
     
     //private NSupplier currentSupplier;
     public Color genericColor = new Color(209, 220, 204);    
-    private AlternatingListCellRenderer cellRenderer = new AlternatingListCellRenderer();
+    private final AlternatingListCellRenderer cellRenderer;
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
       
-    public void getsuppliers()    {
+    private void getsuppliers()    {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -55,30 +48,18 @@ public class VSupplier extends javax.swing.JFrame {
         e.printStackTrace();
     }
     }
-
-    // Declare and initialize list models for JLists
-    private DefaultListModel<NSupplier> supplierModel = new DefaultListModel<>(); // Blessed be the diamond operator
-    
-    // Declare and initialize lists 
-   // private List<NSupplier> supplierList = new ArrayList<>(); 
-
+    private final DefaultListModel<NSupplier> supplierModel; 
     /**
      * Creates new form view_suppliers
      */
     public VSupplier() {
+        this.supplierModel = new DefaultListModel<>();
+        this.cellRenderer = new AlternatingListCellRenderer();
         
         this.setResizable(false);
         initComponents();
         getsuppliers();
     }
-    /*
-    private void populateContactList(List<NSupplier> list){
-        supplierModel.clear();
-        for(NSupplier s: list){
-            supplierModel.addElement(s);
-        }
-    }*/
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -210,27 +191,13 @@ public class VSupplier extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VSupplier().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VSupplier().setVisible(true);
         });
-    }
-    
-    public void displayCurrent(){
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

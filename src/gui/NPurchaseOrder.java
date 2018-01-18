@@ -131,7 +131,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public void getProductHeader (){
+    private void getProductHeader (){
         try {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -499,6 +499,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         filter();
     }//GEN-LAST:event_searchFieldKeyPressed
 
+    @SuppressWarnings("null")
     private void previewPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewPurchaseOrderButtonActionPerformed
         if(ItemsAddedTable.getRowCount() <= 0){
             JOptionPane.showMessageDialog(null, "No items added for Purchase Order.");
@@ -577,21 +578,13 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(NPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NPurchaseOrder().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new NPurchaseOrder().setVisible(true);
         });
     }
 

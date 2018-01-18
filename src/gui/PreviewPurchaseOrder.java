@@ -51,7 +51,8 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         getItemsTable();
     }
         
-    public void getItemsTable() {
+    @SuppressWarnings("null")
+    private void getItemsTable() {
         BufferedReader bfw = null;
         try {
             DefaultTableModel tm = (DefaultTableModel) previewItemsAddedTable.getModel();
@@ -118,7 +119,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public void getComboSupplier() {
+    private void getComboSupplier() {
     try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -390,20 +391,12 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 }
             }
         }        
-  
-        //Something like this for the button push to generate the report. I need to figure out what else is needed.
-        //There was some additional code on this stack overflow page that might be needed. I'm going to research,
-        //and see if this is the case. 
-        
-        //The conn error comes from a database connection so I'm not sure how to make this work yet. 
-        //It looks like for the fields we are getting from this page we can take them directly to the report if we want.
-        
-        String poreport = "C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml";
+        //String poreport = "C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\GeneratedPO.jrxml";
        
         try {
-            JasperReport jpr = JasperCompileManager.compileReport(poreport);
+            /*JasperReport jpr = JasperCompileManager.compileReport(poreport);
             JasperPrint jpp = JasperFillManager.fillReport(jpr, null);
-            JasperViewer.viewReport(jpp);
+            JasperViewer.viewReport(jpp);*/
 
             String jobText = (String) JobCombo.getSelectedItem();
             String shipToText = (String) ShipToCombo.getSelectedItem();
@@ -411,9 +404,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             Date expectedDateText = expectedDatePicker.getDate();
             String deliveryContactText = (String) deliveryContactCombo.getSelectedItem();
 
-            FileInputStream fis; //load report location
-
-            fis = new FileInputStream("\\src\\Reports\\GeneratedPO.jrxml");            
+            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\GeneratedPO.jrxml");            
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
 
@@ -431,7 +422,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
 
             //view report to UI
             JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (Exception ex) {
+        } catch (FileNotFoundException | SQLException | JRException ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -446,22 +437,16 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PreviewPurchaseOrder().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new PreviewPurchaseOrder().setVisible(true);
         });
     }
 

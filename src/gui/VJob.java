@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import net.proteanit.sql.DbUtils;
 
-
 public class VJob extends javax.swing.JFrame {
 
     /**
@@ -22,7 +21,7 @@ public class VJob extends javax.swing.JFrame {
     Statement stateObj = null;
     ResultSet resultObj = null;
         
-    public void getJobs()    {
+    private void getJobs()    {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -146,22 +145,12 @@ public class VJob extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VJob.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VJob.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VJob.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VJob.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VJob().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VJob().setVisible(true);
         });
     }
 

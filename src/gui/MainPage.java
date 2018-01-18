@@ -11,10 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Comparator;
-import javax.swing.table.TableRowSorter;
 import net.proteanit.sql.DbUtils;
-
 
 public class MainPage extends javax.swing.JFrame {
     
@@ -22,7 +19,7 @@ public class MainPage extends javax.swing.JFrame {
     Statement stateObj = null;
     ResultSet resultObj = null;
     
-    public void getPOStatus()    {
+    private void getPOStatus()    {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -48,8 +45,6 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     public MainPage() {
-        
-        this.setResizable(false);
         initComponents();
         getPOStatus();
         
@@ -94,10 +89,12 @@ public class MainPage extends javax.swing.JFrame {
         Reports = new javax.swing.JMenu();
         Create_Report = new javax.swing.JMenuItem();
         About = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KBell Plumbing");
         setName("MainFrame"); // NOI18N
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/KBellLogo.png"))); // NOI18N
 
@@ -276,6 +273,16 @@ public class MainPage extends javax.swing.JFrame {
         MenuBar.add(Reports);
 
         About.setText("About");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Software Information");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        About.add(jMenuItem1);
+
         MenuBar.add(About);
 
         setJMenuBar(MenuBar);
@@ -346,11 +353,12 @@ public class MainPage extends javax.swing.JFrame {
         Login login = new Login();
         login.setVisible(true);
     }//GEN-LAST:event_logOffFileMenuActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        AboutTheSoftware about = new AboutTheSoftware();
+        about.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
    
-    
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -364,22 +372,11 @@ public class MainPage extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainPage().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainPage().setVisible(true);
         });
     }
 
@@ -406,6 +403,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem View_Supplier;
     private javax.swing.JMenuItem create_Job;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem logOffFileMenu;
     private javax.swing.JTable purchaseOrder;
     private javax.swing.JMenuItem view_Job;

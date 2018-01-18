@@ -25,7 +25,7 @@ public class NSupplier extends javax.swing.JFrame {
     ResultSet resultObj = null;
     int id = -1;
     
-    public void updateSupplier(){
+    private void updateSupplier(){
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -88,6 +88,7 @@ public class NSupplier extends javax.swing.JFrame {
     
     /**
      * Creates new form update_suppliers
+     * @param id
      */
     public NSupplier(int id) {
         initComponents();
@@ -538,22 +539,12 @@ public class NSupplier extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(NSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
+        }   
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NSupplier().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new NSupplier().setVisible(true);
         });
     }
 

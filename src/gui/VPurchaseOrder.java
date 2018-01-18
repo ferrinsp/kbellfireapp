@@ -6,33 +6,22 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
-import java.util.ArrayList;
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
-import kbapp.classes.*; 
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author ferrinsp
- */
 public class VPurchaseOrder extends javax.swing.JFrame {
     
     public Color genericColor = new Color(209, 220, 204);    
-    private AlternatingListCellRenderer cellRenderer = new AlternatingListCellRenderer();
+    private final AlternatingListCellRenderer cellRenderer;
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
 
-    
-        public void selectpo()    {
+        private void selectpo()    {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -62,6 +51,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
      * Creates new form view_purchase_order
      */
     public VPurchaseOrder() {
+        this.cellRenderer = new AlternatingListCellRenderer();
         
         this.setResizable(false);
         initComponents();
@@ -148,34 +138,13 @@ public class VPurchaseOrder extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VPurchaseOrder().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VPurchaseOrder().setVisible(true);
         });
-    }
-    
-    public void displayCurrent(){
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
