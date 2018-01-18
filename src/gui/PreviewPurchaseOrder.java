@@ -5,7 +5,10 @@
  */
 package gui;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,7 +19,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -394,13 +399,39 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         //It looks like for the fields we are getting from this page we can take them directly to the report if we want.
         
         String poreport = "C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml";
-        JasperReport jpr;
+       
         try {
-            jpr = JasperCompileManager.compileReport(poreport);
+            JasperReport jpr = JasperCompileManager.compileReport(poreport);
             JasperPrint jpp = JasperFillManager.fillReport(jpr, null);
             JasperViewer.viewReport(jpp);
-            //https://stackoverflow.com/questions/13610890/how-to-generate-ireport-when-put-value-jtextfield-then-hit-button-java
-        } catch (JRException ex) {
+
+            String jobText = (String) JobCombo.getSelectedItem();
+            String shipToText = (String) ShipToCombo.getSelectedItem();
+            String selectSupplierText = (String) selectSupplierCombo.getSelectedItem();
+            Date expectedDateText = expectedDatePicker.getDate();
+            String deliveryContactText = (String) deliveryContactCombo.getSelectedItem();
+
+            FileInputStream fis; //load report location
+
+            fis = new FileInputStream("\\src\\Reports\\GeneratedPO.jrxml");            
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+
+            //set parameters
+            Map map = new HashMap();
+            map.put("selectedJob", jobText);
+            map.put("selectedShipTo", shipToText);
+            map.put("selectedSupplier", selectSupplierText);
+            map.put("selectedExpectedDate", expectedDateText);
+            map.put("selectedDeliveryContact", deliveryContactText);
+
+            //compile report
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+
+            //view report to UI
+            JasperViewer.viewReport(jasperPrint, false);                   
+        } catch (Exception ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
         
