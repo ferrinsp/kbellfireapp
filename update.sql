@@ -313,7 +313,7 @@ LOAD DATA local INFILE 'C:/temp/job.csv'
  ENCLOSED BY '"'
  ESCAPED BY ''
  LINES TERMINATED BY '\n'
- (name, address, city, state, zip,bidamount,status);
+ (jobid, name, address, city, state, zip, bidamount, status);
  
  -- Run this script to load contacts
  LOAD DATA local INFILE 'C:/temp/contact.csv'
