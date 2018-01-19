@@ -63,7 +63,7 @@ public class PrintPurchaseOrder extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        printPurchaseOrderButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -298,7 +298,7 @@ public class PrintPurchaseOrder extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(jTable1);
 
-        jButton1.setText("Print Purchase Order");
+        printPurchaseOrderButton.setText("Print Purchase Order");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -306,14 +306,14 @@ public class PrintPurchaseOrder extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(printPurchaseOrderButton)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(printPurchaseOrderButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -445,7 +445,6 @@ public class PrintPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> JobCombo2;
     private javax.swing.JComboBox<String> deliveryContactCombo;
     private org.jdesktop.swingx.JXDatePicker expectedDatePicker;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -475,5 +474,6 @@ public class PrintPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JTextPane jTextPane3;
     private javax.swing.JTextPane jTextPane4;
     private javax.swing.JTextPane jTextPane5;
+    private javax.swing.JButton printPurchaseOrderButton;
     // End of variables declaration//GEN-END:variables
 }
