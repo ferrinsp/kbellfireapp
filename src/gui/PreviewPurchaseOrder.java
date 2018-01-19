@@ -26,12 +26,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class PreviewPurchaseOrder extends javax.swing.JFrame {
 
@@ -391,41 +385,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 }
             }
         }        
-       
-        try {
-            /*String poreport = "C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\GeneratedPO.jrxml";
-            JasperReport jpr = JasperCompileManager.compileReport(poreport);
-            JasperPrint jpp = JasperFillManager.fillReport(jpr, null);
-            JasperViewer.viewReport(jpp);*/
-
-            String jobText = (String) JobCombo.getSelectedItem();
-            String shipToText = (String) ShipToCombo.getSelectedItem();
-            String selectSupplierText = (String) selectSupplierCombo.getSelectedItem();
-            Date expectedDateText = expectedDatePicker.getDate();
-            String deliveryContactText = (String) deliveryContactCombo.getSelectedItem();
-
-            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\GeneratedPO.jrxml");            
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-
-            //set parameters
-            Map map = new HashMap();
-            map.put("selectedJob", jobText);
-            map.put("selectedShipTo", shipToText);
-            map.put("selectedSupplier", selectSupplierText);
-            map.put("selectedExpectedDate", expectedDateText);
-            map.put("selectedDeliveryContact", deliveryContactText);
-
-            //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
-
-            //view report to UI
-            JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (FileNotFoundException | SQLException | JRException ex) {
-            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
     public static void main(String args[]) {
