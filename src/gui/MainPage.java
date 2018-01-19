@@ -78,8 +78,8 @@ public class MainPage extends javax.swing.JFrame {
         Create_Purchase_Order = new javax.swing.JMenuItem();
         View_Purchase_Order = new javax.swing.JMenuItem();
         Credit_Memo = new javax.swing.JMenu();
-        Create_Credit_Memo = new javax.swing.JMenuItem();
-        View_Credit_Memo = new javax.swing.JMenuItem();
+        newCreditMemo = new javax.swing.JMenuItem();
+        viewCreditMemo = new javax.swing.JMenuItem();
         Product = new javax.swing.JMenu();
         Create_Product = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
@@ -210,13 +210,23 @@ public class MainPage extends javax.swing.JFrame {
 
         Credit_Memo.setText("Credit Memo");
 
-        Create_Credit_Memo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        Create_Credit_Memo.setText("New Credit Memo");
-        Credit_Memo.add(Create_Credit_Memo);
+        newCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        newCreditMemo.setText("New Credit Memo");
+        newCreditMemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newCreditMemoActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(newCreditMemo);
 
-        View_Credit_Memo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        View_Credit_Memo.setText("View/Update Credit Memo");
-        Credit_Memo.add(View_Credit_Memo);
+        viewCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        viewCreditMemo.setText("View Credit Memo");
+        viewCreditMemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCreditMemoActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(viewCreditMemo);
 
         MenuBar.add(Credit_Memo);
 
@@ -358,6 +368,16 @@ public class MainPage extends javax.swing.JFrame {
         AboutTheSoftware about = new AboutTheSoftware();
         about.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void newCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newCreditMemoActionPerformed
+        NCreditMemo creditMemo = new NCreditMemo();
+        creditMemo.setVisible(true);
+    }//GEN-LAST:event_newCreditMemoActionPerformed
+
+    private void viewCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCreditMemoActionPerformed
+        VCreditMemo viewMemo = new VCreditMemo();
+        viewMemo.setVisible(true);
+    }//GEN-LAST:event_viewCreditMemoActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -382,7 +402,6 @@ public class MainPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu About;
-    private javax.swing.JMenuItem Create_Credit_Memo;
     private javax.swing.JMenuItem Create_Product;
     private javax.swing.JMenuItem Create_Purchase_Order;
     private javax.swing.JMenuItem Create_Report;
@@ -397,7 +416,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenu Reports;
     private javax.swing.JMenu Supplier;
     private javax.swing.JTabbedPane TabbedView;
-    private javax.swing.JMenuItem View_Credit_Memo;
     private javax.swing.JMenuItem View_Product;
     private javax.swing.JMenuItem View_Purchase_Order;
     private javax.swing.JMenuItem View_Supplier;
@@ -405,7 +423,9 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem logOffFileMenu;
+    private javax.swing.JMenuItem newCreditMemo;
     private javax.swing.JTable purchaseOrder;
+    private javax.swing.JMenuItem viewCreditMemo;
     private javax.swing.JMenuItem view_Job;
     private javax.swing.JScrollPane view_purchase_orders1;
     // End of variables declaration//GEN-END:variables

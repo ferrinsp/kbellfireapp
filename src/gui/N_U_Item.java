@@ -125,7 +125,7 @@ public class N_U_Item extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
         String query = "INSERT into product (category_id,description,part_id,manufacturer,supplier,price,unitMeasure,status,lastchange)"
-                + "values(?,?,?,?,?,?,?,?,?)";
+                + "values(?,?,?,?,?,?,?,?,?);";
         //Needs form checking to ensure default values are not inserted
         if (CategoryCombo.getSelectedItem().equals("Category")){
             JOptionPane.showMessageDialog(null, "Please select a category.");
