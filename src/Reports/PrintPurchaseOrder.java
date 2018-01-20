@@ -299,6 +299,11 @@ public class PrintPurchaseOrder extends javax.swing.JFrame {
         jScrollPane6.setViewportView(jTable1);
 
         printPurchaseOrderButton.setText("Print Purchase Order");
+        printPurchaseOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printPurchaseOrderButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -403,6 +408,10 @@ public class PrintPurchaseOrder extends javax.swing.JFrame {
     private void JobCombo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JobCombo2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JobCombo2ActionPerformed
+
+    private void printPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPurchaseOrderButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_printPurchaseOrderButtonActionPerformed
 
     /**
      * @param args the command line arguments
