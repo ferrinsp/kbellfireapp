@@ -5,6 +5,12 @@
  */
 package Reports;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.Date;
 
 /**
@@ -20,6 +26,28 @@ public class PrintPurchaseOrder extends javax.swing.JFrame {
         initComponents();
     }
 
+    private void printAsPDF(){
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setJobName("jPanel1");
+        job.setPrintable ((Graphics pg, PageFormat pf, int pageNum) -> {
+            if (pageNum > 0) {
+                return Printable.NO_SUCH_PAGE;
+            }
+            Graphics2D g2 = (Graphics2D) pg;
+            g2.translate(pf.getImageableX(), pf.getImageableY());
+            jPanel1.print(g2);
+            return Printable.PAGE_EXISTS;
+        });
+
+        boolean ok = job.printDialog();
+        if (ok) {
+            try {
+                job.print();
+            }
+            catch (PrinterException ex){
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -410,7 +438,7 @@ public class PrintPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_JobCombo2ActionPerformed
 
     private void printPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPurchaseOrderButtonActionPerformed
-        // TODO add your handling code here:
+        printAsPDF();
     }//GEN-LAST:event_printPurchaseOrderButtonActionPerformed
 
     /**
