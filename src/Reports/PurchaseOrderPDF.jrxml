@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45aef140-5545-43c0-80a3-183806395e5c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="56"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#DEB887">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFE3BF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFF8EF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#DEB887">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFE3BF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFF8EF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#DEB887">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFE3BF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="92dde620-4dc4-4629-b0b4-0126c62c832d"/>
+	<subDataset name="purchaseOrderDetails" uuid="9633422d-ac05-47b4-a112-29815cc07d32"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     contact.`name` AS contact_name,
+     contact.`phone` AS contact_phone,
+     job.`name` AS job_name,
+     job.`address` AS job_address,
+     job.`city` AS job_city,
+     job.`state` AS job_state,
+     job.`zip` AS job_zip,
+     job.`bidamount` AS job_bidamount,
+     job.`status` AS job_status,
+     product.`description` AS product_description,
+     product.`unitMeasure` AS product_unitMeasure,
+     product.`manufacturer` AS product_manufacturer,
+     product.`supplier` AS product_supplier,
+     product.`price` AS product_price,
+     product.`part_id` AS product_part_id,
+     productdescription.`productDescription` AS productdescription_productDescription,
+     productdescription.`productsize` AS productdescription_productsize,
+     purchaseorder.`supplier` AS purchaseorder_supplier,
+     purchaseorder.`job` AS purchaseorder_job,
+     purchaseorder.`expectedby` AS purchaseorder_expectedby,
+     purchaseorder.`contact` AS purchaseorder_contact,
+     purchaseorder.`quote` AS purchaseorder_quote,
+     purchaseorder.`quotedate` AS purchaseorder_quotedate,
+     purchaseorder.`tax` AS purchaseorder_tax,
+     purchaseorder.`total` AS purchaseorder_total,
+     purchaseorder.`createdby` AS purchaseorder_createdby,
+     purchaseorder.`created` AS purchaseorder_created,
+     purchaseorder.`shipto` AS purchaseorder_shipto,
+     purchaseorder.`status` AS purchaseorder_status,
+     purchaseorder.`comments` AS purchaseorder_comments,
+     purchaseorderdetails.`product` AS purchaseorderdetails_product,
+     purchaseorderdetails.`cost` AS purchaseorderdetails_cost,
+     purchaseorderdetails.`orderqty` AS purchaseorderdetails_orderqty,
+     purchaseorderdetails.`receivedqty` AS purchaseorderdetails_receivedqty,
+     purchaseorderdetails.`tax` AS purchaseorderdetails_tax,
+     purchaseorderdetails.`total` AS purchaseorderdetails_total,
+     supplier.`companyname` AS supplier_companyname,
+     supplier.`contact` AS supplier_contact,
+     supplier.`address1` AS supplier_address1,
+     supplier.`city` AS supplier_city,
+     supplier.`state` AS supplier_state,
+     supplier.`postalcode` AS supplier_postalcode,
+     supplier.`phone` AS supplier_phone,
+     supplier.`fax` AS supplier_fax,
+     supplier.`terms` AS supplier_terms,
+     supplier.`comments` AS supplier_comments,
+     user.`username` AS user_username,
+     user.`name` AS user_name,
+     user.`password` AS user_password,
+     purchaseorderdetails.`orderid` AS purchaseorderdetails_orderid,
+     purchaseorder.`orderid` AS purchaseorder_orderid
+FROM
+     `productdescription` productdescription INNER JOIN `product` product ON productdescription.`pdescID` = product.`description`
+     INNER JOIN `purchaseorderdetails` purchaseorderdetails ON product.`id` = purchaseorderdetails.`product`
+     INNER JOIN `supplier` supplier ON product.`supplier` = supplier.`supplierid`
+     INNER JOIN `purchaseorder` purchaseorder ON supplier.`supplierid` = purchaseorder.`supplier`
+     AND purchaseorder.`orderid` = purchaseorderdetails.`orderid`
+     INNER JOIN `contact` contact ON purchaseorder.`contact` = contact.`contactid`
+     INNER JOIN `job` job ON purchaseorder.`job` = job.`jobid`
+     INNER JOIN `user` user ON purchaseorder.`createdby` = user.`userid`]]>
+	</queryString>
+	<field name="contact_name" class="java.lang.String"/>
+	<field name="job_address" class="java.lang.String"/>
+	<field name="job_city" class="java.lang.String"/>
+	<field name="job_state" class="java.lang.String"/>
+	<field name="job_zip" class="java.lang.String"/>
+	<field name="product_description" class="java.lang.Integer"/>
+	<field name="product_unitMeasure" class="java.lang.String"/>
+	<field name="product_manufacturer" class="java.lang.String"/>
+	<field name="product_supplier" class="java.lang.Integer"/>
+	<field name="purchaseorder_supplier" class="java.lang.Integer"/>
+	<field name="purchaseorder_job" class="java.lang.Integer"/>
+	<field name="purchaseorder_expectedby" class="java.sql.Timestamp"/>
+	<field name="purchaseorder_contact" class="java.lang.Integer"/>
+	<field name="purchaseorder_total" class="java.math.BigDecimal"/>
+	<field name="purchaseorder_createdby" class="java.lang.Integer"/>
+	<field name="purchaseorder_shipto" class="java.lang.Integer"/>
+	<field name="purchaseorder_status" class="java.lang.String"/>
+	<field name="purchaseorderdetails_product" class="java.lang.Integer"/>
+	<field name="purchaseorderdetails_cost" class="java.math.BigDecimal"/>
+	<field name="purchaseorderdetails_orderqty" class="java.lang.Integer"/>
+	<field name="supplier_contact" class="java.lang.String"/>
+	<field name="supplier_address1" class="java.lang.String"/>
+	<field name="supplier_city" class="java.lang.String"/>
+	<field name="supplier_state" class="java.lang.String"/>
+	<field name="supplier_postalcode" class="java.lang.String"/>
+	<field name="supplier_phone" class="java.lang.String"/>
+	<field name="supplier_terms" class="java.lang.String"/>
+	<field name="user_name" class="java.lang.String"/>
+	<group name="product_description">
+		<groupExpression><![CDATA[$F{product_description}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="162" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="472" y="0" width="100" height="20" uuid="2f4c07d9-d37e-4e57-9a75-dca20a7cdfb9"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="250" height="162" uuid="52c729c4-fc03-46ee-807f-83881b60639d"/>
+				<imageExpression><![CDATA["C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Resources\\KBellLogo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="250" y="41" width="151" height="20" uuid="319b80d3-1210-4547-a349-c9a03044e565"/>
+				<textFieldExpression><![CDATA[K. Bell Plumbing & Heating, Inc.]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="72" width="151" height="56" uuid="2f9a301e-65f1-40b6-b957-a6769a562004"/>
+				<textFieldExpression><![CDATA[1676 West 2100 South
+West Haven, UT 84401
+Phone: (801) 731-6886
+purchasing@kbell.biz]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="41" width="100" height="20" uuid="5e8c3611-3a4d-4dd2-81f7-42dbe7b809a0"/>
+				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="61" width="100" height="20" uuid="ec2b8f07-239e-4219-b842-c3a185a55340"/>
+				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="81" width="100" height="20" uuid="aba650fa-ded9-4792-b220-75998ecb4933"/>
+				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="108" width="100" height="20" uuid="7d0efaf0-e4f4-4413-85e1-a06edf94d00e"/>
+				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="45" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="0" y="46" width="572" height="140" uuid="a86a273f-2ffd-4e65-9f5e-2f124745b2bb"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="purchaseOrderDetails" uuid="c175e5fb-0e60-4217-af5d-a30dd9fadfc1">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="6f0d45e5-a617-41de-9abf-c02b2e46c01d">
+						<jr:tableHeader style="table 2_TH" height="30"/>
+						<jr:tableFooter style="table 2_TH" height="30"/>
+						<jr:columnHeader style="table 2_CH" height="30"/>
+						<jr:columnFooter style="table 2_CH" height="30"/>
+						<jr:detailCell style="table 2_TD" height="20"/>
+					</jr:column>
+					<jr:column width="90" uuid="4ba9694d-8bae-46d8-b6a6-28c36340a6dd">
+						<jr:tableHeader style="table 2_TH" height="30"/>
+						<jr:tableFooter style="table 2_TH" height="30"/>
+						<jr:columnHeader style="table 2_CH" height="30"/>
+						<jr:columnFooter style="table 2_CH" height="30"/>
+						<jr:detailCell style="table 2_TD" height="20"/>
+					</jr:column>
+					<jr:column width="90" uuid="2073864a-b6d4-4461-a1ef-d6f7f9ca1784">
+						<jr:tableHeader style="table 2_TH" height="30"/>
+						<jr:tableFooter style="table 2_TH" height="30"/>
+						<jr:columnHeader style="table 2_CH" height="30"/>
+						<jr:columnFooter style="table 2_CH" height="30"/>
+						<jr:detailCell style="table 2_TD" height="20"/>
+					</jr:column>
+					<jr:column width="90" uuid="5574a5ed-541b-4a2a-b1c8-22043812ff33">
+						<jr:tableHeader style="table 2_TH" height="30"/>
+						<jr:tableFooter style="table 2_TH" height="30"/>
+						<jr:columnHeader style="table 2_CH" height="30"/>
+						<jr:columnFooter style="table 2_CH" height="30"/>
+						<jr:detailCell style="table 2_TD" height="20"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="143" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="472" y="22" width="100" height="20" uuid="fadcb9cf-b911-463e-9bf5-b66ea6d11c7e"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

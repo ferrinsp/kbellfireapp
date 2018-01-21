@@ -442,7 +442,6 @@ public class N_U_Item extends javax.swing.JFrame {
     private void addNewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewItemActionPerformed
         //Handle update items and rdb selection
         insertProduct();
-        // TODO add your handling code here:
     }//GEN-LAST:event_addNewItemActionPerformed
 
     private void partNumTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_partNumTextFieldFocusGained
