@@ -19,6 +19,28 @@ public class MainPage extends javax.swing.JFrame {
     Statement stateObj = null;
     ResultSet resultObj = null;
     
+    private void getDashboard() {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        stateObj = connObj.createStatement();
+        resultObj = stateObj.executeQuery("select Count(*) from purchaseorder where status Like '%Issued%';");
+        while (resultObj.next()){
+            issuedCount.setText(resultObj.getString("Count(*)"));
+        }
+        resultObj = stateObj.executeQuery("select Count(*) from purchaseorder where status Like '%Pending%';");
+        while (resultObj.next()){
+            pendingCount.setText(resultObj.getString("Count(*)"));
+        }
+        resultObj = stateObj.executeQuery("select Count(*) from purchaseorder where status Like '%Back%';");
+        while (resultObj.next()){
+            boCount.setText(resultObj.getString("Count(*)"));
+        }
+        connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     private void getPOStatus()    {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -46,6 +68,7 @@ public class MainPage extends javax.swing.JFrame {
     public MainPage() {
         initComponents();
         getPOStatus();
+        getDashboard();
         
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
@@ -67,6 +90,14 @@ public class MainPage extends javax.swing.JFrame {
         TabbedView = new javax.swing.JTabbedPane();
         view_purchase_orders1 = new javax.swing.JScrollPane();
         purchaseOrder = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        boCount = new javax.swing.JTextField();
+        issuedCount = new javax.swing.JTextField();
+        pendingCount = new javax.swing.JTextField();
+        taxValue = new javax.swing.JTextField();
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         logOffFileMenu = new javax.swing.JMenuItem();
@@ -127,6 +158,22 @@ public class MainPage extends javax.swing.JFrame {
 
         TabbedView.addTab("Purchase Order Status", view_purchase_orders1);
 
+        jLabel2.setText("Back Order:");
+
+        jLabel3.setText("Issued:");
+
+        jLabel4.setText("Pending:");
+
+        jLabel5.setText("Tax:");
+
+        boCount.setEditable(false);
+
+        issuedCount.setEditable(false);
+
+        pendingCount.setEditable(false);
+
+        taxValue.setText("7.1%");
+
         javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
         Main_Panel.setLayout(Main_PanelLayout);
         Main_PanelLayout.setHorizontalGroup(
@@ -135,16 +182,45 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Main_PanelLayout.createSequentialGroup()
-                        .addGap(0, 262, Short.MAX_VALUE)
+                        .addComponent(TabbedView)
+                        .addContainerGap())
+                    .addGroup(Main_PanelLayout.createSequentialGroup()
+                        .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(taxValue, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                            .addComponent(boCount)
+                            .addComponent(issuedCount)
+                            .addComponent(pendingCount))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(0, 263, Short.MAX_VALUE))
-                    .addComponent(TabbedView, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addContainerGap(213, Short.MAX_VALUE))))
         );
         Main_PanelLayout.setVerticalGroup(
             Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Main_PanelLayout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(Main_PanelLayout.createSequentialGroup()
+                        .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(boCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(issuedCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(pendingCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(taxValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27)
                 .addComponent(TabbedView, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -418,12 +494,20 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem View_Product;
     private javax.swing.JMenuItem View_Purchase_Order;
     private javax.swing.JMenuItem View_Supplier;
+    private javax.swing.JTextField boCount;
     private javax.swing.JMenuItem create_Job;
+    private javax.swing.JTextField issuedCount;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem logOffFileMenu;
     private javax.swing.JMenuItem newCreditMemo;
+    private javax.swing.JTextField pendingCount;
     private javax.swing.JTable purchaseOrder;
+    private javax.swing.JTextField taxValue;
     private javax.swing.JMenuItem viewCreditMemo;
     private javax.swing.JMenuItem view_Job;
     private javax.swing.JScrollPane view_purchase_orders1;

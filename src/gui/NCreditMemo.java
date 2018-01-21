@@ -5,22 +5,15 @@
  */
 package gui;
 
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -106,7 +99,7 @@ public class NCreditMemo extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         purchaseOrderItemTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        IssueCreditMemo = new javax.swing.JButton();
         ComboPO = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -114,16 +107,7 @@ public class NCreditMemo extends javax.swing.JFrame {
 
         purchaseOrderItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Product ID", "Description", "Company Name", "Price", "Unit Measure", "Manufacturer", "Part ID", "Cost", "Tax"
@@ -148,7 +132,12 @@ public class NCreditMemo extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Issue Credit Memo");
+        IssueCreditMemo.setText("Issue Credit Memo");
+        IssueCreditMemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IssueCreditMemoActionPerformed(evt);
+            }
+        });
 
         ComboPO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active Purchase Orders" }));
         ComboPO.addItemListener(new java.awt.event.ItemListener() {
@@ -164,7 +153,7 @@ public class NCreditMemo extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(IssueCreditMemo)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -179,7 +168,7 @@ public class NCreditMemo extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(IssueCreditMemo)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -205,13 +194,23 @@ public class NCreditMemo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void issueCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueCreditMemoActionPerformed
-        insertCreditMemo();
+        if(purchaseOrderItemTable.getRowCount()==0)
+            JOptionPane.showMessageDialog(null, "No items added for Purchase Order.");
+        else
+            insertCreditMemo();
     }//GEN-LAST:event_issueCreditMemoActionPerformed
 
     private void ComboPOItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboPOItemStateChanged
         if (!(ComboPO.getSelectedItem().equals("Active Purchase Orders")))
             filter();
     }//GEN-LAST:event_ComboPOItemStateChanged
+
+    private void IssueCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IssueCreditMemoActionPerformed
+        if(purchaseOrderItemTable.getRowCount()==0)
+            JOptionPane.showMessageDialog(null, "No items added for Purchase Order.");
+        else
+            insertCreditMemo();
+    }//GEN-LAST:event_IssueCreditMemoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,7 +239,7 @@ public class NCreditMemo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboPO;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton IssueCreditMemo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
