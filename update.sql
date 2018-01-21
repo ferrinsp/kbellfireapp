@@ -340,7 +340,7 @@ LOAD DATA local INFILE 'C:/temp/category.csv'
  ENCLOSED BY '"'
  ESCAPED BY ''
  LINES TERMINATED BY '\n'
- (category_ID,description);
+ (description);
  
  -- Run this for product descriptions
   LOAD DATA local INFILE 'C:/temp/prodDesc.csv'
