@@ -35,25 +35,34 @@ public class NCreditMemo extends javax.swing.JFrame {
 
     public NCreditMemo() {
         initComponents();
-        getPurchaseOrder();
+        getComboPO();
     }
     
     public void filter(){
-        String text = searchField.getText();
-        TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) purchaseOrderItemTable.getModel())); 
-        if(text.length() >0 ){
-            sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
-            purchaseOrderItemTable.setRowSorter(sorter);
+        getPurchaseOrder(Integer.parseInt(ComboPO.getSelectedItem().toString()));
+    }
+    private void getComboPO() {
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select orderid from purchaseorder where status not Like '%Completed%' ORDER BY orderid;");
+            while (resultObj.next()){
+                ComboPO.addItem(resultObj.getString("orderid"));
+            }
+            connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     
-    private void getPurchaseOrder(){
+    private void getPurchaseOrder(int id){
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select p.id, pd.productDescription, s.companyname, p.price, p.unitMeasure, p.manufacturer, p.part_id, pod.cost, pod.tax from  purchaseorder po inner join purchaseorderdetails pod on po.orderid = pod.orderid "
-                    + "inner join product p on p.id = pod.product inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier;"); 
+                    + "inner join product p on p.id = pod.product inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier where po.orderid ="+id+";"); 
             purchaseOrderItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             purchaseOrderItemTable.getColumn("id").setHeaderValue("ID");
             purchaseOrderItemTable.getColumn("productDescription").setHeaderValue("Product Description");
@@ -94,34 +103,14 @@ public class NCreditMemo extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        searchField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         purchaseOrderItemTable = new javax.swing.JTable();
-        issueCreditMemo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        ComboPO = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Credit Memo");
-
-        searchField.setText("PO Search");
-        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                searchFieldFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                searchFieldFocusLost(evt);
-            }
-        });
-        searchField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchFieldMouseClicked(evt);
-            }
-        });
-        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                searchFieldKeyPressed(evt);
-            }
-        });
 
         purchaseOrderItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,10 +148,12 @@ public class NCreditMemo extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        issueCreditMemo.setText("Issue Credit Memo");
-        issueCreditMemo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                issueCreditMemoActionPerformed(evt);
+        jButton1.setText("Issue Credit Memo");
+
+        ComboPO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active Purchase Orders" }));
+        ComboPO.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboPOItemStateChanged(evt);
             }
         });
 
@@ -171,24 +162,24 @@ public class NCreditMemo extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(issueCreditMemo)
+                .addComponent(jButton1)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ComboPO, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ComboPO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(issueCreditMemo)
+                .addComponent(jButton1)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -213,29 +204,14 @@ public class NCreditMemo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER)
-        filter();
-    }//GEN-LAST:event_searchFieldKeyPressed
-
-    private void searchFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchFieldMouseClicked
-        if (searchField.getText().equals("Search")) {
-            searchField.setText("");
-        }
-    }//GEN-LAST:event_searchFieldMouseClicked
-
-    private void searchFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusLost
-        if(searchField.getText().equals(""))
-        searchField.setText("Search");
-    }//GEN-LAST:event_searchFieldFocusLost
-
-    private void searchFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusGained
-        searchField.setText("");
-    }//GEN-LAST:event_searchFieldFocusGained
-
     private void issueCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueCreditMemoActionPerformed
         insertCreditMemo();
     }//GEN-LAST:event_issueCreditMemoActionPerformed
+
+    private void ComboPOItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboPOItemStateChanged
+        if (!(ComboPO.getSelectedItem().equals("Active Purchase Orders")))
+            filter();
+    }//GEN-LAST:event_ComboPOItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -263,11 +239,11 @@ public class NCreditMemo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton issueCreditMemo;
+    private javax.swing.JComboBox<String> ComboPO;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable purchaseOrderItemTable;
-    private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
 }

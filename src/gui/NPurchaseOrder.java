@@ -496,7 +496,9 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_closeWindowButtonActionPerformed
 
     private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
-        filter();
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            filter();
+        }
     }//GEN-LAST:event_searchFieldKeyPressed
 
     @SuppressWarnings("null")
