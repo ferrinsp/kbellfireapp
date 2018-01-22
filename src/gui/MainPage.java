@@ -64,11 +64,26 @@ public class MainPage extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    private void getTax() {
+        try {
+        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        stateObj = connObj.createStatement();
+        resultObj = stateObj.executeQuery("select tax from tax;");
+        while (resultObj.next()){
+            taxValue.setText(Double.toString(resultObj.getDouble("tax")));
+        }
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public MainPage() {
         initComponents();
         getPOStatus();
         getDashboard();
+        getTax();
         
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
@@ -113,13 +128,14 @@ public class MainPage extends javax.swing.JFrame {
         Product = new javax.swing.JMenu();
         Create_Product = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
+        MiscFunction = new javax.swing.JMenuItem();
         Supplier = new javax.swing.JMenu();
         Create_Supplier = new javax.swing.JMenuItem();
         View_Supplier = new javax.swing.JMenuItem();
         Reports = new javax.swing.JMenu();
         Create_Report = new javax.swing.JMenuItem();
         About = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        Software = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KBell Plumbing");
@@ -172,7 +188,7 @@ public class MainPage extends javax.swing.JFrame {
 
         pendingCount.setEditable(false);
 
-        taxValue.setText("7.1%");
+        taxValue.setEditable(false);
 
         javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
         Main_Panel.setLayout(Main_PanelLayout);
@@ -325,6 +341,14 @@ public class MainPage extends javax.swing.JFrame {
         });
         Product.add(View_Product);
 
+        MiscFunction.setText("Misc Functions");
+        MiscFunction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MiscFunctionActionPerformed(evt);
+            }
+        });
+        Product.add(MiscFunction);
+
         MenuBar.add(Product);
 
         Supplier.setText("Suppliers");
@@ -359,14 +383,14 @@ public class MainPage extends javax.swing.JFrame {
 
         About.setText("About");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Software Information");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        Software.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        Software.setText("Software Information");
+        Software.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                SoftwareActionPerformed(evt);
             }
         });
-        About.add(jMenuItem1);
+        About.add(Software);
 
         MenuBar.add(About);
 
@@ -439,10 +463,10 @@ public class MainPage extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_logOffFileMenuActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void SoftwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SoftwareActionPerformed
         AboutTheSoftware about = new AboutTheSoftware();
         about.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_SoftwareActionPerformed
 
     private void newCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newCreditMemoActionPerformed
         NCreditMemo creditMemo = new NCreditMemo();
@@ -453,6 +477,11 @@ public class MainPage extends javax.swing.JFrame {
         VCreditMemo viewMemo = new VCreditMemo();
         viewMemo.setVisible(true);
     }//GEN-LAST:event_viewCreditMemoActionPerformed
+
+    private void MiscFunctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MiscFunctionActionPerformed
+        NDescription nDesc = new NDescription();
+        nDesc.setVisible(true);
+    }//GEN-LAST:event_MiscFunctionActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -486,9 +515,11 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenu Jobs;
     private javax.swing.JPanel Main_Panel;
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenuItem MiscFunction;
     private javax.swing.JMenu Product;
     private javax.swing.JMenu Purchase_Order;
     private javax.swing.JMenu Reports;
+    private javax.swing.JMenuItem Software;
     private javax.swing.JMenu Supplier;
     private javax.swing.JTabbedPane TabbedView;
     private javax.swing.JMenuItem View_Product;
@@ -502,7 +533,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem logOffFileMenu;
     private javax.swing.JMenuItem newCreditMemo;
     private javax.swing.JTextField pendingCount;
