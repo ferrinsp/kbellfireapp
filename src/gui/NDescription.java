@@ -121,6 +121,9 @@ public class NDescription extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 prodSizeTextFieldFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                prodSizeTextFieldFocusLost(evt);
+            }
         });
 
         addNewDescription.setText("Save");
@@ -184,6 +187,14 @@ public class NDescription extends javax.swing.JFrame {
         salesTax.setText("Sales Tax:");
 
         taxTextField.setText("Tax Rate");
+        taxTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                taxTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                taxTextFieldFocusLost(evt);
+            }
+        });
 
         updateTax.setText("Save");
         updateTax.addActionListener(new java.awt.event.ActionListener() {
@@ -269,6 +280,7 @@ public class NDescription extends javax.swing.JFrame {
 
     private void addNewDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewDescriptionActionPerformed
         insertDescription();
+        JOptionPane.showMessageDialog(null, "New description was entered successfully.");
     }//GEN-LAST:event_addNewDescriptionActionPerformed
 
     private void prodDescTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prodDescTextFieldFocusLost
@@ -278,16 +290,30 @@ public class NDescription extends javax.swing.JFrame {
 
     private void updateTaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTaxActionPerformed
         
-        try
-        {
-         double tax = Double.parseDouble(taxTextField.getText());
-         setTax(tax);
+        try {
+            double tax = Double.parseDouble(taxTextField.getText());
+            setTax(tax);
+            JOptionPane.showMessageDialog(null, "Tax Rate has been updated successfully.");
         }
-        catch(NumberFormatException e)
-        {
-          JOptionPane.showMessageDialog(null, "Please input a valid sales tax.");
+        catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please input a valid sales tax.");
         }
     }//GEN-LAST:event_updateTaxActionPerformed
+
+    private void taxTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxTextFieldFocusGained
+        if(taxTextField.getText().equals("Tax Rate"))
+        taxTextField.setText("");
+    }//GEN-LAST:event_taxTextFieldFocusGained
+
+    private void taxTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxTextFieldFocusLost
+        if(taxTextField.getText().equals(""))
+            taxTextField.setText("Tax Rate");
+    }//GEN-LAST:event_taxTextFieldFocusLost
+
+    private void prodSizeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prodSizeTextFieldFocusLost
+        if(prodSizeTextField.getText().equals(""))
+            prodSizeTextField.setText("Product Size");
+    }//GEN-LAST:event_prodSizeTextFieldFocusLost
 
     /**
      * @param args the command line arguments
