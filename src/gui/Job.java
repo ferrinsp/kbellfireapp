@@ -9,41 +9,86 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
 
 
 public class Job extends javax.swing.JFrame {
     
     Connection connObj = null;
+    String name;
+
+    public Job(String name) {
+        this.name=name;
+        initComponents();
+    }
         
     private void insertJob()    {
+        System.out.println("Verify Insert Job functions wokrs then remove");
         try {
-        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-        String query = "INSERT into job (name,address,city,state,zip,bidamount,status,comments)"
-                + "values(?,?,?,?,?,?,?,?)";
-        String status =null;
-        if (rdbActive.isSelected())
-            status ="Active";
-        else if (rdbInactive.isSelected())
-            status = "Inactive";
-        //Get Values to insert
-        PreparedStatement preparedStmt =connObj.prepareStatement(query);
-        preparedStmt.setString (1, jobName.getText());
-        preparedStmt.setString (2, address.getText());
-        preparedStmt.setString (3, city.getText());
-        preparedStmt.setString (4, state.getText());
-        preparedStmt.setString (5, postalCode.getText());
-        preparedStmt.setInt (6, Integer.parseInt(bidAmount.getText()));
-        preparedStmt.setString (7, status);
-        preparedStmt.setString (8, jobComments.getText());
-        preparedStmt.execute();
-        //Close Connection
-        connObj.close();
+            if (name.equals("Add")) {
+                //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+                connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+                String query = "INSERT into job (name,address,city,state,zip,bidamount,status,comments)"
+                        + "values(?,?,?,?,?,?,?,?)";
+                String status =null;
+                if (rdbActive.isSelected())
+                    status ="Active";
+                else if (rdbInactive.isSelected())
+                    status = "Inactive";
+                //Get Values to insert
+                PreparedStatement preparedStmt =connObj.prepareStatement(query);
+                preparedStmt.setString (1, jobName.getText());
+                preparedStmt.setString (2, address.getText());
+                preparedStmt.setString (3, city.getText());
+                preparedStmt.setString (4, state.getText());
+                preparedStmt.setString (5, postalCode.getText());
+                preparedStmt.setInt (6, Integer.parseInt(bidAmount.getText()));
+                preparedStmt.setString (7, status);
+                preparedStmt.setString (8, jobComments.getText());
+                preparedStmt.execute();
+                //Close Connection
+                connObj.close();
+            }
+            else
+                updateJob();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    private void updateJob(){
+        try {
+            System.out.println("Verify Update Job functions wokrs then remove");
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            String query = "Update job set name =?, address=?,city=?,state=?,zip=?,bidamount=?,status=?, comments=? where name ="+name+";";
+            //Get Values to insert
+            PreparedStatement preparedStmt =connObj.prepareStatement(query);
+            preparedStmt.setString (1, jobName.getText());
+            preparedStmt.setString (2, address.getText());
+            preparedStmt.setString (3, city.getText());
+            preparedStmt.setString (4, state.getText());
+            preparedStmt.setString (5, postalCode.getText());
+            preparedStmt.setInt (6, Integer.parseInt(bidAmount.getText()));
+            String jobStatus= null;
+            for (Enumeration<AbstractButton> buttons = statusGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+                if (button.isSelected()) {
+                    jobStatus = button.getText();
+                }
+            }
+            preparedStmt.setString (7,jobStatus );
+            preparedStmt.setString (8, jobComments.getText());
+            preparedStmt.executeUpdate();
+      
+            connObj.close();
+            this.name = "";
+            this.dispose();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
     public Job() {
         initComponents();
     }

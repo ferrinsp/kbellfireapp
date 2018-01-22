@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 public class VJob extends javax.swing.JFrame {
@@ -58,6 +59,8 @@ public class VJob extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         viewJobCloseButton = new javax.swing.JButton();
+        addJobButton = new javax.swing.JButton();
+        updateJobButton = new javax.swing.JButton();
         view_job = new javax.swing.JScrollPane();
         viewJob = new javax.swing.JTable();
 
@@ -71,12 +74,30 @@ public class VJob extends javax.swing.JFrame {
             }
         });
 
+        addJobButton.setText("Add Job");
+        addJobButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addJobButtonActionPerformed(evt);
+            }
+        });
+
+        updateJobButton.setText("Update Job");
+        updateJobButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateJobButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(334, 334, 334)
+                .addGap(209, 209, 209)
+                .addComponent(addJobButton)
+                .addGap(18, 18, 18)
+                .addComponent(updateJobButton)
+                .addGap(18, 18, 18)
                 .addComponent(viewJobCloseButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -84,7 +105,11 @@ public class VJob extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewJobCloseButton)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewJobCloseButton)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(addJobButton)
+                        .addComponent(updateJobButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -129,6 +154,28 @@ public class VJob extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_viewJobCloseButtonActionPerformed
 
+    private void addJobButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJobButtonActionPerformed
+        Job job = new Job("Add");
+        job.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_addJobButtonActionPerformed
+
+    private void updateJobButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateJobButtonActionPerformed
+        int[] index = viewJob.getSelectedRows();
+        if(index.length <= 0){
+            JOptionPane.showMessageDialog(null, "No Job selected to update.");
+        }
+        else if (index.length > 1){
+            JOptionPane.showMessageDialog(null, "Select only one Job to update.");
+        }
+        else{
+            String name =  (String) viewJob.getValueAt(index[0], 0);
+            Job job = new Job(name);
+            job.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_updateJobButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -155,7 +202,9 @@ public class VJob extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addJobButton;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton updateJobButton;
     private javax.swing.JTable viewJob;
     private javax.swing.JButton viewJobCloseButton;
     private javax.swing.JScrollPane view_job;

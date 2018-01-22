@@ -145,7 +145,6 @@ public class N_U_Item extends javax.swing.JFrame {
             preparedStmt.setInt    (5, Integer.parseInt(supplier[findSupplier((String) SupplierCombo.getSelectedItem())][0]));
             preparedStmt.setDouble    (6, Double.parseDouble(priceTextField.getText()));
             preparedStmt.setString (7, (String)unitMeasure.getSelectedItem());
-            //Work on insert based on selection value
             String productStatus= null;
             for (Enumeration<AbstractButton> buttons = statusGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -153,7 +152,6 @@ public class N_U_Item extends javax.swing.JFrame {
                     productStatus = button.getText();
                 }
             }
-            System.out.println(productStatus);
             preparedStmt.setString (8, productStatus);
             java.util.Date lastDate = lastChanged.getDate();
             java.sql.Date sqlDate = new java.sql.Date(lastDate.getTime());
@@ -240,11 +238,6 @@ public class N_U_Item extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 priceTextFieldFocusLost(evt);
-            }
-        });
-        priceTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                priceTextFieldActionPerformed(evt);
             }
         });
 
@@ -451,10 +444,6 @@ public class N_U_Item extends javax.swing.JFrame {
         if (priceTextField.getText().equals(""))
             priceTextField.setText("Price");
     }//GEN-LAST:event_priceTextFieldFocusLost
-
-    private void priceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_priceTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
