@@ -8,7 +8,9 @@ package gui;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 
@@ -16,13 +18,40 @@ import javax.swing.AbstractButton;
 public class Job extends javax.swing.JFrame {
     
     Connection connObj = null;
+    Statement stateObj = null;
+    ResultSet resultObj = null;
     String name;
 
     public Job(String name) {
         this.name=name;
         initComponents();
+        getJob();
     }
         
+    private void getJob() {
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("Select * from job where name like '%"+name+"%';");
+            while (resultObj.next()){
+                jobName.setText(resultObj.getString("name"));
+                address.setText(resultObj.getString("address"));
+                city.setText(resultObj.getString("city"));
+                state.setText(resultObj.getString("state"));
+                postalCode.setText(resultObj.getString("zip"));
+                bidAmount.setText(resultObj.getString("bidamount"));
+                if (resultObj.getString("status").equals("Active"))
+                    rdbActive.setSelected(true);
+                else
+                    rdbInactive.setSelected(true);
+                jobComments.setText(resultObj.getString("comments"));
+            }
+            connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     private void insertJob()    {
         System.out.println("Verify Insert Job functions wokrs then remove");
         try {
@@ -62,7 +91,7 @@ public class Job extends javax.swing.JFrame {
             System.out.println("Verify Update Job functions wokrs then remove");
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            String query = "Update job set name =?, address=?,city=?,state=?,zip=?,bidamount=?,status=?, comments=? where name ="+name+";";
+            String query = "Update job set name =?, address=?,city=?,state=?,zip=?,bidamount=?,status=?, comments=? where name like '%"+name+"%';";
             //Get Values to insert
             PreparedStatement preparedStmt =connObj.prepareStatement(query);
             preparedStmt.setString (1, jobName.getText());
@@ -371,7 +400,8 @@ public class Job extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusGained
-        address.setText("");
+        if (address.getText().equals("Address"))
+            address.setText("");
     }//GEN-LAST:event_addressFocusGained
 
     private void addressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusLost
@@ -380,7 +410,8 @@ public class Job extends javax.swing.JFrame {
     }//GEN-LAST:event_addressFocusLost
 
     private void cityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusGained
-        city.setText("");
+        if (city.getText().equals("City"))
+            city.setText("");
     }//GEN-LAST:event_cityFocusGained
 
     private void cityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityFocusLost
@@ -389,7 +420,8 @@ public class Job extends javax.swing.JFrame {
     }//GEN-LAST:event_cityFocusLost
 
     private void stateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusGained
-        state.setText("");
+        if (state.getText().equals("State"))
+            state.setText("");
     }//GEN-LAST:event_stateFocusGained
 
     private void stateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateFocusLost
@@ -398,6 +430,7 @@ public class Job extends javax.swing.JFrame {
     }//GEN-LAST:event_stateFocusLost
 
     private void postalCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusGained
+        if (postalCode.getText().equals("Postal Code"))
         postalCode.setText("");
     }//GEN-LAST:event_postalCodeFocusGained
 
@@ -407,7 +440,8 @@ public class Job extends javax.swing.JFrame {
     }//GEN-LAST:event_postalCodeFocusLost
 
     private void jobNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jobNameFocusGained
-        jobName.setText("");
+        if (jobName.getText().equals("Job Name"))
+            jobName.setText("");
     }//GEN-LAST:event_jobNameFocusGained
 
     private void jobNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jobNameFocusLost
