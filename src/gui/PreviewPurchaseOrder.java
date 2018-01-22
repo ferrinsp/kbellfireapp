@@ -5,7 +5,10 @@
  */
 package gui;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,9 +17,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class PreviewPurchaseOrder extends javax.swing.JFrame {
 
@@ -104,6 +115,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    @SuppressWarnings("CallToPrintStackTrace")
     private void getComboSupplier() {
     try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -242,6 +254,11 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         jTabbedPane1.addTab("New Purchase Order Details", newPurchaseOrderTab);
 
         createPurchaseOrderButton.setText("Create Purchase Order");
+        createPurchaseOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPurchaseOrderButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -336,6 +353,37 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
+        try { 
+            String jobText = (String) JobCombo.getSelectedItem();
+            String shipToText = (String) ShipToCombo.getSelectedItem();
+            String selectSupplierText = (String) selectSupplierCombo.getSelectedItem();
+            Date expectedDateText = expectedDatePicker.getDate();
+            String deliveryContactText = (String) deliveryContactCombo.getSelectedItem();
+
+            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+
+            //set parameters
+            Map map = new HashMap();
+            map.put("selectedJob", jobText);
+            map.put("selectedShipTo", shipToText);
+            map.put("selectedSupplier", selectSupplierText);
+            map.put("selectedExpectedDate", expectedDateText);
+            map.put("selectedDeliveryContact", deliveryContactText);
+
+            //compile report
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+
+            //view report to UI
+            JasperViewer.viewReport(jasperPrint, false);                   
+        } catch (FileNotFoundException | SQLException | JRException ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
     public static void main(String args[]) {
 
