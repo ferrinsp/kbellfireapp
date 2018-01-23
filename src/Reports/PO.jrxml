@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
-	<property name="ireport.zoom" value="0.75"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="12"/>
+	<property name="ireport.y" value="624"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -120,20 +120,21 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="375" y="15" width="92" height="41" uuid="fd410407-39b9-4eb5-ad76-3fe1a8385266"/>
+				<reportElement x="375" y="15" width="92" height="40" uuid="fd410407-39b9-4eb5-ad76-3fe1a8385266"/>
+				<box rightPadding="5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Purchase Order # ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="466" y="15" width="88" height="41" backcolor="#9999FF" uuid="87447f33-552c-4dde-a26d-3a2f22bcbb28"/>
+				<reportElement x="466" y="15" width="88" height="40" backcolor="#9999FF" uuid="87447f33-552c-4dde-a26d-3a2f22bcbb28"/>
 				<box>
-					<pen lineWidth="0.75"/>
-					<topPen lineWidth="0.75"/>
-					<leftPen lineWidth="0.75"/>
-					<bottomPen lineWidth="0.75"/>
-					<rightPen lineWidth="0.75"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="24"/>
@@ -141,20 +142,21 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 				<textFieldExpression><![CDATA[$F{orderid}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="387" y="55" width="80" height="20" uuid="8938214e-32a1-4cae-a5db-29c259716f54"/>
+				<reportElement x="386" y="55" width="80" height="21" uuid="8938214e-32a1-4cae-a5db-29c259716f54"/>
+				<box rightPadding="5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Job: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="style1" mode="Transparent" x="466" y="56" width="88" height="20" backcolor="#CCCCFF" uuid="fc98f482-47d1-413b-b4bb-de918ee18f01"/>
+				<reportElement style="style1" mode="Transparent" x="466" y="55" width="88" height="20" backcolor="#CCCCFF" uuid="fc98f482-47d1-413b-b4bb-de918ee18f01"/>
 				<box>
-					<pen lineWidth="0.75"/>
-					<topPen lineWidth="0.75"/>
-					<leftPen lineWidth="0.75"/>
-					<bottomPen lineWidth="0.75"/>
-					<rightPen lineWidth="0.75"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
@@ -162,27 +164,29 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="387" y="76" width="80" height="21" uuid="f93cebe8-f356-4e76-9cb2-25b6f98a3827"/>
+				<reportElement x="386" y="75" width="80" height="21" uuid="f93cebe8-f356-4e76-9cb2-25b6f98a3827"/>
+				<box rightPadding="5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Date Expected: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="375" y="97" width="92" height="16" uuid="ede20530-59eb-4243-8be2-a2345f287a19"/>
+				<reportElement x="374" y="96" width="92" height="16" uuid="ede20530-59eb-4243-8be2-a2345f287a19"/>
+				<box rightPadding="5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Delivery Contact: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="style1" mode="Transparent" x="466" y="97" width="88" height="16" backcolor="#CCCCFF" uuid="c0e11060-4282-4740-bc35-bac8266c5a41"/>
+				<reportElement style="style1" mode="Transparent" x="466" y="96" width="88" height="16" backcolor="#CCCCFF" uuid="c0e11060-4282-4740-bc35-bac8266c5a41"/>
 				<box>
 					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
@@ -190,13 +194,13 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 				<textFieldExpression><![CDATA[$F{dname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="style1" mode="Transparent" x="466" y="113" width="88" height="14" backcolor="#CCCCFF" uuid="74f68f04-6fd9-450a-95b4-00bc253a7238"/>
+				<reportElement style="style1" mode="Transparent" x="466" y="112" width="88" height="14" backcolor="#CCCCFF" uuid="74f68f04-6fd9-450a-95b4-00bc253a7238"/>
 				<box>
 					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
@@ -229,13 +233,13 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 				<text><![CDATA[Ship To: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="style1" mode="Transparent" x="466" y="76" width="88" height="21" backcolor="#CCCCFF" uuid="b603528a-8602-486a-80b7-ed41ccaa5799"/>
+				<reportElement style="style1" mode="Transparent" x="466" y="75" width="88" height="21" backcolor="#CCCCFF" uuid="b603528a-8602-486a-80b7-ed41ccaa5799"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
@@ -493,14 +497,14 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 	<lastPageFooter>
 		<band height="114">
 			<staticText>
-				<reportElement x="1" y="20" width="279" height="67" uuid="16ddef7c-d3d6-4c6e-aa88-64b0c2f02503"/>
+				<reportElement x="1" y="34" width="311" height="60" uuid="16ddef7c-d3d6-4c6e-aa88-64b0c2f02503"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<text><![CDATA[This purchase order is bound by all terms and conditions as ordered and stated in its content.  K-Bell Plumbing & Heating, Inc. reserves the right to cancel this purchase order without any financial implications to K-Bell Plumbing & Heating, Inc.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="1" width="279" height="19" uuid="d4018617-1402-48ac-9485-37788d96aa0d"/>
+				<reportElement x="1" y="15" width="279" height="19" uuid="d4018617-1402-48ac-9485-37788d96aa0d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
