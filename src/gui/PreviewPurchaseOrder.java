@@ -362,18 +362,20 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             Date expectedDateText = expectedDatePicker.getDate();
             String deliveryContactText = (String) deliveryContactCombo.getSelectedItem();
 
-            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
+            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
+            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/PO.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();
-            map.put("selectedJob", jobText);
+            map.put("orderid", 2);
+            /*
             map.put("selectedShipTo", shipToText);
             map.put("selectedSupplier", selectSupplierText);
             map.put("selectedExpectedDate", expectedDateText);
             map.put("selectedDeliveryContact", deliveryContactText);
-
+*/
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
