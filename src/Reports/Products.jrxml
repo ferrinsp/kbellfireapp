@@ -1,5 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="acdd8cad-6970-438c-826d-27540f0ea3b5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#8B0000">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFEFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="New Dataset 1" uuid="d59d0655-c2e1-4088-867d-0026f5888ff0">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     product.`id` AS product_id,
+     product.`category_id` AS product_category_id,
+     product.`description` AS product_description,
+     product.`unitMeasure` AS product_unitMeasure,
+     product.`part_id` AS product_part_id,
+     product.`manufacturer` AS product_manufacturer,
+     product.`supplier` AS product_supplier,
+     product.`price` AS product_price,
+     product.`status` AS product_status,
+     product.`lastchange` AS product_lastchange,
+     productdescription.`pdescID` AS productdescription_pdescID,
+     productdescription.`productDescription` AS productdescription_productDescription,
+     productdescription.`productsize` AS productdescription_productsize
+FROM
+     `productdescription` productdescription INNER JOIN `product` product ON productdescription.`pdescID` = product.`description`]]>
+		</queryString>
+		<field name="product_id" class="java.lang.Integer"/>
+		<field name="product_category_id" class="java.lang.Integer"/>
+		<field name="product_description" class="java.lang.Integer"/>
+		<field name="product_unitMeasure" class="java.lang.String"/>
+		<field name="product_part_id" class="java.lang.String"/>
+		<field name="product_manufacturer" class="java.lang.String"/>
+		<field name="product_supplier" class="java.lang.Integer"/>
+		<field name="product_price" class="java.math.BigDecimal"/>
+		<field name="product_status" class="java.lang.String"/>
+		<field name="product_lastchange" class="java.sql.Timestamp"/>
+		<group name="product_description">
+			<groupExpression><![CDATA[$F{product_description}]]></groupExpression>
+		</group>
+	</subDataset>
 	<queryString language="SQL">
 		<![CDATA[SELECT
      product.`id` AS product_id,
@@ -26,16 +86,230 @@ FROM
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="118" splitType="Stretch">
+			<staticText>
+				<reportElement x="125" y="60" width="245" height="48" uuid="a69488ba-3ee3-419f-9a0c-c799765260c5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[1676 West 2100 South                                                                        West Haven, UT 84401                                                                     Phone: 801.731.6886                                                 purchasing@kbell.biz
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="38" width="245" height="22" uuid="b90aee20-1145-454a-81b1-cf2a83aed01b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[K. Bell Plumbing & Heating, Inc.
+]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="20" width="115" height="81" uuid="425d155e-51d8-4f99-b824-0f39a5857621"/>
+				<imageExpression><![CDATA["C:\\Users\\tatewtaylor\\Desktop\\Kbell\\logo.png"]]></imageExpression>
+			</image>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="260" y="0" width="217" height="32" uuid="73791a59-76cd-4840-9a78-2731c6406e41"/>
+				<box>
+					<topPen lineWidth="2.0" lineStyle="Solid"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[List of Products]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="13" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="144" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="752" height="140" uuid="e804a83a-9994-43e4-bfe9-71a1f2a5b3b5"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 1" uuid="4c287e91-3419-43f4-8967-1b92310221a7">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="51945c63-a219-4dca-b4c5-e77f38ef701b">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="d82a0d65-eaea-4388-a75c-3d659aedee76"/>
+								<text><![CDATA[product_id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="2203707b-23ab-4390-9034-eef6f58b883f"/>
+								<textFieldExpression><![CDATA[$F{product_id}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3dc96141-204b-4fe6-951d-9927a0ec7538">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="0fd44141-64f1-4cad-9a2d-50c6c421e56d"/>
+								<text><![CDATA[product_category_id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="81383175-0285-480c-8381-a023454b8861"/>
+								<textFieldExpression><![CDATA[$F{product_category_id}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="1b9000de-dd80-48d5-848c-dfce8a56e756">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="1b6fda70-7c54-4f92-b945-d5d3710f1e74"/>
+								<text><![CDATA[product_description]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="fe7fea41-6d41-4890-a6c3-9003d51db0f1"/>
+								<textFieldExpression><![CDATA[$F{product_description}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="b84a4924-8776-44f3-8efc-0a99a626e6da">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="77c1ec01-433a-4fc6-bcf7-e7fd88255f1f"/>
+								<text><![CDATA[product_unitMeasure]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="2b3cf88b-b182-453b-86b4-962f5eed2fc9"/>
+								<textFieldExpression><![CDATA[$F{product_unitMeasure}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="32a6ecf2-cf25-4a4b-bacd-2080a52bdcab">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="7d5c774b-e385-403c-a5f0-2f6753a1747b"/>
+								<text><![CDATA[product_part_id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="312a405a-d963-47ae-be50-e251d4373611"/>
+								<textFieldExpression><![CDATA[$F{product_part_id}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="eed11d14-87db-4d5e-9af5-51f0c57d2084">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="1cc7e2ba-6e32-40b2-809a-b07e0de80699"/>
+								<text><![CDATA[product_manufacturer]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="d98c529e-6aed-4873-afdb-babbd16bb4d4"/>
+								<textFieldExpression><![CDATA[$F{product_manufacturer}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="8e8f33f7-2179-44ee-b3d3-9ae8c316f0d8">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="5b4d048a-dc2d-41e5-b59d-49bab21fecbf"/>
+								<text><![CDATA[product_supplier]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="f9fefd11-b389-4138-9707-031408f3ebde"/>
+								<textFieldExpression><![CDATA[$F{product_supplier}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="cb6a7f36-6fa6-42c5-a470-4225d02ef78d">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="5e571cfc-ab63-4f67-8d48-c10fc3077772"/>
+								<text><![CDATA[product_price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="f9c2d512-0a85-4b9b-b46d-b56fd3c7480d"/>
+								<textFieldExpression><![CDATA[$F{product_price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="683d216e-2fbe-4773-8f17-6a90a1e8218c">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="7d2b1af7-3d21-4eb6-9309-311b7a67c2dc"/>
+								<text><![CDATA[product_status]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="60fa3ca4-7012-46fa-8989-53bd5f4e58d4"/>
+								<textFieldExpression><![CDATA[$F{product_status}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="852a2230-b5f6-43d4-ad5d-3b9163185ca2">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="b49c5321-de96-4558-a0c7-28f32f27f5f8"/>
+								<text><![CDATA[product_lastchange]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="e20061ca-cef0-4a79-b5e6-abd5a63c2b9d"/>
+								<textFieldExpression><![CDATA[$F{product_lastchange}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
