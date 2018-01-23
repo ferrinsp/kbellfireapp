@@ -17,7 +17,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 
 
-public class N_U_Item extends javax.swing.JFrame {
+public class NItem extends javax.swing.JFrame {
     
     Connection connObj = null;
     Statement stateObj = null;
@@ -168,7 +168,7 @@ public class N_U_Item extends javax.swing.JFrame {
     /**
      * Creates new form NewProduct
      */
-    public N_U_Item() {
+    public NItem() {
         this.setResizable(false);
         initComponents();
         getComboCategory();
@@ -462,12 +462,12 @@ public class N_U_Item extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(N_U_Item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new N_U_Item().setVisible(true);
+            new NItem().setVisible(true);
         });
     }
 

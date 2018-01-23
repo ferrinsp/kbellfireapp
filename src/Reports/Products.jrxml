@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="acdd8cad-6970-438c-826d-27540f0ea3b5">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     product.`id` AS product_id,
+     product.`category_id` AS product_category_id,
+     product.`description` AS product_description,
+     product.`unitMeasure` AS product_unitMeasure,
+     product.`part_id` AS product_part_id,
+     product.`manufacturer` AS product_manufacturer,
+     product.`supplier` AS product_supplier,
+     product.`price` AS product_price,
+     product.`status` AS product_status,
+     product.`lastchange` AS product_lastchange,
+     productdescription.`pdescID` AS productdescription_pdescID,
+     productdescription.`productDescription` AS productdescription_productDescription,
+     productdescription.`productsize` AS productdescription_productsize
+FROM
+     `productdescription` productdescription INNER JOIN `product` product ON productdescription.`pdescID` = product.`description`]]>
+	</queryString>
+	<field name="product_description" class="java.lang.Integer"/>
+	<group name="product_description">
+		<groupExpression><![CDATA[$F{product_description}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

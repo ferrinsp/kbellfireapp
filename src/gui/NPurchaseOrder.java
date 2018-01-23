@@ -446,7 +446,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_addItemToPOActionPerformed
 
     private void n_u_productActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n_u_productActionPerformed
-        N_U_Item newProduct = new N_U_Item();
+        NItem newProduct = new NItem();
         newProduct.setVisible(true);
     }//GEN-LAST:event_n_u_productActionPerformed
 

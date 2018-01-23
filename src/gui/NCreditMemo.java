@@ -69,7 +69,7 @@ public class NCreditMemo extends javax.swing.JFrame {
             connObj.close();
         }
         catch (SQLException ex) {
-            Logger.getLogger(N_U_Item.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NItem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

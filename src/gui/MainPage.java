@@ -417,7 +417,7 @@ public class MainPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Create_ProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Create_ProductActionPerformed
-        N_U_Item newItem = new N_U_Item();
+        NItem newItem = new NItem();
         newItem.setVisible(true);
     }//GEN-LAST:event_Create_ProductActionPerformed
 

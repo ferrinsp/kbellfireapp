@@ -59,7 +59,7 @@ public class VItem extends javax.swing.JFrame {
             connObj.close();
         }
         catch (SQLException ex) {
-            Logger.getLogger(N_U_Item.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NItem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     /**
@@ -202,7 +202,7 @@ public class VItem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
-        N_U_Item addItem = new N_U_Item();
+        NItem addItem = new NItem();
         addItem.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addItemButtonActionPerformed
@@ -218,7 +218,7 @@ public class VItem extends javax.swing.JFrame {
         else{
             int id = (int) ItemTable.getValueAt(index[0], 0);
             System.out.println(id+" this line is to be updated");
-            N_U_Item addItem = new N_U_Item();
+            NItem addItem = new NItem();
             addItem.setVisible(true);
             this.dispose();
         }
