@@ -381,18 +381,38 @@ public class MainPage extends javax.swing.JFrame {
 
         jobListMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jobListMenuItem.setText("Job List");
+        jobListMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jobListMenuItemActionPerformed(evt);
+            }
+        });
         Reports.add(jobListMenuItem);
 
         productListMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         productListMenuItem.setText("Product List");
+        productListMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productListMenuItemActionPerformed(evt);
+            }
+        });
         Reports.add(productListMenuItem);
 
         purchaseOrderMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         purchaseOrderMenuItem.setText("Purchase Order");
+        purchaseOrderMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                purchaseOrderMenuItemActionPerformed(evt);
+            }
+        });
         Reports.add(purchaseOrderMenuItem);
 
         supplierListMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         supplierListMenuItem.setText("Supplier List");
+        supplierListMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supplierListMenuItemActionPerformed(evt);
+            }
+        });
         Reports.add(supplierListMenuItem);
 
         MenuBar.add(Reports);
@@ -530,7 +550,7 @@ public class MainPage extends javax.swing.JFrame {
 
             //set parameters
             Map map = new HashMap();
-            map.put("orderid", 2);
+            map.put("memoid", 2);
             
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
@@ -542,6 +562,75 @@ public class MainPage extends javax.swing.JFrame {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_creditMemoMenuItemActionPerformed
+
+    private void jobListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jobListMenuItemActionPerformed
+        try {
+            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Jobs.jrxml");            
+            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+
+            //set parameters
+            Map map = new HashMap();
+            
+            //compile report
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+
+            //view report to UI
+            JasperViewer.viewReport(jasperPrint, false);                   
+        } catch (FileNotFoundException | SQLException | JRException ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jobListMenuItemActionPerformed
+
+    private void productListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productListMenuItemActionPerformed
+        ProductReportDates prd = new ProductReportDates();
+        prd.setVisible(true);
+    }//GEN-LAST:event_productListMenuItemActionPerformed
+
+    private void purchaseOrderMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseOrderMenuItemActionPerformed
+        try { 
+            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
+            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/PO.jrxml");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+
+            //set parameters
+            Map map = new HashMap();
+            map.put("orderid", 2);
+
+            //compile report
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+
+            //view report to UI
+            JasperViewer.viewReport(jasperPrint, false);                   
+        } catch (FileNotFoundException | SQLException | JRException ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_purchaseOrderMenuItemActionPerformed
+
+    private void supplierListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierListMenuItemActionPerformed
+        try {
+            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Suppliers.jrxml");            
+            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+
+            //set parameters
+            Map map = new HashMap();
+            
+            //compile report
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+
+            //view report to UI
+            JasperViewer.viewReport(jasperPrint, false);                   
+        } catch (FileNotFoundException | SQLException | JRException ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_supplierListMenuItemActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

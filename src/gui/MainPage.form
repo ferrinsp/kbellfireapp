@@ -172,6 +172,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Job List"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jobListMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="productListMenuItem">
               <Properties>
@@ -180,6 +183,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Product List"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="productListMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="purchaseOrderMenuItem">
               <Properties>
@@ -188,6 +194,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Purchase Order"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="purchaseOrderMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="supplierListMenuItem">
               <Properties>
@@ -196,6 +205,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Supplier List"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="supplierListMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
