@@ -83,10 +83,9 @@ public class MainPage extends javax.swing.JFrame {
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
         stateObj = connObj.createStatement();
         resultObj = stateObj.executeQuery("select tax from tax;");
-        while (resultObj.next()){
-            taxValue.setText(Double.toString(resultObj.getDouble("tax")));
-        }
-        
+            while (resultObj.next()){
+                taxValue.setText(Double.toString(resultObj.getDouble("tax")));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
