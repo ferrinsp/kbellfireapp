@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -89,7 +90,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             }
             connObj.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     private void getComboJob() {
@@ -112,7 +113,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             }
             connObj.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     @SuppressWarnings("CallToPrintStackTrace")
@@ -135,7 +136,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             }
             connObj.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
         }    
     }
     public double getTax(){
@@ -150,7 +151,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
         }   
         return tax;
     }
@@ -378,11 +379,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Make a selection for all details to create a Purchase Order.");
         }
         else {
-            System.out.println("Job: "+JobCombo.getSelectedItem());
-            System.out.println("Ship To: "+ShipToCombo.getSelectedItem());
-            System.out.println("Supplier: "+selectSupplierCombo.getSelectedItem());
-            System.out.println("Expected Date: "+expectedDatePicker.getDate());
-            System.out.println("Delivery Contact: "+deliveryContactCombo.getSelectedItem());
             //Loop through table to check for matching supplier name and supplier in the table
             List<Integer> index = new ArrayList<>();
             for (int i=0;i<previewItemsAddedTable.getRowCount();i++){
@@ -397,14 +393,60 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 //Insert information into purchse order table then get orderid
                 //Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax)
                 //values (?,?,?,?,?,?,?,?,?);
-                //Will need to get userlogin information at this point, This is currently not stored.
-                //Get last inserted id for purchase order details table ****select last_insert_id();***
-                System.out.println(getTax()); //Add this tax value to the purchase order table
-                
+                try {
+                    int orderid=-1;
+                    String query ="Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax)"
+                        + "values(?,?,?,?,?,?,?,?,?)"    ;
+                    //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+                    connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+                    PreparedStatement preparedStmt =connObj.prepareStatement(query);
+                    int supp = -1;
+                    int j =-1;
+                    int ship =-1;
+                    int cont =-1;
+                    for (String[] supplier1 : supplier) {
+                        if (selectSupplierCombo.getSelectedItem().equals(supplier1[1])) {
+                            supp = Integer.parseInt(supplier1[0]);
+                        }
+                    }
+                    for (String[] job1 : job) {
+                        if (JobCombo.getSelectedItem().equals(job1[1])) {
+                            j = Integer.parseInt(job1[0]);
+                        }
+                    }
+                    for (String[] job1 : job) {
+                        if (ShipToCombo.getSelectedItem().equals(job1[1])) {
+                            ship = Integer.parseInt(job1[0]);
+                        }
+                    }
+                    for (String[] contact1 : contact) {
+                        if (deliveryContactCombo.getSelectedItem().equals(contact1[1]+ " "+contact1[2])) {
+                            cont = Integer.parseInt(contact1[0]);
+                        }
+                    }
+                    preparedStmt.setInt (1, supp); //supplier
+                    preparedStmt.setInt (2, j);  //job number
+                    preparedStmt.setDate(3, new java.sql.Date( expectedDatePicker.getDate().getTime())); //expected date
+                    preparedStmt.setInt (4, cont);  //contact person
+                    preparedStmt.setDouble (5, 0.0);  //total tax
+                    preparedStmt.setDouble(6, 0.0); //invoice total
+            //*****Will need to get userlogin information at this point, This is currently not stored.******
+                    preparedStmt.setInt(7,0); //Created by
+                    preparedStmt.setInt(8,ship); //ShipTo number
+                    preparedStmt.setDouble(9,getTax()); //Current sales Tax
+                    preparedStmt.execute();
+                    stateObj = connObj.createStatement();
+                    resultObj = stateObj.executeQuery("select max(orderid) as 'id' from purchaseorder;");
+                    while (resultObj.next()){
+                        orderid=resultObj.getInt("id");
+                    }
+                    System.out.println("Last inserted "+orderid);
                 //Insert information from this row into purchase order details using orderid from above
                 //By looping through rows indexed in List<Integer> index
-                //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines 
-                
+                //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines
+                } catch (SQLException ex) {
+                    Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 //Clean up preview Items list for remaining rows.
                 DefaultTableModel model = (DefaultTableModel) previewItemsAddedTable.getModel();
                 Collections.reverse(index);
