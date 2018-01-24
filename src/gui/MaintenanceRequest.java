@@ -26,8 +26,9 @@ public class MaintenanceRequest extends javax.swing.JFrame {
                 if (maintenanceIdeaText.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Please enter text before saving.");
                 } else {
+                    String time =new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm").format(new java.util.Date());
                     ob = maintenanceIdeaText.getText();
-                    bfw.write(ob.toString());
+                    bfw.write(time +" - "+ ob.toString());
                     bfw.write("\t");
                     bfw.newLine();        
                     JOptionPane.showMessageDialog(null, "Log saved.");
