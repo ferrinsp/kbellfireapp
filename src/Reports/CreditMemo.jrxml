@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="107"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -125,7 +125,7 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[Purchase Order # ]]></text>
+				<text><![CDATA[Credit Memo # ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="466" y="15" width="88" height="40" backcolor="#9999FF" uuid="87447f33-552c-4dde-a26d-3a2f22bcbb28"/>
@@ -169,7 +169,7 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[Date Expected: ]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="374" y="96" width="92" height="16" uuid="ede20530-59eb-4243-8be2-a2345f287a19"/>
@@ -177,60 +177,25 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[Delivery Contact: ]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
-			<textField>
-				<reportElement style="style1" mode="Transparent" x="466" y="96" width="88" height="16" backcolor="#CCCCFF" uuid="c0e11060-4282-4740-bc35-bac8266c5a41"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{dname}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="style1" mode="Transparent" x="466" y="112" width="88" height="14" backcolor="#CCCCFF" uuid="74f68f04-6fd9-450a-95b4-00bc253a7238"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{dphone}]]></textFieldExpression>
-			</textField>
 			<image>
 				<reportElement x="15" y="15" width="115" height="81" uuid="92de5175-d5e0-4f48-82b7-401ee59763fe"/>
 				<imageExpression><![CDATA["C:\\Users\\tatewtaylor\\Desktop\\Kbell\\logo.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="20" y="175" width="26" height="14" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
+				<reportElement x="15" y="139" width="26" height="14" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[To: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="189" width="26" height="14" uuid="7061d43c-af92-4a2c-a2e0-239b9a2fd627"/>
+				<reportElement x="15" y="153" width="26" height="14" uuid="7061d43c-af92-4a2c-a2e0-239b9a2fd627"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Attn: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="211" y="175" width="43" height="14" uuid="de43dc7d-152a-4075-a6ab-3d9442b2f89b"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Ship To: ]]></text>
 			</staticText>
 			<textField>
 				<reportElement style="style1" mode="Transparent" x="466" y="75" width="88" height="21" backcolor="#CCCCFF" uuid="b603528a-8602-486a-80b7-ed41ccaa5799"/>
@@ -245,27 +210,6 @@ from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{expectedby}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="254" y="175" width="212" height="14" uuid="f50a36d4-95a8-479d-83a4-5cf1cf1937fd"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{shipname}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="254" y="188" width="177" height="15" uuid="d21caae6-2f2d-46f3-9da5-9c33236bede3"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{shipadd}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="254" y="203" width="177" height="15" uuid="2036be64-99a3-4ea6-b104-bcf0667b1f2b"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{shipcity}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
