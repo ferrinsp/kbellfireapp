@@ -351,12 +351,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
 
     private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
         try { 
-            String jobText = (String) JobCombo.getSelectedItem();
-            String shipToText = (String) ShipToCombo.getSelectedItem();
-            String selectSupplierText = (String) selectSupplierCombo.getSelectedItem();
-            Date expectedDateText = expectedDatePicker.getDate();
-            String deliveryContactText = (String) deliveryContactCombo.getSelectedItem();
-
             //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
             FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/PO.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
@@ -365,12 +359,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             //set parameters
             Map map = new HashMap();
             map.put("orderid", 2);
-            /*
-            map.put("selectedShipTo", shipToText);
-            map.put("selectedSupplier", selectSupplierText);
-            map.put("selectedExpectedDate", expectedDateText);
-            map.put("selectedDeliveryContact", deliveryContactText);
-*/
+            
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);

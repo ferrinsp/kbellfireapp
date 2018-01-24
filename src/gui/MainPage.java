@@ -6,12 +6,25 @@
 package gui;
 
 import java.awt.Toolkit;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class MainPage extends javax.swing.JFrame {
     
@@ -133,7 +146,11 @@ public class MainPage extends javax.swing.JFrame {
         Create_Supplier = new javax.swing.JMenuItem();
         View_Supplier = new javax.swing.JMenuItem();
         Reports = new javax.swing.JMenu();
-        Create_Report = new javax.swing.JMenuItem();
+        creditMemoMenuItem = new javax.swing.JMenuItem();
+        jobListMenuItem = new javax.swing.JMenuItem();
+        supplierListMenuItem = new javax.swing.JMenuItem();
+        productListMenuItem = new javax.swing.JMenuItem();
+        purchaseOrderMenuItem = new javax.swing.JMenuItem();
         About = new javax.swing.JMenu();
         Software = new javax.swing.JMenuItem();
 
@@ -375,9 +392,30 @@ public class MainPage extends javax.swing.JFrame {
 
         Reports.setText("Reports");
 
-        Create_Report.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        Create_Report.setText("Create Report");
-        Reports.add(Create_Report);
+        creditMemoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        creditMemoMenuItem.setText("Credit Memo");
+        creditMemoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditMemoMenuItemActionPerformed(evt);
+            }
+        });
+        Reports.add(creditMemoMenuItem);
+
+        jobListMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jobListMenuItem.setText("Job List");
+        Reports.add(jobListMenuItem);
+
+        supplierListMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        supplierListMenuItem.setText("Supplier List");
+        Reports.add(supplierListMenuItem);
+
+        productListMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        productListMenuItem.setText("Product List");
+        Reports.add(productListMenuItem);
+
+        purchaseOrderMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        purchaseOrderMenuItem.setText("Purchase Order");
+        Reports.add(purchaseOrderMenuItem);
 
         MenuBar.add(Reports);
 
@@ -482,6 +520,28 @@ public class MainPage extends javax.swing.JFrame {
         NDescription nDesc = new NDescription();
         nDesc.setVisible(true);
     }//GEN-LAST:event_MiscFunctionActionPerformed
+
+    private void creditMemoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditMemoMenuItemActionPerformed
+        try { 
+            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\CreditMemo.jrxml");            
+            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+
+            //set parameters
+            Map map = new HashMap();
+            map.put("orderid", 2);
+            
+            //compile report
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+
+            //view report to UI
+            JasperViewer.viewReport(jasperPrint, false);                   
+        } catch (FileNotFoundException | SQLException | JRException ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_creditMemoMenuItemActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -508,7 +568,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenu About;
     private javax.swing.JMenuItem Create_Product;
     private javax.swing.JMenuItem Create_Purchase_Order;
-    private javax.swing.JMenuItem Create_Report;
     private javax.swing.JMenuItem Create_Supplier;
     private javax.swing.JMenu Credit_Memo;
     private javax.swing.JMenu File_List;
@@ -527,16 +586,21 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem View_Supplier;
     private javax.swing.JTextField boCount;
     private javax.swing.JMenuItem create_Job;
+    private javax.swing.JMenuItem creditMemoMenuItem;
     private javax.swing.JTextField issuedCount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenuItem jobListMenuItem;
     private javax.swing.JMenuItem logOffFileMenu;
     private javax.swing.JMenuItem newCreditMemo;
     private javax.swing.JTextField pendingCount;
+    private javax.swing.JMenuItem productListMenuItem;
     private javax.swing.JTable purchaseOrder;
+    private javax.swing.JMenuItem purchaseOrderMenuItem;
+    private javax.swing.JMenuItem supplierListMenuItem;
     private javax.swing.JTextField taxValue;
     private javax.swing.JMenuItem viewCreditMemo;
     private javax.swing.JMenuItem view_Job;
