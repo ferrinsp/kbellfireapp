@@ -58,7 +58,7 @@ public class MaintenanceRequest extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Maintenance Ideas");
+        setTitle("Sofware Maintenance Notes");
 
         jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
