@@ -166,3 +166,10 @@ ADD CONSTRAINT `contact`
   REFERENCES `kbell`.`contact` (`contactid`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+-- 1/24/18 Added currentSalesTax to purchase order
+ALTER TABLE `kbell`.`purchaseorder` 
+ADD COLUMN `currentTax` DECIMAL(10,2) NOT NULL AFTER `status`;
+ALTER TABLE `kbell`.`creditmemo` 
+ADD COLUMN `currentTax` DECIMAL(10,2) NOT NULL AFTER `created`,
+ADD COLUMN `status` VARCHAR(45) NULL DEFAULT 'Pending' AFTER `currentTax`;;

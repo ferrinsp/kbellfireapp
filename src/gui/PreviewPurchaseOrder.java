@@ -11,11 +11,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -33,6 +37,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     String [][] category = null;
     String [][] contact= null;
     String [][] job = null;
+    Double tax;
     
     public PreviewPurchaseOrder() {
         initComponents();
@@ -132,6 +137,22 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }    
+    }
+    public double getTax(){
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select tax from tax;");
+            while (resultObj.next()){
+                tax =resultObj.getDouble("tax");
+            }
+            
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }   
+        return tax;
     }
     
     @SuppressWarnings("unchecked")
@@ -350,24 +371,68 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createPurchaseOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPurchaseOrderButtonActionPerformed
-        try { 
-            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
-            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/PO.jrxml");
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        
+        //Preparing insert statements will need to insert into table when ready.
+        if (JobCombo.getSelectedItem().equals("Job List") || ShipToCombo.getSelectedItem().equals("Ship To") || 
+                selectSupplierCombo.getSelectedItem().equals("Supplier") || deliveryContactCombo.getSelectedItem().equals("Delivery Contact")){
+            JOptionPane.showMessageDialog(null, "Make a selection for all details to create a Purchase Order.");
+        }
+        else {
+            System.out.println("Job: "+JobCombo.getSelectedItem());
+            System.out.println("Ship To: "+ShipToCombo.getSelectedItem());
+            System.out.println("Supplier: "+selectSupplierCombo.getSelectedItem());
+            System.out.println("Expected Date: "+expectedDatePicker.getDate());
+            System.out.println("Delivery Contact: "+deliveryContactCombo.getSelectedItem());
+            //Loop through table to check for matching supplier name and supplier in the table
+            List<Integer> index = new ArrayList<>();
+            for (int i=0;i<previewItemsAddedTable.getRowCount();i++){
+                if (previewItemsAddedTable.getValueAt(i,0).equals(selectSupplierCombo.getSelectedItem())){
+                    index.add(i);
+                }
+            }
+            if (index.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please select a supplier to create a Purchase Order.");
+            }
+            else{
+                //Insert information into purchse order table then get orderid
+                //Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax)
+                //values (?,?,?,?,?,?,?,?,?);
+                //Will need to get userlogin information at this point, This is currently not stored.
+                //Get last inserted id for purchase order details table ****select last_insert_id();***
+                System.out.println(getTax()); //Add this tax value to the purchase order table
+                
+                //Insert information from this row into purchase order details using orderid from above
+                //By looping through rows indexed in List<Integer> index
+                //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines 
+                
+                //Clean up preview Items list for remaining rows.
+                DefaultTableModel model = (DefaultTableModel) previewItemsAddedTable.getModel();
+                Collections.reverse(index);
+                index.forEach((index1) -> { model.removeRow(index1); });
+                if (model.getRowCount()==0){
+                    this.dispose();
+                }
+                //Generate PO here
+                try { 
+                    //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
+                    FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/PO.jrxml");
+                    BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+                    connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+                    
+                    //set parameters
+                    Map map = new HashMap();
+                    map.put("orderid", 2);
 
-            //set parameters
-            Map map = new HashMap();
-            map.put("orderid", 2);
-            
-            //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+                    //compile report
+                    JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
 
-            //view report to UI
-            JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (FileNotFoundException | SQLException | JRException ex) {
-            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+                    //view report to UI
+                    JasperViewer.viewReport(jasperPrint, false);                   
+                } catch (FileNotFoundException | SQLException | JRException ex) {
+                    Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
