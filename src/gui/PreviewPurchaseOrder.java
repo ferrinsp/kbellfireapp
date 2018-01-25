@@ -99,7 +99,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
-            //Dynamically set supplier list size
+            //Dynamically set job list size
             resultObj.last();
             job = new String[resultObj.getRow()][2];
             resultObj.beforeFirst();
@@ -165,7 +165,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             while (resultObj.next()){
                 tax =resultObj.getDouble("tax");
             }
-            
         }
         catch (SQLException e) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
@@ -503,20 +502,14 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     //set parameters
                     Map map = new HashMap();
                     map.put("orderid", orderid);
-
                     //compile report
                     JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
                     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
-
                     //view report to UI
                     JasperViewer.viewReport(jasperPrint, false);                   
                 } catch (FileNotFoundException | SQLException | JRException ex) {
                     Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                //Do we want to do this? I can't think of another way to repaint the main table 
-                MainPage main = new MainPage();
-                main.setVisible(true);
             }
         }
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed

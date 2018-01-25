@@ -294,6 +294,7 @@ public class NDescription extends javax.swing.JFrame {
             double tax = Double.parseDouble(taxTextField.getText());
             setTax(tax);
             JOptionPane.showMessageDialog(null, "Tax Rate has been updated successfully.");
+            this.dispose();
         }
         catch(NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please input a valid sales tax.");
