@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="acdd8cad-6970-438c-826d-27540f0ea3b5">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -228,7 +228,7 @@ FROM
 	<detail>
 		<band height="144" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="1" y="2" width="360" height="80" uuid="8941823f-434e-4bbc-9713-42d9b9472649"/>
+				<reportElement key="table 1" style="table 1" x="1" y="0" width="751" height="133" uuid="8941823f-434e-4bbc-9713-42d9b9472649"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="New Dataset 2" uuid="2015ef41-ccea-40cc-9e47-448051d4bfcc">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>

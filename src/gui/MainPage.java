@@ -142,10 +142,8 @@ public class MainPage extends javax.swing.JFrame {
         miscFunction = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
         Reports = new javax.swing.JMenu();
-        creditMemoMenuItem = new javax.swing.JMenuItem();
         jobListMenuItem = new javax.swing.JMenuItem();
         productListMenuItem = new javax.swing.JMenuItem();
-        purchaseOrderMenuItem = new javax.swing.JMenuItem();
         supplierListMenuItem = new javax.swing.JMenuItem();
         Supplier = new javax.swing.JMenu();
         Create_Supplier = new javax.swing.JMenuItem();
@@ -217,18 +215,19 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(TabbedView)
                         .addContainerGap())
                     .addGroup(Main_PanelLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
                         .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(taxValue, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                            .addComponent(taxValue)
                             .addComponent(boCount)
                             .addComponent(issuedCount)
-                            .addComponent(pendingCount))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                            .addComponent(pendingCount, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(184, 184, 184)
                         .addComponent(jLabel1)
                         .addContainerGap(213, Short.MAX_VALUE))))
         );
@@ -238,6 +237,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(Main_PanelLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
                         .addGroup(Main_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(boCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -370,15 +370,6 @@ public class MainPage extends javax.swing.JFrame {
 
         Reports.setText("Reports");
 
-        creditMemoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        creditMemoMenuItem.setText("Credit Memo");
-        creditMemoMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                creditMemoMenuItemActionPerformed(evt);
-            }
-        });
-        Reports.add(creditMemoMenuItem);
-
         jobListMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jobListMenuItem.setText("Job List");
         jobListMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -396,15 +387,6 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         Reports.add(productListMenuItem);
-
-        purchaseOrderMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        purchaseOrderMenuItem.setText("Purchase Order");
-        purchaseOrderMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                purchaseOrderMenuItemActionPerformed(evt);
-            }
-        });
-        Reports.add(purchaseOrderMenuItem);
 
         supplierListMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         supplierListMenuItem.setText("Supplier List");
@@ -541,28 +523,6 @@ public class MainPage extends javax.swing.JFrame {
         nDesc.setVisible(true);
     }//GEN-LAST:event_miscFunctionActionPerformed
 
-    private void creditMemoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditMemoMenuItemActionPerformed
-        try { 
-            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\CreditMemo.jrxml");            
-            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-
-            //set parameters
-            Map map = new HashMap();
-            map.put("memoid", 2);
-            
-            //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
-
-            //view report to UI
-            JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (FileNotFoundException | SQLException | JRException ex) {
-            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_creditMemoMenuItemActionPerformed
-
     private void jobListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jobListMenuItemActionPerformed
         try {
             FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Jobs.jrxml");            
@@ -588,28 +548,6 @@ public class MainPage extends javax.swing.JFrame {
         ProductReportDates prd = new ProductReportDates();
         prd.setVisible(true);
     }//GEN-LAST:event_productListMenuItemActionPerformed
-
-    private void purchaseOrderMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseOrderMenuItemActionPerformed
-        try { 
-            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
-            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/PO.jrxml");
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-
-            //set parameters
-            Map map = new HashMap();
-            map.put("orderid", 2);
-
-            //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
-
-            //view report to UI
-            JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (FileNotFoundException | SQLException | JRException ex) {
-            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_purchaseOrderMenuItemActionPerformed
 
     private void supplierListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierListMenuItemActionPerformed
         try {
@@ -673,7 +611,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem View_Supplier;
     private javax.swing.JTextField boCount;
     private javax.swing.JMenuItem create_Job;
-    private javax.swing.JMenuItem creditMemoMenuItem;
     private javax.swing.JTextField issuedCount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -688,7 +625,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTextField pendingCount;
     private javax.swing.JMenuItem productListMenuItem;
     private javax.swing.JTable purchaseOrder;
-    private javax.swing.JMenuItem purchaseOrderMenuItem;
     private javax.swing.JMenuItem supplierListMenuItem;
     private javax.swing.JTextField taxValue;
     private javax.swing.JMenuItem viewCreditMemo;
