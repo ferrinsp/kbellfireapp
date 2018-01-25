@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
-	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="12"/>
-	<property name="ireport.y" value="624"/>
+	<property name="ireport.zoom" value="1.5026296018031553"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="145"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -66,34 +66,45 @@
 	</subDataset>
 	<scriptlet name="scriptlet1" class="net.sf.jasperreports.engine.JRDefaultScriptlet"/>
 	<parameter name="orderid" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select CONCAT("18-",po.orderid) as 'orderid',j.name,1 as 'Quantity','EA' as 'Unit', null as 'MFC',null as 'Part #',total as POTotal,tax as 'TaxTotal', 19.99 as 'Unit Price','Test product' as 'Description', 19.99 as 'Subtotal', 19.99 as 'Total', 'Tate' as 'dname', '8017268377' as 'dphone',DATE_FORMAT(po.expectedby, '%m/%d/%Y' )as 'expectedby', st.name as 'shipname',st.address as 'shipadd', CONCAT(st.city,", ",st.state," ",st.zip) as 'shipcity', u.name as 'createdby'
-from purchaseorder po inner join job j on j.jobid=po.job inner join job st on st.jobid =po.shipto inner join user u on u.userid=po.createdby where orderid = $P{orderid};]]>
+		<![CDATA[Select po.orderid,j.name,pod.orderqty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', pod.total, po.tax as 'TaxTotal', pod.cost as 'Price', pd.productDescription as 'Description', po.subtotal as 'Subtotal', po.total as 'POTotal', c.phone as 'dphone',c.name as 'dname', DATE_FORMAT(po.expectedby, '%m/%d/%Y' )as 'expectedby', st.name as 'shipname',st.address as 'shipadd', CONCAT(st.city,", ",st.state," ",st.zip) as 'shipcity', u.name as 'createdby'
+from purchaseorder po inner join job j on j.jobid=po.job 
+inner join job st on st.jobid =po.shipto 
+inner join user u on u.userid=po.createdby 
+inner join purchaseorderdetails pod on pod.orderid=po.orderid
+inner join product p on pod.product =p.id
+inner join productdescription pd on pd.pdescID= p.description
+inner join contact c on c.contactid = po.contact 
+where po.orderid = $P{orderid};]]>
 	</queryString>
-	<field name="orderid" class="java.lang.String">
+	<field name="orderid" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Quantity" class="java.lang.Long"/>
+	<field name="orderqty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="Unit" class="java.lang.String"/>
-	<field name="MFC" class="java.lang.Object"/>
-	<field name="Part #" class="java.lang.Object"/>
-	<field name="POTotal" class="java.math.BigDecimal"/>
+	<field name="manufacturer" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Part #" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="TaxTotal" class="java.math.BigDecimal"/>
-	<field name="Unit Price" class="java.math.BigDecimal"/>
-	<field name="Description" class="java.lang.String">
+	<field name="Price" class="java.math.BigDecimal"/>
+	<field name="Description" class="java.lang.String"/>
+	<field name="Subtotal" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Subtotal" class="java.math.BigDecimal"/>
-	<field name="Total" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="dname" class="java.lang.String"/>
+	<field name="POTotal" class="java.math.BigDecimal"/>
 	<field name="dphone" class="java.lang.String"/>
+	<field name="dname" class="java.lang.String"/>
 	<field name="expectedby" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>

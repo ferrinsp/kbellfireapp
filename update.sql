@@ -108,6 +108,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
   `contact` SMALLINT(10) NOT NULL,
   `quote` INT(11) NULL DEFAULT NULL,
   `quotedate` DATETIME NULL DEFAULT NULL,
+  `subtotal` DECIMAL(10,2) NOT NULL DEFAULT '0.00',
   `tax` DECIMAL(10,2) NOT NULL,
   `total` DECIMAL(10,2) NOT NULL,
   `createdby` SMALLINT(10) NOT NULL,

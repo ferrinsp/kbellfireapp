@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
     
+    public static int userid;
+    
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj =null;
@@ -226,8 +228,6 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -258,7 +258,6 @@ public class Login extends javax.swing.JFrame {
             System.out.println("Password: "+ Arrays.toString(pass));
             String passwd =String.valueOf(pass);
             System.out.println("Password: "+ passwd);
-             //Implement this query later
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             String query = "Select username,password from user WHERE username=? and password=?";
@@ -274,6 +273,11 @@ public class Login extends javax.swing.JFrame {
                 
             }
             else{
+                resultObj = stateObj.executeQuery("Select userid from user WHERE username like '%"+user+"%';");
+                while (resultObj.next()){
+                    userid = resultObj.getInt("userid");
+                }
+                connObj.close();
                 this.dispose();
                 MainPage main = new MainPage();
                 main.setVisible(true);
