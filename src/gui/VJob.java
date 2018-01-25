@@ -27,7 +27,7 @@ public class VJob extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
         stateObj = connObj.createStatement();
-        resultObj = stateObj.executeQuery("Select name, address,city,state,zip,bidamount,status from job");
+        resultObj = stateObj.executeQuery("Select name, address,city,state,zip,bidamount,status,comments from job");
         viewJob.setModel(DbUtils.resultSetToTableModel(resultObj));
         viewJob.getColumn("name").setHeaderValue("Job Name");
         viewJob.getColumn("address").setHeaderValue("Address");
@@ -36,6 +36,7 @@ public class VJob extends javax.swing.JFrame {
         viewJob.getColumn("zip").setHeaderValue("Postal Code");
         viewJob.getColumn("bidamount").setHeaderValue("Bid Amount");
         viewJob.getColumn("status").setHeaderValue("Status");
+        viewJob.getColumn("comments").setHeaderValue("Comments");
         viewJob.repaint();
         //meta = resultObj.getMetaData();
     } catch (SQLException e) {
@@ -105,11 +106,11 @@ public class VJob extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewJobCloseButton)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(addJobButton)
-                        .addComponent(updateJobButton)))
+                        .addComponent(updateJobButton))
+                    .addComponent(viewJobCloseButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

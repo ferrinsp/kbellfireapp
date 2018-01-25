@@ -53,7 +53,6 @@ public class Job extends javax.swing.JFrame {
         }
     }
     private void insertJob()    {
-        System.out.println("Verify Insert Job functions wokrs then remove");
         try {
             if (name.equals("Add")) {
                 //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -88,7 +87,6 @@ public class Job extends javax.swing.JFrame {
 
     private void updateJob(){
         try {
-            System.out.println("Verify Update Job functions wokrs then remove");
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             String query = "Update job set name =?, address=?,city=?,state=?,zip=?,bidamount=?,status=?, comments=? where name like '%"+name+"%';";
