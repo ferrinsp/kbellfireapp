@@ -86,7 +86,8 @@ public class VItem extends javax.swing.JFrame {
         updateItemButton = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("View Item");
 
         ItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -199,6 +200,7 @@ public class VItem extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
