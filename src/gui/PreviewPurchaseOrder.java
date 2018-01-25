@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,6 +47,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         getComboContact();
         getComboSupplier();
         getItemsTable();
+        setDatePicker();
     }
         
     @SuppressWarnings("null")
@@ -171,6 +173,12 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
         }   
         return tax;
+    }
+    
+    private void setDatePicker() {
+        Calendar datePicker = Calendar.getInstance();
+        datePicker.add(Calendar.DATE, 7);
+        expectedDatePicker.setDate(datePicker.getTime());
     }
     
     @SuppressWarnings("unchecked")
@@ -457,6 +465,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     double prodSubtotal=0.0;
                     for (int k=0; k<index.size();k++) {
                         System.out.println("Inside loop");
+                        @SuppressWarnings("UnusedAssignment")
                         double prodTotal=0.0;
                         query = "INSERT into purchaseorderdetails (orderid, product,cost,orderqty,total)"
                         + "values(?,?,?,?,?)";

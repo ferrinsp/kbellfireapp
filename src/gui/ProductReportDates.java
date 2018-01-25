@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -27,6 +28,14 @@ public class ProductReportDates extends javax.swing.JFrame {
     
     public ProductReportDates() {
         initComponents();
+        setDatePickers();
+    }
+    
+    private void setDatePickers() {
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.DATE, -7);
+        startDatePicker.setDate(startDate.getTime()); 
+        endDatePicker.setDate(Calendar.getInstance().getTime());
     }
     
     /**
@@ -50,12 +59,6 @@ public class ProductReportDates extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Product Date Range");
-
-        endDatePicker.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                endDatePickerActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Start Date");
 
@@ -165,10 +168,6 @@ public class ProductReportDates extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void endDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endDatePickerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_endDatePickerActionPerformed
-
     private void generateProductReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateProductReportButtonActionPerformed
         try {
             FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Products.jrxml");            
@@ -205,22 +204,16 @@ public class ProductReportDates extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProductReportDates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProductReportDates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProductReportDates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ProductReportDates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProductReportDates().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ProductReportDates().setVisible(true);
         });
     }
 

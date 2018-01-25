@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.sql.Connection;
@@ -15,10 +10,6 @@ import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author tatewtaylor
- */
 public class NDescription extends javax.swing.JFrame {
     
     Connection connObj = null;
@@ -67,9 +58,7 @@ public class NDescription extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    /**
-     * Creates new form NDescription
-     */
+    
     public NDescription() {
         initComponents();
         getTax();

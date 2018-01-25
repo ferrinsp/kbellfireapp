@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.sql.Connection;
@@ -11,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
-
 
 public class NItem extends javax.swing.JFrame {
     
@@ -120,6 +115,10 @@ public class NItem extends javax.swing.JFrame {
         }
     }
     
+    private void setDatePicker() {
+        lastChanged.setDate(Calendar.getInstance().getTime());
+    }
+    
     public void insertProduct() {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -174,6 +173,7 @@ public class NItem extends javax.swing.JFrame {
         getComboCategory();
         getDescriptionCombo();
         getComboSupplier();
+        setDatePicker();
     }
 
     /**
