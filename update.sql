@@ -371,5 +371,5 @@ LOAD DATA local INFILE 'C:/temp/testproduct.csv'
  ENCLOSED BY '"'
  ESCAPED BY ''
  LINES TERMINATED BY '\n'
- (category_id,description,unitMeasure,part_id,manufacturer,supplier,price,status);
+ (category_id,description,unitMeasure,manufacturer,part_id,supplier,price,status);
 

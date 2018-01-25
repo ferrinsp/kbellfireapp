@@ -407,9 +407,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Please select a supplier to create a Purchase Order.");
             }
             else{
-                //Insert information into purchse order table then get orderid
-                //Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax)
-                //values (?,?,?,?,?,?,?,?,?);
                 try {
                     String query ="Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax)"
                         + "values(?,?,?,?,?,?,?,?,?)"    ;
