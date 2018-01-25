@@ -147,7 +147,7 @@ FROM
 	<detail>
 		<band height="143" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="10" y="3" width="360" height="140" uuid="81a0d10f-41b2-4f9e-a101-2cc8f0849974"/>
+				<reportElement key="table 1" style="table 1" x="10" y="3" width="730" height="140" uuid="81a0d10f-41b2-4f9e-a101-2cc8f0849974"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Jobs" uuid="ed6a0325-1922-46f1-860c-9aa27f2aa1dd">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
