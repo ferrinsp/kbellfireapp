@@ -225,10 +225,25 @@ FROM
 	<pageHeader>
 		<band height="12" splitType="Stretch"/>
 	</pageHeader>
-	<detail>
-		<band height="144" splitType="Stretch">
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="631" y="0" width="80" height="20" uuid="3c7d66d0-51db-4150-b717-acf5ac051da7"/>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="711" y="0" width="40" height="20" uuid="5f0dabc3-5bce-4982-856f-8cbd2b7db9ac"/>
+				<box leftPadding="2"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="134" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="1" y="0" width="751" height="133" uuid="8941823f-434e-4bbc-9713-42d9b9472649"/>
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="751" height="133" uuid="8941823f-434e-4bbc-9713-42d9b9472649"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="New Dataset 2" uuid="2015ef41-ccea-40cc-9e47-448051d4bfcc">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -489,23 +504,5 @@ FROM
 				</jr:table>
 			</componentElement>
 		</band>
-	</detail>
-	<pageFooter>
-		<band height="22" splitType="Stretch">
-			<textField>
-				<reportElement x="631" y="0" width="80" height="20" uuid="3c7d66d0-51db-4150-b717-acf5ac051da7"/>
-				<box leftPadding="2"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="711" y="0" width="40" height="20" uuid="5f0dabc3-5bce-4982-856f-8cbd2b7db9ac"/>
-				<box leftPadding="2"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-		</band>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
 	</summary>
 </jasperReport>

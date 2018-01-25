@@ -150,10 +150,18 @@ FROM
 	<pageHeader>
 		<band height="10" splitType="Stretch"/>
 	</pageHeader>
-	<detail>
-		<band height="160" splitType="Stretch">
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="653" y="4" width="100" height="20" uuid="15e574cc-4f95-4436-823f-8d234e91417b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="145" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table" style="table" x="12" y="9" width="360" height="140" uuid="8567e2eb-2c1a-4b22-bf0d-7d937338687e"/>
+				<reportElement key="table" style="table" x="0" y="0" width="360" height="140" uuid="8567e2eb-2c1a-4b22-bf0d-7d937338687e"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Suppliers" uuid="0c18f23d-69b7-4ff9-bea7-1639e0e5fa19">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -370,11 +378,5 @@ FROM
 				</jr:table>
 			</componentElement>
 		</band>
-	</detail>
-	<pageFooter>
-		<band height="24" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="19" splitType="Stretch"/>
 	</summary>
 </jasperReport>
