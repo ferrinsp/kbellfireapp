@@ -516,6 +516,10 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 } catch (FileNotFoundException | SQLException | JRException ex) {
                     Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                //Do we want to do this? I can't think of another way to repaint the main table 
+                MainPage main = new MainPage();
+                main.setVisible(true);
             }
         }
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed

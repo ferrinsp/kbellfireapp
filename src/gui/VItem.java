@@ -43,10 +43,9 @@ public class VItem extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery(" select p.id,c.description, pd.productDescription, s.companyname, p.price,p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange "
+            resultObj = stateObj.executeQuery(" select c.description, pd.productDescription, s.companyname, p.price,p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange "
                     + "from product p inner join category c on p.category_id=c.category_ID inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier;"); 
             ItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
-            ItemTable.getColumn("id").setHeaderValue("ID");
             ItemTable.getColumn("description").setHeaderValue("Category");
             ItemTable.getColumn("productDescription").setHeaderValue("Product Description");
             ItemTable.getColumn("companyname").setHeaderValue("Supplier");
@@ -56,6 +55,7 @@ public class VItem extends javax.swing.JFrame {
             ItemTable.getColumn("manufacturer").setHeaderValue("MFC");
             ItemTable.getColumn("part_id").setHeaderValue("Part Number");
             ItemTable.getColumn("lastchange").setHeaderValue("Last Change");
+            ItemTable.repaint();
             connObj.close();
         }
         catch (SQLException ex) {

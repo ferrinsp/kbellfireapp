@@ -231,6 +231,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        itemsSearchTable.getTableHeader().setReorderingAllowed(false);
         itemsSearchTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 itemsSearchTableMouseClicked(evt);
@@ -267,6 +268,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        PriceTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(PriceTable);
 
         n_u_product.setText("New Item");
@@ -354,6 +356,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        ItemsAddedTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(ItemsAddedTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

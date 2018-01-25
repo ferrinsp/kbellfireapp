@@ -115,7 +115,7 @@ public class MainPage extends javax.swing.JFrame {
         Main_Panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         TabbedView = new javax.swing.JTabbedPane();
-        view_purchase_orders1 = new javax.swing.JScrollPane();
+        view_purchase_orders = new javax.swing.JScrollPane();
         purchaseOrder = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -186,9 +186,9 @@ public class MainPage extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        view_purchase_orders1.setViewportView(purchaseOrder);
+        view_purchase_orders.setViewportView(purchaseOrder);
 
-        TabbedView.addTab("Purchase Order Status", view_purchase_orders1);
+        TabbedView.addTab("Purchase Order Status", view_purchase_orders);
 
         jLabel2.setText("Back Order:");
 
@@ -693,6 +693,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTextField taxValue;
     private javax.swing.JMenuItem viewCreditMemo;
     private javax.swing.JMenuItem view_Job;
-    private javax.swing.JScrollPane view_purchase_orders1;
+    private javax.swing.JScrollPane view_purchase_orders;
     // End of variables declaration//GEN-END:variables
 }

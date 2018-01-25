@@ -54,18 +54,18 @@ public class NCreditMemo extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select p.id, pd.productDescription, s.companyname, p.price, p.unitMeasure, p.manufacturer, p.part_id, pod.cost, pod.tax from  purchaseorder po inner join purchaseorderdetails pod on po.orderid = pod.orderid "
+            resultObj = stateObj.executeQuery("select pd.productDescription, s.companyname,  p.manufacturer, p.part_id, pod.orderqty,p.unitMeasure,p.price, po.total  from  purchaseorder po inner join purchaseorderdetails pod on po.orderid = pod.orderid "
                     + "inner join product p on p.id = pod.product inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier where po.orderid ="+id+";"); 
             purchaseOrderItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
-            purchaseOrderItemTable.getColumn("id").setHeaderValue("ID");
             purchaseOrderItemTable.getColumn("productDescription").setHeaderValue("Product Description");
             purchaseOrderItemTable.getColumn("companyname").setHeaderValue("Supplier");
-            purchaseOrderItemTable.getColumn("price").setHeaderValue("Unit Price");
             purchaseOrderItemTable.getColumn("unitMeasure").setHeaderValue("Unit");
             purchaseOrderItemTable.getColumn("manufacturer").setHeaderValue("MFC");
             purchaseOrderItemTable.getColumn("part_id").setHeaderValue("Part Number");
-            purchaseOrderItemTable.getColumn("cost").setHeaderValue("Cost");
-            purchaseOrderItemTable.getColumn("tax").setHeaderValue("Tax");
+            purchaseOrderItemTable.getColumn("orderqty").setHeaderValue("Qty Ordered");
+            purchaseOrderItemTable.getColumn("price").setHeaderValue("Unit Price");
+            purchaseOrderItemTable.getColumn("total").setHeaderValue("Total");
+            purchaseOrderItemTable.repaint();
             connObj.close();
         }
         catch (SQLException ex) {
@@ -110,9 +110,18 @@ public class NCreditMemo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Product ID", "Description", "Company Name", "Price", "Unit Measure", "Manufacturer", "Part ID", "Cost", "Tax"
+                "Description", "Company Name", "Manufacturer", "Part ID", "Ordered Qty", "Unit Measure", "Price", "Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        purchaseOrderItemTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(purchaseOrderItemTable);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
