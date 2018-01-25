@@ -279,8 +279,12 @@ public class NDescription extends javax.swing.JFrame {
     }//GEN-LAST:event_prodSizeTextFieldFocusGained
 
     private void addNewDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewDescriptionActionPerformed
-        insertDescription();
-        JOptionPane.showMessageDialog(null, "New description was entered successfully.");
+        if(prodDescTextField.getText().equals("") || prodSizeTextField.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter data before saving.");
+        } else {
+            insertDescription();
+            JOptionPane.showMessageDialog(null, "New description was entered successfully.");
+        }
     }//GEN-LAST:event_addNewDescriptionActionPerformed
 
     private void prodDescTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prodDescTextFieldFocusLost
@@ -289,7 +293,6 @@ public class NDescription extends javax.swing.JFrame {
     }//GEN-LAST:event_prodDescTextFieldFocusLost
 
     private void updateTaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTaxActionPerformed
-        
         try {
             double tax = Double.parseDouble(taxTextField.getText());
             setTax(tax);
