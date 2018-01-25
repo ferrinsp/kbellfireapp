@@ -139,6 +139,23 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
         }    
     }
+    private int getProduct(int suppID, String prodDesc){
+        int id=-1;
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select p.id from product p inner join productdescription pd on pd.pdescID = p.description where pd.productDescription LIKE '%"+prodDesc+"%' and p.supplier = "+suppID+" ;");
+            while (resultObj.next()){
+                id =resultObj.getInt("id");
+                System.out.println("In the result "+id);
+            }
+        }
+        catch (SQLException e) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
+        }  
+        return id;
+    }
     public double getTax(){
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -441,9 +458,25 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                         orderid=resultObj.getInt("id");
                     }
                     System.out.println("Last inserted "+orderid);
-                //Insert information from this row into purchase order details using orderid from above
-                //By looping through rows indexed in List<Integer> index
-                //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines
+                    //Loop through index and add as many items as needed
+                    double prodSum=0.0;
+                    for (int k=0; k<index.size();k++) {
+                        
+                        double prodTotal=0.0;
+                        /*
+                        query = "INSERT into purchaseorderdetails (orderid, product,cost,orderqty,total)"
+                        + "values(?,?,?,?,?)";
+                        preparedStmt =connObj.prepareStatement(query);
+                        preparedStmt.setInt (1, orderid); //PO ID
+                        preparedStmt.setInt (2, getProduct(supp, (String) previewItemsAddedTable.getValueAt(index.get(k), 1)));  //Product Number
+                        preparedStmt.setDouble(3,Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 6))); //Unit cost
+                        preparedStmt.setInt (4, Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 4))); //Order Qty
+                        prodTotal = Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 6)) * Double.parseDouble((String)previewItemsAddedTable.getValueAt(index.get(k), 4));
+                        prodSum += prodTotal;
+                        preparedStmt.setDouble(5,prodTotal); //Unit Total
+                        */
+                    }
+                    //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines
                 } catch (SQLException ex) {
                     Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`category` (
   `description` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`category_ID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT =1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`user` (
   `password` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`userid`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT =1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -114,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
   `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `shipto` INT(11) NOT NULL,
   `status` VARCHAR(45) NOT NULL DEFAULT 'Pending',
+  `currentTax` DECIMAL(10,2) NOT NULL,
   `comments` VARCHAR(120) NULL DEFAULT NULL,
   PRIMARY KEY (`orderid`),
   INDEX `creator_idx` (`createdby` ASC),
@@ -145,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1000
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -161,6 +162,8 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
   `total` DECIMAL(10,2) NOT NULL,
   `createdby` SMALLINT(10) NOT NULL,
   `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `currentTax` DECIMAL(10,2) NOT NULL,
+  `status` VARCHAR(45) NULL DEFAULT 'Pending',
   `comments` VARCHAR(120) NULL DEFAULT NULL,
   PRIMARY KEY (`memoid`),
   INDEX `poid_id` (`poid` ASC),
@@ -189,6 +192,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT =1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -267,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT =1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -281,7 +285,6 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
   `cost` DECIMAL(10,2) NOT NULL,
   `orderqty` INT(11) NOT NULL,
   `receivedqty` INT(11) NOT NULL DEFAULT '0',
-  `tax` DECIMAL(10,2) NOT NULL,
   `total` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`detailsid`),
   INDEX `product_idx` (`product` ASC),
@@ -298,6 +301,15 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`tax`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`tax` (
+  `tax` DECIMAL(10,2) NOT NULL)
+ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
