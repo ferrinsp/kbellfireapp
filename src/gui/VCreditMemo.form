@@ -87,7 +87,7 @@
                     <Column editable="false" title="PO ID" type="java.lang.Object"/>
                     <Column editable="false" title="Supplier" type="java.lang.Object"/>
                     <Column editable="false" title="Job" type="java.lang.Object"/>
-                    <Column editable="false" title="Tax" type="java.lang.Object"/>
+                    <Column editable="false" title="Status" type="java.lang.Object"/>
                     <Column editable="false" title="Total" type="java.lang.Object"/>
                     <Column editable="false" title="Created By" type="java.lang.Object"/>
                     <Column editable="true" title="Created Date" type="java.lang.Object"/>

@@ -1,11 +1,26 @@
 package gui;
 
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
 public class VCreditMemo extends javax.swing.JFrame {
 
+    public Color genericColor = new Color(209, 220, 204);    
+    private final AlternatingListCellRenderer cellRenderer;
+    Connection connObj = null;
+    Statement stateObj = null;
+    ResultSet resultObj = null;
+    
     public VCreditMemo() {
+        this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
+        getCreditMemos();
     }
 
     @SuppressWarnings("unchecked")
@@ -35,7 +50,7 @@ public class VCreditMemo extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Memo ID", "PO ID", "Supplier", "Job", "Tax", "Total", "Created By", "Created Date", "Comments"
+                "Memo ID", "PO ID", "Supplier", "Job", "Status", "Total", "Created By", "Created Date", "Comments"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -116,6 +131,29 @@ public class VCreditMemo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void getCreditMemos() {
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select c.memoid, c.poid, s.companyname, j.name, c.status, c.total, u.name, c.created, c.comments from creditmemo c "
+                    + "inner join supplier s on s.supplierid = c.supplier inner join job j on j.jobid = c.job inner join user u on u.userid = c.createdby;");
+            viewCreditMemoTable.setModel(DbUtils.resultSetToTableModel(resultObj));
+            viewCreditMemoTable.getColumn("memoid").setHeaderValue("Memo ID");
+            viewCreditMemoTable.getColumn("poid").setHeaderValue("Purchase Order ID");
+            viewCreditMemoTable.getColumn("companyname").setHeaderValue("Supplier");
+            viewCreditMemoTable.getColumn("name").setHeaderValue("Job");
+            viewCreditMemoTable.getColumn("status").setHeaderValue("Status");
+            viewCreditMemoTable.getColumn("total").setHeaderValue("Total");
+            viewCreditMemoTable.getColumn("name").setHeaderValue("Created By");
+            viewCreditMemoTable.getColumn("created").setHeaderValue("Created");
+            viewCreditMemoTable.getColumn("comments").setHeaderValue("Comments");
+            viewCreditMemoTable.repaint();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void updateCMButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCMButtonActionPerformed
         int[] index = viewCreditMemoTable.getSelectedRows();
         if(index.length <= 0){
