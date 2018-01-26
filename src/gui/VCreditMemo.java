@@ -149,6 +149,7 @@ public class VCreditMemo extends javax.swing.JFrame {
             viewCreditMemoTable.getColumn("created").setHeaderValue("Created");
             viewCreditMemoTable.getColumn("comments").setHeaderValue("Comments");
             viewCreditMemoTable.repaint();
+            connObj.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

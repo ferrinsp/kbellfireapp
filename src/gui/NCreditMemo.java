@@ -81,6 +81,8 @@ public class NCreditMemo extends javax.swing.JFrame {
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             String query = "INSERT into creditmemo (memoid, poid, supplier, job, tax, total, createdby, created, comments) values(?,?,?,?,?,?,?,?,?);";
             PreparedStatement preparedStmt =connObj.prepareStatement(query);
+            //Get items to insert here!!!!!
+            System.out.println("I need data!!!");
             preparedStmt.execute();
         connObj.close();
         } catch (SQLException e) {

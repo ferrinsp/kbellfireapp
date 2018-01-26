@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 
@@ -18,16 +21,43 @@ public class UCreditMemo extends javax.swing.JFrame {
     
     public UCreditMemo() {
         initComponents();
+        selectCreditMemo();
     }
     
     public UCreditMemo(int memoid) {
         this.memoid = memoid;
         initComponents();
-        updateCreditMemo();
+        selectCreditMemo();
     }
+    private void selectCreditMemo(){
+        try{
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+    resultObj = stateObj.executeQuery("select cm.poid,s.companyname, j.name, cm.tax,cm.total ,u.name as 'user', cm.status, cm.created\n" +
+"                from creditmemo cm inner join supplier s on s.supplierid=cm.supplier inner join user u on u.userid=cm.createdby\n" +
+"                inner join job j on j.jobid=cm.job where cm.memoid=1;");//change to passed in variable
     
+    Date d;
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            while (resultObj.next()){
+                purchaseOrderTextField.setText(Integer.toString(resultObj.getInt("poid")));
+                supplierTextField.setText(resultObj.getString("companyname"));
+                createdByTextField.setText(resultObj.getString("user"));
+                jobTextField.setText(resultObj.getString("name"));
+                totalTextField.setText(resultObj.getString("total"));
+                taxTextField.setText(Integer.toString(resultObj.getInt("tax")));
+                d= resultObj.getDate("created");
+                createdDateField.setText(df.format(d));
+                commentsTextArea.setText("");
+            }
+                connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     private void updateCreditMemo() {
         try {
+            System.out.println("IN the update");
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
         String query = "UPDATE creditmemo set status=?, comments=? where memoid = " + memoid + ";";
@@ -126,6 +156,7 @@ public class UCreditMemo extends javax.swing.JFrame {
         jLabel1.setText("Status:");
 
         statusButtons.add(issuedStatusButton);
+        issuedStatusButton.setSelected(true);
         issuedStatusButton.setText("Issued");
 
         statusButtons.add(completedStatusButton);

@@ -27,7 +27,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
-    int id=7; //Set this later
+    int id; //Set this later
     
     /**
      * Creates new form UPurchaseOrder
@@ -110,11 +110,14 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     poStatus = button.getText();
                 }
             }
+            System.out.println("poStatus is ="+poStatus);
+            System.out.println("ID is ?? ="+id);
             query = "Update purchaseorder set status=?, comments=? where orderid="+id+";";
             //Get Values to update
             preparedStmt =connObj.prepareStatement(query);
             preparedStmt.setString (1, poStatus);
             preparedStmt.setString (2, commentsArea.getText());
+            preparedStmt.executeUpdate();
             connObj.close();
             this.id= -1;
             this.dispose();
