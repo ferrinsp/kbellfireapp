@@ -74,20 +74,25 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="createdDatePicker" min="-2" pref="138" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="issuedStatusButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="completedStatusButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
                       <Component id="jScrollPane1" alignment="0" pref="185" max="32767" attributes="0"/>
                       <Component id="purchaseOrderTextField" alignment="0" max="32767" attributes="0"/>
                       <Component id="jobTextField" alignment="0" max="32767" attributes="0"/>
                       <Component id="taxTextField" alignment="0" max="32767" attributes="0"/>
                       <Component id="supplierTextField" alignment="0" max="32767" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="totalTextField" alignment="0" max="32767" attributes="0"/>
-                          <Component id="createdByTextField" alignment="0" pref="138" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="issuedStatusButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="completedStatusButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="createdDateField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="totalTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="createdByTextField" alignment="0" pref="138" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -127,12 +132,12 @@
                       <Component id="createdByLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="createdByTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="createdDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="createdDatePicker" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="createdDateField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="issuedStatusButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -151,21 +156,25 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="purchaseOrderTextField">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="Purchase Order #"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jobTextField">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="Job"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="supplierTextField">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="Supplier"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="taxTextField">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="Tax"/>
           </Properties>
         </Component>
@@ -196,6 +205,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="totalTextField">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="Total"/>
           </Properties>
         </Component>
@@ -206,6 +216,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="createdByTextField">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="Created By"/>
           </Properties>
           <Events>
@@ -216,8 +227,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Created Date:"/>
           </Properties>
-        </Component>
-        <Component class="org.jdesktop.swingx.JXDatePicker" name="createdDatePicker">
         </Component>
         <Component class="javax.swing.JLabel" name="commentsLabel">
           <Properties>
@@ -258,6 +267,12 @@
               <ComponentRef name="statusButtons"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Completed"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="createdDateField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="Created Date"/>
           </Properties>
         </Component>
       </SubComponents>

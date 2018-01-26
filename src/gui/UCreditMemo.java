@@ -72,25 +72,29 @@ public class UCreditMemo extends javax.swing.JFrame {
         createdByLabel = new javax.swing.JLabel();
         createdByTextField = new javax.swing.JTextField();
         createdDateLabel = new javax.swing.JLabel();
-        createdDatePicker = new org.jdesktop.swingx.JXDatePicker();
         commentsLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         commentsTextArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         issuedStatusButton = new javax.swing.JRadioButton();
         completedStatusButton = new javax.swing.JRadioButton();
+        createdDateField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         updateCreditMemoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update Credit Memo");
 
+        purchaseOrderTextField.setEditable(false);
         purchaseOrderTextField.setText("Purchase Order #");
 
+        jobTextField.setEditable(false);
         jobTextField.setText("Job");
 
+        supplierTextField.setEditable(false);
         supplierTextField.setText("Supplier");
 
+        taxTextField.setEditable(false);
         taxTextField.setText("Tax");
 
         puchaseOrderLabel.setText("Purchase Order #:");
@@ -103,10 +107,12 @@ public class UCreditMemo extends javax.swing.JFrame {
 
         totalLabel.setText("Total:");
 
+        totalTextField.setEditable(false);
         totalTextField.setText("Total");
 
         createdByLabel.setText("Created By: ");
 
+        createdByTextField.setEditable(false);
         createdByTextField.setText("Created By");
         createdByTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +136,9 @@ public class UCreditMemo extends javax.swing.JFrame {
         statusButtons.add(completedStatusButton);
         completedStatusButton.setText("Completed");
 
+        createdDateField.setEditable(false);
+        createdDateField.setText("Created Date");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -150,19 +159,22 @@ public class UCreditMemo extends javax.swing.JFrame {
                     .addComponent(commentsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(createdDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(issuedStatusButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(completedStatusButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                     .addComponent(purchaseOrderTextField)
                     .addComponent(jobTextField)
                     .addComponent(taxTextField)
                     .addComponent(supplierTextField)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(totalTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(createdByTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(issuedStatusButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(completedStatusButton))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(createdDateField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(totalTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(createdByTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -192,11 +204,11 @@ public class UCreditMemo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createdByLabel)
                     .addComponent(createdByTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createdDateLabel)
-                    .addComponent(createdDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                    .addComponent(createdDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(issuedStatusButton)
@@ -295,8 +307,8 @@ public class UCreditMemo extends javax.swing.JFrame {
     private javax.swing.JRadioButton completedStatusButton;
     private javax.swing.JLabel createdByLabel;
     private javax.swing.JTextField createdByTextField;
+    private javax.swing.JTextField createdDateField;
     private javax.swing.JLabel createdDateLabel;
-    private org.jdesktop.swingx.JXDatePicker createdDatePicker;
     private javax.swing.JRadioButton issuedStatusButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
