@@ -1,25 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
-/**
- *
- * @author ferrinsp
- */
 public class NCreditMemo extends javax.swing.JFrame {
 
     Connection connObj = null;
@@ -75,14 +77,40 @@ public class NCreditMemo extends javax.swing.JFrame {
     
     private void insertCreditMemo(){
         try {
-        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-        String query = "INSERT into creditmemo (memoid, poid, supplier, job, tax, total, createdby, created, comments) values(?,?,?,?,?,?,?,?,?);";
-        PreparedStatement preparedStmt =connObj.prepareStatement(query);
-        preparedStmt.execute();
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            String query = "INSERT into creditmemo (memoid, poid, supplier, job, tax, total, createdby, created, comments) values(?,?,?,?,?,?,?,?,?);";
+            PreparedStatement preparedStmt =connObj.prepareStatement(query);
+            preparedStmt.execute();
         connObj.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+      
+        //generate CreditMemo Report
+        try { 
+            int memoid = -1;
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select max(memoid) as 'id' from creditmemo;");
+            while (resultObj.next()){
+                memoid=resultObj.getInt("id");
+            }
+            
+            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
+            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+
+            //set parameters
+            Map map = new HashMap();
+            map.put("memoid", memoid);
+            //compile report
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+            //view report to UI
+            JasperViewer.viewReport(jasperPrint, false);                   
+        } catch (FileNotFoundException | SQLException | JRException ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -203,10 +231,12 @@ public class NCreditMemo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void issueCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueCreditMemoActionPerformed
-        if(purchaseOrderItemTable.getRowCount()==0)
-            JOptionPane.showMessageDialog(null, "No items added for Purchase Order.");
-        else
-            insertCreditMemo();
+        if(purchaseOrderItemTable.getRowCount()==0) {
+            JOptionPane.showMessageDialog(null, "No items added for Purchase Order."); 
+        }
+        else {
+            insertCreditMemo(); 
+        }
     }//GEN-LAST:event_issueCreditMemoActionPerformed
 
     private void ComboPOItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboPOItemStateChanged

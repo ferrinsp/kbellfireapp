@@ -114,11 +114,6 @@ public class UCreditMemo extends javax.swing.JFrame {
 
         createdByTextField.setEditable(false);
         createdByTextField.setText("Created By");
-        createdByTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createdByTextFieldActionPerformed(evt);
-            }
-        });
 
         createdDateLabel.setText("Created Date:");
 
@@ -269,12 +264,9 @@ public class UCreditMemo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void createdByTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createdByTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_createdByTextFieldActionPerformed
-
     private void updateCreditMemoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCreditMemoButtonActionPerformed
         updateCreditMemo();
+        
     }//GEN-LAST:event_updateCreditMemoButtonActionPerformed
 
     /**
