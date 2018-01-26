@@ -164,9 +164,7 @@ public class NUItem extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * Creates new form NewProduct
-     */
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public NUItem() {
         this.setResizable(false);
         initComponents();

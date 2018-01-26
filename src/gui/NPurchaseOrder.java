@@ -148,6 +148,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
     }
     
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public NPurchaseOrder() {
         this.setResizable(false);
         initComponents();

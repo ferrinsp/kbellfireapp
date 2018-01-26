@@ -91,6 +91,7 @@ public class MainPage extends javax.swing.JFrame {
         }
     }
 
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public MainPage() {
         initComponents();
         getDashboard();

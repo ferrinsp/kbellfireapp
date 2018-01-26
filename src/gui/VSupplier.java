@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.awt.*;
@@ -16,8 +11,7 @@ import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 public class VSupplier extends javax.swing.JFrame {
-    
-    //private NSupplier currentSupplier;
+
     public Color genericColor = new Color(209, 220, 204);    
     private final AlternatingListCellRenderer cellRenderer;
     Connection connObj = null;
@@ -26,36 +20,36 @@ public class VSupplier extends javax.swing.JFrame {
       
     private void getsuppliers()    {
         try {
-        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-        stateObj = connObj.createStatement();
-        resultObj = stateObj.executeQuery("Select * from supplier");
-        supplier.setModel(DbUtils.resultSetToTableModel(resultObj));
-        supplier.getColumn("supplierid").setHeaderValue("Supplier ID");
-        supplier.getColumn("companyname").setHeaderValue("Company");
-        supplier.getColumn("contact").setHeaderValue("Contact");
-        supplier.getColumn("address1").setHeaderValue("Address");
-        supplier.getColumn("city").setHeaderValue("City");
-        supplier.getColumn("state").setHeaderValue("State");
-        supplier.getColumn("postalcode").setHeaderValue("Postal Code");
-        supplier.getColumn("phone").setHeaderValue("Phone");
-        supplier.getColumn("fax").setHeaderValue("Fax");
-        supplier.getColumn("terms").setHeaderValue("Terms");
-        supplier.getColumn("comments").setHeaderValue("Comments");
-        supplier.repaint();
-       
-    } catch (SQLException e) {
-        e.printStackTrace();
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("Select * from supplier");
+            supplier.setModel(DbUtils.resultSetToTableModel(resultObj));
+            supplier.getColumn("supplierid").setHeaderValue("Supplier ID");
+            supplier.getColumn("companyname").setHeaderValue("Company");
+            supplier.getColumn("contact").setHeaderValue("Contact");
+            supplier.getColumn("address1").setHeaderValue("Address");
+            supplier.getColumn("city").setHeaderValue("City");
+            supplier.getColumn("state").setHeaderValue("State");
+            supplier.getColumn("postalcode").setHeaderValue("Postal Code");
+            supplier.getColumn("phone").setHeaderValue("Phone");
+            supplier.getColumn("fax").setHeaderValue("Fax");
+            supplier.getColumn("terms").setHeaderValue("Terms");
+            supplier.getColumn("comments").setHeaderValue("Comments");
+            supplier.repaint();       
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-    }
+    
     private final DefaultListModel<NSupplier> supplierModel; 
     /**
      * Creates new form view_suppliers
      */
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public VSupplier() {
         this.supplierModel = new DefaultListModel<>();
         this.cellRenderer = new AlternatingListCellRenderer();
-        
         this.setResizable(false);
         initComponents();
         getsuppliers();

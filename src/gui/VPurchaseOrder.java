@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.awt.Color;
@@ -21,38 +16,33 @@ public class VPurchaseOrder extends javax.swing.JFrame {
     Statement stateObj = null;
     ResultSet resultObj = null;
 
-        private void selectpo()    {
+    private void selectpo()    {
         try {
-        //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-        stateObj = connObj.createStatement();
-        resultObj = stateObj.executeQuery("select t1.orderid,t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
-        "t3.name, b.name, t1.total from purchaseorder t1\n" +
-        "inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
-        "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid;");
-        purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
-        purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
-        purchaseOrder.getColumn("companyname").setHeaderValue("Company");
-        purchaseOrder.getColumn("name").setHeaderValue("Job");
-        purchaseOrder.getColumn("status").setHeaderValue("Status");
-        purchaseOrder.getColumn("expectedby").setHeaderValue("Expected By");
-        purchaseOrder.getColumn("name").setHeaderValue("Issued By");
-        purchaseOrder.getColumn("name").setHeaderValue("Ship To");
-        purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
-        purchaseOrder.repaint();
-
-    } catch (SQLException e) {
-        e.printStackTrace();
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select t1.orderid,t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
+            "t3.name, b.name, t1.total from purchaseorder t1\n" +
+            "inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
+            "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid;");
+            purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
+            purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
+            purchaseOrder.getColumn("companyname").setHeaderValue("Company");
+            purchaseOrder.getColumn("name").setHeaderValue("Job");
+            purchaseOrder.getColumn("status").setHeaderValue("Status");
+            purchaseOrder.getColumn("expectedby").setHeaderValue("Expected By");
+            purchaseOrder.getColumn("name").setHeaderValue("Issued By");
+            purchaseOrder.getColumn("name").setHeaderValue("Ship To");
+            purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
+            purchaseOrder.repaint();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-    }
 
-    
-    /**
-     * Creates new form view_purchase_order
-     */
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public VPurchaseOrder() {
         this.cellRenderer = new AlternatingListCellRenderer();
-        
         this.setResizable(false);
         initComponents();
         selectpo();
