@@ -12,7 +12,7 @@ import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 
-public class NItem extends javax.swing.JFrame {
+public class NUItem extends javax.swing.JFrame {
     
     Connection connObj = null;
     Statement stateObj = null;
@@ -167,7 +167,7 @@ public class NItem extends javax.swing.JFrame {
     /**
      * Creates new form NewProduct
      */
-    public NItem() {
+    public NUItem() {
         this.setResizable(false);
         initComponents();
         getComboCategory();
@@ -195,9 +195,6 @@ public class NItem extends javax.swing.JFrame {
         priceLabel = new javax.swing.JLabel();
         mfcTextField = new javax.swing.JTextField();
         priceTextField = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        addNewItem = new javax.swing.JButton();
-        cancelAdd = new javax.swing.JButton();
         partLabel = new javax.swing.JLabel();
         partNumTextField = new javax.swing.JTextField();
         SupplierCombo = new javax.swing.JComboBox<>();
@@ -210,6 +207,9 @@ public class NItem extends javax.swing.JFrame {
         rdbInactive = new javax.swing.JRadioButton();
         status1 = new javax.swing.JLabel();
         lastChanged = new org.jdesktop.swingx.JXDatePicker();
+        jPanel2 = new javax.swing.JPanel();
+        addNewItem = new javax.swing.JButton();
+        cancelAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Items");
@@ -241,41 +241,6 @@ public class NItem extends javax.swing.JFrame {
             }
         });
 
-        addNewItem.setText("Save");
-        addNewItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addNewItemActionPerformed(evt);
-            }
-        });
-
-        cancelAdd.setText("Cancel");
-        cancelAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelAddActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(addNewItem)
-                .addGap(45, 45, 45)
-                .addComponent(cancelAdd)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addNewItem)
-                    .addComponent(cancelAdd))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         partLabel.setText("Part Number");
 
         partNumTextField.setText("Part Number");
@@ -303,11 +268,51 @@ public class NItem extends javax.swing.JFrame {
 
         statusGroup.add(rdbInactive);
         rdbInactive.setText("Inactive");
+        rdbInactive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbInactiveActionPerformed(evt);
+            }
+        });
 
         status1.setText("Last Changed");
 
         Date date = new Date();
         lastChanged.setDate(date);
+
+        addNewItem.setText("Save");
+        addNewItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewItemActionPerformed(evt);
+            }
+        });
+
+        cancelAdd.setText("Cancel");
+        cancelAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelAddActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(addNewItem)
+                .addGap(56, 56, 56)
+                .addComponent(cancelAdd)
+                .addGap(120, 120, 120))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addNewItem)
+                    .addComponent(cancelAdd))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -327,7 +332,7 @@ public class NItem extends javax.swing.JFrame {
                         .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rdbActive)
-                        .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
                         .addComponent(rdbInactive))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -445,6 +450,10 @@ public class NItem extends javax.swing.JFrame {
             priceTextField.setText("Price");
     }//GEN-LAST:event_priceTextFieldFocusLost
 
+    private void rdbInactiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbInactiveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbInactiveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -462,12 +471,12 @@ public class NItem extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NUItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new NItem().setVisible(true);
+            new NUItem().setVisible(true);
         });
     }
 

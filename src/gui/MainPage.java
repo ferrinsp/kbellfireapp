@@ -521,7 +521,7 @@ public class MainPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void newProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProductActionPerformed
-        NItem newItem = new NItem();
+        NUItem newItem = new NUItem();
         newItem.setVisible(true);
     }//GEN-LAST:event_newProductActionPerformed
 
