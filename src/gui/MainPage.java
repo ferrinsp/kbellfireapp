@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -23,6 +24,8 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class MainPage extends javax.swing.JFrame {
     
+    public Color genericColor = new Color(209, 220, 204);    
+    private final AlternatingListCellRenderer cellRenderer;
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
@@ -88,6 +91,7 @@ public class MainPage extends javax.swing.JFrame {
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public MainPage() {
+        this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
         getDashboard();
         getPOStatus();

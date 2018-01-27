@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gui;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,26 +15,23 @@ import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author tatewtaylor
- */
 public class UPurchaseOrder extends javax.swing.JFrame {
 
+    public Color genericColor = new Color(209, 220, 204);    
+    private final AlternatingListCellRenderer cellRenderer;
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
     int id; //Set this later
     
-    /**
-     * Creates new form UPurchaseOrder
-     */
     public UPurchaseOrder(int index) {
+        this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
         this.id=index;
         selectpo();
     }
     public UPurchaseOrder() {
+        this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
         selectpo();
     }

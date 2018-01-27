@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,7 +24,9 @@ import javax.swing.KeyStroke;
 import javax.swing.RowFilter;
 
 public class NPurchaseOrder extends javax.swing.JFrame {
-
+    
+    public Color genericColor = new Color(209, 220, 204);    
+    private final AlternatingListCellRenderer cellRenderer;
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
@@ -150,6 +153,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public NPurchaseOrder() {
+        this.cellRenderer = new AlternatingListCellRenderer();
         this.setResizable(false);
         initComponents();
         getComboCategory();

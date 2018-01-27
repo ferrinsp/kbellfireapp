@@ -1,6 +1,7 @@
 
 package gui;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +18,9 @@ import javax.swing.table.TableRowSorter;
 import net.proteanit.sql.DbUtils;
 
 public class VItem extends javax.swing.JFrame {
-    
+
+    public Color genericColor = new Color(209, 220, 204);    
+    private final AlternatingListCellRenderer cellRenderer;
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
@@ -58,6 +61,7 @@ public class VItem extends javax.swing.JFrame {
      * Creates new form VItem
      */
     public VItem() {
+        this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
         getProduct();
     }

@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,12 +24,15 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class NCreditMemo extends javax.swing.JFrame {
-
+    
+    public Color genericColor = new Color(209, 220, 204);    
+    private final AlternatingListCellRenderer cellRenderer;
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
 
     public NCreditMemo() {
+        this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
         getComboPO();
     }
