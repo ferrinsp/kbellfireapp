@@ -58,7 +58,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        updatePOButton = new javax.swing.JButton();
         Main_Panel1 = new javax.swing.JPanel();
         view_purchase_orders1 = new javax.swing.JScrollPane();
         purchaseOrder = new javax.swing.JTable();
@@ -66,10 +66,10 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Purchase Order");
 
-        jButton1.setText("Update Purchase Order");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        updatePOButton.setText("Update Purchase Order");
+        updatePOButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                updatePOButtonActionPerformed(evt);
             }
         });
 
@@ -79,14 +79,14 @@ public class VPurchaseOrder extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(378, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(updatePOButton)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(updatePOButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -144,11 +144,11 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void updatePOButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePOButtonActionPerformed
         //purchaseOrder.getValueAt(1, 0);
         UPurchaseOrder updatePO = new UPurchaseOrder((int) purchaseOrder.getValueAt(1, 0));
         updatePO.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_updatePOButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,9 +177,9 @@ public class VPurchaseOrder extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Main_Panel1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTable purchaseOrder;
+    private javax.swing.JButton updatePOButton;
     private javax.swing.JScrollPane view_purchase_orders1;
     // End of variables declaration//GEN-END:variables
 }

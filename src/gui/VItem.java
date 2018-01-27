@@ -16,10 +16,6 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author tatewtaylor
- */
 public class VItem extends javax.swing.JFrame {
     
     Connection connObj = null;

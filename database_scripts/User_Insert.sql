@@ -1,0 +1,10 @@
+INSERT INTO USER (USERID, USERNAME, NAME, PASSWORD) 
+VALUES (1, "sferrin", "Spencer Ferrin", "3edc#EDC");
+
+INSERT INTO USER (USERID, USERNAME, NAME, PASSWORD) 
+VALUES (2, "ttaylor", "Tate Taylor", "1qaz!QAZ");
+
+INSERT INTO USER (USERID, USERNAME, NAME, PASSWORD) 
+VALUES (3, "rtalbot", "Russ Talbot", "2wsx@WSX");
+
+ 
