@@ -353,7 +353,7 @@ LOAD DATA local INFILE 'C:/temp/category.csv'
  ENCLOSED BY '"'
  ESCAPED BY ''
  LINES TERMINATED BY '\n'
- (description);
+ (category_ID, description);
  
  -- Run this for product descriptions
   LOAD DATA local INFILE 'C:/temp/prodDesc.csv'
@@ -362,7 +362,7 @@ LOAD DATA local INFILE 'C:/temp/category.csv'
  ENCLOSED BY '"'
  ESCAPED BY ''
  LINES TERMINATED BY '\n'
- (productDescription,productSize);
+ (pdescID,productDescription,productSize);
 
 -- Run this script to load sample of products
 LOAD DATA local INFILE 'C:/temp/testproduct.csv'
