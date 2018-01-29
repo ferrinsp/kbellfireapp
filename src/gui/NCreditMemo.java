@@ -68,7 +68,6 @@ public class NCreditMemo extends javax.swing.JFrame {
             resultObj = stateObj.executeQuery("select p.id from product p inner join productdescription pd on pd.pdescID = p.description where pd.productDescription LIKE '%"+prodDesc+"%' and p.supplier = "+selectedSupplier+" ;");
             while (resultObj.next()){
                 id =resultObj.getInt("id");
-                System.out.println("In the result "+id);
             }
         }
         catch (SQLException e) {
@@ -81,7 +80,7 @@ public class NCreditMemo extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select pd.productDescription, s.companyname,  p.manufacturer, p.part_id, pod.orderqty,p.unitMeasure,p.price, po.total from  purchaseorder po inner join purchaseorderdetails pod on po.orderid = pod.orderid "
+            resultObj = stateObj.executeQuery("select pd.productDescription, s.companyname,  p.manufacturer, p.part_id, pod.orderqty,p.unitMeasure,p.price, pod.total from  purchaseorder po inner join purchaseorderdetails pod on po.orderid = pod.orderid "
                     + "inner join product p on p.id = pod.product inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier where po.orderid ="+id+";"); 
             purchaseOrderItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             purchaseOrderItemTable.getColumn("productDescription").setHeaderValue("Product Description");
@@ -161,14 +160,12 @@ public class NCreditMemo extends javax.swing.JFrame {
                 }       
             }
             //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines
-            System.out.println("Updating table for memoid: "+memoid);
              preparedStmt =connObj.prepareStatement("UPDATE creditmemo SET subTotal =?, tax =?, total=? where memoid= "+memoid+";");
              preparedStmt.setDouble(1,memoSubTotal);
              preparedStmt.setDouble(2,(memoSubTotal*(MainPage.tax/100)));
              memoTotal =memoSubTotal + (memoSubTotal*(MainPage.tax/100));
              preparedStmt.setDouble(3,memoTotal);
              preparedStmt.executeUpdate();
-             System.out.println("Done updating table for memoid: "+memoid);
              connObj.close();
             
              //Generate Report

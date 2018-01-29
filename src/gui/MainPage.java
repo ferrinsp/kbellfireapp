@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -648,8 +650,8 @@ public class MainPage extends javax.swing.JFrame {
 
     private void supplierListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierListMenuItemActionPerformed
         try {
-            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Suppliers.jrxml");            
-            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
+            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Suppliers.jrxml");            
+            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
 
@@ -674,8 +676,17 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshActionPerformed
 
     private void updatePOMainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePOMainButtonActionPerformed
-        UPurchaseOrder updatePO = new UPurchaseOrder((int) purchaseOrder.getValueAt(1, 0));
-        updatePO.setVisible(true);
+        int[] index = purchaseOrder.getSelectedRows();
+        if(index.length <= 0){
+            JOptionPane.showMessageDialog(null, "No item selected to update.");
+        }
+        else if (index.length > 1){
+            JOptionPane.showMessageDialog(null, "Select only one item to update.");
+        }
+        else{
+            UPurchaseOrder updatePO = new UPurchaseOrder((int) purchaseOrder.getValueAt(index[0],0));
+            updatePO.setVisible(true);
+        }
     }//GEN-LAST:event_updatePOMainButtonActionPerformed
    
     public static void main(String args[]) {

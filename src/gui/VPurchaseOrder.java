@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 public class VPurchaseOrder extends javax.swing.JFrame {
@@ -101,6 +102,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
                 "Purchase Order", "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total"
             }
         ));
+        purchaseOrder.getTableHeader().setReorderingAllowed(false);
         view_purchase_orders1.setViewportView(purchaseOrder);
 
         javax.swing.GroupLayout Main_Panel1Layout = new javax.swing.GroupLayout(Main_Panel1);
@@ -145,9 +147,18 @@ public class VPurchaseOrder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updatePOButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePOButtonActionPerformed
-        //purchaseOrder.getValueAt(1, 0);
-        UPurchaseOrder updatePO = new UPurchaseOrder((int) purchaseOrder.getValueAt(1, 0));
-        updatePO.setVisible(true);
+        int[] index = purchaseOrder.getSelectedRows();
+        if(index.length <= 0){
+            JOptionPane.showMessageDialog(null, "No Purchase Order selected to update.");
+        }
+        else if (index.length > 1){
+            JOptionPane.showMessageDialog(null, "Select only one Purchase Order to update.");
+        }
+        else{
+            UPurchaseOrder updatePO = new UPurchaseOrder((int) purchaseOrder.getValueAt(index[0], 0));
+            updatePO.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_updatePOButtonActionPerformed
 
     /**

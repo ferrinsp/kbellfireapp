@@ -104,8 +104,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     poStatus = button.getText();
                 }
             }
-            System.out.println("poStatus is ="+poStatus);
-            System.out.println("ID is ?? ="+id);
             query = "Update purchaseorder set status=?, comments=? where orderid="+id+";";
             //Get Values to update
             preparedStmt =connObj.prepareStatement(query);

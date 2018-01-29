@@ -154,7 +154,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             resultObj = stateObj.executeQuery("select p.id from product p inner join productdescription pd on pd.pdescID = p.description where pd.productDescription LIKE '%"+prodDesc+"%' and p.supplier = "+suppID+" ;");
             while (resultObj.next()){
                 id =resultObj.getInt("id");
-                System.out.println("In the result "+id);
             }
         }
         catch (SQLException e) {
@@ -449,7 +448,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     while (resultObj.next()){
                         orderid=resultObj.getInt("id");
                     }
-                    System.out.println("Last inserted "+orderid);
                     //Loop through index and add as many items as needed
                     double prodSubtotal=0.0;
                     for (int k=0; k<index.size();k++) {

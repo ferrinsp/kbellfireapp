@@ -35,7 +35,7 @@ public class UCreditMemo extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
     resultObj = stateObj.executeQuery("select cm.poid,s.companyname, j.name, cm.tax,cm.total ,u.name as 'user', cm.status, cm.created\n" +
 "                from creditmemo cm inner join supplier s on s.supplierid=cm.supplier inner join user u on u.userid=cm.createdby\n" +
-"                inner join job j on j.jobid=cm.job where cm.memoid=1;");//change to passed in variable
+"                inner join job j on j.jobid=cm.job where cm.memoid="+memoid+";");
     
     Date d;
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -57,7 +57,6 @@ public class UCreditMemo extends javax.swing.JFrame {
     }
     private void updateCreditMemo() {
         try {
-            System.out.println("IN the update");
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
         String query = "UPDATE creditmemo set status=?, comments=? where memoid = " + memoid + ";";

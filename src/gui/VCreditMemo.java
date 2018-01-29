@@ -36,17 +36,9 @@ public class VCreditMemo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Credit Memo");
 
+        viewCreditMemoTable.setAutoCreateRowSorter(true);
         viewCreditMemoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -137,7 +129,7 @@ public class VCreditMemo extends javax.swing.JFrame {
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select c.memoid, c.poid, s.companyname, j.name, c.status, c.total, u.name, c.created, c.comments from creditmemo c "
-                    + "inner join supplier s on s.supplierid = c.supplier inner join job j on j.jobid = c.job inner join user u on u.userid = c.createdby;");
+                    + "inner join supplier s on s.supplierid = c.supplier inner join job j on j.jobid = c.job inner join user u on u.userid = c.createdby order by c.status;");
             viewCreditMemoTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             viewCreditMemoTable.getColumn("memoid").setHeaderValue("Memo ID");
             viewCreditMemoTable.getColumn("poid").setHeaderValue("Purchase Order ID");
@@ -164,10 +156,9 @@ public class VCreditMemo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Select only one item to update.");
         }
         else{
-            int id = (int) viewCreditMemoTable.getValueAt(index[0], 0);
-            System.out.println(id+" this line is to be updated");
-            UCreditMemo updateCreditMemo = new UCreditMemo(id);
+            UCreditMemo updateCreditMemo = new UCreditMemo((int) viewCreditMemoTable.getValueAt(index[0], 0));
             updateCreditMemo.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_updateCMButtonActionPerformed
 
