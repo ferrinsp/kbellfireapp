@@ -30,6 +30,10 @@ public class NCreditMemo extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
+    int selectedPO=-1;
+    int selectedJob =-1;
+    int selectedSupplier =-1;
+    
 
     public NCreditMemo() {
         this.cellRenderer = new AlternatingListCellRenderer();
@@ -45,7 +49,7 @@ public class NCreditMemo extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select orderid from purchaseorder where status not Like '%Completed%' ORDER BY orderid;");
+            resultObj = stateObj.executeQuery("select orderid from purchaseorder where status Like '%Completed%' ORDER BY orderid;");
             while (resultObj.next()){
                 ComboPO.addItem(resultObj.getString("orderid"));
             }
@@ -54,13 +58,29 @@ public class NCreditMemo extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+    private int getProduct(String prodDesc){
+        int id=-1;
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select p.id from product p inner join productdescription pd on pd.pdescID = p.description where pd.productDescription LIKE '%"+prodDesc+"%' and p.supplier = "+selectedSupplier+" ;");
+            while (resultObj.next()){
+                id =resultObj.getInt("id");
+                System.out.println("In the result "+id);
+            }
+        }
+        catch (SQLException e) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
+        }  
+        return id;
+    }
     private void getPurchaseOrder(int id){
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select pd.productDescription, s.companyname,  p.manufacturer, p.part_id, pod.orderqty,p.unitMeasure,p.price, po.total  from  purchaseorder po inner join purchaseorderdetails pod on po.orderid = pod.orderid "
+            resultObj = stateObj.executeQuery("select pd.productDescription, s.companyname,  p.manufacturer, p.part_id, pod.orderqty,p.unitMeasure,p.price, po.total from  purchaseorder po inner join purchaseorderdetails pod on po.orderid = pod.orderid "
                     + "inner join product p on p.id = pod.product inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier where po.orderid ="+id+";"); 
             purchaseOrderItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             purchaseOrderItemTable.getColumn("productDescription").setHeaderValue("Product Description");
@@ -72,6 +92,13 @@ public class NCreditMemo extends javax.swing.JFrame {
             purchaseOrderItemTable.getColumn("price").setHeaderValue("Unit Price");
             purchaseOrderItemTable.getColumn("total").setHeaderValue("Total");
             purchaseOrderItemTable.repaint();
+            resultObj = stateObj.executeQuery("select po.job,po.supplier  from  purchaseorder po inner join purchaseorderdetails pod on po.orderid = pod.orderid "
+                    + "inner join product p on p.id = pod.product inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier where po.orderid ="+id+";");
+            while (resultObj.next()){
+                this.selectedJob =resultObj.getInt("job");
+                this.selectedPO = id;
+                this.selectedSupplier =resultObj.getInt("supplier");
+            }
             connObj.close();
         }
         catch (SQLException ex) {
@@ -83,25 +110,63 @@ public class NCreditMemo extends javax.swing.JFrame {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            String query = "INSERT into creditmemo (memoid, poid, supplier, job, tax, total, createdby, created, comments) values(?,?,?,?,?,?,?,?,?);";
+            String query = "INSERT into creditmemo (poid, supplier, job, tax, total, createdby, currentTax) values(?,?,?,?,?,?,?);";
             PreparedStatement preparedStmt =connObj.prepareStatement(query);
-            //Get items to insert here!!!!!
-            System.out.println("I need data!!!");
+            preparedStmt.setInt(1,selectedPO);
+            preparedStmt.setInt(2,selectedSupplier);
+            preparedStmt.setInt(3,selectedJob);
+            preparedStmt.setDouble(4,0.0);
+            preparedStmt.setDouble(5,0.0);
+            preparedStmt.setInt(6,Login.userid);
+            preparedStmt.setDouble(7, MainPage.tax);
             preparedStmt.execute();
-        connObj.close();
+            connObj.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
       
-        //generate CreditMemo Report
+        //generate CreditMemo Details and Report
         try { 
+            String query;
             int memoid = -1;
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select max(memoid) as 'id' from creditmemo;");
             while (resultObj.next()){
                 memoid=resultObj.getInt("id");
             }
+            double memoTotal=0.0;
+            double memoSubTotal =0.0;
+            PreparedStatement preparedStmt;
+            //Get lines selected in purchaseOrderItemTable for the insert into memo details  ****THIS STILL NEEDS TO BE DONE****
+            System.out.println("I HAVE NOT BEEN COMPLETED YET.  LOOP THROUGH ALL ITEMS SELECTED IN purchaseOrderItemTable");
+            //Beginning of loop  purchaseOrderItemTable.getSelectedRows();
             
+            double prodTotal=0.0;
+            query = "INSERT into creditmemodetail (creditmemoid, product,cost,qty,total)"
+                        + "values(?,?,?,?,?)";
+            preparedStmt =connObj.prepareStatement(query);
+            preparedStmt.setInt (1, memoid); //Memo ID
+            preparedStmt.setInt (2, getProduct((String) purchaseOrderItemTable.getValueAt(0/*Change index*/, 0)));  //Product Number
+            preparedStmt.setDouble(3,Double.parseDouble( purchaseOrderItemTable.getValueAt(0/*Change index*/, 6).toString())); //Unit cost
+            preparedStmt.setInt (4, Integer.parseInt(purchaseOrderItemTable.getValueAt(0/*Change index*/, 4).toString())); //Order Qty
+            memoSubTotal += Double.parseDouble(purchaseOrderItemTable.getValueAt(0, 4).toString()) *Double.parseDouble(purchaseOrderItemTable.getValueAt(0, 4).toString());
+            prodTotal = Double.parseDouble( purchaseOrderItemTable.getValueAt(0/*Change index*/, 6).toString()) * Double.parseDouble((purchaseOrderItemTable.getValueAt(0/*Change index*/, 4).toString()));
+            memoSubTotal += prodTotal;
+            preparedStmt.setDouble(5,prodTotal); //Unit Total
+            preparedStmt.execute();
+            //End of loop
+                    
+            //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines
+             preparedStmt =connObj.prepareStatement("UPDATE purchaseorder SET subtotal =?, tax =?, total=? where orderid= "+memoid+";");
+             preparedStmt.setDouble(1,memoSubTotal);
+             preparedStmt.setDouble(2,(memoSubTotal*(MainPage.tax/100)));
+             memoSubTotal=memoSubTotal + (memoSubTotal*(MainPage.tax/100));
+             preparedStmt.setDouble(3,memoSubTotal);
+             preparedStmt.executeUpdate();
+             connObj.close();
+            
+             //Generate Report
             //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
             FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
@@ -237,12 +302,7 @@ public class NCreditMemo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void issueCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueCreditMemoActionPerformed
-        if(purchaseOrderItemTable.getRowCount()==0) {
-            JOptionPane.showMessageDialog(null, "No items added for Purchase Order."); 
-        }
-        else {
-            insertCreditMemo(); 
-        }
+
     }//GEN-LAST:event_issueCreditMemoActionPerformed
 
     private void ComboPOItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboPOItemStateChanged

@@ -162,21 +162,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         }  
         return id;
     }
-    public double getTax(){
-        try {
-            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select tax from tax;");
-            while (resultObj.next()){
-                tax =resultObj.getDouble("tax");
-            }
-        }
-        catch (SQLException e) {
-            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
-        }   
-        return tax;
-    }
+
     
     private void setDatePicker() {
         Calendar datePicker = Calendar.getInstance();
@@ -456,7 +442,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     preparedStmt.setDouble(6, 0.0); //invoice total
                     preparedStmt.setInt (7,Login.userid); //Created by
                     preparedStmt.setInt(8,ship); //ShipTo number
-                    preparedStmt.setDouble(9,getTax()); //Current sales Tax
+                    preparedStmt.setDouble(9,MainPage.tax); //Current sales Tax
                     preparedStmt.execute();
                     stateObj = connObj.createStatement();
                     resultObj = stateObj.executeQuery("select max(orderid) as 'id' from purchaseorder;");
@@ -467,7 +453,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     //Loop through index and add as many items as needed
                     double prodSubtotal=0.0;
                     for (int k=0; k<index.size();k++) {
-                        System.out.println("Inside loop");
                         @SuppressWarnings("UnusedAssignment")
                         double prodTotal=0.0;
                         query = "INSERT into purchaseorderdetails (orderid, product,cost,orderqty,total)"
@@ -482,11 +467,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                         preparedStmt.setDouble(5,prodTotal); //Unit Total
                         preparedStmt.execute();
                         //End of loop
-                        System.out.println("End loop after insert");
                     }
-                    System.out.println("Subtotal= "+prodSubtotal);
-                    System.out.println("Tax total= "+(prodSubtotal*(tax/100)));
-                    System.out.println("Invoice total ="+prodSubtotal);
                     //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines
                      preparedStmt =connObj.prepareStatement("UPDATE purchaseorder SET subtotal =?, tax =?, total=? where orderid= "+orderid+";");
                      preparedStmt.setDouble(1,prodSubtotal);

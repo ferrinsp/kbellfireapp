@@ -29,6 +29,7 @@ public class MainPage extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
+    public static double tax = 0.0;
     
     private void getDashboard() {
         try {
@@ -83,6 +84,7 @@ public class MainPage extends javax.swing.JFrame {
         resultObj = stateObj.executeQuery("select tax from tax;");
             while (resultObj.next()){
                 taxValue.setText(Double.toString(resultObj.getDouble("tax")));
+                tax = resultObj.getDouble("tax");
             }
         } catch (SQLException e) {
             e.printStackTrace();
