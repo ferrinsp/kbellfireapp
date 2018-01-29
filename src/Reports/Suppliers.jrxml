@@ -137,7 +137,7 @@ FROM
 				<text><![CDATA[List of Suppliers]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="652" y="83" width="100" height="20" uuid="15e574cc-4f95-4436-823f-8d234e91417b"/>
+				<reportElement x="632" y="83" width="120" height="20" uuid="15e574cc-4f95-4436-823f-8d234e91417b"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -289,12 +289,12 @@ FROM
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="46" uuid="7a055581-b14b-4e3f-bef5-5fa5920045de">
+					<jr:column width="32" uuid="7a055581-b14b-4e3f-bef5-5fa5920045de">
 						<jr:tableHeader style="table_TH" height="17" rowSpan="1"/>
 						<jr:tableFooter style="table_TH" height="17" rowSpan="1"/>
 						<jr:columnHeader style="table_CH" height="14" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="46" height="14" uuid="62f07d0f-13c6-449f-ba01-07965c15a0e3"/>
+								<reportElement x="0" y="0" width="32" height="14" uuid="62f07d0f-13c6-449f-ba01-07965c15a0e3"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle"/>
 								<text><![CDATA[Zip]]></text>
@@ -303,7 +303,7 @@ FROM
 						<jr:columnFooter style="table_CH" height="16" rowSpan="1"/>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="46" height="20" uuid="8a330290-b2d7-43ad-869a-cf6c9dde9918"/>
+								<reportElement x="0" y="0" width="32" height="20" uuid="8a330290-b2d7-43ad-869a-cf6c9dde9918"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{supplier_postalcode}]]></textFieldExpression>
@@ -331,12 +331,12 @@ FROM
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="78" uuid="f36aa37d-daad-4892-8155-28c7e6cd16d1">
+					<jr:column width="72" uuid="f36aa37d-daad-4892-8155-28c7e6cd16d1">
 						<jr:tableHeader style="table_TH" height="17" rowSpan="1"/>
 						<jr:tableFooter style="table_TH" height="17" rowSpan="1"/>
 						<jr:columnHeader style="table_CH" height="14" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="78" height="14" uuid="aafa1b16-62c4-4e34-8cb0-f4efbb96044b"/>
+								<reportElement x="0" y="0" width="72" height="14" uuid="aafa1b16-62c4-4e34-8cb0-f4efbb96044b"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle"/>
 								<text><![CDATA[Fax]]></text>
@@ -345,7 +345,7 @@ FROM
 						<jr:columnFooter style="table_CH" height="16" rowSpan="1"/>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="78" height="20" uuid="7d774343-3e64-425e-9265-a169b672f5f9"/>
+								<reportElement x="0" y="0" width="72" height="20" uuid="7d774343-3e64-425e-9265-a169b672f5f9"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{supplier_fax}]]></textFieldExpression>
