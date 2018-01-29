@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -138,32 +139,36 @@ public class NCreditMemo extends javax.swing.JFrame {
             double memoTotal=0.0;
             double memoSubTotal =0.0;
             PreparedStatement preparedStmt;
-            //Get lines selected in purchaseOrderItemTable for the insert into memo details  ****THIS STILL NEEDS TO BE DONE****
-            System.out.println("I HAVE NOT BEEN COMPLETED YET.  LOOP THROUGH ALL ITEMS SELECTED IN purchaseOrderItemTable");
-            //Beginning of loop  purchaseOrderItemTable.getSelectedRows();
-            
-            double prodTotal=0.0;
-            query = "INSERT into creditmemodetail (creditmemoid, product,cost,qty,total)"
-                        + "values(?,?,?,?,?)";
-            preparedStmt =connObj.prepareStatement(query);
-            preparedStmt.setInt (1, memoid); //Memo ID
-            preparedStmt.setInt (2, getProduct((String) purchaseOrderItemTable.getValueAt(0/*Change index*/, 0)));  //Product Number
-            preparedStmt.setDouble(3,Double.parseDouble( purchaseOrderItemTable.getValueAt(0/*Change index*/, 6).toString())); //Unit cost
-            preparedStmt.setInt (4, Integer.parseInt(purchaseOrderItemTable.getValueAt(0/*Change index*/, 4).toString())); //Order Qty
-            memoSubTotal += Double.parseDouble(purchaseOrderItemTable.getValueAt(0, 4).toString()) *Double.parseDouble(purchaseOrderItemTable.getValueAt(0, 4).toString());
-            prodTotal = Double.parseDouble( purchaseOrderItemTable.getValueAt(0/*Change index*/, 6).toString()) * Double.parseDouble((purchaseOrderItemTable.getValueAt(0/*Change index*/, 4).toString()));
-            memoSubTotal += prodTotal;
-            preparedStmt.setDouble(5,prodTotal); //Unit Total
-            preparedStmt.execute();
-            //End of loop
-                    
+            int[] index = purchaseOrderItemTable.getSelectedRows();
+            for (int j=0;j<index.length;j++) {
+                for(int i=0;i<purchaseOrderItemTable.getRowCount();i++){
+                    if (i== index[j]){
+                        double prodTotal=0.0;
+                        query = "INSERT into creditmemodetail (creditmemoid, product,cost,qty,total)"
+                                    + "values(?,?,?,?,?)";
+                        preparedStmt =connObj.prepareStatement(query);
+                        preparedStmt.setInt (1, memoid); //Memo ID
+                        preparedStmt.setInt (2, getProduct((String) purchaseOrderItemTable.getValueAt(0/*Change index*/, 0)));  //Product Number
+                        preparedStmt.setDouble(3,Double.parseDouble( purchaseOrderItemTable.getValueAt(0/*Change index*/, 6).toString())); //Unit cost
+                        preparedStmt.setInt (4, Integer.parseInt(purchaseOrderItemTable.getValueAt(0/*Change index*/, 4).toString())); //Order Qty
+                        memoSubTotal += Double.parseDouble(purchaseOrderItemTable.getValueAt(0, 4).toString()) *Double.parseDouble(purchaseOrderItemTable.getValueAt(0, 4).toString());
+                        prodTotal = Double.parseDouble( purchaseOrderItemTable.getValueAt(0/*Change index*/, 6).toString()) * Double.parseDouble((purchaseOrderItemTable.getValueAt(0/*Change index*/, 4).toString()));
+                        memoSubTotal += prodTotal;
+                        preparedStmt.setDouble(5,prodTotal); //Unit Total
+                        preparedStmt.execute();
+                    }
+                    //End of loop
+                }       
+            }
             //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines
-             preparedStmt =connObj.prepareStatement("UPDATE purchaseorder SET subtotal =?, tax =?, total=? where orderid= "+memoid+";");
+            System.out.println("Updating table for memoid: "+memoid);
+             preparedStmt =connObj.prepareStatement("UPDATE creditmemo SET subTotal =?, tax =?, total=? where memoid= "+memoid+";");
              preparedStmt.setDouble(1,memoSubTotal);
              preparedStmt.setDouble(2,(memoSubTotal*(MainPage.tax/100)));
-             memoSubTotal=memoSubTotal + (memoSubTotal*(MainPage.tax/100));
-             preparedStmt.setDouble(3,memoSubTotal);
+             memoTotal =memoSubTotal + (memoSubTotal*(MainPage.tax/100));
+             preparedStmt.setDouble(3,memoTotal);
              preparedStmt.executeUpdate();
+             System.out.println("Done updating table for memoid: "+memoid);
              connObj.close();
             
              //Generate Report

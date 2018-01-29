@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CreditMemo" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="3.4522712143931047"/>
+	<property name="ireport.x" value="33"/>
+	<property name="ireport.y" value="414"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -166,36 +166,42 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid =$
 		<field name="Address" class="java.lang.String"/>
 		<field name="supcity" class="java.lang.String"/>
 		<field name="createdby" class="java.lang.String"/>
+		<field name="currentTax" class="java.lang.String"/>
+		<field name="contact" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="MemoDetail" uuid="5f54e9c4-2fdc-46c5-aec6-8cc5a94daa03">
-		<queryString language="SQL">
+		<parameter name="memoid" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
 			<![CDATA[Select cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', cmd.total AS 'ProdTotal',  cmd.cost as 'Price', pd.productDescription as 'Description',s.companyname as 'Supplier'
 from creditmemo cm inner join job j on j.jobid=cm.job
 inner join supplier s on s.supplierid=cm.supplier
 inner join creditmemodetail cmd on cmd.creditmemoid=cm.memoid
 inner join product p on cmd.product =p.id
-inner join productdescription pd on pd.pdescID= p.description where cm.memoid =9]]>
+inner join productdescription pd on pd.pdescID= p.description where cm.memoid =9;]]>
 		</queryString>
-		<field name="Description" class="java.lang.String"/>
-		<field name="manufacturer" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="Part #" class="java.lang.String"/>
 		<field name="qty" class="java.lang.Integer">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="Unit" class="java.lang.String"/>
-		<field name="Price" class="java.math.BigDecimal"/>
+		<field name="manufacturer" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Part #" class="java.lang.String"/>
 		<field name="ProdTotal" class="java.math.BigDecimal"/>
+		<field name="Price" class="java.math.BigDecimal"/>
+		<field name="Description" class="java.lang.String"/>
+		<field name="Supplier" class="java.lang.String"/>
 	</subDataset>
 	<scriptlet name="scriptlet1" class="net.sf.jasperreports.engine.JRDefaultScriptlet"/>
 	<parameter name="memoid" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select cm.memoid,cm.poid,j.name,cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', cmd.total AS 'POTotal', 
-cm.tax as 'TaxTotal', cmd.cost as 'Price', pd.productDescription as 'Description', cm.subTotal, cm.total, 
-s.companyname as 'Supplier',s.address1 as 'Address', CONCAT(s.city,", ",s.state," ",s.postalcode) as 'supcity', u.name as 'createdby'
+		<![CDATA[Select cm.memoid,cm.poid,j.name,cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', cm.total AS 'CMTotal', CONCAT(cm.currentTax,'%') as 'currentTax',
+cm.tax as 'TaxTotal', cmd.cost as 'Price', pd.productDescription as 'Description', cm.subTotal,s.companyname as 'Supplier',s.address1 as 'Address',
+s.contact, CONCAT(s.city,", ",s.state," ",s.postalcode) as 'supcity', u.name as 'createdby'
 from creditmemo cm inner join job j on j.jobid=cm.job
 inner join user u on u.userid=cm.createdby 
 inner join supplier s on s.supplierid=cm.supplier
@@ -220,18 +226,21 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Part #" class="java.lang.String"/>
-	<field name="POTotal" class="java.math.BigDecimal"/>
+	<field name="CMTotal" class="java.math.BigDecimal"/>
+	<field name="currentTax" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="TaxTotal" class="java.math.BigDecimal"/>
 	<field name="Price" class="java.math.BigDecimal"/>
 	<field name="Description" class="java.lang.String"/>
 	<field name="subTotal" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="Supplier" class="java.lang.String"/>
 	<field name="Address" class="java.lang.String"/>
+	<field name="contact" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="supcity" class="java.lang.String"/>
 	<field name="createdby" class="java.lang.String"/>
 	<title>
@@ -309,14 +318,14 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 				<imageExpression><![CDATA["C:\\Users\\tatewtaylor\\Desktop\\Kbell\\logo.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="15" y="120" width="26" height="14" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
+				<reportElement x="15" y="114" width="26" height="14" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[To: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="15" y="134" width="26" height="14" uuid="7061d43c-af92-4a2c-a2e0-239b9a2fd627"/>
+				<reportElement x="15" y="128" width="26" height="14" uuid="7061d43c-af92-4a2c-a2e0-239b9a2fd627"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
@@ -343,6 +352,34 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 			<textField evaluationTime="Report">
 				<reportElement x="515" y="148" width="40" height="20" uuid="cd661f0d-9f3b-4a28-a19a-fceafa9d7dc1"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="114" width="143" height="14" uuid="1a29a886-e7e0-416e-b559-6dee448e8141"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Supplier}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="128" width="100" height="14" uuid="6ff865ee-5550-4f46-aa9e-7e899a416df5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contact}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="141" width="100" height="14" uuid="7017f5c0-b442-4b34-ae88-6f1b200342ac"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="154" width="100" height="14" uuid="9377c663-453b-4252-924e-58c0769e4588"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{supcity}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -445,7 +482,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{POTotal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CMTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="94" width="56" height="20" uuid="67e36b55-f35a-48a1-8a42-45c2d9095954"/>
@@ -469,6 +506,14 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{createdby}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="47" width="57" height="20" uuid="fd8c4f06-44f9-4a6f-898f-760004509a7e"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{currentTax}]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>
