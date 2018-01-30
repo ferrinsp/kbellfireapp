@@ -33,6 +33,24 @@ public class VItem extends javax.swing.JFrame {
             ItemTable.setRowSorter(sorter);
         }
     }
+    private int findProduct(String supplier, String descp){
+        int id =-1;
+         try{
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            System.out.println(supplier + descp);
+            resultObj = stateObj.executeQuery("SELECT p.id from product p inner join category c on c.category_ID=p.category_id inner join productdescription pd on p.description=pd.pdescID \n" +
+            "inner join supplier s on s.supplierid=p.supplier where s.companyname like '%"+supplier+"%' and pd.productDescription like '%"+descp+"%';"); 
+             while (resultObj.next()){
+                 
+                 id= resultObj.getInt("id");
+                 System.out.println("PRODUCT NUBMER IN find"+id);
+             }
+         } catch (SQLException ex) {
+            Logger.getLogger(VItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return id;
+    }
     private void getProduct() {
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -200,7 +218,7 @@ public class VItem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
-        NUItem addItem = new NUItem();
+        NUItem addItem = new NUItem(-1);
         addItem.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addItemButtonActionPerformed
@@ -214,9 +232,9 @@ public class VItem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Select only one item to update.");
         }
         else{
-            int id = (int) ItemTable.getValueAt(index[0], 0);
-            System.out.println(id+" this line is to be updated");
-            NUItem addItem = new NUItem();
+            int prod= findProduct(ItemTable.getValueAt(index[0], 2).toString(),ItemTable.getValueAt(index[0], 1).toString());
+            System.out.println("PRODUCT NUMBER "+prod);
+            NUItem addItem = new NUItem(prod);
             addItem.setVisible(true);
             this.dispose();
         }

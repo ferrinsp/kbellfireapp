@@ -45,7 +45,6 @@ public class NUItem extends javax.swing.JFrame {
             if(s.equals(supplier[i][1]))
                 index =i;
         }
-        System.out.println(supplier[index][0]);
         return index;
     }
     private void getComboSupplier() {
@@ -118,13 +117,48 @@ public class NUItem extends javax.swing.JFrame {
     private void setDatePicker() {
         lastChanged.setDate(Calendar.getInstance().getTime());
     }
-    
+    public void init(){
+        if (id != -1) {
+            try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            String query = "SELECT c.description, pd.productDescription, pd.productsize, p.manufacturer, p.part_id, p.unitMeasure, s.companyname, p.lastchange, p.price,p.status\n" +
+                "from product p inner join category c on c.category_ID=p.category_id inner join productdescription pd on p.description=pd.pdescID \n" +
+                "inner join supplier s on s.supplierid=p.supplier where p.id ="+id+";";
+            resultObj = stateObj.executeQuery(query);
+            while (resultObj.next()){
+                CategoryCombo.setSelectedItem(resultObj.getString("description"));
+                DescriptionCombo.setSelectedItem(resultObj.getString("productDescription"));
+                partNumTextField.setText(resultObj.getString("part_id"));
+                mfcTextField.setText(resultObj.getString("manufacturer"));
+                SupplierCombo.setSelectedItem(resultObj.getString("companyname"));
+                priceTextField.setText(resultObj.getString("price"));
+                unitMeasure.setSelectedItem(resultObj.getString("unitMeasure"));
+                lastChanged.setDate(resultObj.getDate("lastchange"));
+                if (resultObj.getString("status").equalsIgnoreCase("Active"))
+                    rdbActive.setSelected(true);
+                else
+                    rdbInactive.setSelected(true);
+            }
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
     public void insertProduct() {
         try {
+          String query;  
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
         connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-        String query = "INSERT into product (category_id,description,part_id,manufacturer,supplier,price,unitMeasure,status,lastchange)"
+        if (id==-1) {
+        query= "INSERT into product (category_id,description,part_id,manufacturer,supplier,price,unitMeasure,status,lastchange)"
                 + "values(?,?,?,?,?,?,?,?,?);";
+        }
+        else { 
+            query = "Update product set category_id =?,description =?,part_id =?,manufacturer=?,"
+                + "supplier=?,price=?,unitMeasure=?,status=?,lastchange=? where id = "+id+";";
+        }
         //Needs form checking to ensure default values are not inserted
         if (CategoryCombo.getSelectedItem().equals("Category")){
             JOptionPane.showMessageDialog(null, "Please select a category.");
@@ -155,8 +189,12 @@ public class NUItem extends javax.swing.JFrame {
             java.util.Date lastDate = lastChanged.getDate();
             java.sql.Date sqlDate = new java.sql.Date(lastDate.getTime());
             preparedStmt.setDate (9, sqlDate);
-            preparedStmt.execute();
-
+            if (id ==-1)
+                preparedStmt.execute();
+            else
+                preparedStmt.executeUpdate();
+            id=-1;
+            this.dispose();
             connObj.close();
         }
         } catch (SQLException e) {
@@ -165,13 +203,16 @@ public class NUItem extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public NUItem() {
+    public NUItem(int item) {
         this.setResizable(false);
         initComponents();
+        this.id=item;
         getComboCategory();
         getDescriptionCombo();
         getComboSupplier();
         setDatePicker();
+        init();
+        
     }
 
     /**
@@ -474,7 +515,7 @@ public class NUItem extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new NUItem().setVisible(true);
+            new NUItem(-1).setVisible(true);
         });
     }
 

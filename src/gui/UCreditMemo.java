@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
 
 public class UCreditMemo extends javax.swing.JFrame {
     
@@ -296,7 +297,8 @@ public class UCreditMemo extends javax.swing.JFrame {
 
     private void updateCreditMemoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCreditMemoButtonActionPerformed
         updateCreditMemo();
-        
+        JOptionPane.showMessageDialog(null, "Credit Memo # "+memoid+" was updated.");
+        this.dispose();
     }//GEN-LAST:event_updateCreditMemoButtonActionPerformed
 
     /**

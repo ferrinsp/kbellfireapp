@@ -144,7 +144,7 @@ FROM
      p.lastchange,  pd.productsize
 FROM
      productdescription pd INNER JOIN product p ON pd.pdescID = p.description INNER JOIN category c on c.category_ID=p.category_id 
-     INNER JOIN supplier s on s.supplierid=p.supplier where p.lastchange >= $P{date} and p.lastchange <= $P{dateto};]]>
+     INNER JOIN supplier s on s.supplierid=p.supplier where p.lastchange >= $P{date} and p.lastchange <= $P{dateto} order by s.companyname;]]>
 		</queryString>
 		<field name="id" class="java.lang.Integer">
 			<fieldDescription><![CDATA[]]></fieldDescription>
@@ -193,7 +193,7 @@ FROM
      p.lastchange,  pd.productsize
 FROM
      productdescription pd INNER JOIN product p ON pd.pdescID = p.description INNER JOIN category c on c.category_ID=p.category_id 
-     INNER JOIN supplier s on s.supplierid=p.supplier where p.lastchange >= $P!{date} and p.lastchange <= $P{dateto};]]>
+     INNER JOIN supplier s on s.supplierid=p.supplier where p.lastchange >= $P!{date} and p.lastchange <= $P{dateto} order by s.companyname;]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -282,7 +282,7 @@ FROM
 				<reportElement x="431" y="85" width="30" height="20" uuid="5547d1e5-f117-4261-9d16-0cab59c8998a"/>
 				<text><![CDATA[To:]]></text>
 			</staticText>
-			<textField pattern="MM/dd/yyyy">
+			<textField pattern="dd-MMM-yy">
 				<reportElement x="461" y="84" width="100" height="20" uuid="16e7147b-ef41-499b-8d2f-bdfa0edc53e2"/>
 				<textFieldExpression><![CDATA[$P{dateto}]]></textFieldExpression>
 			</textField>
@@ -326,7 +326,7 @@ FROM
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="4939dae0-b425-4577-900f-d8c912f54dd2"/>
 								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
 								</textElement>
 								<text><![CDATA[Category]]></text>
@@ -343,12 +343,12 @@ FROM
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="155" uuid="06208073-e1a7-4c21-bac8-f7d7088f314c">
+					<jr:column width="173" uuid="06208073-e1a7-4c21-bac8-f7d7088f314c">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="155" height="30" uuid="520a7b11-7487-47bb-b6ca-0d7e0f115f32"/>
+								<reportElement x="0" y="0" width="173" height="30" uuid="520a7b11-7487-47bb-b6ca-0d7e0f115f32"/>
 								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
 								</textElement>
 								<text><![CDATA[Description]]></text>
@@ -356,7 +356,7 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="155" height="20" uuid="9dcef244-cef4-41b0-9af7-9816683c7505"/>
+								<reportElement x="0" y="0" width="173" height="20" uuid="9dcef244-cef4-41b0-9af7-9816683c7505"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -370,7 +370,7 @@ FROM
 							<staticText>
 								<reportElement x="0" y="0" width="27" height="30" uuid="c267b599-ded7-46ae-a34e-c50f5795cf47"/>
 								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
 								</textElement>
 								<text><![CDATA[Unit]]></text>
@@ -387,12 +387,12 @@ FROM
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="4d6cc04e-fd40-44a0-9759-36c0c7d9ebd1">
+					<jr:column width="105" uuid="4d6cc04e-fd40-44a0-9759-36c0c7d9ebd1">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="5a2318d3-f624-45ef-a0ac-19b1dacfa21f"/>
+								<reportElement x="0" y="0" width="105" height="30" uuid="5a2318d3-f624-45ef-a0ac-19b1dacfa21f"/>
 								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
 								</textElement>
 								<text><![CDATA[Part #]]></text>
@@ -400,7 +400,7 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="20" uuid="7946334b-1b78-48d7-b8a0-9b09790e0c18"/>
+								<reportElement x="0" y="0" width="105" height="20" uuid="7946334b-1b78-48d7-b8a0-9b09790e0c18"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -414,7 +414,7 @@ FROM
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="30c438b0-1fa4-4936-95e1-a8208afb9f8d"/>
 								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
 								</textElement>
 								<text><![CDATA[MFC]]></text>
@@ -431,12 +431,12 @@ FROM
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="106" uuid="5715573e-9b68-4f8b-a206-9ae60427bf89">
+					<jr:column width="129" uuid="5715573e-9b68-4f8b-a206-9ae60427bf89">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="106" height="30" uuid="4171014b-539c-4a00-b64f-41e88c55abe3"/>
+								<reportElement x="0" y="0" width="129" height="30" uuid="4171014b-539c-4a00-b64f-41e88c55abe3"/>
 								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
 								</textElement>
 								<text><![CDATA[Supplier]]></text>
@@ -444,7 +444,7 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="106" height="20" uuid="c848c4e8-b683-4c56-8250-1b66799b25ed"/>
+								<reportElement x="0" y="0" width="129" height="20" uuid="c848c4e8-b683-4c56-8250-1b66799b25ed"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -453,12 +453,12 @@ FROM
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="57" uuid="2c509db3-99fe-430b-90ff-202d4c64f065">
+					<jr:column width="51" uuid="2c509db3-99fe-430b-90ff-202d4c64f065">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="57" height="30" uuid="3f8ee2e5-1b06-43ea-b6c7-7978794033da"/>
+								<reportElement x="0" y="0" width="51" height="30" uuid="3f8ee2e5-1b06-43ea-b6c7-7978794033da"/>
 								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
 								</textElement>
 								<text><![CDATA[Unit Cost]]></text>
@@ -466,7 +466,7 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="57" height="20" uuid="78564ac3-9f51-4556-9469-7d88cb19d684"/>
+								<reportElement x="0" y="0" width="51" height="20" uuid="78564ac3-9f51-4556-9469-7d88cb19d684"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -480,7 +480,7 @@ FROM
 							<staticText>
 								<reportElement x="0" y="0" width="38" height="30" uuid="ecd70135-8411-48de-8ce9-b1d6a971810c"/>
 								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
 								</textElement>
 								<text><![CDATA[Status]]></text>
@@ -502,7 +502,7 @@ FROM
 							<staticText>
 								<reportElement x="0" y="0" width="67" height="30" uuid="43dbd108-8fa0-40c3-89f5-1501d18ff453"/>
 								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
 								</textElement>
 								<text><![CDATA[Last Change]]></text>

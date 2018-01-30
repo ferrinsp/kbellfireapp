@@ -48,11 +48,6 @@ public class Login extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(100, 100));
         setName("login"); // NOI18N
         setSize(new java.awt.Dimension(500, 400));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         jLabel1.setLabelFor(userName);
         jLabel1.setText("User Name:");
@@ -177,10 +172,6 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowActivated
-
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
         userName.setText("");
         password.setText("");
@@ -251,7 +242,6 @@ public class Login extends javax.swing.JFrame {
        try {
         if (user != null && pass != null) {
             System.out.println("Username: "+ user);
-            System.out.println("Password: "+ Arrays.toString(pass));
             String passwd =String.valueOf(pass);
             System.out.println("Password: "+ passwd);
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -264,9 +254,7 @@ public class Login extends javax.swing.JFrame {
             resultObj = ps.executeQuery();
             
             if (!resultObj.next()) {
-                System.out.println("Failure");
                 JOptionPane.showMessageDialog(this, "Invalid login information provided.");
-                
             }
             else{
                 resultObj = stateObj.executeQuery("Select userid from user WHERE username like '%"+user+"%';");
