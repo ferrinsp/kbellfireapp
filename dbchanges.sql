@@ -172,4 +172,14 @@ ALTER TABLE `kbell`.`purchaseorder`
 ADD COLUMN `currentTax` DECIMAL(10,2) NOT NULL AFTER `status`;
 ALTER TABLE `kbell`.`creditmemo` 
 ADD COLUMN `currentTax` DECIMAL(10,2) NOT NULL AFTER `created`,
-ADD COLUMN `status` VARCHAR(45) NULL DEFAULT 'Pending' AFTER `currentTax`;;
+ADD COLUMN `status` VARCHAR(45) NULL DEFAULT 'Pending' AFTER `currentTax`;
+
+-- 1/29/18 Added subtotal to creditmemo and removed from details
+ALTER TABLE `kbell`.`creditmemo` 
+CHANGE COLUMN `tax` `tax` DECIMAL(10,2) NOT NULL DEFAULT 0.0 ,
+CHANGE COLUMN `total` `total` DECIMAL(10,2) NOT NULL DEFAULT 0.0 ,
+ADD COLUMN `subTotal` DECIMAL(10,2) NOT NULL DEFAULT 0.0 AFTER `tax`;
+
+ALTER TABLE `kbell`.`creditmemodetail` 
+DROP COLUMN `tax`;
+
