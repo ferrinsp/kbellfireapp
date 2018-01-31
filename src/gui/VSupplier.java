@@ -165,7 +165,7 @@ public class VSupplier extends javax.swing.JFrame {
             int id = (int) supplier.getValueAt(index[0], 0);
             NSupplier addSupplier = new NSupplier(id);
             addSupplier.setVisible(true);
-            this.dispose();
+            //this.dispose();
         }
     }//GEN-LAST:event_updateSupplierButtonActionPerformed
 

@@ -169,7 +169,6 @@ public class VJob extends javax.swing.JFrame {
             String name =  (String) viewJob.getValueAt(index[0], 0);
             Job job = new Job(name);
             job.setVisible(true);
-            this.dispose();
         }
     }//GEN-LAST:event_updateJobButtonActionPerformed
 

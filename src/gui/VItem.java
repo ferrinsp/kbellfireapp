@@ -236,7 +236,7 @@ public class VItem extends javax.swing.JFrame {
             System.out.println("PRODUCT NUMBER "+prod);
             NUItem addItem = new NUItem(prod);
             addItem.setVisible(true);
-            this.dispose();
+            //this.dispose();
         }
     }//GEN-LAST:event_updateItemButtonActionPerformed
 
