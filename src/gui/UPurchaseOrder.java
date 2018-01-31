@@ -150,6 +150,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         purchaseOrderNum = new javax.swing.JTextField();
         jobName = new javax.swing.JTextField();
+        expectedBy = new javax.swing.JTextField();
         supplierName = new javax.swing.JTextField();
         createdBy = new javax.swing.JTextField();
         dateCreated = new javax.swing.JTextField();
@@ -210,8 +211,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
-<<<<<<< HEAD
-=======
         expectedBy.setEditable(false);
         expectedBy.setText("Expected Date");
         expectedBy.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -223,7 +222,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
->>>>>>> e2b88b1483381476fcbcc6b02df2ddcc58b0cc2b
         supplierName.setEditable(false);
         supplierName.setText("Supplier");
         supplierName.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -508,13 +506,11 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_jobNameFocusLost
 
     private void expectedByFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedByFocusGained
-        if(expectedBy.getText().equals("Expected Date"))
-            expectedBy.setText("");
+
     }//GEN-LAST:event_expectedByFocusGained
 
     private void expectedByFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedByFocusLost
-        if(expectedBy.getText().equals(""))
-            expectedBy.setText("Expected Date");
+
     }//GEN-LAST:event_expectedByFocusLost
 
     private void supplierNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplierNameFocusGained
@@ -606,6 +602,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JTextArea commentsArea;
     private javax.swing.JTextField createdBy;
     private javax.swing.JTextField dateCreated;
+    private javax.swing.JTextField expectedBy;
     private org.jdesktop.swingx.JXDatePicker expectedDate;
     private javax.swing.JTable itemTable;
     private javax.swing.JButton jButton1;

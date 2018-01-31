@@ -243,8 +243,6 @@
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jobNameFocusLost"/>
               </Events>
             </Component>
-<<<<<<< HEAD
-=======
             <Component class="javax.swing.JTextField" name="expectedBy">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
@@ -255,7 +253,6 @@
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="expectedByFocusLost"/>
               </Events>
             </Component>
->>>>>>> e2b88b1483381476fcbcc6b02df2ddcc58b0cc2b
             <Component class="javax.swing.JTextField" name="supplierName">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
