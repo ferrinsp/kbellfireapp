@@ -68,8 +68,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" min="-2" pref="276" max="-2" attributes="0"/>
-              <EmptySpace pref="11" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" min="-2" pref="300" max="-2" attributes="0"/>
+              <EmptySpace pref="41" max="32767" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="110" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -123,12 +123,12 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jobName" max="32767" attributes="0"/>
                           <Component id="purchaseOrderNum" max="32767" attributes="0"/>
-                          <Component id="expectedBy" max="32767" attributes="0"/>
                           <Component id="supplierName" max="32767" attributes="0"/>
                           <Component id="createdBy" max="32767" attributes="0"/>
                           <Component id="dateCreated" max="32767" attributes="0"/>
                           <Component id="shipTo" max="32767" attributes="0"/>
-                          <Component id="taxRate" min="-2" pref="183" max="-2" attributes="0"/>
+                          <Component id="taxRate" pref="183" max="32767" attributes="0"/>
+                          <Component id="expectedDate" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
                   </Group>
@@ -150,7 +150,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <Component id="expectedBy" min="-2" max="-2" attributes="0"/>
+                          <Component id="expectedDate" min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -177,7 +177,7 @@
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <Component id="taxRate" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                      <EmptySpace pref="57" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -235,12 +235,6 @@
                 <Property name="text" type="java.lang.String" value="jTextField3"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="expectedBy">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="jTextField4"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JTextField" name="supplierName">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
@@ -270,6 +264,11 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="text" type="java.lang.String" value="jTextField9"/>
               </Properties>
+            </Component>
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="expectedDate">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Date date = new Date();&#xa;expectedDate.setDate(date);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
