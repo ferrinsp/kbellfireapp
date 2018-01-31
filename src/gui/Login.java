@@ -255,6 +255,7 @@ public class Login extends javax.swing.JFrame {
             
             if (!resultObj.next()) {
                 JOptionPane.showMessageDialog(this, "Invalid login information provided.");
+                password.setText((""));
             }
             else{
                 resultObj = stateObj.executeQuery("Select userid from user WHERE username like '%"+user+"%';");

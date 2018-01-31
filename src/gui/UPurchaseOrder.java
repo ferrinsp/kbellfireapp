@@ -178,28 +178,92 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         jLabel8.setText("Tax Rate:");
 
         purchaseOrderNum.setEditable(false);
-        purchaseOrderNum.setText("jTextField2");
+        purchaseOrderNum.setText("Purchase Order #");
+        purchaseOrderNum.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                purchaseOrderNumFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                purchaseOrderNumFocusLost(evt);
+            }
+        });
 
         jobName.setEditable(false);
-        jobName.setText("jTextField3");
+        jobName.setText("Job");
+        jobName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jobNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jobNameFocusLost(evt);
+            }
+        });
 
         expectedBy.setEditable(false);
-        expectedBy.setText("jTextField4");
+        expectedBy.setText("Expected Date");
+        expectedBy.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                expectedByFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                expectedByFocusLost(evt);
+            }
+        });
 
         supplierName.setEditable(false);
-        supplierName.setText("jTextField5");
+        supplierName.setText("Supplier");
+        supplierName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                supplierNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                supplierNameFocusLost(evt);
+            }
+        });
 
         createdBy.setEditable(false);
-        createdBy.setText("jTextField6");
+        createdBy.setText("Created By");
+        createdBy.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                createdByFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                createdByFocusLost(evt);
+            }
+        });
 
         dateCreated.setEditable(false);
-        dateCreated.setText("jTextField7");
+        dateCreated.setText("Created Date");
+        dateCreated.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dateCreatedFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dateCreatedFocusLost(evt);
+            }
+        });
 
         shipTo.setEditable(false);
-        shipTo.setText("jTextField8");
+        shipTo.setText("Ship To");
+        shipTo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                shipToFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                shipToFocusLost(evt);
+            }
+        });
 
         taxRate.setEditable(false);
-        taxRate.setText("jTextField9");
+        taxRate.setText("Tax Rate");
+        taxRate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                taxRateFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                taxRateFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -405,6 +469,86 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         updatePO();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void purchaseOrderNumFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_purchaseOrderNumFocusGained
+        if(purchaseOrderNum.getText().equals("Purchase Order #"))
+            purchaseOrderNum.setText("");
+    }//GEN-LAST:event_purchaseOrderNumFocusGained
+
+    private void purchaseOrderNumFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_purchaseOrderNumFocusLost
+        if(purchaseOrderNum.getText().equals(""))
+            purchaseOrderNum.setText("Purchase Order #");
+    }//GEN-LAST:event_purchaseOrderNumFocusLost
+
+    private void jobNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jobNameFocusGained
+        if(jobName.getText().equals("Job"))
+            jobName.setText("");
+    }//GEN-LAST:event_jobNameFocusGained
+
+    private void jobNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jobNameFocusLost
+        if(jobName.getText().equals(""))
+            jobName.setText("Job");
+    }//GEN-LAST:event_jobNameFocusLost
+
+    private void expectedByFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedByFocusGained
+        if(expectedBy.getText().equals("Expected Date"))
+            expectedBy.setText("");
+    }//GEN-LAST:event_expectedByFocusGained
+
+    private void expectedByFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedByFocusLost
+        if(expectedBy.getText().equals(""))
+            expectedBy.setText("Expected Date");
+    }//GEN-LAST:event_expectedByFocusLost
+
+    private void supplierNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplierNameFocusGained
+        if(supplierName.getText().equals("Supplier"))
+            supplierName.setText("");
+    }//GEN-LAST:event_supplierNameFocusGained
+
+    private void supplierNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplierNameFocusLost
+        if(supplierName.getText().equals(""))
+            supplierName.setText("Supplier");
+    }//GEN-LAST:event_supplierNameFocusLost
+
+    private void createdByFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_createdByFocusGained
+        if(createdBy.getText().equals("Created By"))
+            createdBy.setText("");
+    }//GEN-LAST:event_createdByFocusGained
+
+    private void createdByFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_createdByFocusLost
+        if(createdBy.getText().equals(""))
+            createdBy.setText("Created By");
+    }//GEN-LAST:event_createdByFocusLost
+
+    private void dateCreatedFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateCreatedFocusGained
+        if(dateCreated.getText().equals("Created Date"))
+            dateCreated.setText("");
+    }//GEN-LAST:event_dateCreatedFocusGained
+
+    private void dateCreatedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateCreatedFocusLost
+        if(dateCreated.getText().equals(""))
+            dateCreated.setText("Created Date");
+    }//GEN-LAST:event_dateCreatedFocusLost
+
+    private void shipToFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_shipToFocusGained
+        if(shipTo.getText().equals("Ship To"))
+            shipTo.setText("");
+    }//GEN-LAST:event_shipToFocusGained
+
+    private void shipToFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_shipToFocusLost
+        if(shipTo.getText().equals(""))
+            shipTo.setText("Ship To");
+    }//GEN-LAST:event_shipToFocusLost
+
+    private void taxRateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxRateFocusLost
+        if(taxRate.getText().equals(""))
+            taxRate.setText("Tax Rate");
+    }//GEN-LAST:event_taxRateFocusLost
+
+    private void taxRateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxRateFocusGained
+        if(taxRate.getText().equals("Tax Rate"))
+            taxRate.setText("");
+    }//GEN-LAST:event_taxRateFocusGained
 
     /**
      * @param args the command line arguments

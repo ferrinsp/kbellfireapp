@@ -158,7 +158,7 @@ public class VCreditMemo extends javax.swing.JFrame {
         else{
             UCreditMemo updateCreditMemo = new UCreditMemo((int) viewCreditMemoTable.getValueAt(index[0], 0));
             updateCreditMemo.setVisible(true);
-            this.dispose();
+            //this.dispose();
         }
     }//GEN-LAST:event_updateCMButtonActionPerformed
 

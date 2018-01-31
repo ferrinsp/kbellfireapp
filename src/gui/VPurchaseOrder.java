@@ -157,7 +157,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         else{
             UPurchaseOrder updatePO = new UPurchaseOrder((int) purchaseOrder.getValueAt(index[0], 0));
             updatePO.setVisible(true);
-            this.dispose();
+            //this.dispose();
         }
     }//GEN-LAST:event_updatePOButtonActionPerformed
 
