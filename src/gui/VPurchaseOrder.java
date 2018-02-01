@@ -60,6 +60,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         updatePOButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
         Main_Panel1 = new javax.swing.JPanel();
         view_purchase_orders1 = new javax.swing.JScrollPane();
         purchaseOrder = new javax.swing.JTable();
@@ -74,21 +75,32 @@ public class VPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(378, Short.MAX_VALUE)
+                .addContainerGap(287, Short.MAX_VALUE)
                 .addComponent(updatePOButton)
+                .addGap(18, 18, 18)
+                .addComponent(closeButton)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(updatePOButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updatePOButton)
+                    .addComponent(closeButton))
+                .addContainerGap())
         );
 
         Main_Panel1.setPreferredSize(new java.awt.Dimension(1026, 560));
@@ -161,6 +173,10 @@ public class VPurchaseOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updatePOButtonActionPerformed
 
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_closeButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -188,6 +204,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Main_Panel1;
+    private javax.swing.JButton closeButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTable purchaseOrder;
     private javax.swing.JButton updatePOButton;

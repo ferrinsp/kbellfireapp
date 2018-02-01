@@ -98,6 +98,7 @@ public class VItem extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         addItemButton = new javax.swing.JButton();
         updateItemButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -144,6 +145,13 @@ public class VItem extends javax.swing.JFrame {
             }
         });
 
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -153,7 +161,9 @@ public class VItem extends javax.swing.JFrame {
                 .addComponent(addItemButton)
                 .addGap(26, 26, 26)
                 .addComponent(updateItemButton)
-                .addContainerGap(426, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(closeButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +171,8 @@ public class VItem extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addItemButton)
-                    .addComponent(updateItemButton))
+                    .addComponent(updateItemButton)
+                    .addComponent(closeButton))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -199,7 +210,7 @@ public class VItem extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 48, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -260,6 +271,10 @@ public class VItem extends javax.swing.JFrame {
             filter();
     }//GEN-LAST:event_searchFieldKeyPressed
 
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_closeButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -288,6 +303,7 @@ public class VItem extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ItemTable;
     private javax.swing.JButton addItemButton;
+    private javax.swing.JButton closeButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;

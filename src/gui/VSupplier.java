@@ -68,10 +68,10 @@ public class VSupplier extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         addSupplierButton = new javax.swing.JButton();
         updateSupplierButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Suppliers");
-        setPreferredSize(new java.awt.Dimension(1100, 316));
 
         view_supplier_list.setPreferredSize(new java.awt.Dimension(800, 402));
 
@@ -100,16 +100,25 @@ public class VSupplier extends javax.swing.JFrame {
             }
         });
 
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(398, 398, 398)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addSupplierButton)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(updateSupplierButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(closeButton)
+                .addGap(369, 369, 369))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +126,8 @@ public class VSupplier extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addSupplierButton)
-                    .addComponent(updateSupplierButton))
+                    .addComponent(updateSupplierButton)
+                    .addComponent(closeButton))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -169,6 +179,10 @@ public class VSupplier extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updateSupplierButtonActionPerformed
 
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_closeButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -196,6 +210,7 @@ public class VSupplier extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addSupplierButton;
+    private javax.swing.JButton closeButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTable supplier;
     private javax.swing.JButton updateSupplierButton;

@@ -389,6 +389,11 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         });
 
         jButton2.setText("Close");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -562,6 +567,10 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         if(taxRate.getText().equals("Tax Rate"))
             taxRate.setText("");
     }//GEN-LAST:event_taxRateFocusGained
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
