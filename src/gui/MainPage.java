@@ -148,8 +148,9 @@ public class MainPage extends javax.swing.JFrame {
         newCreditMemo = new javax.swing.JMenuItem();
         viewCreditMemo = new javax.swing.JMenuItem();
         Product = new javax.swing.JMenu();
-        newProduct = new javax.swing.JMenuItem();
         miscFunction = new javax.swing.JMenuItem();
+        newProduct = new javax.swing.JMenuItem();
+        quoteMenu = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
         Reports = new javax.swing.JMenu();
         jobListMenuItem = new javax.swing.JMenuItem();
@@ -434,6 +435,15 @@ public class MainPage extends javax.swing.JFrame {
 
         Product.setText("Product");
 
+        miscFunction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.SHIFT_MASK));
+        miscFunction.setText("Misc Functions");
+        miscFunction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miscFunctionActionPerformed(evt);
+            }
+        });
+        Product.add(miscFunction);
+
         newProduct.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK));
         newProduct.setText("New Item");
         newProduct.addActionListener(new java.awt.event.ActionListener() {
@@ -443,14 +453,9 @@ public class MainPage extends javax.swing.JFrame {
         });
         Product.add(newProduct);
 
-        miscFunction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.SHIFT_MASK));
-        miscFunction.setText("Misc Functions");
-        miscFunction.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miscFunctionActionPerformed(evt);
-            }
-        });
-        Product.add(miscFunction);
+        quoteMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.SHIFT_MASK));
+        quoteMenu.setText("Product Quote");
+        Product.add(quoteMenu);
 
         View_Product.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         View_Product.setText("View/Update Item");
@@ -750,6 +755,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTextField pendingCount;
     private javax.swing.JMenuItem productListMenuItem;
     private javax.swing.JTable purchaseOrder;
+    private javax.swing.JMenuItem quoteMenu;
     private javax.swing.JButton refresh;
     private javax.swing.JMenuItem supplierListMenuItem;
     private javax.swing.JTextField taxValue;

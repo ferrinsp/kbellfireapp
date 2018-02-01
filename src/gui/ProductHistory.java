@@ -29,15 +29,6 @@ public class ProductHistory extends javax.swing.JFrame {
         getDescriptionCombo();
     }
     
-    public void filter(){
-        String text = searchField.getText();
-        TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) productHistoryTable.getModel())); 
-        if(text.length() >0 ){
-            sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
-            productHistoryTable.setRowSorter(sorter);
-        }
-    }
-    
     private void getDescriptionCombo(){
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -45,7 +36,7 @@ public class ProductHistory extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select po.orderid, pd.productDescription, pod.orderqty, pod.cost, s.companyname, date_format(po.created, '%m/%d/%Y') as 'Order Date' from purchaseorder po inner join purchaseorderdetails pod on pod.orderid=po.orderid\n" +
             "inner join product p on p.id=pod.product inner join supplier s on s.supplierid=po.supplier\n" +
-            "inner join productdescription pd on pd.pdescID=p.description where pd.productDescription like %"+searchField.getText()+"%;");
+            "inner join productdescription pd on pd.pdescID=p.description where pd.productDescription like %"+descriptionCombo.getSelectedItem()+"%;");
             resultObj.last();
             description = new String[resultObj.getRow()][2];
             resultObj.first();
@@ -54,7 +45,7 @@ public class ProductHistory extends javax.swing.JFrame {
                 description[i][0] =Integer.toString(resultObj.getInt("pdescID"));
                 description[i][1]=resultObj.getString("productDescription");
                 i++;
-                DescriptionCombo.addItem(resultObj.getString("productDescription"));
+                descriptionCombo.addItem(resultObj.getString("productDescription"));
             }
             connObj.close();
         } catch (SQLException e) {
@@ -72,9 +63,8 @@ public class ProductHistory extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        DescriptionCombo = new javax.swing.JComboBox<>();
+        descriptionCombo = new javax.swing.JComboBox<>();
         descriptionLabel = new javax.swing.JLabel();
-        searchField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productHistoryTable = new javax.swing.JTable();
@@ -82,29 +72,9 @@ public class ProductHistory extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Product History");
 
-        DescriptionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Description" }));
+        descriptionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Description" }));
 
         descriptionLabel.setText("Description");
-
-        searchField.setText("Search");
-        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                searchFieldFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                searchFieldFocusLost(evt);
-            }
-        });
-        searchField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchFieldMouseClicked(evt);
-            }
-        });
-        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                searchFieldKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,10 +84,8 @@ public class ProductHistory extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(DescriptionCombo, 0, 334, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(descriptionCombo, 0, 334, Short.MAX_VALUE)
+                .addGap(392, 392, 392))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,8 +93,7 @@ public class ProductHistory extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descriptionLabel)
-                    .addComponent(DescriptionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(descriptionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
 
@@ -193,26 +160,6 @@ public class ProductHistory extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusGained
-        searchField.setText("");
-    }//GEN-LAST:event_searchFieldFocusGained
-
-    private void searchFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusLost
-        if(searchField.getText().equals(""))
-        searchField.setText("Search");
-    }//GEN-LAST:event_searchFieldFocusLost
-
-    private void searchFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchFieldMouseClicked
-        if (searchField.getText().equals("Search")) {
-            searchField.setText("");
-        }
-    }//GEN-LAST:event_searchFieldMouseClicked
-
-    private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER)
-        filter();
-    }//GEN-LAST:event_searchFieldKeyPressed
-
     /**
      * @param args the command line arguments
      */
@@ -250,12 +197,11 @@ public class ProductHistory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> DescriptionCombo;
+    private javax.swing.JComboBox<String> descriptionCombo;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable productHistoryTable;
-    private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
 }

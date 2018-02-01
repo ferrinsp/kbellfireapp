@@ -56,10 +56,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="descriptionLabel" pref="55" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Component id="DescriptionCombo" pref="334" max="32767" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="searchField" min="-2" pref="364" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="descriptionCombo" pref="334" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="392" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -69,8 +67,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="descriptionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="DescriptionCombo" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="searchField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="descriptionCombo" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
@@ -78,7 +75,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JComboBox" name="DescriptionCombo">
+        <Component class="javax.swing.JComboBox" name="descriptionCombo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="1">
@@ -94,17 +91,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Description"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="searchField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Search"/>
-          </Properties>
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="searchFieldFocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="searchFieldFocusLost"/>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="searchFieldMouseClicked"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="searchFieldKeyPressed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
