@@ -11,6 +11,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import net.proteanit.sql.DbUtils;
 
 public class ProductHistory extends javax.swing.JFrame {
 
@@ -29,14 +30,34 @@ public class ProductHistory extends javax.swing.JFrame {
         getDescriptionCombo();
     }
     
+    private void populateProductHistoryTable() {            
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select po.orderid, pd.productDescription, pod.orderqty, pod.cost, s.companyname, date_format(po.created, '%m/%d/%Y') as 'Order Date' from purchaseorder po inner join purchaseorderdetails pod on pod.orderid=po.orderid\n" +
+            "inner join product p on p.id=pod.product inner join supplier s on s.supplierid=po.supplier\n" +
+            "inner join productdescription pd on pd.pdescID=p.description where pd.productDescription like %" + descriptionCombo.getSelectedItem() + "%;");
+            productHistoryTable.setModel(DbUtils.resultSetToTableModel(resultObj));
+            productHistoryTable.getColumn("orderid").setHeaderValue("Purchase Order Number");
+            productHistoryTable.getColumn("productDescription").setHeaderValue("Product Description");
+            productHistoryTable.getColumn("orderqty").setHeaderValue("Order Quantity");
+            productHistoryTable.getColumn("cost").setHeaderValue("Unit Cost");
+            productHistoryTable.getColumn("companyname").setHeaderValue("Supplier");
+            productHistoryTable.getColumn("created").setHeaderValue("Date Ordered");
+            productHistoryTable.repaint();
+            connObj.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void getDescriptionCombo(){
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select po.orderid, pd.productDescription, pod.orderqty, pod.cost, s.companyname, date_format(po.created, '%m/%d/%Y') as 'Order Date' from purchaseorder po inner join purchaseorderdetails pod on pod.orderid=po.orderid\n" +
-            "inner join product p on p.id=pod.product inner join supplier s on s.supplierid=po.supplier\n" +
-            "inner join productdescription pd on pd.pdescID=p.description where pd.productDescription like %"+descriptionCombo.getSelectedItem()+"%;");
+            resultObj = stateObj.executeQuery("select pdescID, productDescription from productdescription order by productDescription;");
             resultObj.last();
             description = new String[resultObj.getRow()][2];
             resultObj.first();
@@ -189,10 +210,8 @@ public class ProductHistory extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProductHistory().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ProductHistory().setVisible(true);
         });
     }
 
