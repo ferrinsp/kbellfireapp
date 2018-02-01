@@ -1,21 +1,16 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 public class ProductHistory extends javax.swing.JFrame {
 
-    
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
@@ -94,6 +89,11 @@ public class ProductHistory extends javax.swing.JFrame {
         setTitle("Product History");
 
         descriptionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Description" }));
+        descriptionCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                descriptionComboItemStateChanged(evt);
+            }
+        });
 
         descriptionLabel.setText("Description");
 
@@ -180,6 +180,14 @@ public class ProductHistory extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void descriptionComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_descriptionComboItemStateChanged
+        if(descriptionCombo.getSelectedItem().equals("Description")) {
+            JOptionPane.showMessageDialog(null, "Please select a description to continue");
+        } else {
+            populateProductHistoryTable();
+        }
+    }//GEN-LAST:event_descriptionComboItemStateChanged
 
     /**
      * @param args the command line arguments
