@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6e7b144-6eee-4353-8c89-4514dd91fe1e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="249e0c60-0dab-48e8-bc76-e4c8fd408da9"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="182" splitType="Stretch">
+			<staticText>
+				<reportElement x="134" y="38" width="245" height="22" uuid="dae74112-dac7-48db-82f1-987366135c49"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[K. Bell Plumbing & Heating, Inc.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="60" width="245" height="48" uuid="a238e4e2-4c55-419e-a2c6-e7b971951cbb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[1676 West 2100 South                                                                        West Haven, UT 84401                                                                     Phone: 801.731.6886                                                 purchasing@kbell.biz
+]]></text>
+			</staticText>
+			<image>
+				<reportElement x="19" y="20" width="115" height="81" uuid="22cde755-7294-4213-8e2a-154270246986"/>
+				<imageExpression><![CDATA["C:\\Users\\tatewtaylor\\Desktop\\Kbell\\logo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="445" y="104" width="80" height="20" uuid="1343c8e5-519e-414e-9621-ac7af6384292"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="525" y="104" width="40" height="20" uuid="77595322-fdbb-4b7b-9949-43ed82f5dddd"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="134" y="140" width="245" height="30" uuid="8f818b37-01d8-40e7-b388-c83261600d7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PRODUCT QUOTE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="126" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="25" width="279" height="19" uuid="c44fb0d6-d9fe-408f-9d5c-0081adb15ea6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Note: Please call to verify delivery date and time.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="104" width="100" height="20" uuid="19fa4835-35e1-493b-a268-7904eea85f1b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{createdby}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="44" width="311" height="60" uuid="0b80c869-a930-46ba-8ee1-f573df64ac9a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[This purchase order is bound by all terms and conditions as ordered and stated in its content.  K-Bell Plumbing & Heating, Inc. reserves the right to cancel this purchase order without any financial implications to K-Bell Plumbing & Heating, Inc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="104" width="56" height="20" uuid="698743f9-b574-4999-b092-02b6e0722ff4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Issued By:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="525" y="94" width="40" height="20" uuid="c309a0b1-1730-4303-998f-aefb2190105e"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="94" width="80" height="20" uuid="0acae5c1-e40b-4ec7-8bde-6ee6bae8c33c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="153" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="486" height="140" uuid="262b782d-d44f-4692-ab81-65075db1dc2f"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="00563675-cc51-4608-ae25-d64b26486bf8">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="113" uuid="1c783323-c577-478a-acb7-c52e08332a59">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="113" height="30" uuid="3dd31b9f-05c7-4687-9342-2aa0825ef443"/>
+								<text><![CDATA[Product Description]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="112" uuid="a76c2404-06c3-4c6c-b920-f76d4284614c">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="112" height="30" uuid="4edc5ab3-9b74-4454-8d59-697206104a0a"/>
+								<text><![CDATA[Brand Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="90" uuid="ac4f289c-0c29-462c-a76c-9f7c3ffe8600">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="755b7650-0a10-4f3c-8825-e686b015f8ad"/>
+								<text><![CDATA[Quantity]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="90" uuid="13a68a78-81f6-495c-97d6-1b47b14a46c3">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="579aa6c3-7162-42ed-893d-07029c40039e"/>
+								<text><![CDATA[Size]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
