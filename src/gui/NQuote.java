@@ -1,15 +1,28 @@
 package gui;
 
 import java.awt.Color;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class NQuote extends javax.swing.JFrame {
 
@@ -101,17 +114,17 @@ public class NQuote extends javax.swing.JFrame {
 
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Product Description", "Order Qty", "Unit Cost", "Size", "Supplier", "Date Ordered"
+                "Product Description", "Order Qty", "Unit Cost", "Size", "Supplier", "Date Ordered"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -229,6 +242,11 @@ public class NQuote extends javax.swing.JFrame {
         });
 
         createQuoteButton.setText("Create Quote");
+        createQuoteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createQuoteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -253,17 +271,17 @@ public class NQuote extends javax.swing.JFrame {
 
         quoteTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Product Description", "Order Qty", "Unit Cost", "Size", "Supplier", "Date Ordered"
+                "Product Description", "Order Qty", "Unit Cost", "Size", "Supplier", "Date Ordered"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, false, false
+                false, true, true, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -355,6 +373,26 @@ public class NQuote extends javax.swing.JFrame {
             model3.addRow(row); 
         }
     }//GEN-LAST:event_addToQuoteButtonActionPerformed
+
+    private void createQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createQuoteButtonActionPerformed
+        try {
+             //Generate Report
+            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
+            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+
+            //set parameters
+            Map map = new HashMap();
+            //compile report
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+            //view report to UI
+            JasperViewer.viewReport(jasperPrint, false);                   
+        } catch (FileNotFoundException | SQLException | JRException ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);   
+        }
+    }//GEN-LAST:event_createQuoteButtonActionPerformed
 
     /**
      * @param args the command line arguments
