@@ -63,12 +63,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     public int findCategory(String cat){
         int index =-1;
         for (int i=0;i<category.length;i++){
-            
-            
             if(cat.equals(category[i][1])){
-                System.out.println(category[i][0]+" "+category[i][1]);
                 index =i;
-                System.out.println(i);
             }
         }
         
@@ -441,7 +437,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         else{
                 Double total;
                 row[0] = model2.getValueAt(index2[0], 0); //supplier
-                row[1] = model1.getValueAt(index[0], 1); //description
+                row[1] = model1.getValueAt(itemsSearchTable.convertRowIndexToModel(index[0]), 1); //description
                 row[2] = model2.getValueAt(index2[0], 2);//MFC
                 row[3] = model2.getValueAt(index2[0], 3);//Part ID
                 row[4] = model2.getValueAt(index2[0], 5); //qty
