@@ -32,14 +32,14 @@ public class ProductHistory extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select po.orderid, pd.productDescription, pod.orderqty, pod.cost, s.companyname, date_format(po.created, '%m/%d/%Y') as 'Order Date' from purchaseorder po inner join purchaseorderdetails pod on pod.orderid=po.orderid\n" +
             "inner join product p on p.id=pod.product inner join supplier s on s.supplierid=po.supplier\n" +
-            "inner join productdescription pd on pd.pdescID=p.description where pd.productDescription like %" + descriptionCombo.getSelectedItem() + "%;");
+            "inner join productdescription pd on pd.pdescID=p.description where pd.productDescription like '%" + descriptionCombo.getSelectedItem() + "%';");
             productHistoryTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             productHistoryTable.getColumn("orderid").setHeaderValue("Purchase Order Number");
             productHistoryTable.getColumn("productDescription").setHeaderValue("Product Description");
             productHistoryTable.getColumn("orderqty").setHeaderValue("Order Quantity");
             productHistoryTable.getColumn("cost").setHeaderValue("Unit Cost");
             productHistoryTable.getColumn("companyname").setHeaderValue("Supplier");
-            productHistoryTable.getColumn("created").setHeaderValue("Date Ordered");
+            productHistoryTable.getColumn("Order Date").setHeaderValue("Date Ordered");
             productHistoryTable.repaint();
             connObj.close();
         } catch (SQLException e) {

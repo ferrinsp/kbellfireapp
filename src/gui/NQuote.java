@@ -66,16 +66,12 @@ public class NQuote extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select po.orderid, pd.productDescription, pod.orderqty, pod.cost, s.companyname, date_format(po.created, '%m/%d/%Y') as 'Order Date' from purchaseorder po inner join purchaseorderdetails pod on pod.orderid=po.orderid\n" +
-                "inner join product p on p.id=pod.product inner join supplier s on s.supplierid=po.supplier\n" +
-                "inner join productdescription pd on pd.pdescID=p.description;");
+            resultObj = stateObj.executeQuery("select DISTINCT c.description, pd.productDescription as pdescription, pd.productsize from product p inner join category c on p.category_id =c.category_ID "
+                    + "inner join productdescription pd on p.description = pd.pdescID where pd.productDescription like '%"+descriptionCombo.getSelectedItem()+"%' ORDER BY p.description ;");
             productTable.setModel(DbUtils.resultSetToTableModel(resultObj));
-            productTable.getColumn("orderid").setHeaderValue("Purchase Order Number");
-            productTable.getColumn("productDescription").setHeaderValue("Product Description");
-            productTable.getColumn("orderqty").setHeaderValue("Order Quantity");
-            productTable.getColumn("cost").setHeaderValue("Unit Cost");
-            productTable.getColumn("companyname").setHeaderValue("Supplier");
-            productTable.getColumn("created").setHeaderValue("Date Ordered");
+            productTable.getColumn("description").setHeaderValue("Category");
+            productTable.getColumn("pdescription").setHeaderValue("Product Description");
+            productTable.getColumn("productsize").setHeaderValue("Size");
             productTable.repaint();
             connObj.close();
         } catch (SQLException e) {
