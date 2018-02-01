@@ -29,7 +29,7 @@ public class NQuote extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
-    String [][] description= null;
+    String [][]  category= null;
     public Color genericColor = new Color(209, 220, 204);    
     private final AlternatingListCellRenderer cellRenderer;
     
@@ -44,16 +44,17 @@ public class NQuote extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select pdescID, productDescription from productdescription order by productDescription;");
+            resultObj = stateObj.executeQuery("select category_ID, description from category ORDER BY description;");
+            //Dynamically set supplier list size
             resultObj.last();
-            description = new String[resultObj.getRow()][2];
-            resultObj.first();
+            category = new String[resultObj.getRow()][2];
+            resultObj.beforeFirst();
             int i=0;
             while (resultObj.next()){
-                description[i][0] =Integer.toString(resultObj.getInt("pdescID"));
-                description[i][1]=resultObj.getString("productDescription");
+                category[i][0] =Integer.toString(resultObj.getInt("category_ID"));
+                category[i][1]=resultObj.getString("description");
                 i++;
-                descriptionCombo.addItem(resultObj.getString("productDescription"));
+                CategoryCombo.addItem(resultObj.getString("description"));
             }
             connObj.close();
         } catch (SQLException e) {
@@ -67,7 +68,7 @@ public class NQuote extends javax.swing.JFrame {
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select DISTINCT c.description, pd.productDescription as pdescription, pd.productsize from product p inner join category c on p.category_id =c.category_ID "
-                    + "inner join productdescription pd on p.description = pd.pdescID where pd.productDescription like '%"+descriptionCombo.getSelectedItem()+"%' ORDER BY p.description ;");
+                    + "inner join productdescription pd on p.description = pd.pdescID where c.description LIKE '%"+CategoryCombo.getSelectedItem()+"%' ORDER BY pd.productDescription ;");
             productTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             productTable.getColumn("description").setHeaderValue("Category");
             productTable.getColumn("pdescription").setHeaderValue("Product Description");
@@ -96,7 +97,7 @@ public class NQuote extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         addToQuoteButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        descriptionCombo = new javax.swing.JComboBox<>();
+        CategoryCombo = new javax.swing.JComboBox<>();
         descriptionLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         closeButton = new javax.swing.JButton();
@@ -110,17 +111,14 @@ public class NQuote extends javax.swing.JFrame {
 
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Product Description", "Order Qty", "Unit Cost", "Size", "Supplier", "Date Ordered"
+                "Category", "Product Description", "Size"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -170,14 +168,14 @@ public class NQuote extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
         );
 
-        descriptionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Description" }));
-        descriptionCombo.addItemListener(new java.awt.event.ItemListener() {
+        CategoryCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Category" }));
+        CategoryCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                descriptionComboItemStateChanged(evt);
+                CategoryComboItemStateChanged(evt);
             }
         });
 
-        descriptionLabel.setText("Description");
+        descriptionLabel.setText("Category");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -187,7 +185,7 @@ public class NQuote extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(descriptionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CategoryCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(120, 120, 120))
         );
         jPanel4Layout.setVerticalGroup(
@@ -196,7 +194,7 @@ public class NQuote extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descriptionLabel)
-                    .addComponent(descriptionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CategoryCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
 
@@ -267,10 +265,7 @@ public class NQuote extends javax.swing.JFrame {
 
         quoteTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Product Description", "Order Qty", "Unit Cost", "Size", "Supplier", "Date Ordered"
@@ -337,36 +332,31 @@ public class NQuote extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
 
-    private void descriptionComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_descriptionComboItemStateChanged
-        if(descriptionCombo.getSelectedItem().equals("Description")) {
+    private void CategoryComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CategoryComboItemStateChanged
+        if(CategoryCombo.getSelectedItem().equals("Description")) {
             JOptionPane.showMessageDialog(null, "Please select a description to continue");
         } else {
             populateProductTable();
         }
-    }//GEN-LAST:event_descriptionComboItemStateChanged
+    }//GEN-LAST:event_CategoryComboItemStateChanged
 
     private void addToQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToQuoteButtonActionPerformed
         TableModel model1 = productTable.getModel();
         int[] index = productTable.getSelectedRows();
-        TableModel model2 = quoteTable.getModel();
-        int[] index2 = quoteTable.getSelectedRows();
-        Object[] row = new Object[8];
-        DefaultTableModel model3 = (DefaultTableModel) productTable.getModel();
-        if(index.length > 1 || index2.length >1){
+        Object[] row = new Object[2];
+        DefaultTableModel model2 = (DefaultTableModel) quoteTable.getModel();
+        if(index.length > 1){
             JOptionPane.showMessageDialog(null, "Please only select one row to add.");
         }
-        else if (index.length < 1 || index2.length <1){
+        else if (index.length < 1){
             JOptionPane.showMessageDialog(null, "Please select one row to add.");
         }
         else{
-            row[0] = model2.getValueAt(index2[0], 0); //orderid
-            row[1] = model1.getValueAt(productTable.convertRowIndexToModel(index[0]), 1); //productdescription
-            row[2] = model2.getValueAt(index2[0], 2);//order qty
-            row[3] = model2.getValueAt(index2[0], 3);//unit cost
-            row[4] = model2.getValueAt(index2[0], 5); //size
-            row[5] = model2.getValueAt(index2[0], 1);  //supplier
-            row[6] = model2.getValueAt(index2[0], 4);  //Date Ordered
-            model3.addRow(row); 
+            //This may need to change to allow for multiple selection.
+            
+            row[0] = model1.getValueAt(productTable.convertRowIndexToModel(index[0]), 1); //productdescription
+            row[1] = model1.getValueAt(index[0], 2);//product size
+            model2.addRow(row);
         }
     }//GEN-LAST:event_addToQuoteButtonActionPerformed
 
@@ -424,10 +414,10 @@ public class NQuote extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CategoryCombo;
     private javax.swing.JButton addToQuoteButton;
     private javax.swing.JButton closeButton;
     private javax.swing.JButton createQuoteButton;
-    private javax.swing.JComboBox<String> descriptionCombo;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
