@@ -118,8 +118,8 @@ public class NQuote extends javax.swing.JFrame {
     private void printQuote() {
          try {
             //Generate Report
-            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Quote.jrxml");            
-            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
+            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Quote.jrxml");            
+            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
             DefaultTableModel dtm = (DefaultTableModel) quoteTable.getModel();
             JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
