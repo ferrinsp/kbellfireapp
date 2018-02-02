@@ -372,8 +372,10 @@ public class NQuote extends javax.swing.JFrame {
             //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);            
             
-            JRDataSource dataSource = new JRTableModelDataSource(quoteTable.getModel());
+            DefaultTableModel dtm = (DefaultTableModel) quoteTable.getModel();
+            JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
             Map params = new HashMap();
+            params.put(dtm, params);
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);

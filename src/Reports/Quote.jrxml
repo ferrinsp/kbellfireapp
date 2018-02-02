@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6e7b144-6eee-4353-8c89-4514dd91fe1e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Quote" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6e7b144-6eee-4353-8c89-4514dd91fe1e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -114,19 +114,19 @@
 		<band height="50">
 			<textField>
 				<reportElement x="394" y="2" width="100" height="20" uuid="3e476e17-6fe2-4be8-ba3c-2274975dcce8"/>
-				<textFieldExpression><![CDATA[$F{Size}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Size}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="1" width="189" height="20" uuid="37776c90-0561-411b-8d08-cd2e342b2788"/>
-				<textFieldExpression><![CDATA[$F{Product Description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Product Description}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="189" y="2" width="100" height="20" uuid="86ccaf81-85ef-441c-b288-0428c3536f37"/>
-				<textFieldExpression><![CDATA[$F{Brand Name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Brand Name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="289" y="2" width="100" height="20" uuid="20b44431-9e9b-4cb2-b56a-a9a2a65fbf6f"/>
-				<textFieldExpression><![CDATA[$F{Quantity}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{Quantity}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
