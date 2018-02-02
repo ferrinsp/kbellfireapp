@@ -355,7 +355,7 @@ where po.orderid = $P{orderid} ;]]>
 			</textField>
 			<image>
 				<reportElement x="15" y="15" width="115" height="81" uuid="92de5175-d5e0-4f48-82b7-401ee59763fe"/>
-				<imageExpression><![CDATA["C:\\Users\\tatewtaylor\\Desktop\\Kbell\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Resources\\KBellLogo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="20" y="126" width="26" height="13" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>

@@ -171,8 +171,8 @@ public class ProductReportDates extends javax.swing.JFrame {
 
     private void generateProductReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateProductReportButtonActionPerformed
         try {
-            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Products.jrxml");            
-            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Products.jrxml");
+            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Products.jrxml");            
+            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Products.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
 
@@ -186,6 +186,7 @@ public class ProductReportDates extends javax.swing.JFrame {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
             //view report to UI
             JasperViewer.viewReport(jasperPrint, false);                   
+            this.dispose();
         } catch (FileNotFoundException | SQLException | JRException ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }

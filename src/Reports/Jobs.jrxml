@@ -110,7 +110,7 @@ FROM
 		<band height="102" splitType="Stretch">
 			<image>
 				<reportElement x="10" y="10" width="115" height="81" uuid="85a3f332-7ad8-4fe9-876a-1f5e91a02840"/>
-				<imageExpression><![CDATA["C:\\Users\\tatewtaylor\\Desktop\\Kbell\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Resources\\KBellLogo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="125" y="50" width="245" height="48" uuid="9fde3a7d-1e4e-41ee-820d-1491b465912a"/>
