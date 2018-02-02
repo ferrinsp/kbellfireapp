@@ -90,7 +90,7 @@ public class NQuote extends javax.swing.JFrame {
         }
     }
     
-    public void toExcel() throws WriteException{
+    public void toCSV() throws WriteException{
         try{
             String filename = "C:\\temp\\QuoteData.csv";
             WritableWorkbook wb = Workbook.createWorkbook(new File(filename));
@@ -407,7 +407,7 @@ public class NQuote extends javax.swing.JFrame {
     @SuppressWarnings("ConvertToTryWithResources")
     private void createQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createQuoteButtonActionPerformed
         try {
-            toExcel();
+            toCSV();
             printQuote();
             //this.dispose();
         } catch (WriteException ex) {
