@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6e7b144-6eee-4353-8c89-4514dd91fe1e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="151"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -28,6 +28,10 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="Table Dataset 1" uuid="249e0c60-0dab-48e8-bc76-e4c8fd408da9"/>
+	<field name="Product Description" class="java.lang.String"/>
+	<field name="Brand Name" class="java.lang.String"/>
+	<field name="Quantity" class="java.lang.String"/>
+	<field name="Size" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -72,8 +76,48 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="5" splitType="Stretch"/>
+		<band height="24" splitType="Stretch"/>
 	</pageHeader>
+	<columnHeader>
+		<band height="25">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="1d556b5d-9168-46ce-943f-6c4d90d30c6d"/>
+				<text><![CDATA[Product Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="2" width="100" height="20" uuid="fa91b628-9a5f-4822-b8e8-4affd33f0c95"/>
+				<text><![CDATA[Size]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="2" width="100" height="20" uuid="e9d7a2ae-4921-4ac6-8b65-e120e7d5723a"/>
+				<text><![CDATA[Brand Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="2" width="100" height="20" uuid="c1a71ad6-4fcc-48c6-b32e-db61eae0d1ac"/>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="50">
+			<textField>
+				<reportElement x="305" y="2" width="100" height="20" uuid="3e476e17-6fe2-4be8-ba3c-2274975dcce8"/>
+				<textFieldExpression><![CDATA[$F{Size}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="100" height="20" uuid="37776c90-0561-411b-8d08-cd2e342b2788"/>
+				<textFieldExpression><![CDATA[$F{Product Description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="2" width="100" height="20" uuid="86ccaf81-85ef-441c-b288-0428c3536f37"/>
+				<textFieldExpression><![CDATA[$F{Brand Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="2" width="100" height="20" uuid="20b44431-9e9b-4cb2-b56a-a9a2a65fbf6f"/>
+				<textFieldExpression><![CDATA[$F{Quantity}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
@@ -86,13 +130,6 @@
 				</textElement>
 				<text><![CDATA[Note: Please call to verify delivery date and time.]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="66" y="104" width="100" height="20" uuid="19fa4835-35e1-493b-a268-7904eea85f1b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{createdby}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="11" y="44" width="311" height="60" uuid="0b80c869-a930-46ba-8ee1-f573df64ac9a"/>
 				<textElement verticalAlignment="Middle">
@@ -119,63 +156,6 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="153" splitType="Stretch">
-			<componentElement>
-				<reportElement key="table" style="table" x="0" y="0" width="486" height="140" uuid="262b782d-d44f-4692-ab81-65075db1dc2f"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="00563675-cc51-4608-ae25-d64b26486bf8">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="113" uuid="1c783323-c577-478a-acb7-c52e08332a59">
-						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
-						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="113" height="30" uuid="3dd31b9f-05c7-4687-9342-2aa0825ef443"/>
-								<text><![CDATA[Product Description]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="112" uuid="a76c2404-06c3-4c6c-b920-f76d4284614c">
-						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
-						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="112" height="30" uuid="4edc5ab3-9b74-4454-8d59-697206104a0a"/>
-								<text><![CDATA[Brand Name]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="90" uuid="ac4f289c-0c29-462c-a76c-9f7c3ffe8600">
-						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
-						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="755b7650-0a10-4f3c-8825-e686b015f8ad"/>
-								<text><![CDATA[Quantity]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="90" uuid="13a68a78-81f6-495c-97d6-1b47b14a46c3">
-						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
-						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="579aa6c3-7162-42ed-893d-07029c40039e"/>
-								<text><![CDATA[Size]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
-					</jr:column>
-				</jr:table>
-			</componentElement>
-		</band>
+		<band height="153" splitType="Stretch"/>
 	</summary>
 </jasperReport>

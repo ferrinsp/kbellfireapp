@@ -9,11 +9,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
@@ -22,6 +24,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class NQuote extends javax.swing.JFrame {
@@ -274,11 +277,11 @@ public class NQuote extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Product Description", "Brand Name", "Order Qty", "Size"
+                "Product Description", "Brand Name", "Quantity", "Size"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -366,20 +369,33 @@ public class NQuote extends javax.swing.JFrame {
 
     private void createQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createQuoteButtonActionPerformed
         try {
+            /* This isn't pretty but works ---last resort
+            MessageFormat header = new MessageFormat("Product Quote");
+            MessageFormat footer = new MessageFormat("Page {0,number,integer}");
+            quoteTable.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+            */
              //Generate Report
             //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
             FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-
+           /*  This was attempt number two
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            DefaultTableModel model = (DefaultTableModel) quoteTable.getModel();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,
+                    null, new JRTableModelDataSource(model));
+            JasperViewer.viewReport(jasperPrint, false);
+           */
             //set parameters
             Map map = new HashMap();
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
             //view report to UI
-            JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (FileNotFoundException | SQLException | JRException ex) {
+            JasperViewer.viewReport(jasperPrint, false); 
+           
+        } catch (Exception ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);   
         }
     }//GEN-LAST:event_createQuoteButtonActionPerformed
