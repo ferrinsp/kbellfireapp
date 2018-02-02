@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6e7b144-6eee-4353-8c89-4514dd91fe1e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="151"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -28,6 +28,18 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="Table Dataset 1" uuid="249e0c60-0dab-48e8-bc76-e4c8fd408da9"/>
+	<parameter name="Product Description" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Brand Name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Quantity" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Size" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<field name="Product Description" class="java.lang.String"/>
 	<field name="Brand Name" class="java.lang.String"/>
 	<field name="Quantity" class="java.lang.String"/>
@@ -81,19 +93,19 @@
 	<columnHeader>
 		<band height="25">
 			<staticText>
-				<reportElement x="0" y="0" width="100" height="20" uuid="1d556b5d-9168-46ce-943f-6c4d90d30c6d"/>
+				<reportElement x="0" y="0" width="189" height="20" uuid="1d556b5d-9168-46ce-943f-6c4d90d30c6d"/>
 				<text><![CDATA[Product Description]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="304" y="2" width="100" height="20" uuid="fa91b628-9a5f-4822-b8e8-4affd33f0c95"/>
+				<reportElement x="393" y="2" width="100" height="20" uuid="fa91b628-9a5f-4822-b8e8-4affd33f0c95"/>
 				<text><![CDATA[Size]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="2" width="100" height="20" uuid="e9d7a2ae-4921-4ac6-8b65-e120e7d5723a"/>
+				<reportElement x="189" y="2" width="100" height="20" uuid="e9d7a2ae-4921-4ac6-8b65-e120e7d5723a"/>
 				<text><![CDATA[Brand Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="2" width="100" height="20" uuid="c1a71ad6-4fcc-48c6-b32e-db61eae0d1ac"/>
+				<reportElement x="289" y="2" width="100" height="20" uuid="c1a71ad6-4fcc-48c6-b32e-db61eae0d1ac"/>
 				<text><![CDATA[Quantity]]></text>
 			</staticText>
 		</band>
@@ -101,19 +113,19 @@
 	<detail>
 		<band height="50">
 			<textField>
-				<reportElement x="305" y="2" width="100" height="20" uuid="3e476e17-6fe2-4be8-ba3c-2274975dcce8"/>
+				<reportElement x="394" y="2" width="100" height="20" uuid="3e476e17-6fe2-4be8-ba3c-2274975dcce8"/>
 				<textFieldExpression><![CDATA[$F{Size}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="1" width="100" height="20" uuid="37776c90-0561-411b-8d08-cd2e342b2788"/>
+				<reportElement x="0" y="1" width="189" height="20" uuid="37776c90-0561-411b-8d08-cd2e342b2788"/>
 				<textFieldExpression><![CDATA[$F{Product Description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="2" width="100" height="20" uuid="86ccaf81-85ef-441c-b288-0428c3536f37"/>
+				<reportElement x="189" y="2" width="100" height="20" uuid="86ccaf81-85ef-441c-b288-0428c3536f37"/>
 				<textFieldExpression><![CDATA[$F{Brand Name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="2" width="100" height="20" uuid="20b44431-9e9b-4cb2-b56a-a9a2a65fbf6f"/>
+				<reportElement x="289" y="2" width="100" height="20" uuid="20b44431-9e9b-4cb2-b56a-a9a2a65fbf6f"/>
 				<textFieldExpression><![CDATA[$F{Quantity}]]></textFieldExpression>
 			</textField>
 		</band>

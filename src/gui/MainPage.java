@@ -454,7 +454,12 @@ public class MainPage extends javax.swing.JFrame {
         Product.add(newProduct);
 
         quoteMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.SHIFT_MASK));
-        quoteMenu.setText("Product Quote");
+        quoteMenu.setText("New Quote");
+        quoteMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quoteMenuActionPerformed(evt);
+            }
+        });
         Product.add(quoteMenu);
 
         View_Product.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
@@ -695,6 +700,11 @@ public class MainPage extends javax.swing.JFrame {
             updatePO.setVisible(true);
         }
     }//GEN-LAST:event_updatePOMainButtonActionPerformed
+
+    private void quoteMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quoteMenuActionPerformed
+        NQuote quote = new NQuote();
+        quote.setVisible(true);
+    }//GEN-LAST:event_quoteMenuActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

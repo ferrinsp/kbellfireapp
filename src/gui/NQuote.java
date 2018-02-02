@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -83,7 +84,6 @@ public class NQuote extends javax.swing.JFrame {
         }
     }
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -359,8 +359,6 @@ public class NQuote extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select one row to add.");
         }
         else{
-            //This may need to change to allow for multiple selection.
-            
             row[0] = model1.getValueAt(productTable.convertRowIndexToModel(index[0]), 1); //productdescription
             row[1] = model1.getValueAt(index[0], 2);//product size
             model2.addRow(row);
@@ -369,33 +367,19 @@ public class NQuote extends javax.swing.JFrame {
 
     private void createQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createQuoteButtonActionPerformed
         try {
-            /* This isn't pretty but works ---last resort
-            MessageFormat header = new MessageFormat("Product Quote");
-            MessageFormat footer = new MessageFormat("Page {0,number,integer}");
-            quoteTable.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-            */
              //Generate Report
-            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
-            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
+            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);            
             
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-           /*  This was attempt number two
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
-            DefaultTableModel model = (DefaultTableModel) quoteTable.getModel();
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,
-                    null, new JRTableModelDataSource(model));
-            JasperViewer.viewReport(jasperPrint, false);
-           */
-            //set parameters
-            Map map = new HashMap();
+            JRDataSource dataSource = new JRTableModelDataSource(quoteTable.getModel());
+            Map params = new HashMap();
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
             //view report to UI
             JasperViewer.viewReport(jasperPrint, false); 
-           
-        } catch (Exception ex) {
+        } catch (FileNotFoundException | JRException ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);   
         }
     }//GEN-LAST:event_createQuoteButtonActionPerformed
