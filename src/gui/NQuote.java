@@ -6,7 +6,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,7 +17,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import jxl.write.WritableWorkbook;
@@ -72,7 +70,6 @@ public class NQuote extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
     private void populateProductTable() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -104,7 +101,7 @@ public class NQuote extends javax.swing.JFrame {
             }               
             for (int i = 0; i < model.getRowCount(); i++) {
                 for (int j = 0; j < model.getColumnCount(); j++) {
-                    if(StringUtils.isNullOrEmpty((String) model.getValueAt(i,j))) {    
+                    if(StringUtils.isEmptyOrWhitespaceOnly((String) model.getValueAt(i,j))) {
                         model.setValueAt(" ", i, j);
                         Label updateRow = new Label(j, i + 1, model.getValueAt(i, j).toString() + "\t");
                         sheet.addCell(updateRow);
@@ -125,14 +122,15 @@ public class NQuote extends javax.swing.JFrame {
     private void printQuote() {
          try {
             //Generate Report
-            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Quote.jrxml");            
-            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
+            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Quote.jrxml");            
+            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
             DefaultTableModel dtm = (DefaultTableModel) quoteTable.getModel();
             JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
-            
             //set parameters
             Map params = new HashMap();
+            params.put("user",Login.user);
+            
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
@@ -406,7 +404,10 @@ public class NQuote extends javax.swing.JFrame {
         }
         else{
             row[0] = model1.getValueAt(productTable.convertRowIndexToModel(index[0]), 1); //productdescription
-            row[1] = model1.getValueAt(index[0], 2);//product size
+            if (StringUtils.isEmptyOrWhitespaceOnly((String) model1.getValueAt(index[0], 2)))
+                row[1]= " ";
+            else
+                row[1] = model1.getValueAt(index[0], 2);//product size
             model2.addRow(row);
         }
     }//GEN-LAST:event_addToQuoteButtonActionPerformed

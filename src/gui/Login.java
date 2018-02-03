@@ -7,13 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
     
     public static int userid;
-    
+    public static String user;
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj =null;
@@ -258,9 +257,10 @@ public class Login extends javax.swing.JFrame {
                 password.setText((""));
             }
             else{
-                resultObj = stateObj.executeQuery("Select userid from user WHERE username like '%"+user+"%';");
+                resultObj = stateObj.executeQuery("Select userid, name from user WHERE username like '%"+user+"%';");
                 while (resultObj.next()){
                     userid = resultObj.getInt("userid");
+                    Login.user=resultObj.getString("name");
                 }
                 connObj.close();
                 this.dispose();
