@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Quote" language="groovy" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6e7b144-6eee-4353-8c89-4514dd91fe1e">
 	<property name="ireport.zoom" value="2.59374246010001"/>
-	<property name="ireport.x" value="58"/>
+	<property name="ireport.x" value="535"/>
 	<property name="ireport.y" value="401"/>
 	<style name="table">
 		<box>
@@ -136,7 +136,7 @@
 				<text><![CDATA[Product Description]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="423" y="0" width="100" height="20" uuid="fa91b628-9a5f-4822-b8e8-4affd33f0c95"/>
+				<reportElement x="222" y="0" width="100" height="20" uuid="fa91b628-9a5f-4822-b8e8-4affd33f0c95"/>
 				<box leftPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -148,7 +148,7 @@
 				<text><![CDATA[Size]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="0" width="100" height="20" uuid="e9d7a2ae-4921-4ac6-8b65-e120e7d5723a"/>
+				<reportElement x="322" y="0" width="100" height="20" uuid="e9d7a2ae-4921-4ac6-8b65-e120e7d5723a"/>
 				<box leftPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -160,7 +160,7 @@
 				<text><![CDATA[Brand Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="322" y="0" width="101" height="20" uuid="c1a71ad6-4fcc-48c6-b32e-db61eae0d1ac"/>
+				<reportElement x="422" y="0" width="101" height="20" uuid="c1a71ad6-4fcc-48c6-b32e-db61eae0d1ac"/>
 				<box leftPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -181,7 +181,7 @@
 				</reportElement>
 			</rectangle>
 			<textField>
-				<reportElement mode="Transparent" x="423" y="0" width="100" height="16" uuid="3e476e17-6fe2-4be8-ba3c-2274975dcce8"/>
+				<reportElement mode="Transparent" x="222" y="0" width="100" height="16" uuid="3e476e17-6fe2-4be8-ba3c-2274975dcce8"/>
 				<box leftPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -205,7 +205,7 @@
 				<textFieldExpression><![CDATA[$F{Product Description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Transparent" x="222" y="0" width="100" height="16" uuid="86ccaf81-85ef-441c-b288-0428c3536f37"/>
+				<reportElement mode="Transparent" x="322" y="0" width="100" height="16" uuid="86ccaf81-85ef-441c-b288-0428c3536f37"/>
 				<box leftPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -217,7 +217,7 @@
 				<textFieldExpression><![CDATA[$F{Brand Name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Transparent" x="322" y="0" width="101" height="16" uuid="20b44431-9e9b-4cb2-b56a-a9a2a65fbf6f"/>
+				<reportElement mode="Transparent" x="422" y="0" width="101" height="16" uuid="20b44431-9e9b-4cb2-b56a-a9a2a65fbf6f"/>
 				<box leftPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
