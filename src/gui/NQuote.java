@@ -1,5 +1,6 @@
 package gui;
 
+import com.mysql.jdbc.StringUtils;
 import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -103,8 +104,14 @@ public class NQuote extends javax.swing.JFrame {
             }               
             for (int i = 0; i < model.getRowCount(); i++) {
                 for (int j = 0; j < model.getColumnCount(); j++) {
-                    Label row = new Label(j, i + 1, model.getValueAt(i, j).toString() + "\t");
-                    sheet.addCell(row);
+                    if(StringUtils.isNullOrEmpty((String) model.getValueAt(i,j))) {    
+                        model.setValueAt(" ", i, j);
+                        Label updateRow = new Label(j, i + 1, model.getValueAt(i, j).toString() + "\t");
+                        sheet.addCell(updateRow);
+                    } else {
+                        Label row = new Label(j, i + 1, model.getValueAt(i, j).toString() + "\t");
+                        sheet.addCell(row);
+                    }
                 }
             }
             wb.write();
@@ -118,8 +125,8 @@ public class NQuote extends javax.swing.JFrame {
     private void printQuote() {
          try {
             //Generate Report
-            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Quote.jrxml");            
-            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
+            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Quote.jrxml");            
+            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
             DefaultTableModel dtm = (DefaultTableModel) quoteTable.getModel();
             JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
