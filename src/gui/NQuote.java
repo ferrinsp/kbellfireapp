@@ -409,7 +409,7 @@ public class NQuote extends javax.swing.JFrame {
         try {
             toCSV();
             printQuote();
-            //this.dispose();
+            this.dispose();
         } catch (WriteException ex) {
             Logger.getLogger(NQuote.class.getName()).log(Level.SEVERE, null, ex);
         }
