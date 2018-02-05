@@ -347,13 +347,13 @@ LOAD DATA local INFILE 'C:/temp/supplier.csv'
  (companyname, contact, address1, city, state, postalcode, phone, fax, terms);
 
 -- Run this script to load categories
-LOAD DATA local INFILE 'C:/temp/category.csv'
+LOAD DATA local INFILE 'C:/temp/category2.csv'
  into table category
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
  ESCAPED BY ''
  LINES TERMINATED BY '\n'
- (category_ID, description);
+ (description);
  
  -- Run this for product descriptions
   LOAD DATA local INFILE 'C:/temp/prodDesc.csv'

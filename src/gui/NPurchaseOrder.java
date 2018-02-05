@@ -61,24 +61,25 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
     }
     public int findCategory(String cat){
-        int index =-1;
+        int index =0;
         for (int i=0;i<category.length;i++){
             if(cat.equals(category[i][1])){
-                index =i;
+                index =Integer.parseInt(category[i][0]);
             }
         }
         
         return index;
     }
     public int getDescription(String desc){
-        int index =-1;
+        int index =0;
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select pdescID from productdescription where productDescription LIKE '%"+desc+"%';");
+            resultObj = stateObj.executeQuery("select pdescID from productdescription where productDescription ='"+desc+"';");
             while (resultObj.next()){
                 index =resultObj.getInt("pdescID");
+                System.out.println(index);
             }
             connObj.close();
         } catch (SQLException e) {
@@ -92,7 +93,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select category_ID, description from category ORDER BY description;");
+            resultObj = stateObj.executeQuery("select category_ID, description from category");
             //Dynamically set supplier list size
             resultObj.last();
             category = new String[resultObj.getRow()][2];
@@ -117,7 +118,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select s.companyname, p.unitMeasure,manufacturer, part_id, p.price, 0 as 'Quantity' from product p \n" +
 "inner join supplier s on p.supplier =s.supplierid  INNER JOIN productdescription pd on pd.pdescID = p.description \n" +
-"inner join category c on c.category_ID=p.category_id where p.description ="+description +" and p.category_id="+category+" and p.price>0 order by p.price;");
+"inner join category c on c.category_ID=p.category_id where p.description ="+description +" and p.category_id="+category+" and p.status NOT LIKE '%Inactive%' order by p.price;");
             PriceTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             PriceTable.getColumn("companyname").setHeaderValue("Supplier");
             PriceTable.getColumn("unitMeasure").setHeaderValue("Unit");
@@ -492,6 +493,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         int row = itemsSearchTable.getSelectedRow();
         int realrow = itemsSearchTable.convertRowIndexToModel(row);
         //May need to update this if Category get numbered differently
+        
         getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(realrow, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(realrow, 1).toString()));
     }//GEN-LAST:event_itemsSearchTableMouseClicked
 
