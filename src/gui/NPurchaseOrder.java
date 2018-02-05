@@ -492,8 +492,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private void itemsSearchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemsSearchTableMouseClicked
         int row = itemsSearchTable.getSelectedRow();
         int realrow = itemsSearchTable.convertRowIndexToModel(row);
-        //May need to update this if Category get numbered differently
-        
         getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(realrow, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(realrow, 1).toString()));
     }//GEN-LAST:event_itemsSearchTableMouseClicked
 

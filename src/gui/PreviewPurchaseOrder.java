@@ -1,12 +1,10 @@
 package gui;
 
 import java.awt.Color;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -29,6 +27,8 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class PreviewPurchaseOrder extends javax.swing.JFrame {
@@ -486,21 +486,20 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     this.dispose();
                 }
                 //Generate PO here
-                try { 
-                    //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\PO.jrxml");            
-                    FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/PO.jrxml");
-                    BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+                try {
+                    InputStream is = getClass().getResourceAsStream("/Reports/PO.jrxml");
+                    JasperDesign jd= JRXmlLoader.load(is);
                     connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
                     
                     //set parameters
                     Map map = new HashMap();
                     map.put("orderid", orderid);
                     //compile report
-                    JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+                    JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(jd);
                     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
                     //view report to UI
                     JasperViewer.viewReport(jasperPrint, false);                   
-                } catch (FileNotFoundException | SQLException | JRException ex) {
+                } catch (SQLException | JRException ex) {
                     Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

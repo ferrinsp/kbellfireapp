@@ -2,11 +2,9 @@ package gui;
 
 import com.mysql.jdbc.StringUtils;
 import java.awt.Color;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -31,6 +29,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class NQuote extends javax.swing.JFrame {
@@ -121,10 +121,9 @@ public class NQuote extends javax.swing.JFrame {
     
     private void printQuote() {
          try {
-            //Generate Report
-            //FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Quote.jrxml");            
-            FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Quote.jrxml");
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            //Generate Report           
+            InputStream is = getClass().getResourceAsStream("/Reports/Quote.jrxml");
+            JasperDesign jd= JRXmlLoader.load(is);
             DefaultTableModel dtm = (DefaultTableModel) quoteTable.getModel();
             JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
             //set parameters
@@ -132,11 +131,11 @@ public class NQuote extends javax.swing.JFrame {
             params.put("user",Login.user);
             
             //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperReport jasperReport =JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
             //view report to UI
             JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (FileNotFoundException | JRException ex) {
+        } catch (JRException ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

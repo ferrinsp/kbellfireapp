@@ -2,9 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,6 +19,8 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class MainPage extends javax.swing.JFrame {
@@ -636,21 +636,20 @@ public class MainPage extends javax.swing.JFrame {
 
     private void jobListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jobListMenuItemActionPerformed
         try {
-            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Jobs.jrxml");            
-            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/CreditMemo.jrxml");
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            InputStream is = getClass().getResourceAsStream("/Reports/Jobs.jrxml");     
+            JasperDesign jd= JRXmlLoader.load(is);
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();
             
             //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(is);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
 
             //view report to UI
             JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (FileNotFoundException | SQLException | JRException ex) {
+        } catch (SQLException | JRException ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jobListMenuItemActionPerformed
@@ -662,21 +661,20 @@ public class MainPage extends javax.swing.JFrame {
 
     private void supplierListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierListMenuItemActionPerformed
         try {
-            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Suppliers.jrxml");            
-            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Suppliers.jrxml");
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            InputStream is = getClass().getResourceAsStream("/Reports/Suppliers.jrxml");            
+            JasperDesign jd= JRXmlLoader.load(is);
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();
             
             //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
 
             //view report to UI
             JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (FileNotFoundException | SQLException | JRException ex) {
+        } catch (SQLException | JRException ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_supplierListMenuItemActionPerformed
