@@ -109,7 +109,7 @@ public class NCreditMemo extends javax.swing.JFrame {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            String query = "INSERT into creditmemo (poid, supplier, job, tax, total, createdby, currentTax) values(?,?,?,?,?,?,?);";
+            String query = "INSERT into creditmemo (poid, supplier, job, tax, total, createdby, currentTax,subTotal) values(?,?,?,?,?,?,?,?);";
             PreparedStatement preparedStmt =connObj.prepareStatement(query);
             preparedStmt.setInt(1,selectedPO);
             preparedStmt.setInt(2,selectedSupplier);
@@ -118,6 +118,7 @@ public class NCreditMemo extends javax.swing.JFrame {
             preparedStmt.setDouble(5,0.0);
             preparedStmt.setInt(6,Login.userid);
             preparedStmt.setDouble(7, MainPage.tax);
+            preparedStmt.setDouble(8,0.0);
             preparedStmt.execute();
             connObj.close();
         } catch (SQLException e) {

@@ -254,7 +254,7 @@ FROM
 			</staticText>
 			<image>
 				<reportElement x="10" y="20" width="115" height="81" uuid="425d155e-51d8-4f99-b824-0f39a5857621"/>
-				<imageExpression><![CDATA["C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Resources\\KBellLogo.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="471" y="20" width="217" height="32" uuid="73791a59-76cd-4840-9a78-2731c6406e41"/>

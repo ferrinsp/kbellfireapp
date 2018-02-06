@@ -644,7 +644,7 @@ public class MainPage extends javax.swing.JFrame {
             Map map = new HashMap();
             
             //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(is);
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
 
             //view report to UI

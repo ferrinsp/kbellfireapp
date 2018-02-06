@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="c603f2e0-59b1-4e4c-b189-6ab192f18c05">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="114"/>
+	<property name="ireport.y" value="18"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -110,10 +110,10 @@ FROM
 		<band height="102" splitType="Stretch">
 			<image>
 				<reportElement x="10" y="10" width="115" height="81" uuid="85a3f332-7ad8-4fe9-876a-1f5e91a02840"/>
-				<imageExpression><![CDATA["C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Resources\\KBellLogo.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="125" y="50" width="245" height="48" uuid="9fde3a7d-1e4e-41ee-820d-1491b465912a"/>
+				<reportElement x="125" y="43" width="245" height="48" uuid="9fde3a7d-1e4e-41ee-820d-1491b465912a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
@@ -121,7 +121,7 @@ FROM
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="125" y="28" width="245" height="22" uuid="adf11c6e-50fb-4365-a73d-b64c7683d6ca"/>
+				<reportElement x="125" y="21" width="245" height="22" uuid="adf11c6e-50fb-4365-a73d-b64c7683d6ca"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>

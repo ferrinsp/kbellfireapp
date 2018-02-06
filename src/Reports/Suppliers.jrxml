@@ -106,6 +106,7 @@ FROM
 		<band height="103" splitType="Stretch">
 			<staticText>
 				<reportElement x="125" y="28" width="245" height="22" uuid="8198f083-a860-488a-8b8d-dc7e6e78f93e"/>
+				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
@@ -114,10 +115,11 @@ FROM
 			</staticText>
 			<image>
 				<reportElement x="10" y="10" width="115" height="81" uuid="17bdeffe-86d3-4f44-8f31-5a91e696654b"/>
-				<imageExpression><![CDATA["C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Resources\\KBellLogo.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="125" y="50" width="245" height="41" uuid="bd4e0037-bb2b-4e3e-9ad7-91640b3c1d3a"/>
+				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>

@@ -3,6 +3,7 @@ package gui;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,6 +20,8 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class ProductReportDates extends javax.swing.JFrame {
@@ -171,9 +174,8 @@ public class ProductReportDates extends javax.swing.JFrame {
 
     private void generateProductReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateProductReportButtonActionPerformed
         try {
-            FileInputStream fis = new FileInputStream("C:\\Users\\ferrinsp\\Documents\\GitHub\\kbplumbapp\\src\\Reports\\Products.jrxml");            
-            //FileInputStream fis = new FileInputStream("C:/Users/tatewtaylor/Documents/NetbeansProjects/KBApp/src/Reports/Products.jrxml");
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
+            InputStream is = getClass().getResourceAsStream("/Reports/Products.jrxml");            
+            JasperDesign jd= JRXmlLoader.load(is);
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
 
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -182,12 +184,12 @@ public class ProductReportDates extends javax.swing.JFrame {
             map.put("date",(String)df.format(startDatePicker.getDate()));
             map.put("dateto",(String)df.format(endDatePicker.getDate()));
             //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(bufferedInputStream);
+            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
             //view report to UI
             JasperViewer.viewReport(jasperPrint, false);                   
             this.dispose();
-        } catch (FileNotFoundException | SQLException | JRException ex) {
+        } catch (SQLException | JRException ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_generateProductReportButtonActionPerformed
