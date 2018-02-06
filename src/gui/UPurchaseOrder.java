@@ -68,7 +68,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 createdBy.setText(resultObj.getString("user"));
                 supplierName.setText(resultObj.getString("companyname"));
                 shipTo.setText(resultObj.getString("shipto"));
-                taxRate.setText(Integer.toString(resultObj.getInt("currentTax")));
+                taxRate.setText(Double.toString(resultObj.getDouble("currentTax")));
                 d= resultObj.getDate("created");
                 dateCreated.setText(df.format(d));
                 commentsArea.setText(resultObj.getString("comments"));

@@ -45,8 +45,8 @@ public class UCreditMemo extends javax.swing.JFrame {
                 supplierTextField.setText(resultObj.getString("companyname"));
                 createdByTextField.setText(resultObj.getString("user"));
                 jobTextField.setText(resultObj.getString("name"));
-                totalTextField.setText(resultObj.getString("total"));
-                taxTextField.setText(Integer.toString(resultObj.getInt("tax")));
+                totalTextField.setText(Double.toString(resultObj.getDouble("total")));
+                taxTextField.setText(Double.toString(resultObj.getDouble("tax")));
                 d= resultObj.getDate("created");
                 createdDateField.setText(df.format(d));
                 commentsTextArea.setText("");
