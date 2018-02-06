@@ -71,7 +71,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 taxRate.setText(Integer.toString(resultObj.getInt("currentTax")));
                 d= resultObj.getDate("created");
                 dateCreated.setText(df.format(d));
-                commentsArea.setText("comments");
+                commentsArea.setText(resultObj.getString("comments"));
                 switch (resultObj.getString("status")) {
                     case "Back Order":
                         rdbBackOrder.setSelected(true);

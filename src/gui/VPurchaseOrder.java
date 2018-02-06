@@ -22,21 +22,18 @@ public class VPurchaseOrder extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select t1.orderid,t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
-            "t3.name, b.name, t1.total from purchaseorder t1\n" +
-            "inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
-            "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid"
-                    + "where t1.status not like '%Completed%';");
+            resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
+            "t3.name, b.name, t1.total from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
+            "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status not Like '%Completed%' order by t1.status,t4.companyname;");
             purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
             purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
             purchaseOrder.getColumn("companyname").setHeaderValue("Company");
             purchaseOrder.getColumn("name").setHeaderValue("Job");
-            purchaseOrder.getColumn("status").setHeaderValue("Status");
             purchaseOrder.getColumn("expectedby").setHeaderValue("Expected By");
             purchaseOrder.getColumn("name").setHeaderValue("Issued By");
             purchaseOrder.getColumn("name").setHeaderValue("Ship To");
             purchaseOrder.getColumn("total").setHeaderValue("Invoice Total");
-            purchaseOrder.repaint();
+            purchaseOrder.getColumn("status").setHeaderValue("Status");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,11 +105,11 @@ public class VPurchaseOrder extends javax.swing.JFrame {
 
         purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Purchase Order", "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total"
+                "Purchase Order", "Status", "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total"
             }
         ));
         purchaseOrder.getTableHeader().setReorderingAllowed(false);
