@@ -142,15 +142,18 @@ public class MainPage extends javax.swing.JFrame {
         create_Job = new javax.swing.JMenuItem();
         view_Job = new javax.swing.JMenuItem();
         Purchase_Order = new javax.swing.JMenu();
+        completedPOs = new javax.swing.JMenuItem();
         Create_Purchase_Order = new javax.swing.JMenuItem();
         View_Purchase_Order = new javax.swing.JMenuItem();
         Credit_Memo = new javax.swing.JMenu();
+        completedCM = new javax.swing.JMenuItem();
         newCreditMemo = new javax.swing.JMenuItem();
         viewCreditMemo = new javax.swing.JMenuItem();
         Product = new javax.swing.JMenu();
         miscFunction = new javax.swing.JMenuItem();
         newProduct = new javax.swing.JMenuItem();
         quoteMenu = new javax.swing.JMenuItem();
+        productHistory = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
         Reports = new javax.swing.JMenu();
         jobListMenuItem = new javax.swing.JMenuItem();
@@ -391,6 +394,15 @@ public class MainPage extends javax.swing.JFrame {
 
         Purchase_Order.setText("Purchase Orders");
 
+        completedPOs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK));
+        completedPOs.setText("Completed Purchase Order's");
+        completedPOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                completedPOsActionPerformed(evt);
+            }
+        });
+        Purchase_Order.add(completedPOs);
+
         Create_Purchase_Order.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         Create_Purchase_Order.setText("New Purchase Order");
         Create_Purchase_Order.addActionListener(new java.awt.event.ActionListener() {
@@ -412,6 +424,15 @@ public class MainPage extends javax.swing.JFrame {
         MenuBar.add(Purchase_Order);
 
         Credit_Memo.setText("Credit Memo");
+
+        completedCM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
+        completedCM.setText("Completed Credit Memo's");
+        completedCM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                completedCMActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(completedCM);
 
         newCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         newCreditMemo.setText("New Credit Memo");
@@ -461,6 +482,15 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         Product.add(quoteMenu);
+
+        productHistory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        productHistory.setText("Product History");
+        productHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productHistoryActionPerformed(evt);
+            }
+        });
+        Product.add(productHistory);
 
         View_Product.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         View_Product.setText("View/Update Item");
@@ -703,6 +733,21 @@ public class MainPage extends javax.swing.JFrame {
         NQuote quote = new NQuote();
         quote.setVisible(true);
     }//GEN-LAST:event_quoteMenuActionPerformed
+
+    private void productHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productHistoryActionPerformed
+        ProductHistory ph = new ProductHistory();
+        ph.setVisible(true);
+    }//GEN-LAST:event_productHistoryActionPerformed
+
+    private void completedPOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completedPOsActionPerformed
+        VCompletePOs cPO = new VCompletePOs();
+        cPO.setVisible(true);
+    }//GEN-LAST:event_completedPOsActionPerformed
+
+    private void completedCMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completedCMActionPerformed
+        VCompleteCMs cCM = new VCompleteCMs();
+        cCM.setVisible(true);
+    }//GEN-LAST:event_completedCMActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -744,6 +789,8 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem View_Purchase_Order;
     private javax.swing.JMenuItem View_Supplier;
     private javax.swing.JTextField boCount;
+    private javax.swing.JMenuItem completedCM;
+    private javax.swing.JMenuItem completedPOs;
     private javax.swing.JMenuItem create_Job;
     private javax.swing.JTextField issuedCount;
     private javax.swing.JLabel jLabel1;
@@ -761,6 +808,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem newCreditMemo;
     private javax.swing.JMenuItem newProduct;
     private javax.swing.JTextField pendingCount;
+    private javax.swing.JMenuItem productHistory;
     private javax.swing.JMenuItem productListMenuItem;
     private javax.swing.JTable purchaseOrder;
     private javax.swing.JMenuItem quoteMenu;
