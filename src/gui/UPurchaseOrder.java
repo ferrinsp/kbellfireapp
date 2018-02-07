@@ -95,15 +95,22 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             PreparedStatement preparedStmt;
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             //Update 
-            int detailID=0;
-            int value=0;
+            int detailID;
+            int value;
+            double total=0;
+            double product=0;
             for (int i=0;i<itemTable.getRowCount();i++){
                 detailID=Integer.parseInt(itemTable.getValueAt(i, 0).toString());
                 value=Integer.parseInt(itemTable.getValueAt(i, 3).toString());
-                query="Update purchaseorderdetails set receivedqty=? where detailsid="+detailID+";";
+                product=Double.parseDouble(itemTable.getValueAt(i, 2).toString()) * Double.parseDouble(itemTable.getValueAt(i, 4).toString());
+                total +=product;
+                query="Update purchaseorderdetails set receivedqty=?, cost =?, total=?, orderqty =?  where detailsid="+detailID+";";
                 //Get Values to insert
                 preparedStmt =connObj.prepareStatement(query);
                 preparedStmt.setInt (1, value);
+                preparedStmt.setDouble(2,Double.parseDouble(itemTable.getValueAt(i, 4).toString()));
+                preparedStmt.setDouble(3,product);
+                preparedStmt.setInt(4,Integer.parseInt(itemTable.getValueAt(i, 2).toString())); 
                 preparedStmt.executeUpdate();
                 
             }
@@ -115,11 +122,13 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     poStatus = button.getText();
                 }
             }
-            query = "Update purchaseorder set status=?, comments=? where orderid="+id+";";
+            query = "Update purchaseorder set status=?, comments=? , expectedby =? , total= ? where orderid="+id+";";
             //Get Values to update
             preparedStmt =connObj.prepareStatement(query);
             preparedStmt.setString (1, poStatus);
             preparedStmt.setString (2, commentsArea.getText());
+            preparedStmt.setDate(3, new java.sql.Date(expectedDate.getDate().getTime()));
+            preparedStmt.setDouble(4,total);
             preparedStmt.executeUpdate();
             connObj.close();
             this.id= -1;
