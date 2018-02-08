@@ -442,7 +442,8 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 row[1] = model1.getValueAt(itemsSearchTable.convertRowIndexToModel(index[0]), 1); //description
                 row[2] = model2.getValueAt(index2[0], 2);//MFC
                 row[3] = model2.getValueAt(index2[0], 3);//Part ID
-                row[4] = model2.getValueAt(index2[0], 5); //qty
+                int qty = 1;
+                row[4] = qty;
                 row[5] = model2.getValueAt(index2[0], 1);  //Unit Of Measure
                 row[6] = model2.getValueAt(index2[0], 4);  //Unit Price
                 total = Double.parseDouble(row[4].toString()) * Double.parseDouble(row[6].toString());
