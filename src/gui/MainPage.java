@@ -149,10 +149,12 @@ public class MainPage extends javax.swing.JFrame {
         completedPOs = new javax.swing.JMenuItem();
         Create_Purchase_Order = new javax.swing.JMenuItem();
         View_Purchase_Order = new javax.swing.JMenuItem();
+        printPO = new javax.swing.JMenuItem();
         Credit_Memo = new javax.swing.JMenu();
         completedCM = new javax.swing.JMenuItem();
         newCreditMemo = new javax.swing.JMenuItem();
         viewCreditMemo = new javax.swing.JMenuItem();
+        printCM = new javax.swing.JMenuItem();
         Product = new javax.swing.JMenu();
         miscFunction = new javax.swing.JMenuItem();
         newProduct = new javax.swing.JMenuItem();
@@ -436,6 +438,14 @@ public class MainPage extends javax.swing.JFrame {
         });
         Purchase_Order.add(View_Purchase_Order);
 
+        printPO.setText("Print Purchase Order");
+        printPO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printPOActionPerformed(evt);
+            }
+        });
+        Purchase_Order.add(printPO);
+
         MenuBar.add(Purchase_Order);
 
         Credit_Memo.setText("Credit Memo");
@@ -466,6 +476,14 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         Credit_Memo.add(viewCreditMemo);
+
+        printCM.setText("Print Credit Memo");
+        printCM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printCMActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(printCM);
 
         MenuBar.add(Credit_Memo);
 
@@ -763,6 +781,16 @@ public class MainPage extends javax.swing.JFrame {
         VCompleteCMs cCM = new VCompleteCMs();
         cCM.setVisible(true);
     }//GEN-LAST:event_completedCMActionPerformed
+
+    private void printPOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPOActionPerformed
+        ReprintReports print = new ReprintReports();
+        print.setVisible(true);
+    }//GEN-LAST:event_printPOActionPerformed
+
+    private void printCMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printCMActionPerformed
+        ReprintReports print = new ReprintReports();
+        print.setVisible(true);
+    }//GEN-LAST:event_printCMActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -823,6 +851,8 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem newCreditMemo;
     private javax.swing.JMenuItem newProduct;
     private javax.swing.JTextField pendingCount;
+    private javax.swing.JMenuItem printCM;
+    private javax.swing.JMenuItem printPO;
     private javax.swing.JMenuItem productHistory;
     private javax.swing.JMenuItem productListMenuItem;
     private javax.swing.JTable purchaseOrder;
