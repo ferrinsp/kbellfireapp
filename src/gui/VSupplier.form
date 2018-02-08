@@ -142,6 +142,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="supplier.addMouseListener(new MouseAdapter() {&#xa;    public void mousePressed(MouseEvent me) {&#xa;        JTable table =(JTable) me.getSource();&#xa;        Point p = me.getPoint();&#xa;        int row = table.rowAtPoint(p);&#xa;        if (me.getClickCount() ==2 ) {&#xa;            NSupplier addSupplier = new NSupplier((int)supplier.getValueAt(row, 0));&#xa;            addSupplier.setVisible(true);&#xa;        }&#xa;    }&#xa;});"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

@@ -42,6 +42,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" pref="238" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -147,6 +148,9 @@
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="viewCreditMemoTable.addMouseListener(new MouseAdapter() {&#xa;            public void mousePressed(MouseEvent me) {&#xa;                JTable table =(JTable) me.getSource();&#xa;                Point p = me.getPoint();&#xa;                int row = table.rowAtPoint(p);&#xa;                if (me.getClickCount() ==2 ) {&#xa;                    UCreditMemo updateCreditMemo = new UCreditMemo((int) viewCreditMemoTable.getValueAt(row, 0));&#xa;                    updateCreditMemo.setVisible(true);&#xa;                }&#xa;            }&#xa;        });"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

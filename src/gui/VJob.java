@@ -1,12 +1,16 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 public class VJob extends javax.swing.JFrame {
@@ -120,6 +124,18 @@ public class VJob extends javax.swing.JFrame {
                 "Job Name", "Address", "City", "State", "Postal Code", "Bid Amount", "Status", "Comments"
             }
         ));
+        viewJob.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table =(JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() ==2 ) {
+                    String name =  (String) viewJob.getValueAt(row, 0);
+                    Job job = new Job(name);
+                    job.setVisible(true);
+                }
+            }
+        });
         view_job.setViewportView(viewJob);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

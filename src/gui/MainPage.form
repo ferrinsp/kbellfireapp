@@ -395,7 +395,7 @@
                 <Component class="javax.swing.JTable" name="purchaseOrder">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="purchaseOrder.addMouseListener(new MouseAdapter() {&#xa;public void mousePressed(MouseEvent me) {&#xa;JTable table =(JTable) me.getSource();&#xa;Point p = me.getPoint();&#xa;int row = table.rowAtPoint(p);&#xa;if (me.getClickCount() ==2 ) {&#xa;    UPurchaseOrder updatePO = new UPurchaseOrder((int) purchaseOrder.getValueAt(row,0));&#xa;    updatePO.setVisible(true);&#xa;}&#xa;}&#xa;});">
                       <Table columnCount="8" rowCount="1">
                         <Column editable="false" title="Purchase Order" type="java.lang.Integer"/>
                         <Column editable="false" title="Supplier " type="java.lang.Object"/>

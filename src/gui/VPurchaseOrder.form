@@ -187,6 +187,9 @@
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="purchaseOrder.addMouseListener(new MouseAdapter() {&#xa;public void mousePressed(MouseEvent me) {&#xa;JTable table =(JTable) me.getSource();&#xa;Point p = me.getPoint();&#xa;int row = table.rowAtPoint(p);&#xa;if (me.getClickCount() ==2 ) {&#xa;    UPurchaseOrder updatePO = new UPurchaseOrder((int) purchaseOrder.getValueAt(row,0));&#xa;    updatePO.setVisible(true);&#xa;}&#xa;}&#xa;});"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 6000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT =1
+AUTO_INCREMENT =1000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -203,7 +203,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`productdescription` (
   `pdescID` INT(10) NOT NULL AUTO_INCREMENT,
-  `productDescription` VARCHAR(45) NOT NULL,
+  `productDescription` VARCHAR(60) NOT NULL,
   `productsize` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`pdescID`))
 ENGINE = InnoDB
@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`product` (
   `part_id` VARCHAR(15) NULL DEFAULT NULL,
   `manufacturer` VARCHAR(15) NULL DEFAULT NULL,
   `supplier` SMALLINT(10) NOT NULL,
-  `price` DECIMAL(10,2) NOT NULL,
+  `price` DECIMAL(10,3) NOT NULL,
   `status` VARCHAR(45) NULL DEFAULT 'Active',
   `lastchange` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

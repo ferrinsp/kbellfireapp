@@ -66,8 +66,8 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="ItemTable">
           <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="9" rowCount="10">
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="ItemTable.addMouseListener(new MouseAdapter() {&#xa;public void mousePressed(MouseEvent me) {&#xa;JTable table =(JTable) me.getSource();&#xa;Point p = me.getPoint();&#xa;int row = table.rowAtPoint(p);&#xa;if (me.getClickCount() ==2 ) {&#xa;    int prod= findProduct(ItemTable.getValueAt(row, 2).toString(),ItemTable.getValueAt(row, 1).toString());&#xa;    NUItem addItem = new NUItem(prod);&#xa;    addItem.setVisible(true);&#xa;}&#xa;}&#xa;});">
+              <Table columnCount="9" rowCount="1">
                 <Column editable="false" title="Category" type="java.lang.Object"/>
                 <Column editable="false" title="Description" type="java.lang.Object"/>
                 <Column editable="false" title="Part Number" type="java.lang.Object"/>

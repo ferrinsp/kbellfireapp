@@ -35,6 +35,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     public void filter (){
         String text = searchField.getText();
         String filter = (String) CategoryList.getSelectedItem();
+        PriceTable.setModel(new DefaultTableModel());
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) itemsSearchTable.getModel())); 
         //No sort
         if (text.length() ==0 && filter.equalsIgnoreCase("Filter By Category")){
@@ -169,7 +170,16 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         itemsSearchTable = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
-        PriceTable = new javax.swing.JTable();
+        PriceTable = new javax.swing.JTable()
+        {
+            public void changeSelection(final int row, final int column, boolean toggle, boolean extend)
+            {
+                super.changeSelection(row, column, toggle, extend);
+                PriceTable.editCellAt(row, column);
+                PriceTable.transferFocus();
+            }
+        }
+        ;
         n_u_product = new javax.swing.JButton();
         addItemToPO = new javax.swing.JButton();
         itemsAddedToPO = new javax.swing.JTabbedPane();

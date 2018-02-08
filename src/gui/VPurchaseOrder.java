@@ -1,12 +1,16 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 public class VPurchaseOrder extends javax.swing.JFrame {
@@ -24,7 +28,7 @@ public class VPurchaseOrder extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
             "t3.name, b.name, t1.total from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
-            "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status not Like '%Completed%' order by t1.status,t4.companyname;");
+            "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status not Like '%Completed%' order by t1.status,t4.companyname,expectedby;");
             purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
             purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
             purchaseOrder.getColumn("companyname").setHeaderValue("Company");
@@ -113,6 +117,17 @@ public class VPurchaseOrder extends javax.swing.JFrame {
             }
         ));
         purchaseOrder.getTableHeader().setReorderingAllowed(false);
+        purchaseOrder.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table =(JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() ==2 ) {
+                    UPurchaseOrder updatePO = new UPurchaseOrder((int) purchaseOrder.getValueAt(row,0));
+                    updatePO.setVisible(true);
+                }
+            }
+        });
         view_purchase_orders1.setViewportView(purchaseOrder);
 
         javax.swing.GroupLayout Main_Panel1Layout = new javax.swing.GroupLayout(Main_Panel1);

@@ -3,11 +3,14 @@ package gui;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 public class VSupplier extends javax.swing.JFrame {
@@ -84,6 +87,17 @@ public class VSupplier extends javax.swing.JFrame {
                 "Supplier ID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms", "Comments"
             }
         ));
+        supplier.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table =(JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() ==2 ) {
+                    NSupplier addSupplier = new NSupplier((int)supplier.getValueAt(row, 0));
+                    addSupplier.setVisible(true);
+                }
+            }
+        });
         view_supplier_list.setViewportView(supplier);
 
         addSupplierButton.setText("Add Supplier");

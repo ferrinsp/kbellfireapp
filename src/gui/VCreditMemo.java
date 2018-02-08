@@ -1,12 +1,16 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 public class VCreditMemo extends javax.swing.JFrame {
@@ -55,6 +59,17 @@ public class VCreditMemo extends javax.swing.JFrame {
             }
         });
         viewCreditMemoTable.getTableHeader().setReorderingAllowed(false);
+        viewCreditMemoTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table =(JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() ==2 ) {
+                    UCreditMemo updateCreditMemo = new UCreditMemo((int) viewCreditMemoTable.getValueAt(row, 0));
+                    updateCreditMemo.setVisible(true);
+                }
+            }
+        });
         jScrollPane1.setViewportView(viewCreditMemoTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -129,6 +144,7 @@ public class VCreditMemo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -171,7 +187,7 @@ public class VCreditMemo extends javax.swing.JFrame {
         else{
             UCreditMemo updateCreditMemo = new UCreditMemo((int) viewCreditMemoTable.getValueAt(index[0], 0));
             updateCreditMemo.setVisible(true);
-            //this.dispose();
+            this.dispose();
         }
     }//GEN-LAST:event_updateCMButtonActionPerformed
 

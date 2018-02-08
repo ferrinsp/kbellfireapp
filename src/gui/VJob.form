@@ -173,6 +173,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="viewJob.addMouseListener(new MouseAdapter() {&#xa;            public void mousePressed(MouseEvent me) {&#xa;                JTable table =(JTable) me.getSource();&#xa;                Point p = me.getPoint();&#xa;                int row = table.rowAtPoint(p);&#xa;                if (me.getClickCount() ==2 ) {&#xa;                    String name =  (String) viewJob.getValueAt(row, 0);&#xa;                    Job job = new Job(name);&#xa;                    job.setVisible(true);&#xa;                }&#xa;            }&#xa;        });"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

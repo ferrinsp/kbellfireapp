@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CreditMemo" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
-	<property name="ireport.zoom" value="3.138428376721005"/>
-	<property name="ireport.x" value="1002"/>
-	<property name="ireport.y" value="155"/>
+	<property name="ireport.zoom" value="2.8531167061100065"/>
+	<property name="ireport.x" value="370"/>
+	<property name="ireport.y" value="0"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -316,7 +316,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 			</staticText>
 			<image>
 				<reportElement x="15" y="15" width="115" height="81" uuid="92de5175-d5e0-4f48-82b7-401ee59763fe"/>
-				<imageExpression class="java.lang.String"><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="15" y="114" width="26" height="14" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
@@ -382,6 +382,13 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 				</textElement>
 				<textFieldExpression><![CDATA[$F{supcity}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="156" y="0" width="177" height="33" uuid="f847b0a9-3528-4711-ac09-fd0817622a07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CREDIT MEMO]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnFooter>
