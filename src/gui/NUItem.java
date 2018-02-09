@@ -39,7 +39,6 @@ public class NUItem extends javax.swing.JFrame {
         return index;
     }
     private int findSupplier(String s){
-        System.out.println(s);
         int index=-1;
         for (int i=0;i<supplier.length;i++){
             if(s.equals(supplier[i][1]))
@@ -136,10 +135,14 @@ public class NUItem extends javax.swing.JFrame {
                 priceTextField.setText(resultObj.getString("price"));
                 unitMeasure.setSelectedItem(resultObj.getString("unitMeasure"));
                 lastChanged.setDate(resultObj.getDate("lastchange"));
-                if (resultObj.getString("status").equalsIgnoreCase("Active"))
-                    rdbActive.setSelected(true);
-                else
-                    rdbInactive.setSelected(true);
+                switch (resultObj.getString("status")) {
+                    case "Inactive":
+                        rdbInactive.setSelected(true);
+                        break;
+                    default:
+                        rdbActive.setSelected(true);
+                        break;
+                }
             }
             }catch(SQLException e){
                 e.printStackTrace();

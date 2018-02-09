@@ -48,7 +48,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         }
         //Sort on text only
         else if(text.length() >0 && filter.equalsIgnoreCase("Filter By Category")){
-            sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" +searchField.getText()));
             itemsSearchTable.setRowSorter(sorter);
         }
         else{
@@ -80,7 +80,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             resultObj = stateObj.executeQuery("select pdescID from productdescription where productDescription ='"+desc+"';");
             while (resultObj.next()){
                 index =resultObj.getInt("pdescID");
-                System.out.println(index);
             }
             connObj.close();
         } catch (SQLException e) {
@@ -117,7 +116,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select s.companyname, p.unitMeasure,manufacturer, part_id, p.price, 0 as 'Quantity' from product p \n" +
+            resultObj = stateObj.executeQuery("select s.companyname, p.unitMeasure,manufacturer, part_id, p.price, 1 as 'Quantity' from product p \n" +
 "inner join supplier s on p.supplier =s.supplierid  INNER JOIN productdescription pd on pd.pdescID = p.description \n" +
 "inner join category c on c.category_ID=p.category_id where p.description ="+description +" and p.category_id="+category+" and p.status NOT LIKE '%Inactive%' order by p.price;");
             PriceTable.setModel(DbUtils.resultSetToTableModel(resultObj));
@@ -442,8 +441,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 row[1] = model1.getValueAt(itemsSearchTable.convertRowIndexToModel(index[0]), 1); //description
                 row[2] = model2.getValueAt(index2[0], 2);//MFC
                 row[3] = model2.getValueAt(index2[0], 3);//Part ID
-                String qty = "1";
-                row[4] = qty;
+                row[4] = model2.getValueAt(index2[0], 5);
                 row[5] = model2.getValueAt(index2[0], 1);  //Unit Of Measure
                 row[6] = model2.getValueAt(index2[0], 4);  //Unit Price
                 total = Double.parseDouble(row[4].toString()) * Double.parseDouble(row[6].toString());

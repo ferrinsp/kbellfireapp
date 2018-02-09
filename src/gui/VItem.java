@@ -33,7 +33,7 @@ public class VItem extends javax.swing.JFrame {
         String text = searchField.getText();
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(((DefaultTableModel) ItemTable.getModel())); 
         if(text.length() >0 ){
-            sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" +searchField.getText()));
             ItemTable.setRowSorter(sorter);
         }
     }
@@ -42,13 +42,10 @@ public class VItem extends javax.swing.JFrame {
          try{
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            System.out.println(supplier + descp);
             resultObj = stateObj.executeQuery("SELECT p.id from product p inner join category c on c.category_ID=p.category_id inner join productdescription pd on p.description=pd.pdescID \n" +
             "inner join supplier s on s.supplierid=p.supplier where s.companyname like '%"+supplier+"%' and pd.productDescription like '%"+descp+"%';"); 
              while (resultObj.next()){
-                 
                  id= resultObj.getInt("id");
-                 System.out.println("PRODUCT NUBMER IN find"+id);
              }
          } catch (SQLException ex) {
             Logger.getLogger(VItem.class.getName()).log(Level.SEVERE, null, ex);
@@ -251,10 +248,9 @@ public class VItem extends javax.swing.JFrame {
         }
         else{
             int prod= findProduct(ItemTable.getValueAt(index[0], 2).toString(),ItemTable.getValueAt(index[0], 1).toString());
-            System.out.println("PRODUCT NUMBER "+prod);
             NUItem addItem = new NUItem(prod);
             addItem.setVisible(true);
-            //this.dispose();
+            this.dispose();
         }
     }//GEN-LAST:event_updateItemButtonActionPerformed
 

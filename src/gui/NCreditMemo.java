@@ -324,7 +324,7 @@ public class NCreditMemo extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboPOItemStateChanged
 
     private void IssueCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IssueCreditMemoActionPerformed
-        if(purchaseOrderItemTable.getRowCount()==0)
+        if(purchaseOrderItemTable.getSelectedRows().length==0)
             JOptionPane.showMessageDialog(null, "No items added for Purchase Order.");
         else
             insertCreditMemo();

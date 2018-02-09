@@ -116,7 +116,6 @@ public class NQuote extends javax.swing.JFrame {
             wb.close();
         }catch(IOException e){ 
             e.printStackTrace();
-            System.out.println(e); 
         }
     }
     

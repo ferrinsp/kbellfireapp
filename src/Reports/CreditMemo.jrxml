@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CreditMemo" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
 	<property name="ireport.zoom" value="2.8531167061100065"/>
-	<property name="ireport.x" value="370"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="668"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -174,14 +174,14 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid =$
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<queryString>
-			<![CDATA[Select cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', cmd.total AS 'ProdTotal',  cmd.cost as 'Price', pd.productDescription as 'Description',s.companyname as 'Supplier'
+			<![CDATA[Select CONCAT('(',CONVERT(cmd.qty, CHAR(10)),')') as 'qty',p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', CONCAT('(',CONVERT(cmd.total, CHAR(10)),')') AS 'ProdTotal',  cmd.cost as 'Price', pd.productDescription as 'Description',s.companyname as 'Supplier'
 from creditmemo cm inner join job j on j.jobid=cm.job
 inner join supplier s on s.supplierid=cm.supplier
 inner join creditmemodetail cmd on cmd.creditmemoid=cm.memoid
 inner join product p on cmd.product =p.id
 inner join productdescription pd on pd.pdescID= p.description where cm.memoid =$P{memoid};]]>
 		</queryString>
-		<field name="qty" class="java.lang.Integer">
+		<field name="qty" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="Unit" class="java.lang.String"/>
@@ -189,7 +189,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid =$
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="Part #" class="java.lang.String"/>
-		<field name="ProdTotal" class="java.math.BigDecimal"/>
+		<field name="ProdTotal" class="java.lang.String"/>
 		<field name="Price" class="java.math.BigDecimal"/>
 		<field name="Description" class="java.lang.String"/>
 		<field name="Supplier" class="java.lang.String"/>
@@ -199,8 +199,8 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid =$
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select LPAD(CONVERT(cm.memoid,CHAR(10)), 5, '0') as 'fmemoid',cm.memoid,LPAD(CONVERT(cm.poid, CHAR(10)), 5, '0') as 'poid',j.name,cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', cm.total AS 'CMTotal', CONCAT(cm.currentTax,'%') as 'currentTax',
-cm.tax as 'TaxTotal', cmd.cost as 'Price', pd.productDescription as 'Description', cm.subTotal,s.companyname as 'Supplier',s.address1 as 'Address',
+		<![CDATA[Select LPAD(CONVERT(cm.memoid,CHAR(10)), 5, '0') as 'fmemoid',cm.memoid,LPAD(CONVERT(cm.poid, CHAR(10)), 5, '0') as 'poid',j.name,cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', CONCAT('-',CONVERT(cm.total, CHAR(10))) AS 'CMTotal', CONCAT(cm.currentTax,'%') as 'currentTax',
+CONCAT('-',CONVERT(cm.tax, CHAR(10))) as 'TaxTotal', cmd.cost as 'Price', pd.productDescription as 'Description', CONCAT('-',CONVERT(cm.subTotal, CHAR(10))) as 'subTotal',s.companyname as 'Supplier',s.address1 as 'Address',
 s.contact, CONCAT(s.city,", ",s.state," ",s.postalcode) as 'supcity', u.name as 'createdby'
 from creditmemo cm inner join job j on j.jobid=cm.job
 inner join user u on u.userid=cm.createdby 
@@ -227,14 +227,14 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Part #" class="java.lang.String"/>
-	<field name="CMTotal" class="java.math.BigDecimal"/>
+	<field name="CMTotal" class="java.lang.String"/>
 	<field name="currentTax" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="TaxTotal" class="java.math.BigDecimal"/>
+	<field name="TaxTotal" class="java.lang.String"/>
 	<field name="Price" class="java.math.BigDecimal"/>
 	<field name="Description" class="java.lang.String"/>
-	<field name="subTotal" class="java.math.BigDecimal">
+	<field name="subTotal" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Supplier" class="java.lang.String"/>
@@ -542,7 +542,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 								<reportElement x="0" y="0" width="26" height="30" uuid="3eee06f8-338e-438f-a5a8-442a07750125"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
+									<font fontName="Arial" size="10"/>
 								</textElement>
 								<text><![CDATA[Qty]]></text>
 							</staticText>
@@ -558,23 +558,23 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="27" uuid="92ee7957-7cee-4fb6-9476-81d59642c940">
+					<jr:column width="22" uuid="92ee7957-7cee-4fb6-9476-81d59642c940">
 						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="27" height="30" uuid="882f5a87-1fb7-467b-9eab-bedacaeecd3f"/>
+								<reportElement x="0" y="0" width="22" height="30" uuid="882f5a87-1fb7-467b-9eab-bedacaeecd3f"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
+									<font fontName="Arial" size="10"/>
 								</textElement>
 								<text><![CDATA[Unit]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="27" height="20" uuid="c67c1bf9-f57d-4317-b9f0-69cfab31bab7"/>
+								<reportElement x="0" y="0" width="22" height="20" uuid="c67c1bf9-f57d-4317-b9f0-69cfab31bab7"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
+									<font fontName="Arial" size="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Unit}]]></textFieldExpression>
 							</textField>
@@ -586,7 +586,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 								<reportElement x="0" y="0" width="76" height="30" uuid="9d74267e-7ea5-4bfc-a23f-255fefdc8215"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
+									<font fontName="Arial" size="10"/>
 								</textElement>
 								<text><![CDATA[MFC]]></text>
 							</staticText>
@@ -608,7 +608,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 								<reportElement x="0" y="0" width="103" height="30" uuid="4ae2d9a1-de98-4450-b79a-31ed6de089c3"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
+									<font fontName="Arial" size="10"/>
 								</textElement>
 								<text><![CDATA[Part #]]></text>
 							</staticText>
@@ -630,7 +630,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 								<reportElement x="0" y="0" width="237" height="30" uuid="95ae346a-6642-4b9e-b4ee-9baf21b6ad7b"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
+									<font fontName="Arial" size="10"/>
 								</textElement>
 								<text><![CDATA[Description]]></text>
 							</staticText>
@@ -646,20 +646,20 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="49" uuid="605d2c9f-1fd1-42ee-be9a-717d761ae9c8">
+					<jr:column width="47" uuid="605d2c9f-1fd1-42ee-be9a-717d761ae9c8">
 						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="49" height="30" uuid="ebb86fcb-eb73-4908-80f7-f7a93259ebc7"/>
+								<reportElement x="0" y="0" width="47" height="30" uuid="ebb86fcb-eb73-4908-80f7-f7a93259ebc7"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
+									<font fontName="Arial" size="10"/>
 								</textElement>
 								<text><![CDATA[Unit Cost]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="49" height="20" uuid="ec1646bd-3dff-4041-9375-16350e6d25fe"/>
+								<reportElement x="0" y="0" width="47" height="20" uuid="ec1646bd-3dff-4041-9375-16350e6d25fe"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -668,20 +668,20 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="42" uuid="8c589c5c-975a-4b4d-83d4-afc33b7ac7c9">
+					<jr:column width="49" uuid="8c589c5c-975a-4b4d-83d4-afc33b7ac7c9">
 						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="42" height="30" uuid="775f3671-db84-4659-b788-13fb8bc15ddb"/>
+								<reportElement x="0" y="0" width="49" height="30" uuid="775f3671-db84-4659-b788-13fb8bc15ddb"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
+									<font fontName="Arial" size="10"/>
 								</textElement>
 								<text><![CDATA[Total]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="42" height="20" uuid="0ac73730-24b8-4429-8a9f-ea6ed28dff90"/>
+								<reportElement x="0" y="0" width="49" height="20" uuid="0ac73730-24b8-4429-8a9f-ea6ed28dff90"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
