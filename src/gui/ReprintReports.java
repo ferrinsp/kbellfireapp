@@ -62,8 +62,24 @@ public class ReprintReports extends javax.swing.JFrame {
         });
 
         poNumberTextField.setText("Purchase Order #");
+        poNumberTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                poNumberTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                poNumberTextFieldFocusLost(evt);
+            }
+        });
 
         cmNumberTextField.setText("Credit Memo #");
+        cmNumberTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cmNumberTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmNumberTextFieldFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,9 +91,9 @@ public class ReprintReports extends javax.swing.JFrame {
                     .addComponent(cmNumberTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(poNumberTextField))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(poPrintButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cmPrintButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(poPrintButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmPrintButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -99,19 +115,20 @@ public class ReprintReports extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void poPrintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poPrintButtonActionPerformed
@@ -158,6 +175,24 @@ public class ReprintReports extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_cmPrintButtonActionPerformed
+
+    private void poNumberTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_poNumberTextFieldFocusGained
+        poNumberTextField.setText("");
+    }//GEN-LAST:event_poNumberTextFieldFocusGained
+
+    private void cmNumberTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmNumberTextFieldFocusGained
+        cmNumberTextField.setText("");
+    }//GEN-LAST:event_cmNumberTextFieldFocusGained
+
+    private void poNumberTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_poNumberTextFieldFocusLost
+        if(poNumberTextField.getText().equals(""))
+            poNumberTextField.setText("Purchase Order #");
+    }//GEN-LAST:event_poNumberTextFieldFocusLost
+
+    private void cmNumberTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmNumberTextFieldFocusLost
+        if(cmNumberTextField.getText().equals(""))
+            cmNumberTextField.setText("Credit Memo #");
+    }//GEN-LAST:event_cmNumberTextFieldFocusLost
 
     /**
      * @param args the command line arguments
