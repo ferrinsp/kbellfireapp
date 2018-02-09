@@ -101,14 +101,14 @@ public class ReprintReports extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -124,7 +124,7 @@ public class ReprintReports extends javax.swing.JFrame {
 
             //set parameters
             Map map = new HashMap();
-            map.put("memoid", Integer.parseInt(poid));
+            map.put("poid", Integer.parseInt(poid));
             //compile report
             JasperReport jasperReport = JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
@@ -133,7 +133,6 @@ public class ReprintReports extends javax.swing.JFrame {
         } catch (SQLException | JRException ex) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         this.dispose();
     }//GEN-LAST:event_poPrintButtonActionPerformed
 
