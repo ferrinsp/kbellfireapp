@@ -298,7 +298,7 @@ public class NUItem extends javax.swing.JFrame {
 
         sizeLabel1.setText("Unit of Measure");
 
-        unitMeasure.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bndl", "Box", "Ea", "Ft", "Lift", "Roll" }));
+        unitMeasure.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BNDL", "BOX", "EA", "FT", "LIFT", "ROLL" }));
 
         DescriptionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Description" }));
 

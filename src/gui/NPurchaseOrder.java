@@ -116,7 +116,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select s.companyname, p.unitMeasure,manufacturer, part_id, p.price, 1 as 'Quantity' from product p \n" +
+            resultObj = stateObj.executeQuery("select s.companyname, p.unitMeasure,manufacturer, part_id, p.price, '' as 'Quantity' from product p \n" +
 "inner join supplier s on p.supplier =s.supplierid  INNER JOIN productdescription pd on pd.pdescID = p.description \n" +
 "inner join category c on c.category_ID=p.category_id where p.description ="+description +" and p.category_id="+category+" and p.status NOT LIKE '%Inactive%' order by p.price;");
             PriceTable.setModel(DbUtils.resultSetToTableModel(resultObj));
@@ -441,12 +441,17 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 row[1] = model1.getValueAt(itemsSearchTable.convertRowIndexToModel(index[0]), 1); //description
                 row[2] = model2.getValueAt(index2[0], 2);//MFC
                 row[3] = model2.getValueAt(index2[0], 3);//Part ID
-                row[4] = model2.getValueAt(index2[0], 5);
-                row[5] = model2.getValueAt(index2[0], 1);  //Unit Of Measure
-                row[6] = model2.getValueAt(index2[0], 4);  //Unit Price
-                total = Double.parseDouble(row[4].toString()) * Double.parseDouble(row[6].toString());
-                row[7] = String.format( "%.2f", total);  // Total
-                model3.addRow(row); 
+                if (model2.getValueAt(index2[0], 5).toString().isEmpty())
+                {JOptionPane.showMessageDialog(null, "Please select a quantity to add.");
+                }
+                else{
+                    row[4] = model2.getValueAt(index2[0], 5);
+                    row[5] = model2.getValueAt(index2[0], 1);  //Unit Of Measure
+                    row[6] = model2.getValueAt(index2[0], 4);  //Unit Price
+                    total = Double.parseDouble(row[4].toString()) * Double.parseDouble(row[6].toString());
+                    row[7] = String.format( "%.2f", total);  // Total
+                    model3.addRow(row);
+                }
             }
     }//GEN-LAST:event_addItemToPOActionPerformed
 

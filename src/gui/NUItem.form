@@ -251,12 +251,12 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="6">
-                    <StringItem index="0" value="Bndl"/>
-                    <StringItem index="1" value="Box"/>
-                    <StringItem index="2" value="Ea"/>
-                    <StringItem index="3" value="Ft"/>
-                    <StringItem index="4" value="Lift"/>
-                    <StringItem index="5" value="Roll"/>
+                    <StringItem index="0" value="BNDL"/>
+                    <StringItem index="1" value="BOX"/>
+                    <StringItem index="2" value="EA"/>
+                    <StringItem index="3" value="FT"/>
+                    <StringItem index="4" value="LIFT"/>
+                    <StringItem index="5" value="ROLL"/>
                   </StringArray>
                 </Property>
               </Properties>

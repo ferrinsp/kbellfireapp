@@ -303,7 +303,7 @@
                         <Property name="text" type="java.lang.String" value="Quote #"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quoteNumberActionPerformed"/>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="quoteNumberFocusGained"/>
                       </Events>
                     </Component>
                     <Component class="org.jdesktop.swingx.JXDatePicker" name="quoteDate">

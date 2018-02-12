@@ -224,9 +224,9 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         jLabel7.setText("Quote Date:");
 
         quoteNumber.setText("Quote #");
-        quoteNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quoteNumberActionPerformed(evt);
+        quoteNumber.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                quoteNumberFocusGained(evt);
             }
         });
 
@@ -433,8 +433,17 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             }
             else{
                 try {
-                    String query ="Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax)"
+                    String query;
+                    boolean all =false;
+                    if (quoteNumber.getText().equals("Quote #") && quoteDate.getDate()==null){
+                        query ="Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax)"
                         + "values(?,?,?,?,?,?,?,?,?)"    ;
+                    }
+                    else {
+                        query ="Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax,quote,quotedate)"
+                            + "values(?,?,?,?,?,?,?,?,?,?,?)"    ;
+                        all=true;
+                    }
                     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
                     connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
                     PreparedStatement preparedStmt =connObj.prepareStatement(query);
@@ -471,6 +480,16 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     preparedStmt.setInt (7,Login.userid); //Created by
                     preparedStmt.setInt(8,ship); //ShipTo number
                     preparedStmt.setDouble(9,MainPage.tax); //Current sales Tax
+                    if (all){
+                        int quote = 0;
+                        try {
+                            if (!quoteNumber.getText().equals("Quote #"))
+                                quote=Integer.parseInt(quoteNumber.getText());
+                        }catch(NumberFormatException fe){
+                        };
+                        preparedStmt.setInt(10,quote);
+                        preparedStmt.setDate(11,new java.sql.Date( quoteDate.getDate().getTime()));
+                    }
                     preparedStmt.execute();
                     stateObj = connObj.createStatement();
                     resultObj = stateObj.executeQuery("select max(orderid) as 'id' from purchaseorder;");
@@ -505,6 +524,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                      preparedStmt.setDouble(3,prodSubtotal);
                      preparedStmt.executeUpdate();
                      connObj.close();
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -521,14 +541,9 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     JasperDesign jd= JRXmlLoader.load(is);
                     connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
                     
-                    String quoteNum = quoteNumber.getText();
-                    String date = quoteDate.toString();
-                    
                     //set parameters
                     Map map = new HashMap();
                     map.put("orderid", orderid);
-                    map.put("quoteNumber", quoteNum);
-                    map.put("quoteDate", date);
                     
                     //compile report
                     JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(jd);
@@ -542,9 +557,9 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_createPurchaseOrderButtonActionPerformed
 
-    private void quoteNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quoteNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_quoteNumberActionPerformed
+    private void quoteNumberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quoteNumberFocusGained
+        quoteNumber.setText("");
+    }//GEN-LAST:event_quoteNumberFocusGained
 
     public static void main(String args[]) {
 
