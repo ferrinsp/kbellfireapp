@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
 public class UCreditMemo extends javax.swing.JFrame {
     
@@ -34,11 +35,22 @@ public class UCreditMemo extends javax.swing.JFrame {
         try{
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-    resultObj = stateObj.executeQuery("select cm.poid,s.companyname, j.name, cm.tax,cm.total ,u.name as 'user', cm.status, cm.created\n" +
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select cmd.detailid,pd.productDescription, cmd.qty,cmd.cost,cmd.total from creditmemo cm\n" +
+"inner join creditmemodetail cmd on cmd.creditmemoid=cm.memoid inner join product p on p.id=cmd.product \n" +
+"inner join productdescription pd on pd.pdescID=p.description where cm.memoid="+memoid+";"); 
+            itemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
+            itemTable.getColumn("detailid").setHeaderValue("ID");
+            itemTable.getColumn("productDescription").setHeaderValue("Description");
+            itemTable.getColumn("qty").setHeaderValue("Qty");
+            itemTable.getColumn("cost").setHeaderValue("Unit Price");
+            itemTable.getColumn("total").setHeaderValue("Total");
+            itemTable.repaint();
+            resultObj = stateObj.executeQuery("select cm.poid,s.companyname, j.name, cm.tax,cm.total ,u.name as 'user', cm.status, cm.created\n" +
 "                from creditmemo cm inner join supplier s on s.supplierid=cm.supplier inner join user u on u.userid=cm.createdby\n" +
 "                inner join job j on j.jobid=cm.job where cm.memoid="+memoid+";");
     
-    Date d;
+            Date d;
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
             while (resultObj.next()){
                 purchaseOrderTextField.setText(Integer.toString(resultObj.getInt("poid")));
@@ -103,12 +115,14 @@ public class UCreditMemo extends javax.swing.JFrame {
         createdByTextField = new javax.swing.JTextField();
         createdDateLabel = new javax.swing.JLabel();
         commentsLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        commentsTextArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         issuedStatusButton = new javax.swing.JRadioButton();
         completedStatusButton = new javax.swing.JRadioButton();
         createdDateField = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        itemTable = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        commentsTextArea = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         updateCreditMemoButton = new javax.swing.JButton();
 
@@ -149,10 +163,6 @@ public class UCreditMemo extends javax.swing.JFrame {
 
         commentsLabel.setText("Comments:");
 
-        commentsTextArea.setColumns(20);
-        commentsTextArea.setRows(5);
-        jScrollPane1.setViewportView(commentsTextArea);
-
         jLabel1.setText("Status:");
 
         statusButtons.add(issuedStatusButton);
@@ -165,41 +175,81 @@ public class UCreditMemo extends javax.swing.JFrame {
         createdDateField.setEditable(false);
         createdDateField.setText("Created Date");
 
+        itemTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Description", "Ordered Qty", "Unit Price", "Total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        itemTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(itemTable);
+
+        commentsTextArea.setColumns(20);
+        commentsTextArea.setRows(5);
+        jScrollPane1.setViewportView(commentsTextArea);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 31, Short.MAX_VALUE))
-                    .addComponent(createdDateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(createdByLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(supplierLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jobLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(taxLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(puchaseOrderLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(commentsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(purchaseOrderTextField)
-                    .addComponent(jobTextField)
-                    .addComponent(taxTextField)
-                    .addComponent(supplierTextField)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(commentsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(issuedStatusButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(completedStatusButton))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(createdDateField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(totalTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(createdByTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(106, 106, 106)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(supplierLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(taxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(20, 20, 20)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jobTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(supplierTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                                            .addComponent(taxTextField)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(createdDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(createdDateField))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(createdByLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(createdByTextField))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(totalTextField))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(puchaseOrderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(purchaseOrderTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -220,8 +270,8 @@ public class UCreditMemo extends javax.swing.JFrame {
                     .addComponent(jobLabel))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(taxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(taxLabel))
+                    .addComponent(taxLabel)
+                    .addComponent(taxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,16 +284,18 @@ public class UCreditMemo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createdDateLabel)
                     .addComponent(createdDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(issuedStatusButton)
                     .addComponent(completedStatusButton))
-                .addGap(12, 12, 12)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(commentsLabel)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
         );
 
         updateCreditMemoButton.setText("Update Credit Memo");
@@ -274,11 +326,10 @@ public class UCreditMemo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -286,7 +337,7 @@ public class UCreditMemo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addGap(46, 46, 46)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -334,10 +385,12 @@ public class UCreditMemo extends javax.swing.JFrame {
     private javax.swing.JTextField createdDateField;
     private javax.swing.JLabel createdDateLabel;
     private javax.swing.JRadioButton issuedStatusButton;
+    private javax.swing.JTable itemTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jobLabel;
     private javax.swing.JTextField jobTextField;
     private javax.swing.JLabel puchaseOrderLabel;
