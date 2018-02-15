@@ -141,7 +141,7 @@ public class ReprintReports extends javax.swing.JFrame {
 
             //set parameters
             Map map = new HashMap();
-            map.put("memoid", Integer.parseInt(poid));
+            map.put("orderid", Integer.parseInt(poid));
             //compile report
             JasperReport jasperReport = JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);

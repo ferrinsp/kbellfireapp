@@ -1,12 +1,29 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class VCompletePOs extends javax.swing.JFrame {
     
@@ -22,6 +39,25 @@ public class VCompletePOs extends javax.swing.JFrame {
         selectCompletedPOs();
     }
     
+    private void print(int orderid){
+        try {
+            //Generate Report
+            InputStream is = getClass().getResourceAsStream("/Reports/PO.jrxml");
+            JasperDesign jd= JRXmlLoader.load(is);
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+
+            //set parameters
+            Map map = new HashMap();
+            map.put("orderid", orderid);
+            //compile report
+            JasperReport jasperReport = JasperCompileManager.compileReport(jd);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
+            //view report to UI
+            JasperViewer.viewReport(jasperPrint, false);                   
+        } catch (SQLException | JRException ex) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void selectCompletedPOs() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -77,6 +113,16 @@ public class VCompletePOs extends javax.swing.JFrame {
         ));
         viewCompletedPOs.getTableHeader().setReorderingAllowed(false);
         viewCompletedPOScrollPane.setViewportView(viewCompletedPOs);
+        viewCompletedPOs.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table =(JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() ==2 ) {
+                    print((int) viewCompletedPOs.getValueAt(row,0));
+                }
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

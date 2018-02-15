@@ -197,7 +197,6 @@ public class NUItem extends javax.swing.JFrame {
             else
                 preparedStmt.executeUpdate();
             id=-1;
-            this.dispose();
             connObj.close();
         }
         } catch (SQLException e) {
@@ -468,7 +467,6 @@ public class NUItem extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelAddActionPerformed
 
     private void addNewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewItemActionPerformed
-        //Handle update items and rdb selection
         insertProduct();
     }//GEN-LAST:event_addNewItemActionPerformed
 

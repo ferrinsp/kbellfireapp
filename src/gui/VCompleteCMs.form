@@ -101,6 +101,9 @@
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="completeCreditMemoTable.addMouseListener(new MouseAdapter() {&#xa;public void mousePressed(MouseEvent me) {&#xa;JTable table =(JTable) me.getSource();&#xa;Point p = me.getPoint();&#xa;int row = table.rowAtPoint(p);&#xa;if (me.getClickCount() ==2 ) {&#xa;    print((int) completeCreditMemoTable.getValueAt(row,0));&#xa;}&#xa;}&#xa;});"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
