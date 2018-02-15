@@ -192,10 +192,14 @@ public class NUItem extends javax.swing.JFrame {
             java.util.Date lastDate = lastChanged.getDate();
             java.sql.Date sqlDate = new java.sql.Date(lastDate.getTime());
             preparedStmt.setDate (9, sqlDate);
-            if (id ==-1)
+            if (id ==-1) {
                 preparedStmt.execute();
-            else
+                JOptionPane.showMessageDialog(null, "New item was added.");
+            }
+            else {
                 preparedStmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Item was updated.");
+            }
             id=-1;
             connObj.close();
         }

@@ -37,13 +37,13 @@ public class VItem extends javax.swing.JFrame {
             ItemTable.setRowSorter(sorter);
         }
     }
-    private int findProduct(String supplier, String descp){
+    private int findProduct(String supplier, String descp,Double price){
         int id =-1;
          try{
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("SELECT p.id from product p inner join category c on c.category_ID=p.category_id inner join productdescription pd on p.description=pd.pdescID \n" +
-            "inner join supplier s on s.supplierid=p.supplier where s.companyname like '%"+supplier+"%' and pd.productDescription like '%"+descp+"%';"); 
+            "inner join supplier s on s.supplierid=p.supplier where p.price = "+price+" and s.companyname like '%"+supplier+"%' and pd.productDescription like '%"+descp+"%';"); 
              while (resultObj.next()){
                  id= resultObj.getInt("id");
              }
@@ -127,7 +127,7 @@ public class VItem extends javax.swing.JFrame {
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
                 if (me.getClickCount() ==2 ) {
-                    int prod= findProduct(ItemTable.getValueAt(row, 2).toString(),ItemTable.getValueAt(row, 1).toString());
+                    int prod= findProduct(ItemTable.getValueAt(row, 2).toString(),ItemTable.getValueAt(row, 1).toString(), Double.parseDouble(ItemTable.getValueAt(row, 3).toString()));
                     NUItem addItem = new NUItem(prod);
                     addItem.setVisible(true);
                 }
@@ -247,7 +247,7 @@ public class VItem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Select only one item to update.");
         }
         else{
-            int prod= findProduct(ItemTable.getValueAt(index[0], 2).toString(),ItemTable.getValueAt(index[0], 1).toString());
+            int prod= findProduct(ItemTable.getValueAt(index[0], 2).toString(),ItemTable.getValueAt(index[0], 1).toString(),Double.parseDouble(ItemTable.getValueAt(index[0], 3).toString()));
             NUItem addItem = new NUItem(prod);
             addItem.setVisible(true);
             this.dispose();
