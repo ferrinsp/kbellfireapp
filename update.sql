@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`category` (
   `description` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`category_ID`))
 ENGINE = InnoDB
-AUTO_INCREMENT =1
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -37,7 +37,25 @@ CREATE TABLE IF NOT EXISTS `kbell`.`contact` (
   `contactid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `phone` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`contactid`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `kbell`.`contractor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`contractor` (
+  `contractorid` SMALLINT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `contact` VARCHAR(5) NULL DEFAULT NULL,
+  `address` VARCHAR(45) NOT NULL,
+  `city` VARCHAR(45) NOT NULL,
+  `state` VARCHAR(10) NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`contractorid`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
@@ -72,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`user` (
   `password` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`userid`))
 ENGINE = InnoDB
-AUTO_INCREMENT =1
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -194,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT =1000
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -272,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT =1
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -306,6 +324,15 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `kbell`.`quote`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kbell`.`quote` (
+  `quotecount` INT(11) NOT NULL DEFAULT '1')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
 -- Table `kbell`.`tax`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `kbell`.`tax` (
@@ -317,6 +344,7 @@ DEFAULT CHARACTER SET = utf8;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 
 -- Run this script to load jobs
