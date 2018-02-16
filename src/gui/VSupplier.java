@@ -26,7 +26,7 @@ public class VSupplier extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("Select * from supplier");
+            resultObj = stateObj.executeQuery("select supplierid, companyname, contact, address1, city, state, postalcode, phone, fax, terms, comments from supplier");
             supplier.setModel(DbUtils.resultSetToTableModel(resultObj));
             supplier.getColumn("supplierid").setHeaderValue("Supplier ID");
             supplier.getColumn("companyname").setHeaderValue("Company");
@@ -86,7 +86,15 @@ public class VSupplier extends javax.swing.JFrame {
             new String [] {
                 "Supplier ID", "Company", "Contact", "Address", "City", "State", "Postal Code", "Phone", "Fax", "Terms", "Comments"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         supplier.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 JTable table =(JTable) me.getSource();

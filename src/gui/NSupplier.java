@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.sql.Connection;
@@ -14,12 +9,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class NSupplier extends javax.swing.JFrame {
     
-    /**
-     * Creates new form purchase_orders
-     */
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
@@ -30,7 +21,7 @@ public class NSupplier extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("Select * from supplier where supplierid = "+id);
+            resultObj = stateObj.executeQuery("select companyname, contact, address1, city, state, postalcode, phone, fax, terms, comments from supplier where supplierid = "+id);
             while (resultObj.next()){
                 companyName.setText(resultObj.getString("companyname"));
                 contact.setText(resultObj.getString("contact"));
@@ -44,9 +35,9 @@ public class NSupplier extends javax.swing.JFrame {
                 comments.setText(resultObj.getString("comments"));
             }
             connObj.close();
-        }   catch (SQLException ex) {    
-                Logger.getLogger(NSupplier.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (SQLException ex) {    
+            Logger.getLogger(NSupplier.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public void I_U_Supplier()    {
         try {
