@@ -142,32 +142,34 @@ public class MainPage extends javax.swing.JFrame {
         MenuBar = new javax.swing.JMenuBar();
         File_List = new javax.swing.JMenu();
         logOffFileMenu = new javax.swing.JMenuItem();
-        Jobs = new javax.swing.JMenu();
-        create_Job = new javax.swing.JMenuItem();
-        view_Job = new javax.swing.JMenuItem();
         Purchase_Order = new javax.swing.JMenu();
         completedPOs = new javax.swing.JMenuItem();
         Create_Purchase_Order = new javax.swing.JMenuItem();
-        View_Purchase_Order = new javax.swing.JMenuItem();
         printPO = new javax.swing.JMenuItem();
-        Credit_Memo = new javax.swing.JMenu();
-        completedCM = new javax.swing.JMenuItem();
-        newCreditMemo = new javax.swing.JMenuItem();
-        viewCreditMemo = new javax.swing.JMenuItem();
-        printCM = new javax.swing.JMenuItem();
+        View_Purchase_Order = new javax.swing.JMenuItem();
         Product = new javax.swing.JMenu();
         miscFunction = new javax.swing.JMenuItem();
         newProduct = new javax.swing.JMenuItem();
         quoteMenu = new javax.swing.JMenuItem();
         productHistory = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
+        Contact = new javax.swing.JMenu();
+        viewContacts = new javax.swing.JMenuItem();
+        Jobs = new javax.swing.JMenu();
+        create_Job = new javax.swing.JMenuItem();
+        view_Job = new javax.swing.JMenuItem();
+        Supplier = new javax.swing.JMenu();
+        Create_Supplier = new javax.swing.JMenuItem();
+        View_Supplier = new javax.swing.JMenuItem();
+        Credit_Memo = new javax.swing.JMenu();
+        completedCM = new javax.swing.JMenuItem();
+        newCreditMemo = new javax.swing.JMenuItem();
+        printCM = new javax.swing.JMenuItem();
+        viewCreditMemo = new javax.swing.JMenuItem();
         Reports = new javax.swing.JMenu();
         jobListMenuItem = new javax.swing.JMenuItem();
         productListMenuItem = new javax.swing.JMenuItem();
         supplierListMenuItem = new javax.swing.JMenuItem();
-        Supplier = new javax.swing.JMenu();
-        Create_Supplier = new javax.swing.JMenuItem();
-        View_Supplier = new javax.swing.JMenuItem();
         About = new javax.swing.JMenu();
         Software = new javax.swing.JMenuItem();
 
@@ -376,7 +378,7 @@ public class MainPage extends javax.swing.JFrame {
 
         File_List.setText("File");
 
-        logOffFileMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        logOffFileMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         logOffFileMenu.setText("Logoff");
         logOffFileMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -387,31 +389,9 @@ public class MainPage extends javax.swing.JFrame {
 
         MenuBar.add(File_List);
 
-        Jobs.setText("Jobs");
-
-        create_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
-        create_Job.setText("New Job");
-        create_Job.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                create_JobActionPerformed(evt);
-            }
-        });
-        Jobs.add(create_Job);
-
-        view_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
-        view_Job.setText("View/Update Job");
-        view_Job.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                view_JobActionPerformed(evt);
-            }
-        });
-        Jobs.add(view_Job);
-
-        MenuBar.add(Jobs);
-
         Purchase_Order.setText("Purchase Orders");
 
-        completedPOs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK));
+        completedPOs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         completedPOs.setText("Completed Purchase Order's");
         completedPOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,7 +400,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         Purchase_Order.add(completedPOs);
 
-        Create_Purchase_Order.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        Create_Purchase_Order.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         Create_Purchase_Order.setText("New Purchase Order");
         Create_Purchase_Order.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -429,15 +409,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         Purchase_Order.add(Create_Purchase_Order);
 
-        View_Purchase_Order.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
-        View_Purchase_Order.setText("View/Update Purchase Order");
-        View_Purchase_Order.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                View_Purchase_OrderActionPerformed(evt);
-            }
-        });
-        Purchase_Order.add(View_Purchase_Order);
-
+        printPO.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         printPO.setText("Print Purchase Order");
         printPO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -446,50 +418,20 @@ public class MainPage extends javax.swing.JFrame {
         });
         Purchase_Order.add(printPO);
 
+        View_Purchase_Order.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        View_Purchase_Order.setText("View/Update Purchase Order");
+        View_Purchase_Order.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                View_Purchase_OrderActionPerformed(evt);
+            }
+        });
+        Purchase_Order.add(View_Purchase_Order);
+
         MenuBar.add(Purchase_Order);
 
-        Credit_Memo.setText("Credit Memo");
+        Product.setText("Products");
 
-        completedCM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
-        completedCM.setText("Completed Credit Memo's");
-        completedCM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                completedCMActionPerformed(evt);
-            }
-        });
-        Credit_Memo.add(completedCM);
-
-        newCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        newCreditMemo.setText("New Credit Memo");
-        newCreditMemo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newCreditMemoActionPerformed(evt);
-            }
-        });
-        Credit_Memo.add(newCreditMemo);
-
-        viewCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        viewCreditMemo.setText("View Credit Memo");
-        viewCreditMemo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewCreditMemoActionPerformed(evt);
-            }
-        });
-        Credit_Memo.add(viewCreditMemo);
-
-        printCM.setText("Print Credit Memo");
-        printCM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printCMActionPerformed(evt);
-            }
-        });
-        Credit_Memo.add(printCM);
-
-        MenuBar.add(Credit_Memo);
-
-        Product.setText("Product");
-
-        miscFunction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.SHIFT_MASK));
+        miscFunction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK));
         miscFunction.setText("Misc Functions");
         miscFunction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -516,7 +458,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         Product.add(quoteMenu);
 
-        productHistory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        productHistory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.SHIFT_MASK));
         productHistory.setText("Product History");
         productHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -525,7 +467,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         Product.add(productHistory);
 
-        View_Product.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        View_Product.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK));
         View_Product.setText("View/Update Item");
         View_Product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -535,6 +477,103 @@ public class MainPage extends javax.swing.JFrame {
         Product.add(View_Product);
 
         MenuBar.add(Product);
+
+        Contact.setText("Contacts");
+
+        viewContacts.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        viewContacts.setText("View/Update Contacts");
+        viewContacts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewContactsActionPerformed(evt);
+            }
+        });
+        Contact.add(viewContacts);
+
+        MenuBar.add(Contact);
+
+        Jobs.setText("Jobs");
+
+        create_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        create_Job.setText("New Job");
+        create_Job.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                create_JobActionPerformed(evt);
+            }
+        });
+        Jobs.add(create_Job);
+
+        view_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
+        view_Job.setText("View/Update Job");
+        view_Job.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view_JobActionPerformed(evt);
+            }
+        });
+        Jobs.add(view_Job);
+
+        MenuBar.add(Jobs);
+
+        Supplier.setText("Suppliers");
+
+        Create_Supplier.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK));
+        Create_Supplier.setText("New Supplier");
+        Create_Supplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Create_SupplierActionPerformed(evt);
+            }
+        });
+        Supplier.add(Create_Supplier);
+
+        View_Supplier.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.SHIFT_MASK));
+        View_Supplier.setText("View/Update Suppliers");
+        View_Supplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                View_SupplierActionPerformed(evt);
+            }
+        });
+        Supplier.add(View_Supplier);
+
+        MenuBar.add(Supplier);
+
+        Credit_Memo.setText("Credit Memos");
+
+        completedCM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
+        completedCM.setText("Completed Credit Memo's");
+        completedCM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                completedCMActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(completedCM);
+
+        newCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        newCreditMemo.setText("New Credit Memo");
+        newCreditMemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newCreditMemoActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(newCreditMemo);
+
+        printCM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        printCM.setText("Print Credit Memo");
+        printCM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printCMActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(printCM);
+
+        viewCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        viewCreditMemo.setText("View Credit Memo");
+        viewCreditMemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCreditMemoActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(viewCreditMemo);
+
+        MenuBar.add(Credit_Memo);
 
         Reports.setText("Reports");
 
@@ -566,28 +605,6 @@ public class MainPage extends javax.swing.JFrame {
         Reports.add(supplierListMenuItem);
 
         MenuBar.add(Reports);
-
-        Supplier.setText("Suppliers");
-
-        Create_Supplier.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK));
-        Create_Supplier.setText("New Supplier");
-        Create_Supplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Create_SupplierActionPerformed(evt);
-            }
-        });
-        Supplier.add(Create_Supplier);
-
-        View_Supplier.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.SHIFT_MASK));
-        View_Supplier.setText("View/Update Suppliers");
-        View_Supplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                View_SupplierActionPerformed(evt);
-            }
-        });
-        Supplier.add(View_Supplier);
-
-        MenuBar.add(Supplier);
 
         About.setText("About");
 
@@ -791,6 +808,11 @@ public class MainPage extends javax.swing.JFrame {
         ReprintReports print = new ReprintReports();
         print.setVisible(true);
     }//GEN-LAST:event_printCMActionPerformed
+
+    private void viewContactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewContactsActionPerformed
+        VContacts view = new VContacts();
+        view.setVisible(true);
+    }//GEN-LAST:event_viewContactsActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -815,6 +837,7 @@ public class MainPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu About;
+    private javax.swing.JMenu Contact;
     private javax.swing.JMenuItem Create_Purchase_Order;
     private javax.swing.JMenuItem Create_Supplier;
     private javax.swing.JMenu Credit_Memo;
@@ -861,6 +884,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem supplierListMenuItem;
     private javax.swing.JTextField taxValue;
     private javax.swing.JButton updatePOMainButton;
+    private javax.swing.JMenuItem viewContacts;
     private javax.swing.JMenuItem viewCreditMemo;
     private javax.swing.JMenuItem view_Job;
     private javax.swing.JScrollPane view_purchase_orders;

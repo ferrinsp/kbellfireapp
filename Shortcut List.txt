@@ -1,0 +1,31 @@
+Logoff								Alt+L
+
+Completed Credit Memo's				Shift+C
+New Credit Memo						F1
+Print Credit Memo					F2
+View Credit Memo					F3
+
+New Job								Ctrl+J 
+View/Update Job						F11
+
+Completed Purchase Order			Ctrl+C
+New Purchase Order					Ctrl+N
+Print Purchase Order				Ctrl+P 
+View/Update Purchase Order			Ctrl+V 
+
+Misc Functions						Shift+M 
+New Item							Shift+P 
+New Quote							Shift+Q 
+Product History						Shift+H 
+View/Update Item					Shift+U 
+
+Job List							Ctrl+Shift+J
+Product List						Ctrl+Shift+P 
+Supplier List						Ctrl+Shift+S 
+
+New Supplier						Shift+S
+View/Update Suppliers				Shift+V 
+
+View/Update Contacts				Alt+C 
+
+Software Information				Ctrl+Alt+I 

@@ -59,14 +59,13 @@ public class UContacts extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select contactid, name, phone, status from contact where contactid = "+id);
             while (resultObj.next()){
-                contactIDTextField.setText(resultObj.getString("contactid"));
                 contactName.setText(resultObj.getString("name"));
                 contactPhone.setText(resultObj.getString("phone"));
                 String contactStatus = resultObj.getString("status");
                 if (contactStatus.equals("Active")) {
                     contactActive.setSelected(true);
-                } else {
-                    contactActive.setSelected(false);
+                } else if (contactStatus.equals("Inactive")) {
+                    contactInactive.setSelected(true);
                 }
             }
             connObj.close();
@@ -88,8 +87,6 @@ public class UContacts extends javax.swing.JFrame {
         contactName = new javax.swing.JTextField();
         contactActive = new javax.swing.JRadioButton();
         contactInactive = new javax.swing.JRadioButton();
-        contactID = new javax.swing.JLabel();
-        contactIDTextField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         saveButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
@@ -114,8 +111,6 @@ public class UContacts extends javax.swing.JFrame {
         statusGroup.add(contactInactive);
         contactInactive.setText("Inactive");
 
-        contactID.setText("Contact ID:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,21 +132,13 @@ public class UContacts extends javax.swing.JFrame {
                                 .addComponent(contactActive)
                                 .addGap(18, 18, 18)
                                 .addComponent(contactInactive))
-                            .addComponent(contactPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(contactID)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(contactIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(contactPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contactID)
-                    .addComponent(contactIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateName)
                     .addComponent(contactName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -263,8 +250,6 @@ public class UContacts extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
     private javax.swing.JRadioButton contactActive;
-    private javax.swing.JLabel contactID;
-    private javax.swing.JTextField contactIDTextField;
     private javax.swing.JRadioButton contactInactive;
     private javax.swing.JTextField contactName;
     private javax.swing.JTextField contactPhone;
