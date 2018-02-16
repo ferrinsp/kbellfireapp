@@ -125,6 +125,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Phone Number"/>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="contactPhoneFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="updatePhone">
           <Properties>
@@ -140,12 +143,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Contact Name"/>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="contactNameFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="contactActive">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="statusGroup"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Active"/>
           </Properties>
         </Component>
