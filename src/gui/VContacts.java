@@ -1,6 +1,9 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 public class VContacts extends javax.swing.JFrame {
@@ -55,6 +59,7 @@ public class VContacts extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         closeButton = new javax.swing.JButton();
         updateContact = new javax.swing.JButton();
+        addContact = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Contacts");
@@ -80,6 +85,17 @@ public class VContacts extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(contact);
+        contact.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table =(JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() ==2 ) {
+                    UContacts uContact = new UContacts((int) contact.getValueAt(row,0));
+                    uContact.setVisible(true);
+                }
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,12 +128,21 @@ public class VContacts extends javax.swing.JFrame {
             }
         });
 
+        addContact.setText("Add Contact");
+        addContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addContactActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addContact)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateContact)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(closeButton)
@@ -128,7 +153,8 @@ public class VContacts extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(closeButton)
-                    .addComponent(updateContact))
+                    .addComponent(updateContact)
+                    .addComponent(addContact))
                 .addGap(12, 12, 12))
         );
 
@@ -177,6 +203,12 @@ public class VContacts extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
 
+    private void addContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addContactActionPerformed
+        UContacts addContact = new UContacts(-1);
+        addContact.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_addContactActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,6 +239,7 @@ public class VContacts extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addContact;
     private javax.swing.JButton closeButton;
     private javax.swing.JTable contact;
     private javax.swing.JPanel jPanel1;

@@ -74,7 +74,7 @@ public class NUItem extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select category_ID, description from category ORDER BY description;");
+            resultObj = stateObj.executeQuery("select category_ID, description from category;");
             //Dynamically set supplier list size
             resultObj.last();
             category = new String[resultObj.getRow()][2];

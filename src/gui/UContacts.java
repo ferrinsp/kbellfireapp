@@ -30,10 +30,15 @@ public class UContacts extends javax.swing.JFrame {
     }
     
     private void updateContact() {
+        
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            String query = "UPDATE contact set name=?, phone=?, status=? where contactid = " + id + ";";
+            String query;
+            if (id==-1)
+                query ="insert into contact (name,phone,status) values (?,?,?);"; 
+            else    
+                query = "UPDATE contact set name=?, phone=?, status=? where contactid = " + id + ";";
             PreparedStatement preparedStmt =connObj.prepareStatement(query);
             String contactStatus= null;
                 for (Enumeration<AbstractButton> buttons = statusGroup.getElements(); buttons.hasMoreElements();) {
@@ -45,14 +50,23 @@ public class UContacts extends javax.swing.JFrame {
             preparedStmt.setString (1, contactName.getText());    
             preparedStmt.setString (2, contactPhone.getText());    
             preparedStmt.setString (3, contactStatus);
-            preparedStmt.executeUpdate();
+            if (id ==-1) {
+                preparedStmt.execute();
+                JOptionPane.showMessageDialog(null, "New Contact added for "+contactName.getText()+".");
+            }
+            else {
+                preparedStmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Contact # "+id+" was updated.");
+            }
             connObj.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
     }
     
     private void pullContactFromVContacts() {
+        if(id !=-1) {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -71,6 +85,7 @@ public class UContacts extends javax.swing.JFrame {
             connObj.close();
         } catch (SQLException ex) {    
             Logger.getLogger(NSupplier.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
     
@@ -98,14 +113,25 @@ public class UContacts extends javax.swing.JFrame {
         updateName.setText("Contact Name:");
 
         contactPhone.setText("Phone Number");
+        contactPhone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                contactPhoneFocusGained(evt);
+            }
+        });
 
         updatePhone.setText("Phone:");
 
         contactStatusLabel.setText("Status:");
 
         contactName.setText("Contact Name");
+        contactName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                contactNameFocusGained(evt);
+            }
+        });
 
         statusGroup.add(contactActive);
+        contactActive.setSelected(true);
         contactActive.setText("Active");
 
         statusGroup.add(contactInactive);
@@ -221,12 +247,25 @@ public class UContacts extends javax.swing.JFrame {
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        updateContact();
-        JOptionPane.showMessageDialog(null, "Contact # "+id+" was updated.");
-        this.dispose();
-        VContacts view = new VContacts();
-        view.setVisible(true);
+        if((contactName.getText().equals("Contact Name") || contactName.getText().equals(""))
+                ||(contactPhone.getText().equals("Phone Number") || contactPhone.getText().equals("")))
+            JOptionPane.showMessageDialog(null, "Please fill in contact information.");
+        else {
+            updateContact();
+            id=-1;
+            this.dispose();
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void contactNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactNameFocusGained
+        if (contactName.getText().equals("Contact Name"))
+            contactName.setText("");
+    }//GEN-LAST:event_contactNameFocusGained
+
+    private void contactPhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactPhoneFocusGained
+       if (contactPhone.getText().equals("Phone Number"))
+           contactPhone.setText("");
+    }//GEN-LAST:event_contactPhoneFocusGained
 
     /**
      * @param args the command line arguments
