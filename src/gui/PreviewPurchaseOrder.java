@@ -196,7 +196,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         previewItemsAddedTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Preview Purchase Order");
 
         jLabel2.setText("Ship To:");

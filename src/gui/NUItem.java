@@ -119,31 +119,28 @@ public class NUItem extends javax.swing.JFrame {
     public void init(){
         if (id != -1) {
             try {
-            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            String query = "SELECT c.description, pd.productDescription, pd.productsize, p.manufacturer, p.part_id, p.unitMeasure, s.companyname, p.lastchange, p.price,p.status\n" +
-                "from product p inner join category c on c.category_ID=p.category_id inner join productdescription pd on p.description=pd.pdescID \n" +
-                "inner join supplier s on s.supplierid=p.supplier where p.id ="+id+";";
-            resultObj = stateObj.executeQuery(query);
-            while (resultObj.next()){
-                CategoryCombo.setSelectedItem(resultObj.getString("description"));
-                DescriptionCombo.setSelectedItem(resultObj.getString("productDescription"));
-                partNumTextField.setText(resultObj.getString("part_id"));
-                mfcTextField.setText(resultObj.getString("manufacturer"));
-                SupplierCombo.setSelectedItem(resultObj.getString("companyname"));
-                priceTextField.setText(resultObj.getString("price"));
-                unitMeasure.setSelectedItem(resultObj.getString("unitMeasure"));
-                lastChanged.setDate(resultObj.getDate("lastchange"));
-                switch (resultObj.getString("status")) {
-                    case "Inactive":
-                        rdbInactive.setSelected(true);
-                        break;
-                    default:
-                        rdbActive.setSelected(true);
-                        break;
+                //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+                connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+                stateObj = connObj.createStatement();
+                resultObj = stateObj.executeQuery("SELECT c.description, pd.productDescription, p.manufacturer, p.part_id, p.unitMeasure, s.companyname, p.lastchange, p.price, p.status\n" +
+                    "from product p inner join category c on c.category_ID=p.category_id inner join productdescription pd on p.description=pd.pdescID \n" +
+                    "inner join supplier s on s.supplierid=p.supplier where p.id ="+id+";");
+                while (resultObj.next()){
+                    CategoryCombo.setSelectedItem(resultObj.getString("description"));
+                    DescriptionCombo.setSelectedItem(resultObj.getString("productDescription"));
+                    partNumTextField.setText(resultObj.getString("part_id"));
+                    mfcTextField.setText(resultObj.getString("manufacturer"));
+                    SupplierCombo.setSelectedItem(resultObj.getString("companyname"));
+                    priceTextField.setText(resultObj.getString("price"));
+                    unitMeasure.setSelectedItem(resultObj.getString("unitMeasure"));
+                    lastChanged.setDate(resultObj.getDate("lastchange"));
+                    String contactStatus = resultObj.getString("status");                    
+                    if (contactStatus.equals("Active")) {
+                        itemActive.setSelected(true);
+                    } else if (contactStatus.equals("Inactive")) {
+                        itemInactive.setSelected(true);
+                    }
                 }
-            }
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -218,7 +215,6 @@ public class NUItem extends javax.swing.JFrame {
         getComboSupplier();
         setDatePicker();
         init();
-        
     }
 
     /**
@@ -248,8 +244,8 @@ public class NUItem extends javax.swing.JFrame {
         unitMeasure = new javax.swing.JComboBox<>();
         DescriptionCombo = new javax.swing.JComboBox<>();
         status = new javax.swing.JLabel();
-        rdbActive = new javax.swing.JRadioButton();
-        rdbInactive = new javax.swing.JRadioButton();
+        itemActive = new javax.swing.JRadioButton();
+        itemInactive = new javax.swing.JRadioButton();
         status1 = new javax.swing.JLabel();
         lastChanged = new org.jdesktop.swingx.JXDatePicker();
         jPanel2 = new javax.swing.JPanel();
@@ -307,15 +303,14 @@ public class NUItem extends javax.swing.JFrame {
 
         status.setText("Status");
 
-        statusGroup.add(rdbActive);
-        rdbActive.setSelected(true);
-        rdbActive.setText("Active");
+        statusGroup.add(itemActive);
+        itemActive.setText("Active");
 
-        statusGroup.add(rdbInactive);
-        rdbInactive.setText("Inactive");
-        rdbInactive.addActionListener(new java.awt.event.ActionListener() {
+        statusGroup.add(itemInactive);
+        itemInactive.setText("Inactive");
+        itemInactive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbInactiveActionPerformed(evt);
+                itemInactiveActionPerformed(evt);
             }
         });
 
@@ -376,9 +371,9 @@ public class NUItem extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdbActive)
+                        .addComponent(itemActive)
                         .addGap(28, 28, 28)
-                        .addComponent(rdbInactive))
+                        .addComponent(itemInactive))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(sizeLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -433,8 +428,8 @@ public class NUItem extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdbActive)
-                    .addComponent(rdbInactive))
+                    .addComponent(itemActive)
+                    .addComponent(itemInactive))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(status1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -494,9 +489,9 @@ public class NUItem extends javax.swing.JFrame {
             priceTextField.setText("Price");
     }//GEN-LAST:event_priceTextFieldFocusLost
 
-    private void rdbInactiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbInactiveActionPerformed
+    private void itemInactiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemInactiveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rdbInactiveActionPerformed
+    }//GEN-LAST:event_itemInactiveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -532,6 +527,8 @@ public class NUItem extends javax.swing.JFrame {
     private javax.swing.JButton cancelAdd;
     private javax.swing.JLabel categoryLabel;
     private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JRadioButton itemActive;
+    private javax.swing.JRadioButton itemInactive;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -542,8 +539,6 @@ public class NUItem extends javax.swing.JFrame {
     private javax.swing.JTextField partNumTextField;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JTextField priceTextField;
-    private javax.swing.JRadioButton rdbActive;
-    private javax.swing.JRadioButton rdbInactive;
     private javax.swing.JLabel sizeLabel1;
     private javax.swing.JLabel status;
     private javax.swing.JLabel status1;
