@@ -258,11 +258,13 @@ public class UContacts extends javax.swing.JFrame {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void contactNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactNameFocusGained
-        contactName.setText("");
+        if (contactName.getText().equals("Contact Name"))
+            contactName.setText("");
     }//GEN-LAST:event_contactNameFocusGained
 
     private void contactPhoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactPhoneFocusGained
-        contactPhone.setText("");
+       if (contactPhone.getText().equals("Phone Number"))
+           contactPhone.setText("");
     }//GEN-LAST:event_contactPhoneFocusGained
 
     /**
