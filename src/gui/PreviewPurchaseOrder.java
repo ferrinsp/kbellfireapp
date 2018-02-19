@@ -80,7 +80,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select contactid, name,phone from contact ORDER BY name;");
+            resultObj = stateObj.executeQuery("select contactid, name,phone from contact where status = 'Active' ORDER BY name;");
             //Dynamically set contact list size
             resultObj.last();
             contact = new String[resultObj.getRow()][3];
