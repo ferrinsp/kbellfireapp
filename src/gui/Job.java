@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
 
 
 public class Job extends javax.swing.JFrame {
@@ -54,7 +55,11 @@ public class Job extends javax.swing.JFrame {
     }
     private void insertJob()    {
         try {
-            if (name.equals("Add")) {
+            if(jobName.getText().equals("Job Name")||address.getText().equals("Address")||city.getText().equals("City")
+                    ||state.getText().equals("State")||postalCode.getText().equals("Postal Code"))
+                JOptionPane.showMessageDialog(null, "Please fill in necessary fields.");
+            else {
+                if (name.equals("Add")) {
                 //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
                 connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
                 String query = "INSERT into job (name,address,city,state,zip,bidamount,status,comments)"
@@ -80,6 +85,7 @@ public class Job extends javax.swing.JFrame {
             }
             else
                 updateJob();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,11 +116,12 @@ public class Job extends javax.swing.JFrame {
             preparedStmt.executeUpdate();
       
             connObj.close();
-            this.name = "";
-            this.dispose();
+            
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        this.name = "";
+            this.dispose();
     }
     public Job() {
         initComponents();
@@ -221,7 +228,7 @@ public class Job extends javax.swing.JFrame {
 
         jLabel9.setText("Status");
 
-        bidAmount.setText("Bid Amount");
+        bidAmount.setText("0");
         bidAmount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 bidAmountFocusGained(evt);
@@ -453,12 +460,11 @@ public class Job extends javax.swing.JFrame {
 
     private void bidAmountFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bidAmountFocusLost
         if(bidAmount.getText().equals(""))
-        bidAmount.setText("Bid Amount");
+        bidAmount.setText("0");
     }//GEN-LAST:event_bidAmountFocusLost
 
     private void saveJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveJobActionPerformed
         insertJob();
-        this.dispose();
     }//GEN-LAST:event_saveJobActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed

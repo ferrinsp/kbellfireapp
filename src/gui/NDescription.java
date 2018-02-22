@@ -241,7 +241,7 @@ public class NDescription extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane2.addTab("Add Description", jPanel3);
+        jTabbedPane2.addTab("Change Sales Tax", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -37,38 +37,25 @@ public class VItem extends javax.swing.JFrame {
             ItemTable.setRowSorter(sorter);
         }
     }
-    private int findProduct(String supplier, String descp,Double price){
-        int id =-1;
-         try{
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("SELECT p.id from product p inner join category c on c.category_ID=p.category_id inner join productdescription pd on p.description=pd.pdescID \n" +
-            "inner join supplier s on s.supplierid=p.supplier where p.price = "+price+" and s.companyname like '%"+supplier+"%' and pd.productDescription like '%"+descp+"%';"); 
-             while (resultObj.next()){
-                 id= resultObj.getInt("id");
-             }
-         } catch (SQLException ex) {
-            Logger.getLogger(VItem.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         return id;
-    }
+
     private void getProduct() {
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery(" select c.description, pd.productDescription, s.companyname, p.price,p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange "
+            resultObj = stateObj.executeQuery(" select c.description, pd.productDescription, s.companyname, p.price,p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange,p.id "
                     + "from product p inner join category c on p.category_id=c.category_ID inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier;"); 
             ItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             ItemTable.getColumn("description").setHeaderValue("Category");
             ItemTable.getColumn("productDescription").setHeaderValue("Product Description");
             ItemTable.getColumn("companyname").setHeaderValue("Supplier");
             ItemTable.getColumn("price").setHeaderValue("Unit Price");
-            ItemTable.getColumn("status").setHeaderValue("Active");
+            ItemTable.getColumn("status").setHeaderValue("Status");
             ItemTable.getColumn("unitMeasure").setHeaderValue("Unit");
             ItemTable.getColumn("manufacturer").setHeaderValue("MFC");
             ItemTable.getColumn("part_id").setHeaderValue("Part Number");
             ItemTable.getColumn("lastchange").setHeaderValue("Last Change");
+            ItemTable.getColumn("id").setHeaderValue("ID");
             ItemTable.repaint();
             connObj.close();
         }
@@ -105,16 +92,17 @@ public class VItem extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Item");
 
+        ItemTable.setAutoCreateRowSorter(true);
         ItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Category", "Description", "Part Number", "MFC", "Supplier", "Price", "Unit", "Status", "Last Change"
+                "Category", "Description", "Part Number", "MFC", "Supplier", "Price", "Unit", "Status", "Last Change", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true, true, true
+                false, false, false, false, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -127,12 +115,14 @@ public class VItem extends javax.swing.JFrame {
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
                 if (me.getClickCount() ==2 ) {
-                    int prod= findProduct(ItemTable.getValueAt(row, 2).toString(),ItemTable.getValueAt(row, 1).toString(), Double.parseDouble(ItemTable.getValueAt(row, 3).toString()));
+                    //int prod= findProduct(ItemTable.getValueAt(row, 2).toString(),ItemTable.getValueAt(row, 1).toString(), Double.parseDouble(ItemTable.getValueAt(row, 3).toString()));
+                    int prod= (int)ItemTable.getValueAt(row,9);
                     NUItem addItem = new NUItem(prod);
                     addItem.setVisible(true);
                 }
             }
         });
+        ItemTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(ItemTable);
 
         addItemButton.setText("Add Item");
@@ -167,7 +157,7 @@ public class VItem extends javax.swing.JFrame {
                 .addComponent(updateItemButton)
                 .addGap(18, 18, 18)
                 .addComponent(closeButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(568, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,16 +195,13 @@ public class VItem extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 48, Short.MAX_VALUE)))
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -247,10 +234,12 @@ public class VItem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Select only one item to update.");
         }
         else{
-            int prod= findProduct(ItemTable.getValueAt(index[0], 2).toString(),ItemTable.getValueAt(index[0], 1).toString(),Double.parseDouble(ItemTable.getValueAt(index[0], 3).toString()));
+            int prod=(int)ItemTable.getValueAt(index[0],9);
             NUItem addItem = new NUItem(prod);
             addItem.setVisible(true);
             this.dispose();
+            //Depending how we want to do this
+            
         }
     }//GEN-LAST:event_updateItemButtonActionPerformed
 
