@@ -161,7 +161,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        closeWindowButton = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
@@ -181,13 +180,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create New Purchase Order");
-
-        closeWindowButton.setText("Close Window");
-        closeWindowButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeWindowButtonActionPerformed(evt);
-            }
-        });
 
         searchField.setText("Search");
         searchField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -399,18 +391,14 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(itemsAddedToPO)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(closeWindowButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(closeWindowButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itemsAddedToPO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -499,10 +487,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         int realrow = itemsSearchTable.convertRowIndexToModel(row);
         getProductDetails(findCategory(itemsSearchTable.getModel().getValueAt(realrow, 0).toString()),getDescription(itemsSearchTable.getModel().getValueAt(realrow, 1).toString()));
     }//GEN-LAST:event_itemsSearchTableMouseClicked
-
-    private void closeWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeWindowButtonActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_closeWindowButtonActionPerformed
 
     private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
@@ -604,7 +588,6 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JTable ItemsAddedTable;
     private javax.swing.JTable PriceTable;
     private javax.swing.JButton addItemToPO;
-    private javax.swing.JButton closeWindowButton;
     private javax.swing.JButton itemsAddedDelete;
     private javax.swing.JTabbedPane itemsAddedToPO;
     private javax.swing.JTable itemsSearchTable;
