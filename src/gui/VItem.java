@@ -64,21 +64,20 @@ public class VItem extends javax.swing.JFrame {
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             if(showHideStatus.isSelected()) {
-                resultObj = stateObj.executeQuery("select p.id, c.description, pd.productDescription, s.companyname, p.price,\n" +
-                    "p.status as 'status',p.unitMeasure,p.manufacturer,p.part_id,p.lastchange\n" +
-                    "from product p inner join category c on p.category_id=c.category_ID\n" +
-                    "inner join productdescription pd on pd.pdescID=p.description\n" +
-                    "inner join supplier s on s.supplierid=p.supplier\n" +
+                resultObj = stateObj.executeQuery("select c.description, pd.productDescription, s.companyname, p.price,\n" +
+                    "p.status as 'status',p.unitMeasure,p.manufacturer,p.part_id,p.lastchange, p.id " +
+                    "from product p inner join category c on p.category_id=c.category_ID " +
+                    "inner join productdescription pd on pd.pdescID=p.description " +
+                    "inner join supplier s on s.supplierid=p.supplier " +
                     "where status not like '%Inactive%';");     
             } else {
-                resultObj = stateObj.executeQuery(" select p.id, c.description, pd.productDescription, s.companyname, p.price,"
-                    + "p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange "
+                resultObj = stateObj.executeQuery(" select  c.description, pd.productDescription, s.companyname, p.price,"
+                    + "p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange, p.id "
                     + "from product p inner join category c on p.category_id=c.category_ID "
                     + "inner join productdescription pd on pd.pdescID=p.description "
                     + "inner join supplier s on s.supplierid=p.supplier;");
             }
             ItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
-            ItemTable.getColumn("id").setHeaderValue("Product ID");
             ItemTable.getColumn("description").setHeaderValue("Category");
             ItemTable.getColumn("productDescription").setHeaderValue("Product Description");
             ItemTable.getColumn("companyname").setHeaderValue("Supplier");
@@ -88,6 +87,7 @@ public class VItem extends javax.swing.JFrame {
             ItemTable.getColumn("manufacturer").setHeaderValue("MFC");
             ItemTable.getColumn("part_id").setHeaderValue("Part Number");
             ItemTable.getColumn("lastchange").setHeaderValue("Last Change");
+            ItemTable.getColumn("id").setHeaderValue("Product ID");
             ItemTable.repaint();
             connObj.close();
         }
@@ -112,22 +112,24 @@ public class VItem extends javax.swing.JFrame {
         updateItemButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
         productHistoryButton = new javax.swing.JButton();
+        refresh = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
         showHideStatus = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Item");
 
+        ItemTable.setAutoCreateRowSorter(true);
         ItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Product ID", "Category", "Description", "Part Number", "MFC", "Supplier", "Price", "Unit", "Status", "Last Change"
+                "Category", "Description", "Part Number", "MFC", "Supplier", "Price", "Unit", "Status", "Last Change", "Product ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true, true, true, true
+                false, false, false, false, true, true, true, true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -176,12 +178,21 @@ public class VItem extends javax.swing.JFrame {
             }
         });
 
+        refresh.setText("Refresh Page");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addItemButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateItemButton)
@@ -199,7 +210,8 @@ public class VItem extends javax.swing.JFrame {
                     .addComponent(addItemButton)
                     .addComponent(updateItemButton)
                     .addComponent(closeButton)
-                    .addComponent(productHistoryButton))
+                    .addComponent(productHistoryButton)
+                    .addComponent(refresh))
                 .addGap(12, 12, 12))
         );
 
@@ -270,7 +282,6 @@ public class VItem extends javax.swing.JFrame {
     private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
         NUItem addItem = new NUItem(-1);
         addItem.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_addItemButtonActionPerformed
 
     private void updateItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateItemButtonActionPerformed
@@ -282,10 +293,9 @@ public class VItem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Select only one item to update.");
         }
         else{
-            int prod= (int) ItemTable.getValueAt(index[0], 0);
+            int prod= (int) ItemTable.getValueAt(index[0], 9);
             NUItem addItem = new NUItem(prod);
             addItem.setVisible(true);
-            this.dispose();
         }
     }//GEN-LAST:event_updateItemButtonActionPerformed
 
@@ -326,11 +336,14 @@ public class VItem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Select only one item to view history.");
         }
         else {
-            int id = (int) ItemTable.getValueAt(index[0], 0);
-            ProductHistory history = new ProductHistory(id);
+            ProductHistory history = new ProductHistory(ItemTable.getValueAt(index[0], 1).toString());
             history.setVisible(true);
         }
     }//GEN-LAST:event_productHistoryButtonActionPerformed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        getProduct();
+    }//GEN-LAST:event_refreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -364,6 +377,7 @@ public class VItem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton productHistoryButton;
+    private javax.swing.JButton refresh;
     private javax.swing.JTextField searchField;
     private javax.swing.JCheckBox showHideStatus;
     private javax.swing.JButton updateItemButton;

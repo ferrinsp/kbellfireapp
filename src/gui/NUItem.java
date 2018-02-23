@@ -146,12 +146,10 @@ public class NUItem extends javax.swing.JFrame {
                     lastChanged.setDate(resultObj.getDate("lastchange"));
                     priceTextField.setText(resultObj.getString("price"));
                     String contactStatus = resultObj.getString("status");
-                    System.out.println(contactStatus);
                     if (contactStatus.equals("Active")) {
                         itemActive.setSelected(true);
-                    } else if (contactStatus.equals("Inactive")) {
+                    } else
                         itemInactive.setSelected(true);
-                    }
                 } connObj.close();
             }catch(SQLException e){
                 e.printStackTrace();
@@ -205,12 +203,14 @@ public class NUItem extends javax.swing.JFrame {
             if (id ==-1) {
                 preparedStmt.execute();
                 JOptionPane.showMessageDialog(null, "New item was added.");
+                connObj.close();
             }
             else {
                 preparedStmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Item was updated.");
+                connObj.close();
+                this.dispose();
             }
-            id=-1;
             connObj.close();
         }
         } catch (SQLException e) {
@@ -309,11 +309,6 @@ public class NUItem extends javax.swing.JFrame {
 
         statusGroup.add(itemInactive);
         itemInactive.setText("Inactive");
-        itemInactive.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemInactiveActionPerformed(evt);
-            }
-        });
 
         status1.setText("Last Changed");
 
@@ -463,14 +458,12 @@ public class NUItem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAddActionPerformed
+        this.id=1;
         this.dispose();
     }//GEN-LAST:event_cancelAddActionPerformed
 
     private void addNewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewItemActionPerformed
         insertProduct();
-        this.dispose();
-        VItem view = new VItem();
-        view.setVisible(true);
     }//GEN-LAST:event_addNewItemActionPerformed
 
     private void partNumTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_partNumTextFieldFocusGained
@@ -492,10 +485,6 @@ public class NUItem extends javax.swing.JFrame {
         if (priceTextField.getText().equals(""))
             priceTextField.setText("Price");
     }//GEN-LAST:event_priceTextFieldFocusLost
-
-    private void itemInactiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemInactiveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_itemInactiveActionPerformed
 
     /**
      * @param args the command line arguments

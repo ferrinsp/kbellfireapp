@@ -39,9 +39,9 @@ public class VContacts extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
             
             if(showHideInactive.isSelected()) {
-                resultObj = stateObj.executeQuery("select contactid, name, phone, status from contact where status not like '%Inactive%';");
+                resultObj = stateObj.executeQuery("select contactid, name, phone, status from contact where status not like '%Inactive%' order by name;");
             } else {
-                resultObj = stateObj.executeQuery("select contactid, name, phone, status from contact;");
+                resultObj = stateObj.executeQuery("select contactid, name, phone, status from contact order by name;");
             }
             
             contact.setModel(DbUtils.resultSetToTableModel(resultObj));
@@ -68,6 +68,7 @@ public class VContacts extends javax.swing.JFrame {
         closeButton = new javax.swing.JButton();
         updateContact = new javax.swing.JButton();
         addContact = new javax.swing.JButton();
+        refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Contacts");
@@ -171,12 +172,21 @@ public class VContacts extends javax.swing.JFrame {
             }
         });
 
+        refresh.setText("Refresh Page");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addContact)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateContact)
@@ -190,7 +200,8 @@ public class VContacts extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(closeButton)
                     .addComponent(updateContact)
-                    .addComponent(addContact))
+                    .addComponent(addContact)
+                    .addComponent(refresh))
                 .addGap(12, 12, 12))
         );
 
@@ -231,7 +242,6 @@ public class VContacts extends javax.swing.JFrame {
             int id = (int) contact.getValueAt(index[0], 0);
             UContacts addContact = new UContacts(id);
             addContact.setVisible(true);
-            this.dispose();
         }
     }//GEN-LAST:event_updateContactActionPerformed
 
@@ -242,12 +252,15 @@ public class VContacts extends javax.swing.JFrame {
     private void addContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addContactActionPerformed
         UContacts addContact = new UContacts(-1);
         addContact.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_addContactActionPerformed
 
     private void showHideInactiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showHideInactiveActionPerformed
         getContacts();
     }//GEN-LAST:event_showHideInactiveActionPerformed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        getContacts();
+    }//GEN-LAST:event_refreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,6 +299,7 @@ public class VContacts extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton refresh;
     private javax.swing.JCheckBox showHideInactive;
     private javax.swing.JButton updateContact;
     // End of variables declaration//GEN-END:variables

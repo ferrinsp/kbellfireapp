@@ -84,6 +84,7 @@ public class Job extends javax.swing.JFrame {
                 preparedStmt.execute();
                 //Close Connection
                 connObj.close();
+                JOptionPane.showMessageDialog(null, "Job created for "+jobName.getText()+".");
             }
             else
                 updateJob();
@@ -122,6 +123,7 @@ public class Job extends javax.swing.JFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+                JOptionPane.showMessageDialog(null, "Job "+name+" was updated.");
         this.name = "";
             this.dispose();
     }
@@ -468,8 +470,6 @@ public class Job extends javax.swing.JFrame {
     private void saveJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveJobActionPerformed
         insertJob();
         this.dispose();
-        VJob view = new VJob();
-        view.setVisible(true);
     }//GEN-LAST:event_saveJobActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed

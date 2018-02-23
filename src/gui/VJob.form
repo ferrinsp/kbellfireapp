@@ -57,6 +57,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="refresh" min="-2" pref="125" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="addJobButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="updateJobButton" min="-2" max="-2" attributes="0"/>
@@ -74,6 +76,7 @@
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="addJobButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="updateJobButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="refresh" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="viewJobCloseButton" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -105,6 +108,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateJobButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="refresh">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Refresh Page"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

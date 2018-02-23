@@ -253,8 +253,6 @@ public class UContacts extends javax.swing.JFrame {
             updateContact();
             id=-1;
             this.dispose();
-            VContacts contact = new VContacts();
-            contact.setVisible(true);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 

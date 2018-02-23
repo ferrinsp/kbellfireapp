@@ -296,9 +296,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Inactive"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemInactiveActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="status1">
               <Properties>

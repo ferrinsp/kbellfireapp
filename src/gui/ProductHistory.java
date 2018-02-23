@@ -16,7 +16,7 @@ public class ProductHistory extends javax.swing.JFrame {
     String [][] description= null;
     public Color genericColor = new Color(209, 220, 204);    
     private final AlternatingListCellRenderer cellRenderer;
-    int id =-1;
+    String desc="";
     
     public ProductHistory() {
         this.cellRenderer = new AlternatingListCellRenderer();
@@ -24,9 +24,9 @@ public class ProductHistory extends javax.swing.JFrame {
         getDescriptionCombo();
     }
     
-    public ProductHistory(int id){
+    public ProductHistory(String desc){
         this.cellRenderer = new AlternatingListCellRenderer();
-        this.id = id;
+        this.desc = desc;
         initComponents();
         populateProductHistoryTable();
     }
@@ -43,7 +43,7 @@ public class ProductHistory extends javax.swing.JFrame {
                     "inner join product p on p.id = pod.product\n" +
                     "inner join supplier s on s.supplierid=po.supplier\n" +
                     "inner join productdescription pd on pd.pdescID=p.description\n" +
-                    "where p.id = " + id + ";");
+                    "where pd.productDescription like '%" +desc + "%' order by s.companyname, po.orderid DESC;");
             productHistoryTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             productHistoryTable.getColumn("orderid").setHeaderValue("Purchase Order Number");
             productHistoryTable.getColumn("productDescription").setHeaderValue("Product Description");
@@ -97,9 +97,6 @@ public class ProductHistory extends javax.swing.JFrame {
 
         productHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {

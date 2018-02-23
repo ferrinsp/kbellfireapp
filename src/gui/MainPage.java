@@ -156,7 +156,6 @@ public class MainPage extends javax.swing.JFrame {
         miscFunction = new javax.swing.JMenuItem();
         newProduct = new javax.swing.JMenuItem();
         quoteMenu = new javax.swing.JMenuItem();
-        productHistory = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
         Jobs = new javax.swing.JMenu();
         create_Job = new javax.swing.JMenuItem();
@@ -498,15 +497,6 @@ public class MainPage extends javax.swing.JFrame {
         });
         Product.add(quoteMenu);
 
-        productHistory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.SHIFT_MASK));
-        productHistory.setText("Product History");
-        productHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productHistoryActionPerformed(evt);
-            }
-        });
-        Product.add(productHistory);
-
         View_Product.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK));
         View_Product.setText("View/Update Item");
         View_Product.addActionListener(new java.awt.event.ActionListener() {
@@ -784,11 +774,6 @@ public class MainPage extends javax.swing.JFrame {
         quote.setVisible(true);
     }//GEN-LAST:event_quoteMenuActionPerformed
 
-    private void productHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productHistoryActionPerformed
-        ProductHistory ph = new ProductHistory();
-        ph.setVisible(true);
-    }//GEN-LAST:event_productHistoryActionPerformed
-
     private void completedPOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completedPOsActionPerformed
         VCompletePOs cPO = new VCompletePOs();
         cPO.setVisible(true);
@@ -876,7 +861,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JTextField pendingCount;
     private javax.swing.JMenuItem printCM;
     private javax.swing.JMenuItem printPO;
-    private javax.swing.JMenuItem productHistory;
     private javax.swing.JMenuItem productListMenuItem;
     private javax.swing.JTable purchaseOrder;
     private javax.swing.JMenuItem quoteMenu;

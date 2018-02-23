@@ -27,9 +27,9 @@ public class VJob extends javax.swing.JFrame {
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             if(hideInactive.isSelected()){
-                resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments from job where status not like '%Inactive%';");
+                resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments from job where status not like '%Inactive%' order by name;");
             } else {
-                resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments from job;");
+                resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments from job order by name;");
             }
             viewJob.setModel(DbUtils.resultSetToTableModel(resultObj));
             viewJob.getColumn("name").setHeaderValue("Job Name");
@@ -66,6 +66,7 @@ public class VJob extends javax.swing.JFrame {
         viewJobCloseButton = new javax.swing.JButton();
         addJobButton = new javax.swing.JButton();
         updateJobButton = new javax.swing.JButton();
+        refresh = new javax.swing.JButton();
         view_job = new javax.swing.JScrollPane();
         viewJob = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -95,12 +96,21 @@ public class VJob extends javax.swing.JFrame {
             }
         });
 
+        refresh.setText("Refresh Page");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addJobButton)
                 .addGap(18, 18, 18)
                 .addComponent(updateJobButton)
@@ -115,7 +125,8 @@ public class VJob extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(addJobButton)
-                        .addComponent(updateJobButton))
+                        .addComponent(updateJobButton)
+                        .addComponent(refresh))
                     .addComponent(viewJobCloseButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -203,7 +214,6 @@ public class VJob extends javax.swing.JFrame {
     private void addJobButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJobButtonActionPerformed
         Job job = new Job("Add");
         job.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_addJobButtonActionPerformed
 
     private void updateJobButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateJobButtonActionPerformed
@@ -218,13 +228,16 @@ public class VJob extends javax.swing.JFrame {
             String name =  (String) viewJob.getValueAt(index[0], 0);
             Job job = new Job(name);
             job.setVisible(true);
-            this.dispose();
         }
     }//GEN-LAST:event_updateJobButtonActionPerformed
 
     private void hideInactiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideInactiveActionPerformed
         getJobs();
     }//GEN-LAST:event_hideInactiveActionPerformed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        getJobs();
+    }//GEN-LAST:event_refreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,8 +269,7 @@ public class VJob extends javax.swing.JFrame {
     private javax.swing.JCheckBox hideInactive;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JCheckBox showHideInactive;
-    private javax.swing.JCheckBox showHideInactive1;
+    private javax.swing.JButton refresh;
     private javax.swing.JButton updateJobButton;
     private javax.swing.JTable viewJob;
     private javax.swing.JButton viewJobCloseButton;

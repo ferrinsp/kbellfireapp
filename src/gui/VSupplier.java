@@ -72,6 +72,7 @@ public class VSupplier extends javax.swing.JFrame {
         addSupplierButton = new javax.swing.JButton();
         updateSupplierButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
+        refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Suppliers");
@@ -129,18 +130,27 @@ public class VSupplier extends javax.swing.JFrame {
             }
         });
 
+        refresh.setText("Refresh Page");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addSupplierButton)
                 .addGap(18, 18, 18)
                 .addComponent(updateSupplierButton)
                 .addGap(18, 18, 18)
                 .addComponent(closeButton)
-                .addGap(369, 369, 369))
+                .addGap(300, 300, 300))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +159,8 @@ public class VSupplier extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addSupplierButton)
                     .addComponent(updateSupplierButton)
-                    .addComponent(closeButton))
+                    .addComponent(closeButton)
+                    .addComponent(refresh))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -182,7 +193,6 @@ public class VSupplier extends javax.swing.JFrame {
     private void addSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSupplierButtonActionPerformed
         NSupplier addSupplier = new NSupplier(-1);
         addSupplier.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_addSupplierButtonActionPerformed
 
     private void updateSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSupplierButtonActionPerformed
@@ -197,13 +207,16 @@ public class VSupplier extends javax.swing.JFrame {
             int id = (int) supplier.getValueAt(index[0], 0);
             NSupplier addSupplier = new NSupplier(id);
             addSupplier.setVisible(true);
-            //this.dispose();
         }
     }//GEN-LAST:event_updateSupplierButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        getsuppliers();
+    }//GEN-LAST:event_refreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,6 +247,7 @@ public class VSupplier extends javax.swing.JFrame {
     private javax.swing.JButton addSupplierButton;
     private javax.swing.JButton closeButton;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton refresh;
     private javax.swing.JTable supplier;
     private javax.swing.JButton updateSupplierButton;
     private javax.swing.JScrollPane view_supplier_list;

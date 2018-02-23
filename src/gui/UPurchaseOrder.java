@@ -24,6 +24,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
+    String [][] job = null;
     int id; //Set this later
     
     public UPurchaseOrder(int index) {
@@ -72,6 +73,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 createdBy.setText(resultObj.getString("user"));
                 supplierName.setText(resultObj.getString("companyname"));
                 taxRate.setText(Double.toString(resultObj.getDouble("currentTax")));
+                shipToCombo.setSelectedItem(resultObj.getString("shipto"));
                 d= resultObj.getDate("created");
                 dateCreated.setText(df.format(d));
                 commentsArea.setText(resultObj.getString("comments"));
@@ -125,13 +127,20 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     poStatus = button.getText();
                 }
             }
-            query = "Update purchaseorder set status=?, comments=? , expectedby =? , total= ? where orderid="+id+";";
+            query = "Update purchaseorder set status=?, comments=? , expectedby =? , total= ?, shipto=?  where orderid="+id+";";
             //Get Values to update
+            int ship=-1;
+            for (String[] job1 : job) {
+                        if (shipToCombo.getSelectedItem().equals(job1[1])) {
+                            ship = Integer.parseInt(job1[0]);
+                        }
+                    }
             preparedStmt =connObj.prepareStatement(query);
             preparedStmt.setString (1, poStatus);
             preparedStmt.setString (2, commentsArea.getText());
             preparedStmt.setDate(3, new java.sql.Date(expectedDate.getDate().getTime()));
             preparedStmt.setDouble(4,total);
+            preparedStmt.setInt(5,ship);
             preparedStmt.executeUpdate();
             connObj.close();
             this.id= -1;
@@ -149,7 +158,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
             //Dynamically set job list size
             resultObj.last();
-            String [][] job = new String[resultObj.getRow()][2];
+            job = new String[resultObj.getRow()][2];
             resultObj.beforeFirst();
             int i=0;
             while (resultObj.next()){
