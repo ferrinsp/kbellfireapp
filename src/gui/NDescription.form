@@ -177,8 +177,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Add Description">
-                <Property name="tabTitle" type="java.lang.String" value="Add Description"/>
+              <JTabbedPaneConstraints tabName="Change Sales Tax">
+                <Property name="tabTitle" type="java.lang.String" value="Change Sales Tax"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

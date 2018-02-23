@@ -80,6 +80,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             resultObj = stateObj.executeQuery("select pdescID from productdescription where productDescription like '%"+EscapeCharacter.escape(desc)+"%' ;");
             while (resultObj.next()){
                 index =resultObj.getInt("pdescID");
+                System.out.println("Index "+index+" at  getDescription for description "+desc);
             }
             connObj.close();
         } catch (SQLException e) {

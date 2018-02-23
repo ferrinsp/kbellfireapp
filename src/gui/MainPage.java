@@ -653,7 +653,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_newProductActionPerformed
 
     private void create_JobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_JobActionPerformed
-        Job job = new Job();
+        Job job = new Job("Add");
         job.setVisible(true);
     }//GEN-LAST:event_create_JobActionPerformed
 

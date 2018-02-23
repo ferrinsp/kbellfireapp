@@ -254,7 +254,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="bidAmount">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Bid Amount"/>
+                <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="bidAmountFocusGained"/>

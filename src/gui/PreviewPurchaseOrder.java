@@ -164,7 +164,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     
     private void setDatePicker() {
         Calendar datePicker = Calendar.getInstance();
-        datePicker.add(Calendar.DATE, 7);
+        datePicker.add(Calendar.DATE,0);
         expectedDatePicker.setDate(datePicker.getTime());
     }
     

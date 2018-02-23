@@ -957,13 +957,13 @@
 17,401,EA,Sioux Chief,840-2P,105,0,Inactive
 17,401,EA,Sioux Chief,840-2P,106,0,Inactive
 17,401,EA,Sioux Chief,840-2P,107,3.9,Active
-17,406,EA,Sioux Chief,841-2P,101,0,Inactive
-17,406,EA,Sioux Chief,841-2P,102,0,Inactive
-17,406,EA,Sioux Chief,841-2P,103,5.65,Active
-17,406,EA,Sioux Chief,841-2P,104,0,Inactive
-17,406,EA,Sioux Chief,841-2P,105,0,Inactive
-17,406,EA,Sioux Chief,841-2P,106,0,Inactive
-17,406,EA,Sioux Chief,841-2P,107,0,Inactive
+17,402,EA,Sioux Chief,841-2P,101,0,Inactive
+17,402,EA,Sioux Chief,841-2P,102,0,Inactive
+17,402,EA,Sioux Chief,841-2P,103,5.65,Active
+17,402,EA,Sioux Chief,841-2P,104,0,Inactive
+17,402,EA,Sioux Chief,841-2P,105,0,Inactive
+17,402,EA,Sioux Chief,841-2P,106,0,Inactive
+17,402,EA,Sioux Chief,841-2P,107,0,Inactive
 17,407,EA,Sioux Chief,842-4PNR,101,0,Inactive
 17,407,EA,Sioux Chief,842-4PNR,102,28.13,Active
 17,407,EA,Sioux Chief,842-4PNR,103,28.13,Active
@@ -971,13 +971,13 @@
 17,407,EA,Sioux Chief,842-4PNR,105,32.58,Active
 17,407,EA,Sioux Chief,842-4PNR,106,29.99,Active
 17,407,EA,Sioux Chief,842-4PNR,107,29.79,Active
-17,408,EA,Sioux Chief,834-4PNR,101,0,Inactive
-17,408,EA,Sioux Chief,834-4PNR,102,42.81,Active
-17,408,EA,Sioux Chief,834-4PNR,103,47.5,Active
-17,408,EA,Sioux Chief,834-4PNR,104,0,Inactive
-17,408,EA,Sioux Chief,834-4PNR,105,49.57,Active
-17,408,EA,Sioux Chief,834-4PNR,106,45,Active
-17,408,EA,Sioux Chief,834-4PNR,107,45.34,Active
+17,404,EA,Sioux Chief,834-4PNR,101,0,Inactive
+17,404,EA,Sioux Chief,834-4PNR,102,42.81,Active
+17,404,EA,Sioux Chief,834-4PNR,103,47.5,Active
+17,404,EA,Sioux Chief,834-4PNR,104,0,Inactive
+17,404,EA,Sioux Chief,834-4PNR,105,49.57,Active
+17,404,EA,Sioux Chief,834-4PNR,106,45,Active
+17,404,EA,Sioux Chief,834-4PNR,107,45.34,Active
 33,409,EA,,,101,0.5,Active
 33,409,EA,,,102,0.44,Active
 33,409,EA,,,103,0.36,Active
@@ -2399,27 +2399,20 @@
 45,209,EA,,,105,0,Inactive
 45,209,EA,,,106,0,Inactive
 45,209,EA,,,107,0,Inactive
-23,614,EA,,,101,0,Inactive
-23,614,EA,,,102,0,Inactive
-23,614,EA,,,103,0,Inactive
-23,614,EA,,,104,0,Inactive
-23,614,EA,,,105,0,Inactive
-23,614,EA,,,106,0,Inactive
-23,614,EA,,,107,14.23,Active
-23,615,EA,,,101,17.71,Active
-23,615,EA,,,102,15.68,Active
-23,615,EA,,,103,16,Active
-23,615,EA,,,104,0,Inactive
-23,615,EA,,,105,13.6,Active
-23,615,EA,,,106,0,Inactive
-23,615,EA,,,107,0,Inactive
-23,616,EA,,,101,14.6,Active
-23,616,EA,,,102,16.04,Active
-23,616,EA,,,103,16.18,Active
-23,616,EA,,,104,0,Inactive
-23,616,EA,,,105,14.9,Active
-23,616,EA,,,106,0,Inactive
-23,616,EA,,,107,16.98,Active
+45,614,EA,,,101,0,Inactive
+45,614,EA,,,102,0,Inactive
+45,614,EA,,,103,0,Inactive
+45,614,EA,,,104,0,Inactive
+45,614,EA,,,105,0,Inactive
+45,614,EA,,,106,0,Inactive
+45,614,EA,,,107,14.23,Active
+45,615,EA,,,101,17.71,Active
+45,615,EA,,,102,15.68,Active
+45,615,EA,,,103,16,Active
+45,615,EA,,,104,0,Inactive
+45,615,EA,,,105,13.6,Active
+45,615,EA,,,106,0,Inactive
+45,615,EA,,,107,0,Inactive
 23,617,EA,,,101,6.92,Active
 23,617,EA,,,102,14.26,Active
 23,617,EA,,,103,11.88,Active
