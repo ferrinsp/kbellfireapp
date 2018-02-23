@@ -12,6 +12,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import net.proteanit.sql.DbUtils;
 
@@ -27,12 +29,14 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     public UPurchaseOrder(int index) {
         this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
+        getShipTo();
         this.id=index;
         selectpo();
     }
     public UPurchaseOrder() {
         this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
+        getShipTo();
         selectpo();
     }
     private void selectpo()    {
@@ -67,7 +71,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 expectedDate.setDate(resultObj.getDate("expectedby"));
                 createdBy.setText(resultObj.getString("user"));
                 supplierName.setText(resultObj.getString("companyname"));
-                shipTo.setText(resultObj.getString("shipto"));
                 taxRate.setText(Double.toString(resultObj.getDouble("currentTax")));
                 d= resultObj.getDate("created");
                 dateCreated.setText(df.format(d));
@@ -137,6 +140,30 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 e.printStackTrace();
             }
     }
+    
+    private void getShipTo() {
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            stateObj = connObj.createStatement();
+            resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
+            //Dynamically set job list size
+            resultObj.last();
+            String [][] job = new String[resultObj.getRow()][2];
+            resultObj.beforeFirst();
+            int i=0;
+            while (resultObj.next()){
+                job[i][0] =Integer.toString(resultObj.getInt("jobid"));
+                job[i][1]=resultObj.getString("name");
+                i++;
+                shipToCombo.addItem(resultObj.getString("name"));
+            }
+            connObj.close();
+        } catch (SQLException e) {
+            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -149,6 +176,17 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         statusGroup = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        expectedBy = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        taxRate = new javax.swing.JTextField();
+        shipToCombo = new javax.swing.JComboBox<>();
+        dateCreated = new javax.swing.JTextField();
+        createdBy = new javax.swing.JTextField();
+        supplierName = new javax.swing.JTextField();
+        expectedDate = new org.jdesktop.swingx.JXDatePicker();
+        jobName = new javax.swing.JTextField();
+        purchaseOrderNum = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -156,16 +194,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        purchaseOrderNum = new javax.swing.JTextField();
-        jobName = new javax.swing.JTextField();
-        expectedBy = new javax.swing.JTextField();
-        supplierName = new javax.swing.JTextField();
-        createdBy = new javax.swing.JTextField();
-        dateCreated = new javax.swing.JTextField();
-        shipTo = new javax.swing.JTextField();
-        taxRate = new javax.swing.JTextField();
-        expectedDate = new org.jdesktop.swingx.JXDatePicker();
         jScrollPane2 = new javax.swing.JScrollPane();
         itemTable = new javax.swing.JTable();
         rdbIssued = new javax.swing.JRadioButton();
@@ -182,44 +210,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update Purchase Order");
 
-        jLabel1.setText("Purchase Order #");
-
-        jLabel2.setText("Job:");
-
-        jLabel3.setText("Expected Date:");
-
-        jLabel4.setText("Supplier:");
-
-        jLabel5.setText("Created By:");
-
-        jLabel6.setText("Created Date:");
-
-        jLabel7.setText("Ship To:");
-
-        jLabel8.setText("Tax Rate:");
-
-        purchaseOrderNum.setEditable(false);
-        purchaseOrderNum.setText("Purchase Order #");
-        purchaseOrderNum.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                purchaseOrderNumFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                purchaseOrderNumFocusLost(evt);
-            }
-        });
-
-        jobName.setEditable(false);
-        jobName.setText("Job");
-        jobName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jobNameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jobNameFocusLost(evt);
-            }
-        });
-
         expectedBy.setEditable(false);
         expectedBy.setText("Expected Date");
         expectedBy.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -231,14 +221,29 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
-        supplierName.setEditable(false);
-        supplierName.setText("Supplier");
-        supplierName.addFocusListener(new java.awt.event.FocusAdapter() {
+        jLabel8.setText("Tax Rate:");
+
+        taxRate.setEditable(false);
+        taxRate.setText("Tax Rate");
+        taxRate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                supplierNameFocusGained(evt);
+                taxRateFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                supplierNameFocusLost(evt);
+                taxRateFocusLost(evt);
+            }
+        });
+
+        shipToCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ship To" }));
+
+        dateCreated.setEditable(false);
+        dateCreated.setText("Created Date");
+        dateCreated.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dateCreatedFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dateCreatedFocusLost(evt);
             }
         });
 
@@ -253,49 +258,63 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
-        dateCreated.setEditable(false);
-        dateCreated.setText("Created Date");
-        dateCreated.addFocusListener(new java.awt.event.FocusAdapter() {
+        supplierName.setEditable(false);
+        supplierName.setText("Supplier");
+        supplierName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                dateCreatedFocusGained(evt);
+                supplierNameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                dateCreatedFocusLost(evt);
-            }
-        });
-
-        shipTo.setEditable(false);
-        shipTo.setText("Ship To");
-        shipTo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                shipToFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                shipToFocusLost(evt);
-            }
-        });
-
-        taxRate.setEditable(false);
-        taxRate.setText("Tax Rate");
-        taxRate.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                taxRateFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                taxRateFocusLost(evt);
+                supplierNameFocusLost(evt);
             }
         });
 
         Date date = new Date();
         expectedDate.setDate(date);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(219, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+        jobName.setEditable(false);
+        jobName.setText("Job");
+        jobName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jobNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jobNameFocusLost(evt);
+            }
+        });
+
+        purchaseOrderNum.setEditable(false);
+        purchaseOrderNum.setText("Purchase Order #");
+        purchaseOrderNum.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                purchaseOrderNumFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                purchaseOrderNumFocusLost(evt);
+            }
+        });
+
+        jLabel1.setText("Purchase Order #");
+
+        jLabel2.setText("Job:");
+
+        jLabel3.setText("Expected Date:");
+
+        jLabel4.setText("Supplier:");
+
+        jLabel5.setText("Created By:");
+
+        jLabel6.setText("Created Date:");
+
+        jLabel7.setText("Ship To:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(166, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -305,53 +324,70 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jobName)
                     .addComponent(purchaseOrderNum)
                     .addComponent(supplierName)
                     .addComponent(createdBy)
                     .addComponent(dateCreated)
-                    .addComponent(shipTo)
-                    .addComponent(taxRate, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                    .addComponent(expectedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(196, 196, 196))
+                    .addComponent(taxRate)
+                    .addComponent(expectedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(shipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(165, 165, 165))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(purchaseOrderNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jobName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(expectedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(supplierName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(createdBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(dateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(shipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(taxRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(purchaseOrderNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jobName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(expectedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(supplierName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(createdBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(dateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(shipTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(taxRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
 
         jTabbedPane1.addTab("Update Purchase Order", jPanel1);
@@ -445,7 +481,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane1)
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
@@ -469,8 +505,8 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -557,16 +593,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             dateCreated.setText("Created Date");
     }//GEN-LAST:event_dateCreatedFocusLost
 
-    private void shipToFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_shipToFocusGained
-        if(shipTo.getText().equals("Ship To"))
-            shipTo.setText("");
-    }//GEN-LAST:event_shipToFocusGained
-
-    private void shipToFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_shipToFocusLost
-        if(shipTo.getText().equals(""))
-            shipTo.setText("Ship To");
-    }//GEN-LAST:event_shipToFocusLost
-
     private void taxRateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxRateFocusLost
         if(taxRate.getText().equals(""))
             taxRate.setText("Tax Rate");
@@ -637,6 +663,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -645,7 +672,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbBackOrder;
     private javax.swing.JRadioButton rdbCompleted;
     private javax.swing.JRadioButton rdbIssued;
-    private javax.swing.JTextField shipTo;
+    private javax.swing.JComboBox<String> shipToCombo;
     private javax.swing.ButtonGroup statusGroup;
     private javax.swing.JTextField supplierName;
     private javax.swing.JTextField taxRate;

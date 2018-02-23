@@ -28,6 +28,12 @@ public class VItem extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
+
+    public VItem() {
+        this.cellRenderer = new AlternatingListCellRenderer();
+        initComponents();
+        getProduct();
+    }
     
     public void filter(){
         String text = searchField.getText();
@@ -57,14 +63,27 @@ public class VItem extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery(" select c.description, pd.productDescription, s.companyname, p.price,p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange "
-                    + "from product p inner join category c on p.category_id=c.category_ID inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier;"); 
+            if(showHideStatus.isSelected()) {
+                resultObj = stateObj.executeQuery("select p.id, c.description, pd.productDescription, s.companyname, p.price,\n" +
+                    "p.status as 'status',p.unitMeasure,p.manufacturer,p.part_id,p.lastchange\n" +
+                    "from product p inner join category c on p.category_id=c.category_ID\n" +
+                    "inner join productdescription pd on pd.pdescID=p.description\n" +
+                    "inner join supplier s on s.supplierid=p.supplier\n" +
+                    "where status not like '%Inactive%';");     
+            } else {
+                resultObj = stateObj.executeQuery(" select p.id, c.description, pd.productDescription, s.companyname, p.price,"
+                    + "p.status,p.unitMeasure,p.manufacturer,p.part_id,p.lastchange "
+                    + "from product p inner join category c on p.category_id=c.category_ID "
+                    + "inner join productdescription pd on pd.pdescID=p.description "
+                    + "inner join supplier s on s.supplierid=p.supplier;");
+            }
             ItemTable.setModel(DbUtils.resultSetToTableModel(resultObj));
+            ItemTable.getColumn("id").setHeaderValue("Product ID");
             ItemTable.getColumn("description").setHeaderValue("Category");
             ItemTable.getColumn("productDescription").setHeaderValue("Product Description");
             ItemTable.getColumn("companyname").setHeaderValue("Supplier");
             ItemTable.getColumn("price").setHeaderValue("Unit Price");
-            ItemTable.getColumn("status").setHeaderValue("Active");
+            ItemTable.getColumn("status").setHeaderValue("Status");
             ItemTable.getColumn("unitMeasure").setHeaderValue("Unit");
             ItemTable.getColumn("manufacturer").setHeaderValue("MFC");
             ItemTable.getColumn("part_id").setHeaderValue("Part Number");
@@ -75,14 +94,6 @@ public class VItem extends javax.swing.JFrame {
         catch (SQLException ex) {
             Logger.getLogger(NUItem.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    /**
-     * Creates new form VItem
-     */
-    public VItem() {
-        this.cellRenderer = new AlternatingListCellRenderer();
-        initComponents();
-        getProduct();
     }
 
     /**
@@ -101,20 +112,21 @@ public class VItem extends javax.swing.JFrame {
         updateItemButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
+        showHideStatus = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("View Item");
 
         ItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Category", "Description", "Part Number", "MFC", "Supplier", "Price", "Unit", "Status", "Last Change"
+                "Product ID", "Category", "Description", "Part Number", "MFC", "Supplier", "Price", "Unit", "Status", "Last Change"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true, true, true
+                false, false, false, false, false, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -160,14 +172,14 @@ public class VItem extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(398, 398, 398)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addItemButton)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateItemButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(closeButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +189,7 @@ public class VItem extends javax.swing.JFrame {
                     .addComponent(addItemButton)
                     .addComponent(updateItemButton)
                     .addComponent(closeButton))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         searchField.setText("Search");
@@ -200,6 +212,13 @@ public class VItem extends javax.swing.JFrame {
             }
         });
 
+        showHideStatus.setText("Hide Inactive");
+        showHideStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showHideStatusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -210,19 +229,24 @@ public class VItem extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(showHideStatus))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 48, Short.MAX_VALUE)))
+                        .addGap(12, 12, 12)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(showHideStatus))
+                .addGap(16, 16, 16)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -247,7 +271,7 @@ public class VItem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Select only one item to update.");
         }
         else{
-            int prod= findProduct(ItemTable.getValueAt(index[0], 2).toString(),ItemTable.getValueAt(index[0], 1).toString(),Double.parseDouble(ItemTable.getValueAt(index[0], 3).toString()));
+            int prod= (int) ItemTable.getValueAt(index[0], 0);
             NUItem addItem = new NUItem(prod);
             addItem.setVisible(true);
             this.dispose();
@@ -277,6 +301,10 @@ public class VItem extends javax.swing.JFrame {
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void showHideStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showHideStatusActionPerformed
+        getProduct();
+    }//GEN-LAST:event_showHideStatusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,6 +338,7 @@ public class VItem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;
+    private javax.swing.JCheckBox showHideStatus;
     private javax.swing.JButton updateItemButton;
     // End of variables declaration//GEN-END:variables
 }

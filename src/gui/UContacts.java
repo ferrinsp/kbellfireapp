@@ -67,25 +67,24 @@ public class UContacts extends javax.swing.JFrame {
     
     private void pullContactFromVContacts() {
         if(id !=-1) {
-        try {
-            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select contactid, name, phone, status from contact where contactid = "+id);
-            while (resultObj.next()){
-                contactName.setText(resultObj.getString("name"));
-                contactPhone.setText(resultObj.getString("phone"));
-                String contactStatus = resultObj.getString("status");
-                if (contactStatus.equals("Active")) {
-                    contactActive.setSelected(true);
-                } else if (contactStatus.equals("Inactive")) {
-                    contactInactive.setSelected(true);
-                }
+            try {
+                //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+                connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+                stateObj = connObj.createStatement();
+                resultObj = stateObj.executeQuery("select contactid, name, phone, status from contact where contactid = "+id+";");
+                while (resultObj.next()){
+                    contactName.setText(resultObj.getString("name"));
+                    contactPhone.setText(resultObj.getString("phone"));
+                    String contactStatus = resultObj.getString("status");
+                    if (contactStatus.equals("Active")) {
+                        contactActive.setSelected(true);
+                    } else if (contactStatus.equals("Inactive")) {
+                        contactInactive.setSelected(true);
+                    }
+                } connObj.close();
+            } catch (SQLException ex) {    
+                Logger.getLogger(NSupplier.class.getName()).log(Level.SEVERE, null, ex);
             }
-            connObj.close();
-        } catch (SQLException ex) {    
-            Logger.getLogger(NSupplier.class.getName()).log(Level.SEVERE, null, ex);
-        }
         }
     }
     
@@ -254,6 +253,8 @@ public class UContacts extends javax.swing.JFrame {
             updateContact();
             id=-1;
             this.dispose();
+            VContacts contact = new VContacts();
+            contact.setVisible(true);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 

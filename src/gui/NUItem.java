@@ -22,6 +22,18 @@ public class NUItem extends javax.swing.JFrame {
     String [][] description= null;
     int id =-1;
     
+    @SuppressWarnings("OverridableMethodCallInConstructor")
+    public NUItem(int item) {
+        this.setResizable(false);
+        initComponents();
+        this.id = item;
+        getComboCategory();
+        getDescriptionCombo();
+        getComboSupplier();
+        setDatePicker();
+        getProductInfo();
+    }
+    
     private int findCategory(String c){
         int index=-1;
         for (int i=0;i<category.length;i++){
@@ -116,10 +128,9 @@ public class NUItem extends javax.swing.JFrame {
     private void setDatePicker() {
         lastChanged.setDate(Calendar.getInstance().getTime());
     }
-    public void init(){
+    public void getProductInfo(){
         if (id != -1) {
             try {
-                //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
                 connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
                 stateObj = connObj.createStatement();
                 resultObj = stateObj.executeQuery("SELECT c.description, pd.productDescription, p.manufacturer, p.part_id, p.unitMeasure, s.companyname, p.lastchange, p.price, p.status\n" +
@@ -128,24 +139,26 @@ public class NUItem extends javax.swing.JFrame {
                 while (resultObj.next()){
                     CategoryCombo.setSelectedItem(resultObj.getString("description"));
                     DescriptionCombo.setSelectedItem(resultObj.getString("productDescription"));
-                    partNumTextField.setText(resultObj.getString("part_id"));
                     mfcTextField.setText(resultObj.getString("manufacturer"));
-                    SupplierCombo.setSelectedItem(resultObj.getString("companyname"));
-                    priceTextField.setText(resultObj.getString("price"));
+                    partNumTextField.setText(resultObj.getString("part_id"));
                     unitMeasure.setSelectedItem(resultObj.getString("unitMeasure"));
+                    SupplierCombo.setSelectedItem(resultObj.getString("companyname"));
                     lastChanged.setDate(resultObj.getDate("lastchange"));
-                    String contactStatus = resultObj.getString("status");                    
+                    priceTextField.setText(resultObj.getString("price"));
+                    String contactStatus = resultObj.getString("status");
+                    System.out.println(contactStatus);
                     if (contactStatus.equals("Active")) {
                         itemActive.setSelected(true);
                     } else if (contactStatus.equals("Inactive")) {
                         itemInactive.setSelected(true);
                     }
-                }
+                } connObj.close();
             }catch(SQLException e){
                 e.printStackTrace();
             }
         }
     }
+    
     public void insertProduct() {
         try {
           String query;  
@@ -203,18 +216,6 @@ public class NUItem extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @SuppressWarnings("OverridableMethodCallInConstructor")
-    public NUItem(int item) {
-        this.setResizable(false);
-        initComponents();
-        this.id=item;
-        getComboCategory();
-        getDescriptionCombo();
-        getComboSupplier();
-        setDatePicker();
-        init();
     }
 
     /**
@@ -467,6 +468,9 @@ public class NUItem extends javax.swing.JFrame {
 
     private void addNewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewItemActionPerformed
         insertProduct();
+        this.dispose();
+        VItem view = new VItem();
+        view.setVisible(true);
     }//GEN-LAST:event_addNewItemActionPerformed
 
     private void partNumTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_partNumTextFieldFocusGained

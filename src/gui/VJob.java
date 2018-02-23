@@ -26,7 +26,11 @@ public class VJob extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("Select name, address,city,state,zip,bidamount,status,comments from job");
+            if(hideInactive.isSelected()){
+                resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments from job where status not like '%Inactive%';");
+            } else {
+                resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments from job;");
+            }
             viewJob.setModel(DbUtils.resultSetToTableModel(resultObj));
             viewJob.getColumn("name").setHeaderValue("Job Name");
             viewJob.getColumn("address").setHeaderValue("Address");
@@ -64,6 +68,8 @@ public class VJob extends javax.swing.JFrame {
         updateJobButton = new javax.swing.JButton();
         view_job = new javax.swing.JScrollPane();
         viewJob = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        hideInactive = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Current Jobs");
@@ -93,14 +99,14 @@ public class VJob extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(209, 209, 209)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addJobButton)
                 .addGap(18, 18, 18)
                 .addComponent(updateJobButton)
                 .addGap(18, 18, 18)
                 .addComponent(viewJobCloseButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,6 +144,30 @@ public class VJob extends javax.swing.JFrame {
         });
         view_job.setViewportView(viewJob);
 
+        hideInactive.setText("Hide Inactive");
+        hideInactive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hideInactiveActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(hideInactive)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(hideInactive)
+                .addGap(12, 12, 12))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,17 +176,20 @@ public class VJob extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(view_job, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE))
+                    .addComponent(view_job, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(view_job, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -185,8 +218,13 @@ public class VJob extends javax.swing.JFrame {
             String name =  (String) viewJob.getValueAt(index[0], 0);
             Job job = new Job(name);
             job.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_updateJobButtonActionPerformed
+
+    private void hideInactiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideInactiveActionPerformed
+        getJobs();
+    }//GEN-LAST:event_hideInactiveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,7 +253,11 @@ public class VJob extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addJobButton;
+    private javax.swing.JCheckBox hideInactive;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JCheckBox showHideInactive;
+    private javax.swing.JCheckBox showHideInactive1;
     private javax.swing.JButton updateJobButton;
     private javax.swing.JTable viewJob;
     private javax.swing.JButton viewJobCloseButton;

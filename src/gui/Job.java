@@ -33,7 +33,7 @@ public class Job extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("Select * from job where name like '%"+name+"%';");
+            resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments from job where name like '%"+name+"%';");
             while (resultObj.next()){
                 jobName.setText(resultObj.getString("name"));
                 address.setText(resultObj.getString("address"));
@@ -41,10 +41,12 @@ public class Job extends javax.swing.JFrame {
                 state.setText(resultObj.getString("state"));
                 postalCode.setText(resultObj.getString("zip"));
                 bidAmount.setText(resultObj.getString("bidamount"));
-                if (resultObj.getString("status").equals("Active"))
+                String selected = resultObj.getString("status");
+                if(selected.equals("Active")) {
                     rdbActive.setSelected(true);
-                else
+                } else if (selected.equals("Inactive")) {
                     rdbInactive.setSelected(true);
+                }
                 jobComments.setText(resultObj.getString("comments"));
             }
             connObj.close();
@@ -459,6 +461,8 @@ public class Job extends javax.swing.JFrame {
     private void saveJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveJobActionPerformed
         insertJob();
         this.dispose();
+        VJob view = new VJob();
+        view.setVisible(true);
     }//GEN-LAST:event_saveJobActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
