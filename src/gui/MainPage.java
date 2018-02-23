@@ -147,25 +147,25 @@ public class MainPage extends javax.swing.JFrame {
         Create_Purchase_Order = new javax.swing.JMenuItem();
         printPO = new javax.swing.JMenuItem();
         View_Purchase_Order = new javax.swing.JMenuItem();
+        Credit_Memo = new javax.swing.JMenu();
+        completedCM = new javax.swing.JMenuItem();
+        newCreditMemo = new javax.swing.JMenuItem();
+        printCM = new javax.swing.JMenuItem();
+        viewCreditMemo = new javax.swing.JMenuItem();
         Product = new javax.swing.JMenu();
         miscFunction = new javax.swing.JMenuItem();
         newProduct = new javax.swing.JMenuItem();
         quoteMenu = new javax.swing.JMenuItem();
         productHistory = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
-        Contact = new javax.swing.JMenu();
-        viewContacts = new javax.swing.JMenuItem();
         Jobs = new javax.swing.JMenu();
         create_Job = new javax.swing.JMenuItem();
         view_Job = new javax.swing.JMenuItem();
         Supplier = new javax.swing.JMenu();
         Create_Supplier = new javax.swing.JMenuItem();
         View_Supplier = new javax.swing.JMenuItem();
-        Credit_Memo = new javax.swing.JMenu();
-        completedCM = new javax.swing.JMenuItem();
-        newCreditMemo = new javax.swing.JMenuItem();
-        printCM = new javax.swing.JMenuItem();
-        viewCreditMemo = new javax.swing.JMenuItem();
+        Contact = new javax.swing.JMenu();
+        viewContacts = new javax.swing.JMenuItem();
         Reports = new javax.swing.JMenu();
         jobListMenuItem = new javax.swing.JMenuItem();
         productListMenuItem = new javax.swing.JMenuItem();
@@ -429,6 +429,46 @@ public class MainPage extends javax.swing.JFrame {
 
         MenuBar.add(Purchase_Order);
 
+        Credit_Memo.setText("Credit Memos");
+
+        completedCM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
+        completedCM.setText("Completed Credit Memo's");
+        completedCM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                completedCMActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(completedCM);
+
+        newCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        newCreditMemo.setText("New Credit Memo");
+        newCreditMemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newCreditMemoActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(newCreditMemo);
+
+        printCM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        printCM.setText("Print Credit Memo");
+        printCM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printCMActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(printCM);
+
+        viewCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        viewCreditMemo.setText("View Credit Memo");
+        viewCreditMemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCreditMemoActionPerformed(evt);
+            }
+        });
+        Credit_Memo.add(viewCreditMemo);
+
+        MenuBar.add(Credit_Memo);
+
         Product.setText("Products");
 
         miscFunction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK));
@@ -478,19 +518,6 @@ public class MainPage extends javax.swing.JFrame {
 
         MenuBar.add(Product);
 
-        Contact.setText("Contacts");
-
-        viewContacts.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        viewContacts.setText("View/Update Contacts");
-        viewContacts.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewContactsActionPerformed(evt);
-            }
-        });
-        Contact.add(viewContacts);
-
-        MenuBar.add(Contact);
-
         Jobs.setText("Jobs");
 
         create_Job.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
@@ -535,45 +562,18 @@ public class MainPage extends javax.swing.JFrame {
 
         MenuBar.add(Supplier);
 
-        Credit_Memo.setText("Credit Memos");
+        Contact.setText("Contacts");
 
-        completedCM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
-        completedCM.setText("Completed Credit Memo's");
-        completedCM.addActionListener(new java.awt.event.ActionListener() {
+        viewContacts.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        viewContacts.setText("View/Update Contacts");
+        viewContacts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                completedCMActionPerformed(evt);
+                viewContactsActionPerformed(evt);
             }
         });
-        Credit_Memo.add(completedCM);
+        Contact.add(viewContacts);
 
-        newCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        newCreditMemo.setText("New Credit Memo");
-        newCreditMemo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newCreditMemoActionPerformed(evt);
-            }
-        });
-        Credit_Memo.add(newCreditMemo);
-
-        printCM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        printCM.setText("Print Credit Memo");
-        printCM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printCMActionPerformed(evt);
-            }
-        });
-        Credit_Memo.add(printCM);
-
-        viewCreditMemo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        viewCreditMemo.setText("View Credit Memo");
-        viewCreditMemo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewCreditMemoActionPerformed(evt);
-            }
-        });
-        Credit_Memo.add(viewCreditMemo);
-
-        MenuBar.add(Credit_Memo);
+        MenuBar.add(Contact);
 
         Reports.setText("Reports");
 

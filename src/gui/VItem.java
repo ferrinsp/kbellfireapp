@@ -111,6 +111,7 @@ public class VItem extends javax.swing.JFrame {
         addItemButton = new javax.swing.JButton();
         updateItemButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
+        productHistoryButton = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
         showHideStatus = new javax.swing.JCheckBox();
 
@@ -168,6 +169,13 @@ public class VItem extends javax.swing.JFrame {
             }
         });
 
+        productHistoryButton.setText("Product History");
+        productHistoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productHistoryButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -177,6 +185,8 @@ public class VItem extends javax.swing.JFrame {
                 .addComponent(addItemButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateItemButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(productHistoryButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(closeButton)
                 .addContainerGap())
@@ -188,7 +198,8 @@ public class VItem extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addItemButton)
                     .addComponent(updateItemButton)
-                    .addComponent(closeButton))
+                    .addComponent(closeButton)
+                    .addComponent(productHistoryButton))
                 .addGap(12, 12, 12))
         );
 
@@ -306,6 +317,21 @@ public class VItem extends javax.swing.JFrame {
         getProduct();
     }//GEN-LAST:event_showHideStatusActionPerformed
 
+    private void productHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productHistoryButtonActionPerformed
+        int[] index = ItemTable.getSelectedRows();
+        if(index.length <= 0){
+            JOptionPane.showMessageDialog(null, "No item selected to view history.");
+        } 
+        else if (index.length > 1){
+            JOptionPane.showMessageDialog(null, "Select only one item to view history.");
+        }
+        else {
+            int id = (int) ItemTable.getValueAt(index[0], 0);
+            ProductHistory history = new ProductHistory(id);
+            history.setVisible(true);
+        }
+    }//GEN-LAST:event_productHistoryButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -337,6 +363,7 @@ public class VItem extends javax.swing.JFrame {
     private javax.swing.JButton closeButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton productHistoryButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JCheckBox showHideStatus;
     private javax.swing.JButton updateItemButton;
