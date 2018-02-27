@@ -240,9 +240,7 @@ public class Login extends javax.swing.JFrame {
         //May need to factor for password encryption
        try {
         if (user != null && pass != null) {
-            System.out.println("Username: "+ user);
             String passwd =String.valueOf(pass);
-            System.out.println("Password: "+ passwd);
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             String query = "Select username,password from user WHERE username=? and password=?";

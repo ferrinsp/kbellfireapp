@@ -516,11 +516,9 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     }
                     //Collect subtotal for items and times by the tax rate and update purchase order with the totals from the lines
                      preparedStmt =connObj.prepareStatement("UPDATE purchaseorder SET subtotal =?, tax =?, total=? where orderid= "+orderid+";");
-                     System.out.println(prodSubtotal);
                      preparedStmt.setDouble(1,prodSubtotal);
                      preparedStmt.setDouble(2,(prodSubtotal*(MainPage.tax/100)));
                      prodSubtotal=prodSubtotal + (prodSubtotal*(MainPage.tax/100));
-                     System.out.println(prodSubtotal);
                      preparedStmt.setDouble(3,prodSubtotal);
                      preparedStmt.executeUpdate();
                      connObj.close();
