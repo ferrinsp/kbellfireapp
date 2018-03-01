@@ -136,11 +136,12 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select DISTINCT c.description, pd.productDescription as pdescription, pd.productsize from product p inner join category c on p.category_id =c.category_ID inner join productdescription pd on p.description = pd.pdescID;");
+            resultObj = stateObj.executeQuery("select DISTINCT c.description, pd.productDescription as pdescription, pd.productsize, p.part_id from product p inner join category c on p.category_id =c.category_ID inner join productdescription pd on p.description = pd.pdescID;");
             itemsSearchTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             itemsSearchTable.getColumn("description").setHeaderValue("Category");
             itemsSearchTable.getColumn("pdescription").setHeaderValue("Product Description");
             itemsSearchTable.getColumn("productsize").setHeaderValue("Size");
+            itemsSearchTable.getColumn("part_id").setHeaderValue("Part ID");
             itemsSearchTable.repaint();
             connObj.close();
         }  catch (SQLException e) {
