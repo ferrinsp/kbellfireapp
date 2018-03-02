@@ -147,11 +147,10 @@ public class NCreditMemo extends javax.swing.JFrame {
                                     + "values(?,?,?,?,?)";
                         preparedStmt =connObj.prepareStatement(query);
                         preparedStmt.setInt (1, memoid); //Memo ID
-                        preparedStmt.setInt (2, getProduct((String) purchaseOrderItemTable.getValueAt(0/*Change index*/, 0)));  //Product Number
-                        preparedStmt.setDouble(3,Double.parseDouble( purchaseOrderItemTable.getValueAt(0/*Change index*/, 6).toString())); //Unit cost
-                        preparedStmt.setInt (4, Integer.parseInt(purchaseOrderItemTable.getValueAt(0/*Change index*/, 4).toString())); //Order Qty
-                        memoSubTotal += Double.parseDouble(purchaseOrderItemTable.getValueAt(0, 4).toString()) *Double.parseDouble(purchaseOrderItemTable.getValueAt(0, 4).toString());
-                        prodTotal = Double.parseDouble( purchaseOrderItemTable.getValueAt(0/*Change index*/, 6).toString()) * Double.parseDouble((purchaseOrderItemTable.getValueAt(0/*Change index*/, 4).toString()));
+                        preparedStmt.setInt (2, getProduct((String) purchaseOrderItemTable.getValueAt(i, 0)));  //Product Number
+                        preparedStmt.setDouble(3,Double.parseDouble( purchaseOrderItemTable.getValueAt(i, 6).toString())); //Unit cost
+                        preparedStmt.setInt (4, Integer.parseInt(purchaseOrderItemTable.getValueAt(i, 4).toString())); //Order Qty
+                        prodTotal = Double.parseDouble( purchaseOrderItemTable.getValueAt(i, 6).toString()) * Double.parseDouble((purchaseOrderItemTable.getValueAt(i, 4).toString()));
                         memoSubTotal += prodTotal;
                         preparedStmt.setDouble(5,prodTotal); //Unit Total
                         preparedStmt.execute();

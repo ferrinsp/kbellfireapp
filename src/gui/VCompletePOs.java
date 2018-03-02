@@ -73,7 +73,7 @@ public class VCompletePOs extends javax.swing.JFrame {
             viewCompletedPOs.getColumn("companyname").setHeaderValue("Company");
             viewCompletedPOs.getColumn("name").setHeaderValue("Job");
             viewCompletedPOs.getColumn("status").setHeaderValue("Status");
-            viewCompletedPOs.getColumn("expectedby").setHeaderValue("Expected By");
+            viewCompletedPOs.getColumn("expectedby").setHeaderValue("Date");
             viewCompletedPOs.getColumn("name").setHeaderValue("Issued By");
             viewCompletedPOs.getColumn("name").setHeaderValue("Ship To");
             viewCompletedPOs.getColumn("total").setHeaderValue("Invoice Total");
