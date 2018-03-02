@@ -122,7 +122,7 @@ public class MainPage extends javax.swing.JFrame {
 
         Main_Panel = new javax.swing.JPanel();
         TabbedView = new javax.swing.JTabbedPane();
-        view_purchase_orders = new javax.swing.JScrollPane();
+        viewPurchaseOrder = new javax.swing.JScrollPane();
         purchaseOrder = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -214,9 +214,9 @@ public class MainPage extends javax.swing.JFrame {
                 }
             }
         });
-        view_purchase_orders.setViewportView(purchaseOrder);
+        viewPurchaseOrder.setViewportView(purchaseOrder);
 
-        TabbedView.addTab("Purchase Order Status", view_purchase_orders);
+        TabbedView.addTab("Purchase Order Status", viewPurchaseOrder);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/KBellLogo.png"))); // NOI18N
 
@@ -748,7 +748,7 @@ public class MainPage extends javax.swing.JFrame {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_supplierListMenuItemActionPerformed
-
+    
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         getDashboard();
         getPOStatus();
@@ -870,7 +870,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton updatePOMainButton;
     private javax.swing.JMenuItem viewContacts;
     private javax.swing.JMenuItem viewCreditMemo;
+    private javax.swing.JScrollPane viewPurchaseOrder;
     private javax.swing.JMenuItem view_Job;
-    private javax.swing.JScrollPane view_purchase_orders;
     // End of variables declaration//GEN-END:variables
 }
