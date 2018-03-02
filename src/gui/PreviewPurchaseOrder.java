@@ -190,6 +190,8 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         quoteNumber = new javax.swing.JTextField();
         quoteDate = new org.jdesktop.swingx.JXDatePicker();
+        jLabel8 = new javax.swing.JLabel();
+        bldgTextField = new javax.swing.JTextField();
         itemsAddedToPO = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -230,6 +232,10 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setText("Bldg:");
+
+        bldgTextField.setText(" ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -240,56 +246,69 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(JobCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ShipToCombo, 0, 260, Short.MAX_VALUE)
-                    .addComponent(selectSupplierCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(expectedDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deliveryContactCombo, 0, 171, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addComponent(ShipToCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(selectSupplierCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addComponent(quoteNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(quoteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(quoteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bldgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(expectedDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(deliveryContactCombo, 0, 171, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JobCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(expectedDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ShipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(deliveryContactCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(selectSupplierCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)
-                        .addComponent(quoteNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addComponent(quoteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(expectedDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(deliveryContactCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7)
+                                .addComponent(quoteNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)
+                                .addComponent(quoteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JobCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(bldgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ShipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(selectSupplierCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -328,7 +347,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Supplier", "Description", "MFC", "Part ID", "Quantity", "Unit", "Unit Price", "Totals"
+                "Supplier", "Quantity", "Unit", "MFC", "Part ID", "Description", "Unit Price", "Totals"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -438,12 +457,12 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     String query;
                     boolean all =false;
                     if (quoteNumber.getText().equals("Quote #") && quoteDate.getDate()==null){
-                        query ="Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax)"
-                        + "values(?,?,?,?,?,?,?,?,?)"    ;
+                        query ="Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax,bldg)"
+                        + "values(?,?,?,?,?,?,?,?,?,?)"    ;
                     }
                     else {
-                        query ="Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax,quote,quotedate)"
-                            + "values(?,?,?,?,?,?,?,?,?,?,?)"    ;
+                        query ="Insert into purchaseorder (supplier,job,expectedby, contact, tax,total,createdby,shipto,currentTax,bldg,quote,quotedate)"
+                            + "values(?,?,?,?,?,?,?,?,?,?,?,?)"    ;
                         all=true;
                     }
                     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -482,6 +501,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     preparedStmt.setInt (7,Login.userid); //Created by
                     preparedStmt.setInt(8,ship); //ShipTo number
                     preparedStmt.setDouble(9,MainPage.tax); //Current sales Tax
+                    preparedStmt.setString(10,bldgTextField.getText());
                     if (all){
                         int quote = 0;
                         try {
@@ -489,8 +509,8 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                                 quote=Integer.parseInt(quoteNumber.getText());
                         }catch(NumberFormatException fe){
                         };
-                        preparedStmt.setInt(10,quote);
-                        preparedStmt.setDate(11,new java.sql.Date( quoteDate.getDate().getTime()));
+                        preparedStmt.setInt(11,quote);
+                        preparedStmt.setDate(12,new java.sql.Date( quoteDate.getDate().getTime()));
                     }
                     preparedStmt.execute();
                     stateObj = connObj.createStatement();
@@ -507,10 +527,10 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                         + "values(?,?,?,?,?)";
                         preparedStmt =connObj.prepareStatement(query);
                         preparedStmt.setInt (1, orderid); //PO ID
-                        preparedStmt.setInt (2, getProduct(supp, (String) previewItemsAddedTable.getValueAt(index.get(k), 1)));  //Product Number
+                        preparedStmt.setInt (2, getProduct(supp, (String) previewItemsAddedTable.getValueAt(index.get(k), 5)));  //Product Number
                         preparedStmt.setDouble(3,Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 6))); //Unit cost
-                        preparedStmt.setDouble (4, Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 4))); //Order Qty
-                        prodTotal = Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 6)) * Double.parseDouble((String)previewItemsAddedTable.getValueAt(index.get(k), 4));
+                        preparedStmt.setDouble (4, Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 1))); //Order Qty
+                        prodTotal = Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 6)) * Double.parseDouble((String)previewItemsAddedTable.getValueAt(index.get(k), 1));
                         prodSubtotal += prodTotal;
                         preparedStmt.setDouble(5,prodTotal); //Unit Total
                         preparedStmt.execute();
@@ -582,6 +602,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JobCombo;
     private javax.swing.JComboBox<String> ShipToCombo;
+    private javax.swing.JTextField bldgTextField;
     private javax.swing.JButton createPurchaseOrderButton;
     private javax.swing.JComboBox<String> deliveryContactCombo;
     private org.jdesktop.swingx.JXDatePicker expectedDatePicker;
@@ -593,6 +614,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

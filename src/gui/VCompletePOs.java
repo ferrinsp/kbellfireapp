@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -36,9 +37,15 @@ public class VCompletePOs extends javax.swing.JFrame {
     public VCompletePOs() {
         this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
+        setDatePickers();
         selectCompletedPOs();
     }
-    
+    private void setDatePickers() {
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.DATE, -31);
+        startDatePicker.setDate(startDate.getTime()); 
+        endDatePicker.setDate(Calendar.getInstance().getTime());
+    }
     private void print(int orderid){
         try {
             //Generate Report
@@ -63,11 +70,10 @@ public class VCompletePOs extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select t1.orderid,t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
-            "t3.name, b.name, t1.total from purchaseorder t1\n" +
-            "inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
-            "inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Completed%'" + 
-            "where expectedby BETWEEN " + startDatePicker.getDate() + " AND " + endDatePicker.getDate() + ";");
+            resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', t3.name, b.name, t1.total " +
+"		from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid" +
+"		inner join kbell.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Completed%'" +
+"		and expectedby BETWEEN '" + new java.sql.Date(startDatePicker.getDate().getTime()) + "' AND '" + new java.sql.Date(endDatePicker.getDate().getTime()) + "';");
             viewCompletedPOs.setModel(DbUtils.resultSetToTableModel(resultObj));
             viewCompletedPOs.getColumn("orderid").setHeaderValue("Purchase Order Number");
             viewCompletedPOs.getColumn("companyname").setHeaderValue("Company");
@@ -174,6 +180,18 @@ public class VCompletePOs extends javax.swing.JFrame {
 
         jLabel2.setText("End Date:");
 
+        startDatePicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startDatePickerActionPerformed(evt);
+            }
+        });
+
+        endDatePicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endDatePickerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -193,12 +211,13 @@ public class VCompletePOs extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12))
         );
 
@@ -233,6 +252,14 @@ public class VCompletePOs extends javax.swing.JFrame {
     private void closePOCompleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closePOCompleteButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_closePOCompleteButtonActionPerformed
+
+    private void startDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startDatePickerActionPerformed
+        selectCompletedPOs();
+    }//GEN-LAST:event_startDatePickerActionPerformed
+
+    private void endDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endDatePickerActionPerformed
+        selectCompletedPOs();
+    }//GEN-LAST:event_endDatePickerActionPerformed
 
     /**
      * @param args the command line arguments

@@ -305,20 +305,20 @@ public class NDescription extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updateTaxActionPerformed
 
-    private void taxTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxTextFieldFocusGained
-        if(taxTextField.getText().equals("Tax Rate"))
-        taxTextField.setText("");
-    }//GEN-LAST:event_taxTextFieldFocusGained
-
-    private void taxTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxTextFieldFocusLost
-        if(taxTextField.getText().equals(""))
-            taxTextField.setText("Tax Rate");
-    }//GEN-LAST:event_taxTextFieldFocusLost
-
     private void prodSizeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prodSizeTextFieldFocusLost
         if(prodSizeTextField.getText().equals(""))
             prodSizeTextField.setText("Product Size");
     }//GEN-LAST:event_prodSizeTextFieldFocusLost
+
+    private void taxTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxTextFieldFocusLost
+        if(taxTextField.getText().equals(""))
+        taxTextField.setText("Tax Rate");
+    }//GEN-LAST:event_taxTextFieldFocusLost
+
+    private void taxTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxTextFieldFocusGained
+        if(taxTextField.getText().equals("Tax Rate"))
+        taxTextField.setText("");
+    }//GEN-LAST:event_taxTextFieldFocusGained
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         this.dispose();

@@ -63,9 +63,9 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     }
     public int findCategory(String cat){
         int index =0;
-        for (int i=0;i<category.length;i++){
-            if(cat.equals(category[i][1])){
-                index =Integer.parseInt(category[i][0]);
+        for (String[] category1 : category) {
+            if (cat.equals(category1[1])) {
+                index = Integer.parseInt(category1[0]);
             }
         }
         
@@ -340,11 +340,11 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Supplier", "Description", "MFC", "Part ID", "Quantity", "Unit", "Unit Price", "Totals"
+                "Supplier", "Quantity", "Unit", "MFC", "Part ID", "Description", "Unit Price", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, true, false
+                false, true, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -427,17 +427,17 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         else{
                 Double total;
                 row[0] = model2.getValueAt(index2[0], 0); //supplier
-                row[1] = model1.getValueAt(itemsSearchTable.convertRowIndexToModel(index[0]), 1); //description
-                row[2] = model2.getValueAt(index2[0], 2);//MFC
-                row[3] = model2.getValueAt(index2[0], 3);//Part ID
+                row[5] = model1.getValueAt(itemsSearchTable.convertRowIndexToModel(index[0]), 1); //description new [5] old [1]
+                row[3] = model2.getValueAt(index2[0], 2);//MFC new [3] old [2]
+                row[4] = model2.getValueAt(index2[0], 3);//Part ID new [4] old [3]
                 if (model2.getValueAt(index2[0], 5).toString().isEmpty())
                 {JOptionPane.showMessageDialog(null, "Please select a quantity to add.");
                 }
                 else{
-                    row[4] = model2.getValueAt(index2[0], 5);
-                    row[5] = model2.getValueAt(index2[0], 1);  //Unit Of Measure
+                    row[1] = model2.getValueAt(index2[0], 5);  //Quantity new [1] old [4]
+                    row[2] = model2.getValueAt(index2[0], 1);  //Unit Of Measure new[2] old [5]
                     row[6] = model2.getValueAt(index2[0], 4);  //Unit Price
-                    total = Double.parseDouble(row[4].toString()) * Double.parseDouble(row[6].toString());
+                    total = Double.parseDouble(row[1].toString()) * Double.parseDouble(row[6].toString());
                     row[7] = String.format( "%.2f", total);  // Total
                     model3.addRow(row);
                 }

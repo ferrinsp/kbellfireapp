@@ -10,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -36,7 +38,14 @@ public class VCompleteCMs extends javax.swing.JFrame {
     public VCompleteCMs() {
         this.cellRenderer = new AlternatingListCellRenderer();
         initComponents();
+        setDatePickers();
         getCompleteCMs();
+    }
+    private void setDatePickers() {
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.DATE, -31);
+        startDatePicker.setDate(startDate.getTime()); 
+        endDatePicker.setDate(Calendar.getInstance().getTime());
     }
 
     private void getCompleteCMs() {
@@ -46,8 +55,7 @@ public class VCompleteCMs extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select c.memoid, c.poid, s.companyname, j.name, c.status, c.total, u.name, c.created, c.comments from creditmemo c "
                     + "inner join supplier s on s.supplierid = c.supplier inner join job j on j.jobid = c.job inner join user u on u.userid = c.createdby "
-                    + "where c.status like '%Completed%' order by c.status"
-                    + "and c.created BETWEEN " + startDatePicker.getDate() + " AND " + endDatePicker.getDate() + ";");
+                    + "where c.status like '%Completed%' and c.created between '" + new java.sql.Date(startDatePicker.getDate().getTime()) + "' AND '" + new java.sql.Date(endDatePicker.getDate().getTime())+"' ;");
             completeCreditMemoTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             completeCreditMemoTable.getColumn("memoid").setHeaderValue("Memo ID");
             completeCreditMemoTable.getColumn("poid").setHeaderValue("Purchase Order ID");
@@ -173,9 +181,21 @@ public class VCompleteCMs extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
         );
 
+        startDatePicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startDatePickerActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Start Date:");
 
         jLabel2.setText("End Date:");
+
+        endDatePicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endDatePickerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -196,12 +216,13 @@ public class VCompleteCMs extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12))
         );
 
@@ -236,6 +257,14 @@ public class VCompleteCMs extends javax.swing.JFrame {
     private void closeCMButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeCMButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_closeCMButtonActionPerformed
+
+    private void startDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startDatePickerActionPerformed
+        getCompleteCMs();
+    }//GEN-LAST:event_startDatePickerActionPerformed
+
+    private void endDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endDatePickerActionPerformed
+        getCompleteCMs();
+    }//GEN-LAST:event_endDatePickerActionPerformed
 
     /**
      * @param args the command line arguments

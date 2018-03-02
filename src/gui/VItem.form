@@ -157,7 +157,9 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="refresh" min="-2" pref="125" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="updateDescription" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="addItemButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="updateItemButton" min="-2" max="-2" attributes="0"/>
@@ -179,6 +181,7 @@
                       <Component id="closeButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="productHistoryButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="refresh" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateDescription" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
@@ -224,6 +227,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="updateDescription">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Update Description"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateDescriptionActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

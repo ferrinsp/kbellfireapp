@@ -49,7 +49,7 @@ public class VItem extends javax.swing.JFrame {
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("SELECT p.id from product p inner join category c on c.category_ID=p.category_id inner join productdescription pd on p.description=pd.pdescID \n" +
-            "inner join supplier s on s.supplierid=p.supplier where p.price = "+price+" and s.companyname like '%"+supplier+"%' and pd.productDescription like '%"+descp+"%';"); 
+            "inner join supplier s on s.supplierid=p.supplier where p.price = "+price+" and s.companyname like '%"+EscapeCharacter.escape(supplier)+"%' and pd.productDescription like '%"+EscapeCharacter.escape(descp)+"%';"); 
              while (resultObj.next()){
                  id= resultObj.getInt("id");
              }
@@ -113,6 +113,7 @@ public class VItem extends javax.swing.JFrame {
         closeButton = new javax.swing.JButton();
         productHistoryButton = new javax.swing.JButton();
         refresh = new javax.swing.JButton();
+        updateDescription = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
         showHideStatus = new javax.swing.JCheckBox();
 
@@ -185,6 +186,13 @@ public class VItem extends javax.swing.JFrame {
             }
         });
 
+        updateDescription.setText("Update Description");
+        updateDescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateDescriptionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -192,7 +200,9 @@ public class VItem extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
+                .addComponent(updateDescription)
+                .addGap(18, 18, 18)
                 .addComponent(addItemButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateItemButton)
@@ -211,7 +221,8 @@ public class VItem extends javax.swing.JFrame {
                     .addComponent(updateItemButton)
                     .addComponent(closeButton)
                     .addComponent(productHistoryButton)
-                    .addComponent(refresh))
+                    .addComponent(refresh)
+                    .addComponent(updateDescription))
                 .addGap(12, 12, 12))
         );
 
@@ -345,6 +356,21 @@ public class VItem extends javax.swing.JFrame {
         getProduct();
     }//GEN-LAST:event_refreshActionPerformed
 
+    private void updateDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDescriptionActionPerformed
+        int[] index = ItemTable.getSelectedRows();
+        if(index.length <= 0){
+            JOptionPane.showMessageDialog(null, "No item selected to update.");
+        }
+        else if (index.length > 1){
+            JOptionPane.showMessageDialog(null, "Select only one item to update.");
+        }
+        else{
+            String prod= ItemTable.getValueAt(index[0], 1).toString();
+            UDescription uDesc = new UDescription(prod);
+            uDesc.setVisible(true);
+        }
+    }//GEN-LAST:event_updateDescriptionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -380,6 +406,7 @@ public class VItem extends javax.swing.JFrame {
     private javax.swing.JButton refresh;
     private javax.swing.JTextField searchField;
     private javax.swing.JCheckBox showHideStatus;
+    private javax.swing.JButton updateDescription;
     private javax.swing.JButton updateItemButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -132,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
   `createdby` SMALLINT(10) NOT NULL,
   `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `shipto` INT(11) NOT NULL,
+  `bldg` VARCHAR(45) NULL DEFAULT ' ', 
   `status` VARCHAR(45) NOT NULL DEFAULT 'Pending',
   `currentTax` DECIMAL(10,2) NOT NULL,
   `comments` VARCHAR(120) NULL DEFAULT NULL,
@@ -320,15 +321,6 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `kbell`.`quote`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`quote` (
-  `quotecount` INT(11) NOT NULL DEFAULT '1')
-ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 

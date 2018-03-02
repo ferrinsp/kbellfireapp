@@ -60,10 +60,10 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             itemTable.getColumn("total").setHeaderValue("Total");
             itemTable.repaint();
             //Populate the textfields
-            resultObj = stateObj.executeQuery("select po.orderid, j.name, po.expectedby,u.name as 'user',s.companyname,j2.name as 'shipto',po.currentTax, po.created, po.status, po.comments\n" +
-                "from purchaseorder po inner join purchaseorderdetails pod on pod.orderid=po.orderid\n" +
-                "inner join supplier s on s.supplierid=po.supplier inner join user u on u.userid=po.createdby\n" +
-                "inner join job j on j.jobid=po.job inner join job j2 on j2.jobid=po.shipto where po.orderid="+id+";");//change to passed in variable
+            resultObj = stateObj.executeQuery("select po.orderid, j.name, po.expectedby,u.name as 'user',s.companyname,j2.name as 'shipto',po.currentTax, po.created, po.status, po.comments, po.bldg\n" +
+"                from purchaseorder po inner join purchaseorderdetails pod on pod.orderid=po.orderid\n" +
+"                inner join supplier s on s.supplierid=po.supplier inner join user u on u.userid=po.createdby\n" +
+"                inner join job j on j.jobid=po.job inner join job j2 on j2.jobid=po.shipto where po.orderid="+id+";");//change to passed in variable
             Date d;
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
             while (resultObj.next()){
@@ -77,6 +77,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 d= resultObj.getDate("created");
                 dateCreated.setText(df.format(d));
                 commentsArea.setText(resultObj.getString("comments"));
+                bldgTextField.setText(resultObj.getString("bldg"));
                 switch (resultObj.getString("status")) {
                     case "Back Order":
                         rdbBackOrder.setSelected(true);
@@ -130,7 +131,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     poStatus = button.getText();
                 }
             }
-            query = "Update purchaseorder set status=?, comments=? , expectedby =? , total= ?, shipto=?  where orderid="+id+";";
+            query = "Update purchaseorder set status=?, comments=? , expectedby =? , total= ?, shipto=?, bldg=?  where orderid="+id+";";
             //Get Values to update
             int ship=-1;
             for (String[] job1 : job) {
@@ -144,6 +145,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             preparedStmt.setDate(3, new java.sql.Date(expectedDate.getDate().getTime()));
             preparedStmt.setDouble(4,total);
             preparedStmt.setInt(5,ship);
+            preparedStmt.setString (6,bldgTextField.getText());
             preparedStmt.executeUpdate();
             connObj.close();
             this.id= -1;
@@ -210,6 +212,8 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         taxRate1 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        bldgTextField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         itemTable = new javax.swing.JTable();
         rdbIssued = new javax.swing.JRadioButton();
@@ -345,12 +349,16 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setText("Bldg:");
+
+        bldgTextField.setText(" ");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(146, Short.MAX_VALUE)
+                .addContainerGap(212, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -373,7 +381,11 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     .addComponent(expectedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(shipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(taxRate1))
-                .addGap(165, 165, 165))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bldgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,11 +417,13 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(shipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(shipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(bldgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(taxRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(taxRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -702,6 +716,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField bldgTextField;
     private javax.swing.JTextArea commentsArea;
     private javax.swing.JTextField createdBy;
     private javax.swing.JTextField dateCreated;
@@ -713,6 +728,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
