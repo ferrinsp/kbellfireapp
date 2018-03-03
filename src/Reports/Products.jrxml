@@ -138,21 +138,14 @@ FROM
 		<parameter name="category" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[SELECT
-     p.id,
-     c.description, pd.productDescription, p.unitMeasure,
+     pd.productDescription, p.unitMeasure,
      p.part_id, p.manufacturer, s.companyname,
      p.price AS 'Unit Price', p.status,
      p.lastchange,  pd.productsize
 FROM
      productdescription pd INNER JOIN product p ON pd.pdescID = p.description INNER JOIN category c on c.category_ID=p.category_id 
-     INNER JOIN supplier s on s.supplierid=p.supplier where p.category_id = $P{category} and p.lastchange >= $P{date} and p.lastchange <= $P{dateto} order by s.companyname;]]>
+     INNER JOIN supplier s on s.supplierid=p.supplier where p.category_id = $P{category} and p.lastchange >= $P{date} and p.lastchange <= $P{dateto} order by s.companyname, pd.productDescription;]]>
 		</queryString>
-		<field name="id" class="java.lang.Integer">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="description" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
 		<field name="productDescription" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>

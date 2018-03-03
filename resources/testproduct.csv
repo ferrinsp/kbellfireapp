@@ -390,26 +390,26 @@
 35,323,ROLL,,,105,0,Inactive
 35,323,ROLL,,,106,0,Inactive
 35,323,ROLL,,,107,320,Active
-1,324,EA,,PVC 300,101,0.69,Active
-1,324,EA,,PVC 300,102,0.62,Active
-1,324,EA,,PVC 300,103,0.44,Active
-1,324,EA,,PVC 300,104,0,Inactive
-1,324,EA,,PVC 300,105,0.35,Active
-1,324,EA,,PVC 300,106,0,Inactive
-1,324,EA,,PVC 300,107,0.51,Active
-1,325,EA,,PVC 302,101,0.89,Active
-1,325,EA,,PVC 302,102,0,Inactive
-1,325,EA,,PVC 302,103,0.51,Active
-1,325,EA,,PVC 302,104,0,Inactive
-1,325,EA,,PVC 302,105,0.45,Active
-1,325,EA,,PVC 302,106,0,Inactive
-1,325,EA,,PVC 302,107,0.66,Active
-1,326,EA,,PVC 321,101,0.67,Active
-1,326,EA,,PVC 321,102,0.61,Active
-1,326,EA,,PVC 321,103,0.43,Active
-1,326,EA,,PVC 321,104,0,Inactive
-1,326,EA,,PVC 321,105,0.34,Active
-1,326,EA,,PVC 321,106,0,Inactive
+35,324,EA,,PVC 300,101,0.69,Active
+35,324,EA,,PVC 300,102,0.62,Active
+35,324,EA,,PVC 300,103,0.44,Active
+35,324,EA,,PVC 300,104,0,Inactive
+35,324,EA,,PVC 300,105,0.35,Active
+35,324,EA,,PVC 300,106,0,Inactive
+35,324,EA,,PVC 300,107,0.535,Active
+35,325,EA,,PVC 302,101,0.89,Active
+35,325,EA,,PVC 302,102,0,Inactive
+35,325,EA,,PVC 302,103,0.535,Active
+35,325,EA,,PVC 302,104,0,Inactive
+35,325,EA,,PVC 302,105,0.45,Active
+35,325,EA,,PVC 302,106,0,Inactive
+35,325,EA,,PVC 302,107,0.66,Active
+35,326,EA,,PVC 3235,101,0.67,Active
+35,326,EA,,PVC 3235,102,0.635,Active
+35,326,EA,,PVC 3235,103,0.43,Active
+35,326,EA,,PVC 3235,104,0,Inactive
+35,326,EA,,PVC 3235,105,0.34,Active
+35,326,EA,,PVC 3235,106,0,Inactive
 1,326,EA,,PVC 321,107,0.5,Active
 1,327,EA,,PVC 323,101,0.65,Active
 1,327,EA,,PVC 323,102,0.58,Active
@@ -460,27 +460,27 @@
 1,333,EA,,PVC 113,105,0.89,Active
 1,333,EA,,PVC 113,106,0,Inactive
 1,333,EA,,PVC 113,107,1.34,Active
-2,334,EA,,PVC 300,101,1.08,Active
-2,334,EA,,PVC 300,102,0.98,Active
-2,334,EA,,PVC 300,103,0.69,Active
-2,334,EA,,PVC 300,104,0,Inactive
-2,334,EA,,PVC 300,105,0.55,Active
-2,334,EA,,PVC 300,106,0,Inactive
-2,334,EA,,PVC 300,107,0.8,Active
-2,335,EA,,PVC 302,101,1.35,Active
-2,335,EA,,PVC 302,102,1.22,Active
-2,335,EA,,PVC 302,103,0.86,Active
-2,335,EA,,PVC 302,104,0,Inactive
-2,335,EA,,PVC 302,105,0.69,Active
-2,335,EA,,PVC 302,106,0,Inactive
-2,335,EA,,PVC 302,107,1.02,Active
-2,336,EA,,PVC 321,101,0.97,Active
-2,336,EA,,PVC 321,102,0.87,Active
-2,336,EA,,PVC 321,103,0.63,Active
-2,336,EA,,PVC 321,104,0,Inactive
-2,336,EA,,PVC 321,105,0.51,Active
-2,336,EA,,PVC 321,106,0,Inactive
-2,336,EA,,PVC 321,107,0.75,Active
+1,334,EA,,PVC 300,101,1.08,Active
+1,334,EA,,PVC 300,102,0.98,Active
+1,334,EA,,PVC 300,103,0.69,Active
+1,334,EA,,PVC 300,104,0,Inactive
+1,334,EA,,PVC 300,105,0.55,Active
+1,334,EA,,PVC 300,106,0,Inactive
+1,334,EA,,PVC 300,107,0.8,Active
+1,335,EA,,PVC 301,101,1.35,Active
+1,335,EA,,PVC 301,102,1.21,Active
+1,335,EA,,PVC 301,103,0.86,Active
+1,335,EA,,PVC 301,104,0,Inactive
+1,335,EA,,PVC 301,105,0.69,Active
+1,335,EA,,PVC 301,106,0,Inactive
+1,335,EA,,PVC 301,107,1.01,Active
+1,336,EA,,PVC 321,101,0.97,Active
+1,336,EA,,PVC 321,102,0.87,Active
+1,336,EA,,PVC 321,103,0.63,Active
+1,336,EA,,PVC 321,104,0,Inactive
+1,336,EA,,PVC 321,105,0.51,Active
+1,336,EA,,PVC 321,106,0,Inactive
+1,336,EA,,PVC 321,107,0.75,Active
 2,337,EA,,PVC 323,101,1.02,Active
 2,337,EA,,PVC 323,102,0.93,Active
 2,337,EA,,PVC 323,103,0.65,Active
@@ -600,27 +600,27 @@
 2,353,EA,,PVC 500,105,3.58,Active
 2,353,EA,,PVC 500,106,0,Inactive
 2,353,EA,,PVC 500,107,5.23,Active
-3,354,EA,,PVC 300,101,3.18,Active
-3,354,EA,,PVC 300,102,2.88,Active
-3,354,EA,,PVC 300,103,2.01,Active
-3,354,EA,,PVC 300,104,0,Inactive
-3,354,EA,,PVC 300,105,1.62,Active
-3,354,EA,,PVC 300,106,0,Inactive
-3,354,EA,,PVC 300,107,2.37,Active
-3,355,EA,,PVC 302,101,3.41,Active
-3,355,EA,,PVC 302,102,3.09,Active
-3,355,EA,,PVC 302,103,2.41,Active
-3,355,EA,,PVC 302,104,0,Inactive
-3,355,EA,,PVC 302,105,1.94,Active
-3,355,EA,,PVC 302,106,0,Inactive
-3,355,EA,,PVC 302,107,2.83,Active
-3,356,EA,,PVC 321,101,2.85,Active
-3,356,EA,,PVC 321,102,2.58,Active
-3,356,EA,,PVC 321,103,1.8,Active
-3,356,EA,,PVC 321,104,0,Inactive
-3,356,EA,,PVC 321,105,1.45,Active
-3,356,EA,,PVC 321,106,0,Inactive
-3,356,EA,,PVC 321,107,2.12,Active
+2,354,EA,,PVC 300,101,3.18,Active
+2,354,EA,,PVC 300,102,2.88,Active
+2,354,EA,,PVC 300,103,2.01,Active
+2,354,EA,,PVC 300,104,0,Inactive
+2,354,EA,,PVC 300,105,1.62,Active
+2,354,EA,,PVC 300,106,0,Inactive
+2,354,EA,,PVC 300,107,2.37,Active
+2,355,EA,,PVC 302,101,3.41,Active
+2,355,EA,,PVC 302,102,3.09,Active
+2,355,EA,,PVC 302,103,2.41,Active
+2,355,EA,,PVC 302,104,0,Inactive
+2,355,EA,,PVC 302,105,1.94,Active
+2,355,EA,,PVC 302,106,0,Inactive
+2,355,EA,,PVC 302,107,2.83,Active
+2,356,EA,,PVC 321,101,2.85,Active
+2,356,EA,,PVC 321,102,2.58,Active
+2,356,EA,,PVC 321,103,1.8,Active
+2,356,EA,,PVC 321,104,0,Inactive
+2,356,EA,,PVC 321,105,1.45,Active
+2,356,EA,,PVC 321,106,0,Inactive
+2,356,EA,,PVC 321,107,2.12,Active
 3,357,EA,,PVC 323,101,0,Inactive
 3,357,EA,,PVC 323,102,2.44,Active
 3,357,EA,,PVC 323,103,1.71,Active
@@ -712,27 +712,27 @@
 3,369,EA,,,105,0,Inactive
 3,369,EA,,,106,0,Inactive
 3,369,EA,,,107,30.75,Active
-4,370,EA,,PVC 300,101,6.26,Active
-4,370,EA,,PVC 300,102,5.67,Active
-4,370,EA,,PVC 300,103,6.59,Active
-4,370,EA,,PVC 300,104,0,Inactive
-4,370,EA,,PVC 300,105,3.2,Active
-4,370,EA,,PVC 300,106,0,Inactive
-4,370,EA,,PVC 300,107,4.68,Active
-4,371,EA,,PVC 302,101,6.42,Active
-4,371,EA,,PVC 302,102,5.81,Active
-4,371,EA,,PVC 302,103,6.97,Active
-4,371,EA,,PVC 302,104,0,Inactive
-4,371,EA,,PVC 302,105,3.25,Active
-4,371,EA,,PVC 302,106,0,Inactive
-4,371,EA,,PVC 302,107,4.76,Active
-4,372,EA,,PVC 321,101,4.99,Active
-4,372,EA,,PVC 321,102,4.52,Active
-4,372,EA,,PVC 321,103,3.3,Active
-4,372,EA,,PVC 321,104,0,Inactive
-4,372,EA,,PVC 321,105,2.65,Active
-4,372,EA,,PVC 321,106,0,Inactive
-4,372,EA,,PVC 321,107,3.88,Active
+3,370,EA,,PVC 300,101,6.26,Active
+3,370,EA,,PVC 300,102,5.67,Active
+3,370,EA,,PVC 300,103,6.59,Active
+3,370,EA,,PVC 300,104,0,Inactive
+3,370,EA,,PVC 300,105,3.2,Active
+3,370,EA,,PVC 300,106,0,Inactive
+3,370,EA,,PVC 300,107,4.68,Active
+3,371,EA,,PVC 302,101,6.42,Active
+3,371,EA,,PVC 302,102,5.81,Active
+3,371,EA,,PVC 302,103,6.97,Active
+3,371,EA,,PVC 302,104,0,Inactive
+3,371,EA,,PVC 302,105,3.25,Active
+3,371,EA,,PVC 302,106,0,Inactive
+3,371,EA,,PVC 302,107,4.76,Active
+3,372,EA,,PVC 321,101,4.99,Active
+3,372,EA,,PVC 321,102,4.52,Active
+3,372,EA,,PVC 321,103,3.3,Active
+3,372,EA,,PVC 321,104,0,Inactive
+3,372,EA,,PVC 321,105,2.65,Active
+3,372,EA,,PVC 321,106,0,Inactive
+3,372,EA,,PVC 321,107,3.88,Active
 4,373,EA,,PVC 323,101,4.61,Active
 4,373,EA,,PVC 323,102,4.18,Active
 4,373,EA,,PVC 323,103,2.93,Active
@@ -824,27 +824,27 @@
 4,385,EA,,,105,3.14,Active
 4,385,EA,,,106,0,Inactive
 4,385,EA,,,107,5.2,Active
-5,386,EA,,PVC 300,101,0,Inactive
-5,386,EA,,PVC 300,102,19.27,Active
-5,386,EA,,PVC 300,103,14.03,Active
-5,386,EA,,PVC 300,104,0,Inactive
-5,386,EA,,PVC 300,105,11.29,Active
-5,386,EA,,PVC 300,106,0,Inactive
-5,386,EA,,PVC 300,107,16.51,Active
-5,387,EA,,PVC 302,101,29.67,Active
-5,387,EA,,PVC 302,102,25.97,Active
-5,387,EA,,PVC 302,103,18.09,Active
-5,387,EA,,PVC 302,104,0,Inactive
-5,387,EA,,PVC 302,105,14.56,Active
-5,387,EA,,PVC 302,106,0,Inactive
-5,387,EA,,PVC 302,107,21.29,Active
-5,388,EA,,PVC 321,101,19.47,Active
-5,388,EA,,PVC 321,102,17.64,Active
-5,388,EA,,PVC 321,103,12.29,Active
-5,388,EA,,PVC 321,104,0,Inactive
-5,388,EA,,PVC 321,105,9.89,Active
-5,388,EA,,PVC 321,106,0,Inactive
-5,388,EA,,PVC 321,107,14.46,Active
+4,386,EA,,PVC 300,101,0,Inactive
+4,386,EA,,PVC 300,102,19.27,Active
+4,386,EA,,PVC 300,103,14.03,Active
+4,386,EA,,PVC 300,104,0,Inactive
+4,386,EA,,PVC 300,105,11.29,Active
+4,386,EA,,PVC 300,106,0,Inactive
+4,386,EA,,PVC 300,107,16.51,Active
+4,387,EA,,PVC 302,101,29.67,Active
+4,387,EA,,PVC 302,102,25.97,Active
+4,387,EA,,PVC 302,103,18.09,Active
+4,387,EA,,PVC 302,104,0,Inactive
+4,387,EA,,PVC 302,105,14.56,Active
+4,387,EA,,PVC 302,106,0,Inactive
+4,387,EA,,PVC 302,107,21.29,Active
+4,388,EA,,PVC 321,101,19.47,Active
+4,388,EA,,PVC 321,102,17.64,Active
+4,388,EA,,PVC 321,103,12.29,Active
+4,388,EA,,PVC 321,104,0,Inactive
+4,388,EA,,PVC 321,105,9.89,Active
+4,388,EA,,PVC 321,106,0,Inactive
+4,388,EA,,PVC 321,107,14.46,Active
 5,389,EA,,PVC 323,101,26.59,Active
 5,389,EA,,PVC 323,102,23.29,Active
 5,389,EA,,PVC 323,103,15.65,Active
@@ -901,27 +901,27 @@
 5,397,EA,,PVC 106,105,2.79,Active
 5,397,EA,,PVC 106,106,0,Inactive
 5,397,EA,,PVC 106,107,4.08,Active
-17,398,EA,Oatey,43561,101,0,Inactive
-17,398,EA,Oatey,43561,102,0,Inactive
-17,398,EA,Oatey,43561,103,1.5,Active
-17,398,EA,Oatey,43561,104,0,Inactive
-17,398,EA,Oatey,43561,105,0,Inactive
-17,398,EA,Oatey,43561,106,0,Inactive
-17,398,EA,Oatey,43561,107,1.81,Active
-17,399,EA,,,101,5.48,Active
-17,399,EA,,,102,4.88,Active
-17,399,EA,,,103,3.25,Active
-17,399,EA,,,104,0,Inactive
-17,399,EA,,,105,5.04,Active
-17,399,EA,,,106,0,Inactive
-17,399,EA,,,107,5.88,Active
-17,400,EA,,,101,0,Inactive
-17,400,EA,,,102,0,Inactive
-17,400,EA,,,103,0,Inactive
-17,400,EA,,,104,0,Inactive
-17,400,EA,,,105,0,Inactive
-17,400,EA,,,106,0,Inactive
-17,400,EA,,,107,5.74,Active
+5,398,EA,Oatey,43561,101,0,Inactive
+5,398,EA,Oatey,43561,102,0,Inactive
+5,398,EA,Oatey,43561,103,1.5,Active
+5,398,EA,Oatey,43561,104,0,Inactive
+5,398,EA,Oatey,43561,105,0,Inactive
+5,398,EA,Oatey,43561,106,0,Inactive
+5,398,EA,Oatey,43561,107,1.81,Active
+5,399,EA,,,101,5.48,Active
+5,399,EA,,,102,4.88,Active
+5,399,EA,,,103,3.25,Active
+5,399,EA,,,104,0,Inactive
+5,399,EA,,,105,5.04,Active
+5,399,EA,,,106,0,Inactive
+5,399,EA,,,107,5.88,Active
+5,400,EA,,,101,0,Inactive
+5,400,EA,,,102,0,Inactive
+5,400,EA,,,103,0,Inactive
+5,400,EA,,,104,0,Inactive
+5,400,EA,,,105,0,Inactive
+5,400,EA,,,106,0,Inactive
+5,400,EA,,,107,5.74,Active
 17,401,EA,,,101,0,Inactive
 17,401,EA,,,102,5.5,Active
 17,401,EA,,,103,0,Inactive
@@ -978,27 +978,27 @@
 17,404,EA,Sioux Chief,834-4PNR,105,49.57,Active
 17,404,EA,Sioux Chief,834-4PNR,106,45,Active
 17,404,EA,Sioux Chief,834-4PNR,107,45.34,Active
-33,409,EA,,,101,0.5,Active
-33,409,EA,,,102,0.44,Active
-33,409,EA,,,103,0.36,Active
-33,409,EA,,,104,0,Inactive
-33,409,EA,,,105,0.35,Active
-33,409,EA,,,106,0.5,Active
-33,409,EA,,,107,0.35,Active
-33,410,EA,,,101,0.63,Active
-33,410,EA,,,102,0.55,Active
-33,410,EA,,,103,0.45,Active
-33,410,EA,,,104,0,Inactive
-33,410,EA,,,105,0.45,Active
-33,410,EA,,,106,0,Inactive
-33,410,EA,,,107,0.5,Active
-33,411,EA,,,101,0.38,Active
-33,411,EA,,,102,0.33,Active
-33,411,EA,,,103,0.27,Active
-33,411,EA,,,104,0,Inactive
-33,411,EA,,,105,0.27,Active
-33,411,EA,,,106,0.38,Active
-33,411,EA,,,107,0.27,Active
+17,409,EA,,,101,0.5,Active
+17,409,EA,,,102,0.44,Active
+17,409,EA,,,103,0.36,Active
+17,409,EA,,,104,0,Inactive
+17,409,EA,,,105,0.35,Active
+17,409,EA,,,106,0.5,Active
+17,409,EA,,,107,0.35,Active
+17,410,EA,,,101,0.63,Active
+17,410,EA,,,102,0.55,Active
+17,410,EA,,,103,0.45,Active
+17,410,EA,,,104,0,Inactive
+17,410,EA,,,105,0.45,Active
+17,410,EA,,,106,0,Inactive
+17,410,EA,,,107,0.5,Active
+17,411,EA,,,101,0.38,Active
+17,411,EA,,,102,0.33,Active
+17,411,EA,,,103,0.27,Active
+17,411,EA,,,104,0,Inactive
+17,411,EA,,,105,0.27,Active
+17,411,EA,,,106,0.38,Active
+17,411,EA,,,107,0.27,Active
 33,412,EA,,,101,0,Inactive
 33,412,EA,,,102,0,Inactive
 33,412,EA,,,103,0.67,Active
@@ -1230,27 +1230,27 @@
 33,444,EA,,,105,5.54,Active
 33,444,EA,,,106,0,Inactive
 33,444,EA,,,107,3.36,Active
-34,445,EA,,,101,0.35,Active
-34,445,EA,,,102,0.3,Active
-34,445,EA,,,103,0.34,Active
-34,445,EA,,,104,0,Inactive
-34,445,EA,,,105,0.22,Active
-34,445,EA,,,106,0,Inactive
-34,445,EA,,,107,0.39,Active
-34,446,EA,,,101,0.4,Active
-34,446,EA,,,102,0.29,Active
-34,446,EA,,,103,0.32,Active
-34,446,EA,,,104,0,Inactive
-34,446,EA,,,105,0.23,Active
-34,446,EA,,,106,0,Inactive
-34,446,EA,,,107,0.35,Active
-34,447,EA,,,101,0,Inactive
-34,447,EA,,,102,0,Inactive
-34,447,EA,,,103,0.34,Active
-34,447,EA,,,104,0,Inactive
-34,447,EA,,,105,0.23,Active
-34,447,EA,,,106,0,Inactive
-34,447,EA,,,107,0.41,Active
+33,445,EA,,,101,0.35,Active
+33,445,EA,,,102,0.3,Active
+33,445,EA,,,103,0.33,Active
+33,445,EA,,,104,0,Inactive
+33,445,EA,,,105,0.22,Active
+33,445,EA,,,106,0,Inactive
+33,445,EA,,,107,0.39,Active
+33,446,EA,,,101,0.4,Active
+33,446,EA,,,102,0.29,Active
+33,446,EA,,,103,0.32,Active
+33,446,EA,,,104,0,Inactive
+33,446,EA,,,105,0.23,Active
+33,446,EA,,,106,0,Inactive
+33,446,EA,,,107,0.35,Active
+33,447,EA,,,101,0,Inactive
+33,447,EA,,,102,0,Inactive
+33,447,EA,,,103,0.34,Active
+33,447,EA,,,104,0,Inactive
+33,447,EA,,,105,0.23,Active
+33,447,EA,,,106,0,Inactive
+33,447,EA,,,107,0.41,Active
 34,448,EA,,,101,0.13,Active
 34,448,EA,,,102,0.1,Active
 34,448,EA,,,103,0.11,Active
@@ -1293,27 +1293,27 @@
 34,453,EA,,,105,0.17,Active
 34,453,EA,,,106,0,Inactive
 34,453,EA,,,107,0.25,Active
-37,454,EA,,,101,0,Inactive
-37,454,EA,,,102,14.7,Active
-37,454,EA,,,103,16.35,Active
-37,454,EA,,,104,0,Inactive
-37,454,EA,,,105,9.21,Active
-37,454,EA,,,106,0,Inactive
-37,454,EA,,,107,7.94,Active
-37,455,EA,,,101,0,Inactive
-37,455,EA,,,102,0,Inactive
-37,455,EA,,,103,0,Inactive
-37,455,EA,,,104,0,Inactive
-37,455,EA,,,105,0,Inactive
-37,455,EA,,,106,0,Inactive
-37,455,EA,,,107,9.55,Active
-37,456,EA,,,101,0,Inactive
-37,456,EA,,,102,16.19,Active
-37,456,EA,,,103,0,Inactive
-37,456,EA,,,104,0,Inactive
-37,456,EA,,,105,6.62,Active
-37,456,EA,,,106,0,Inactive
-37,456,EA,,,107,6.62,Active
+34,454,EA,,,101,0,Inactive
+34,454,EA,,,102,14.7,Active
+34,454,EA,,,103,16.35,Active
+34,454,EA,,,104,0,Inactive
+34,454,EA,,,105,9.21,Active
+34,454,EA,,,106,0,Inactive
+34,454,EA,,,107,7.94,Active
+34,455,EA,,,101,0,Inactive
+34,455,EA,,,102,0,Inactive
+34,455,EA,,,103,0,Inactive
+34,455,EA,,,104,0,Inactive
+34,455,EA,,,105,0,Inactive
+34,455,EA,,,106,0,Inactive
+34,455,EA,,,107,9.55,Active
+34,456,EA,,,101,0,Inactive
+34,456,EA,,,102,16.19,Active
+34,456,EA,,,103,0,Inactive
+34,456,EA,,,104,0,Inactive
+34,456,EA,,,105,6.62,Active
+34,456,EA,,,106,0,Inactive
+34,456,EA,,,107,6.62,Active
 37,457,EA,,,101,0,Inactive
 37,457,EA,,,102,0,Inactive
 37,457,EA,,,103,7.23,Active
@@ -1370,27 +1370,27 @@
 37,464,EA,,,105,0,Inactive
 37,464,EA,,,106,0,Inactive
 37,464,EA,,,107,71.35,Active
-36,465,EA,,,101,0,Inactive
-36,465,EA,,,102,18.86,Active
-36,465,EA,,,103,10.94,Active
-36,465,EA,,,104,0,Inactive
-36,465,EA,,,105,11.83,Active
-36,465,EA,,,106,0,Inactive
-36,465,EA,,,107,11.51,Active
-36,466,EA,,,101,0,Inactive
-36,466,EA,,,102,0,Inactive
-36,466,EA,,,103,0,Inactive
-36,466,EA,,,104,0,Inactive
-36,466,EA,,,105,0,Inactive
-36,466,EA,,,106,0,Inactive
-36,466,EA,,,107,13.26,Active
-36,467,EA,,,101,0,Inactive
-36,467,EA,,,102,19.87,Active
-36,467,EA,,,103,12.56,Active
-36,467,EA,,,104,0,Inactive
-36,467,EA,,,105,11.66,Active
-36,467,EA,,,106,0,Inactive
-36,467,EA,,,107,11.66,Active
+37,465,EA,,,101,0,Inactive
+37,465,EA,,,102,18.86,Active
+37,465,EA,,,103,10.94,Active
+37,465,EA,,,104,0,Inactive
+37,465,EA,,,105,11.83,Active
+37,465,EA,,,106,0,Inactive
+37,465,EA,,,107,11.51,Active
+37,466,EA,,,101,0,Inactive
+37,466,EA,,,102,0,Inactive
+37,466,EA,,,103,0,Inactive
+37,466,EA,,,104,0,Inactive
+37,466,EA,,,105,0,Inactive
+37,466,EA,,,106,0,Inactive
+37,466,EA,,,107,13.26,Active
+37,467,EA,,,101,0,Inactive
+37,467,EA,,,102,19.87,Active
+37,467,EA,,,103,12.56,Active
+37,467,EA,,,104,0,Inactive
+37,467,EA,,,105,11.66,Active
+37,467,EA,,,106,0,Inactive
+37,467,EA,,,107,11.66,Active
 36,468,EA,,,101,0,Inactive
 36,468,EA,,,102,0,Inactive
 36,468,EA,,,103,0,Inactive
@@ -1482,27 +1482,27 @@
 36,480,EA,,,105,0,Inactive
 36,480,EA,,,106,0,Inactive
 36,480,EA,,,107,18.81,Active
-38,481,EA,,,101,0,Inactive
-38,481,EA,,,102,80.32,Active
-38,481,EA,,,103,36.19,Active
-38,481,EA,,,104,38.9,Active
-38,481,EA,,,105,39.13,Active
-38,481,EA,,,106,0,Inactive
-38,481,EA,,,107,33.73,Active
-38,482,EA,,,101,0,Inactive
-38,482,EA,,,102,0,Inactive
-38,482,EA,,,103,0,Inactive
-38,482,EA,,,104,0,Inactive
-38,482,EA,,,105,0,Inactive
-38,482,EA,,,106,0,Inactive
-38,482,EA,,,107,34.87,Active
-38,484,EA,,,101,0,Inactive
-38,484,EA,,,102,0,Inactive
-38,484,EA,,,103,0,Inactive
-38,484,EA,,,104,0,Inactive
-38,484,EA,,,105,0,Inactive
-38,484,EA,,,106,0,Inactive
-38,484,EA,,,107,41.35,Active
+36,481,EA,,,101,0,Inactive
+36,481,EA,,,102,80.32,Active
+36,481,EA,,,103,36.19,Active
+36,481,EA,,,104,38.9,Active
+36,481,EA,,,105,39.13,Active
+36,481,EA,,,106,0,Inactive
+36,481,EA,,,107,33.73,Active
+36,482,EA,,,101,0,Inactive
+36,482,EA,,,102,0,Inactive
+36,482,EA,,,103,0,Inactive
+36,482,EA,,,104,0,Inactive
+36,482,EA,,,105,0,Inactive
+36,482,EA,,,106,0,Inactive
+36,482,EA,,,107,34.87,Active
+36,484,EA,,,101,0,Inactive
+36,484,EA,,,102,0,Inactive
+36,484,EA,,,103,0,Inactive
+36,484,EA,,,104,0,Inactive
+36,484,EA,,,105,0,Inactive
+36,484,EA,,,106,0,Inactive
+36,484,EA,,,107,41.35,Active
 38,485,EA,,,101,0,Inactive
 38,485,EA,,,102,42.13,Active
 38,485,EA,,,103,43.27,Active
@@ -1573,27 +1573,27 @@
 38,494,EA,,,105,0,Inactive
 38,494,EA,,,106,0,Inactive
 38,494,EA,,,107,42,Active
-39,496,EA,,,101,0,Inactive
-39,496,EA,,,102,0,Inactive
-39,496,EA,,,103,0,Inactive
-39,496,EA,,,104,0,Inactive
-39,496,EA,,,105,0,Inactive
-39,496,EA,,,106,0,Inactive
-39,496,EA,,,107,18.92,Active
-39,497,EA,,,101,0,Inactive
-39,497,EA,,,102,0,Inactive
-39,497,EA,,,103,0,Inactive
-39,497,EA,,,104,0,Inactive
-39,497,EA,,,105,0,Inactive
-39,497,EA,,,106,0,Inactive
-39,497,EA,,,107,10.18,Active
-39,498,EA,,,101,0,Inactive
-39,498,EA,,,102,0,Inactive
-39,498,EA,,,103,0,Inactive
-39,498,EA,,,104,0,Inactive
-39,498,EA,,,105,0,Inactive
-39,498,EA,,,106,0,Inactive
-39,498,EA,,,107,29.99,Active
+38,496,EA,,,101,0,Inactive
+38,496,EA,,,102,0,Inactive
+38,496,EA,,,103,0,Inactive
+38,496,EA,,,104,0,Inactive
+38,496,EA,,,105,0,Inactive
+38,496,EA,,,106,0,Inactive
+38,496,EA,,,107,18.92,Active
+38,497,EA,,,101,0,Inactive
+38,497,EA,,,102,0,Inactive
+38,497,EA,,,103,0,Inactive
+38,497,EA,,,104,0,Inactive
+38,497,EA,,,105,0,Inactive
+38,497,EA,,,106,0,Inactive
+38,497,EA,,,107,10.18,Active
+38,498,EA,,,101,0,Inactive
+38,498,EA,,,102,0,Inactive
+38,498,EA,,,103,0,Inactive
+38,498,EA,,,104,0,Inactive
+38,498,EA,,,105,0,Inactive
+38,498,EA,,,106,0,Inactive
+38,498,EA,,,107,29.99,Active
 39,499,EA,,,101,0,Inactive
 39,499,EA,,,102,0,Inactive
 39,499,EA,,,103,0,Inactive
@@ -1608,27 +1608,27 @@
 39,500,EA,,,105,0,Inactive
 39,500,EA,,,106,0,Inactive
 39,500,EA,,,107,0,Inactive
-41,501,EA,,,101,24.38,Active
-41,501,EA,,,102,0,Inactive
-41,501,EA,,,103,22,Active
-41,501,EA,,,104,0,Inactive
-41,501,EA,,,105,19.31,Active
-41,501,EA,,,106,0,Inactive
-41,501,EA,,,107,17.12,Active
-41,502,EA,,,101,0,Inactive
-41,502,EA,,,102,5.37,Active
-41,502,EA,,,103,5.31,Active
-41,502,EA,,,104,0,Inactive
-41,502,EA,,,105,4.68,Active
-41,502,EA,,,106,0,Inactive
-41,502,EA,,,107,6.17,Active
-41,503,EA,,,101,8.68,Active
-41,503,EA,,,102,5.56,Active
-41,503,EA,,,103,5.5,Active
-41,503,EA,,,104,0,Inactive
-41,503,EA,,,105,4.84,Active
-41,503,EA,,,106,0,Inactive
-41,503,EA,,,107,6.14,Active
+39,501,EA,,,101,24.38,Active
+39,501,EA,,,102,0,Inactive
+39,501,EA,,,103,22,Active
+39,501,EA,,,104,0,Inactive
+39,501,EA,,,105,19.31,Active
+39,501,EA,,,106,0,Inactive
+39,501,EA,,,107,17.12,Active
+39,502,EA,,,101,0,Inactive
+39,502,EA,,,102,5.37,Active
+39,502,EA,,,103,5.31,Active
+39,502,EA,,,104,0,Inactive
+39,502,EA,,,105,4.68,Active
+39,502,EA,,,106,0,Inactive
+39,502,EA,,,107,6.17,Active
+39,503,EA,,,101,8.68,Active
+39,503,EA,,,102,5.56,Active
+39,503,EA,,,103,5.5,Active
+39,503,EA,,,104,0,Inactive
+39,503,EA,,,105,4.84,Active
+39,503,EA,,,106,0,Inactive
+39,503,EA,,,107,6.14,Active
 41,504,EA,,,101,5.4,Active
 41,504,EA,,,102,4.62,Active
 41,504,EA,,,103,4.58,Active
@@ -1664,27 +1664,27 @@
 41,508,EA,,,105,0,Inactive
 41,508,EA,,,106,0,Inactive
 41,508,EA,,,107,8.41,Active
-55,509,EA,,,101,73.6,Active
-55,509,EA,,,102,74.84,Active
-55,509,EA,,,103,0,Inactive
-55,509,EA,,,104,0,Inactive
-55,509,EA,,,105,70.49,Active
-55,509,EA,,,106,0,Inactive
-55,509,EA,,,107,0,Inactive
-55,510,EA,,,101,88.13,Active
-55,510,EA,,,102,90.9,Active
-55,510,EA,,,103,0,Inactive
-55,510,EA,,,104,0,Inactive
-55,510,EA,,,105,85.6,Active
-55,510,EA,,,106,0,Inactive
-55,510,EA,,,107,0,Inactive
-55,511,EA,,,101,0,Inactive
-55,511,EA,,,102,341.88,Active
-55,511,EA,,,103,349.65,Active
-55,511,EA,,,104,0,Inactive
-55,511,EA,,,105,392.99,Active
-55,511,EA,,,106,0,Inactive
-55,511,EA,,,107,409.93,Active
+41,509,EA,,,101,73.6,Active
+41,509,EA,,,102,74.84,Active
+41,509,EA,,,103,0,Inactive
+41,509,EA,,,104,0,Inactive
+41,509,EA,,,105,70.49,Active
+41,509,EA,,,106,0,Inactive
+41,509,EA,,,107,0,Inactive
+41,510,EA,,,101,88.13,Active
+41,510,EA,,,102,90.9,Active
+41,510,EA,,,103,0,Inactive
+41,510,EA,,,104,0,Inactive
+41,510,EA,,,105,85.6,Active
+41,510,EA,,,106,0,Inactive
+41,510,EA,,,107,0,Inactive
+41,511,EA,,,101,0,Inactive
+41,511,EA,,,102,341.88,Active
+41,511,EA,,,103,349.65,Active
+41,511,EA,,,104,0,Inactive
+41,511,EA,,,105,392.99,Active
+41,511,EA,,,106,0,Inactive
+41,511,EA,,,107,409.93,Active
 55,512,EA,,,101,0,Inactive
 55,512,EA,,,102,409.95,Active
 55,512,EA,,,103,415,Active
@@ -1832,27 +1832,27 @@
 55,532,EA,,,105,4.75,Active
 55,532,EA,,,106,0,Inactive
 55,532,EA,,,107,0,Inactive
-9,533,EA,,,101,0,Inactive
-9,533,EA,,,102,0,Inactive
-9,533,EA,,,103,0,Inactive
-9,533,EA,,,104,0,Inactive
-9,533,EA,,,105,0,Inactive
-9,533,EA,,,106,0,Inactive
-9,533,EA,,,107,0,Inactive
-9,534,EA,,,101,0,Inactive
-9,534,EA,,,102,19.26,Active
-9,534,EA,,,103,0,Inactive
-9,534,EA,,,104,0,Inactive
-9,534,EA,,,105,18.86,Active
-9,534,EA,,,106,17.99,Active
-9,534,EA,,,107,17.85,Active
-9,535,EA,,,101,0,Inactive
-9,535,EA,,,102,0,Inactive
-9,535,EA,,,103,0,Inactive
-9,535,EA,,,104,0,Inactive
-9,535,EA,,,105,0,Inactive
-9,535,EA,,,106,0,Inactive
-9,535,EA,,,107,50.3,Active
+55,533,EA,,,101,0,Inactive
+55,533,EA,,,102,0,Inactive
+55,533,EA,,,103,0,Inactive
+55,533,EA,,,104,0,Inactive
+55,533,EA,,,105,0,Inactive
+55,533,EA,,,106,0,Inactive
+55,533,EA,,,107,0,Inactive
+55,534,EA,,,101,0,Inactive
+55,534,EA,,,102,19.26,Active
+55,534,EA,,,103,0,Inactive
+55,534,EA,,,104,0,Inactive
+55,534,EA,,,105,18.86,Active
+55,534,EA,,,106,17.99,Active
+55,534,EA,,,107,17.85,Active
+55,535,EA,,,101,0,Inactive
+55,535,EA,,,102,0,Inactive
+55,535,EA,,,103,0,Inactive
+55,535,EA,,,104,0,Inactive
+55,535,EA,,,105,0,Inactive
+55,535,EA,,,106,0,Inactive
+55,535,EA,,,107,50.3,Active
 9,536,EA,,,101,0,Inactive
 9,536,EA,,,102,0,Inactive
 9,536,EA,,,103,0,Inactive
@@ -1986,27 +1986,27 @@
 25,554,EA,,,105,115.34,Active
 25,554,EA,,,106,0,Inactive
 25,554,EA,,,107,0,Inactive
-50,555,EA,,,101,5.41,Active
-50,555,EA,,,102,4.54,Active
-50,555,EA,,,103,7.83,Active
-50,555,EA,,,104,5.8,Active
-50,555,EA,,,105,5.01,Active
-50,555,EA,,,106,0,Inactive
-50,555,EA,,,107,8.78,Active
-50,556,EA,,,101,1.67,Active
-50,556,EA,,,102,2.17,Active
-50,556,EA,,,103,1.84,Active
-50,556,EA,,,104,2.23,Active
-50,556,EA,,,105,1.87,Active
-50,556,EA,,,106,0,Inactive
-50,556,EA,,,107,3.61,Active
-50,557,EA,,,101,1.6,Active
-50,557,EA,,,102,1.7,Active
-50,557,EA,,,103,1.6,Active
-50,557,EA,,,104,1.72,Active
-50,557,EA,,,105,1.51,Active
-50,557,EA,,,106,0,Inactive
-50,557,EA,,,107,2.82,Active
+25,555,EA,,,101,5.41,Active
+25,555,EA,,,102,4.54,Active
+25,555,EA,,,103,7.83,Active
+25,555,EA,,,104,5.8,Active
+25,555,EA,,,105,5.01,Active
+25,555,EA,,,106,0,Inactive
+25,555,EA,,,107,8.78,Active
+25,556,EA,,,101,1.67,Active
+25,556,EA,,,102,2.17,Active
+25,556,EA,,,103,1.84,Active
+25,556,EA,,,104,2.23,Active
+25,556,EA,,,105,1.87,Active
+25,556,EA,,,106,0,Inactive
+25,556,EA,,,107,3.61,Active
+25,557,EA,,,101,1.6,Active
+25,557,EA,,,102,1.7,Active
+25,557,EA,,,103,1.6,Active
+25,557,EA,,,104,1.72,Active
+25,557,EA,,,105,1.51,Active
+25,557,EA,,,106,0,Inactive
+25,557,EA,,,107,2.82,Active
 50,558,EA,,,101,1.4,Active
 50,558,EA,,,102,1.34,Active
 50,558,EA,,,103,1.2,Active
@@ -2217,27 +2217,27 @@
 50,587,EA,,,105,0.4,Active
 50,587,EA,,,106,0,Inactive
 50,587,EA,,,107,0.58,Active
-45,588,FT,,,101,0,Inactive
-45,588,FT,,,102,0,Inactive
-45,588,FT,,,103,0,Inactive
-45,588,FT,,,104,0,Inactive
-45,588,FT,,,105,0.75,Active
-45,588,FT,,,106,0,Inactive
-45,588,FT,,,107,0.76,Active
-45,589,FT,,,101,0,Inactive
-45,589,FT,,,102,1.3,Active
-45,589,FT,,,103,1.2,Active
-45,589,FT,,,104,0,Inactive
-45,589,FT,,,105,1.08,Active
-45,589,FT,,,106,0,Inactive
-45,589,FT,,,107,1.18,Active
-45,590,FT,,,101,0,Inactive
-45,590,FT,,,102,0,Inactive
-45,590,FT,,,103,2.65,Active
-45,590,FT,,,104,0,Inactive
-45,590,FT,,,105,0,Inactive
-45,590,FT,,,106,0,Inactive
-45,590,FT,,,107,4.06,Active
+50,588,FT,,,101,0,Inactive
+50,588,FT,,,102,0,Inactive
+50,588,FT,,,103,0,Inactive
+50,588,FT,,,104,0,Inactive
+50,588,FT,,,105,0.75,Active
+50,588,FT,,,106,0,Inactive
+50,588,FT,,,107,0.76,Active
+50,589,FT,,,101,0,Inactive
+50,589,FT,,,102,1.3,Active
+50,589,FT,,,103,1.2,Active
+50,589,FT,,,104,0,Inactive
+50,589,FT,,,105,1.08,Active
+50,589,FT,,,106,0,Inactive
+50,589,FT,,,107,1.18,Active
+50,590,FT,,,101,0,Inactive
+50,590,FT,,,102,0,Inactive
+50,590,FT,,,103,2.65,Active
+50,590,FT,,,104,0,Inactive
+50,590,FT,,,105,0,Inactive
+50,590,FT,,,106,0,Inactive
+50,590,FT,,,107,4.06,Active
 45,591,EA,,,101,0.34,Active
 45,591,EA,,,102,0,Inactive
 45,591,EA,,,103,0,Inactive
@@ -2476,27 +2476,27 @@
 23,625,EA,,,105,0,Inactive
 23,625,EA,,,106,0,Inactive
 23,625,EA,,,107,0,Inactive
-43,626,EA,,,101,113.6,Active
-43,626,EA,,,102,126.38,Active
-43,626,EA,,,103,125,Active
-43,626,EA,,,104,0,Inactive
-43,626,EA,,,105,0,Inactive
-43,626,EA,,,106,0,Inactive
-43,626,EA,,,107,133.77,Active
-43,627,EA,,,101,0,Inactive
-43,627,EA,,,102,394.73,Active
-43,627,EA,,,103,387.8,Active
-43,627,EA,,,104,0,Inactive
-43,627,EA,,,105,0,Inactive
-43,627,EA,,,106,0,Inactive
-43,627,EA,,,107,0,Inactive
-43,628,EA,,,101,0,Inactive
-43,628,EA,,,102,0,Inactive
-43,628,EA,,,103,98.28,Active
-43,628,EA,,,104,0,Inactive
-43,628,EA,,,105,0,Inactive
-43,628,EA,,,106,0,Inactive
-43,628,EA,,,107,0,Inactive
+23,626,EA,,,101,113.6,Active
+23,626,EA,,,102,126.38,Active
+23,626,EA,,,103,125,Active
+23,626,EA,,,104,0,Inactive
+23,626,EA,,,105,0,Inactive
+23,626,EA,,,106,0,Inactive
+23,626,EA,,,107,133.77,Active
+23,627,EA,,,101,0,Inactive
+23,627,EA,,,102,394.73,Active
+23,627,EA,,,103,387.8,Active
+23,627,EA,,,104,0,Inactive
+23,627,EA,,,105,0,Inactive
+23,627,EA,,,106,0,Inactive
+23,627,EA,,,107,0,Inactive
+23,628,EA,,,101,0,Inactive
+23,628,EA,,,102,0,Inactive
+23,628,EA,,,103,98.28,Active
+23,628,EA,,,104,0,Inactive
+23,628,EA,,,105,0,Inactive
+23,628,EA,,,106,0,Inactive
+23,628,EA,,,107,0,Inactive
 43,629,EA,,,101,0,Inactive
 43,629,EA,,,102,9.98,Active
 43,629,EA,,,103,9.8,Active
