@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="c603f2e0-59b1-4e4c-b189-6ab192f18c05">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="18"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -50,6 +50,26 @@
 			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
 			<style backcolor="#FFEFEF"/>
 		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
 	</style>
 	<subDataset name="Jobs" uuid="5984a0de-1ccd-4ea6-be86-465b329c2f75">
 		<queryString language="SQL">
@@ -109,11 +129,12 @@ FROM
 	<title>
 		<band height="102" splitType="Stretch">
 			<image>
-				<reportElement x="10" y="10" width="115" height="81" uuid="85a3f332-7ad8-4fe9-876a-1f5e91a02840"/>
-				<imageExpression class="java.lang.String"><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
+				<reportElement x="0" y="10" width="115" height="81" uuid="85a3f332-7ad8-4fe9-876a-1f5e91a02840"/>
+				<imageExpression><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="125" y="43" width="245" height="48" uuid="9fde3a7d-1e4e-41ee-820d-1491b465912a"/>
+				<reportElement x="125" y="32" width="245" height="48" uuid="9fde3a7d-1e4e-41ee-820d-1491b465912a"/>
+				<box leftPadding="4"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
@@ -121,7 +142,8 @@ FROM
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="125" y="21" width="245" height="22" uuid="adf11c6e-50fb-4365-a73d-b64c7683d6ca"/>
+				<reportElement x="125" y="10" width="245" height="22" uuid="adf11c6e-50fb-4365-a73d-b64c7683d6ca"/>
+				<box leftPadding="4"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
@@ -161,208 +183,162 @@ FROM
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="145" splitType="Stretch">
+		<band height="51" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 1" style="table_TH" x="0" y="0" width="730" height="140" backcolor="#C54343" uuid="81a0d10f-41b2-4f9e-a101-2cc8f0849974"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="Jobs" uuid="ed6a0325-1922-46f1-860c-9aa27f2aa1dd">
+				<reportElement key="table 2" style="table 2" x="0" y="0" width="360" height="50" uuid="f340013f-86d0-4a48-b538-041eccf94de1"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Jobs" uuid="9e7ed67f-6cfe-4b7f-b57c-afd008a4c142">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="159" uuid="1f633a99-3ac5-4d04-9391-d3aa3c878cea">
-						<jr:tableHeader style="table 1_TH" height="31" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+					<jr:column width="125" uuid="3f051cb4-33b0-4e13-b025-31e7c83f995a">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="159" height="30" uuid="1ff421ab-0240-46cf-8d07-c7c9580be63c"/>
+								<reportElement x="0" y="0" width="125" height="30" uuid="f22d4fb6-8805-401c-8caf-025dd426c06b"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<text><![CDATA[Name]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="159" height="20" uuid="9804cc2c-5f57-47f7-b4f7-f8b81505da22"/>
+								<reportElement x="0" y="0" width="125" height="20" uuid="4692908d-6ca6-49cc-90c9-0363791ee0ac"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{job_name}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="102" uuid="c1d26b34-e0a7-4301-b080-62563e42b135">
-						<jr:tableHeader style="table 1_TH" height="31" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+					<jr:column width="106" uuid="d8ef7d75-2552-4377-8d26-b2c046753a45">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="102" height="30" uuid="32704012-83f3-4a93-91f7-c3cf4a47a9f7"/>
+								<reportElement x="0" y="0" width="106" height="30" uuid="293fa09a-781a-49a7-a2f9-182849980e40"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<text><![CDATA[Address]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="102" height="20" uuid="210da76d-67bf-48f3-ac2a-0f03b95948df"/>
+								<reportElement x="0" y="0" width="106" height="20" uuid="99bb614d-5fd8-4afc-8413-306ff2f7460d"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{job_address}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="5015a6e9-5e34-49e7-8f2a-bf8fb8e0a0da">
-						<jr:tableHeader style="table 1_TH" height="31" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+					<jr:column width="90" uuid="eb622081-de2a-4d5a-8853-7edb589e51ae">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="5d41858a-f7cd-47e6-b9ec-b5840132a549"/>
+								<reportElement x="0" y="0" width="90" height="30" uuid="49e19e21-4012-4556-8cdf-04b596859c4c"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<text><![CDATA[City]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="20" uuid="fbab6dbb-b6f5-4119-b863-088faa4dbc75"/>
+								<reportElement x="0" y="0" width="90" height="20" uuid="015e486e-e391-48c5-a29d-81cb91700bfc"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{job_city}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="50" uuid="f792c534-20ed-42e5-9fa9-7f048ff0035a">
-						<jr:tableHeader style="table 1_TH" height="31" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+					<jr:column width="29" uuid="3b302f0f-6315-49d4-b116-bd559e914419">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="50" height="30" uuid="5c5862ea-24a3-4db8-9375-34a5e21bb789"/>
+								<reportElement x="0" y="0" width="29" height="30" uuid="81aaf609-070a-44c1-bbaf-17cdd8ae5d4b"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<text><![CDATA[State]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="50" height="20" uuid="6854c0ac-dcd7-49ff-9f15-efded1919a23"/>
+								<reportElement x="0" y="0" width="29" height="20" uuid="c462775f-9f50-421c-a0ee-9d4062bccb05"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{job_state}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="58" uuid="f21d9d07-5851-4fed-b9bc-472eda5a35a1">
-						<jr:tableHeader style="table 1_TH" height="31" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+					<jr:column width="65" uuid="91e3d794-4668-478f-a55f-60e23900ed77">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="58" height="30" uuid="91bad0e5-3fdf-4f1a-93c6-b3ace2e8fd95"/>
+								<reportElement x="0" y="0" width="65" height="30" uuid="41025869-82ea-435b-9eb9-862baca8b077"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<text><![CDATA[Zip]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="58" height="20" uuid="85b09127-ad6f-4af4-aa21-b6e560947a76"/>
+								<reportElement x="0" y="0" width="65" height="20" uuid="8afb7641-24dd-4dfa-b644-7b558a8093ad"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{job_zip}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="a6ee9973-3033-40d0-8e52-2e491865f0f1">
-						<jr:tableHeader style="table 1_TH" height="31" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+					<jr:column width="90" uuid="b5b489c4-5eb0-4e32-afa3-bb2c65762dad">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="87134166-f4b8-4235-af81-bbbca5cc2150"/>
+								<reportElement x="0" y="0" width="90" height="30" uuid="ff35f59a-2ebb-432d-b73b-6525d14a38ca"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
-								</textElement>
-								<text><![CDATA[Bid Amount]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="20" uuid="9389aa57-4b85-4028-8e21-63f851d9534d"/>
-								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{job_bidamount}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="53" uuid="d43f4f39-1ad6-4120-aaa4-c2c5064d0a7b">
-						<jr:tableHeader style="table 1_TH" height="31" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="53" height="30" uuid="045bf920-3639-4ba0-9cc1-fc041cf5c196"/>
-								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<text><![CDATA[Status]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="53" height="20" uuid="bc9a410a-cd93-415b-bf0f-f23e958f89eb"/>
+								<reportElement x="0" y="0" width="90" height="20" uuid="0b569df4-779e-445a-b7fb-d2960a8f42ea"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{job_status}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="130" uuid="5dbeb254-56f4-45ab-a5bd-98971ae8f06b">
-						<jr:tableHeader style="table 1_TH" height="31" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+					<jr:column width="126" uuid="ac0c17ab-3c45-434f-81bd-6be380a08917">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="130" height="30" uuid="4eb7475c-b645-4f36-ab90-0db200baf643"/>
+								<reportElement x="0" y="0" width="126" height="30" uuid="a4c53db2-0a8d-4eb4-b963-cbad639c665d"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<text><![CDATA[Comments]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="130" height="20" uuid="79d29c75-38e9-4e86-b707-0facca05e678"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="126" height="20" uuid="3099be42-f4cd-4a52-8d6a-9617d711b82d"/>
 								<box leftPadding="2"/>
-								<textElement>
-									<font fontName="Arial" size="11"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{job_comments}]]></textFieldExpression>
 							</textField>

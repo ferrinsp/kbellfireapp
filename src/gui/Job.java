@@ -22,6 +22,7 @@ public class Job extends javax.swing.JFrame {
     Statement stateObj = null;
     ResultSet resultObj = null;
     String name;
+    int id;
 
     public Job(String name) {
         this.name=name;
@@ -34,7 +35,7 @@ public class Job extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments from job where name like '%"+name+"%';");
+            resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments,jobid from job where name like '%"+EscapeCharacter.escape(name)+"%';");
             while (resultObj.next()){
                 jobName.setText(resultObj.getString("name"));
                 address.setText(resultObj.getString("address"));
@@ -42,6 +43,8 @@ public class Job extends javax.swing.JFrame {
                 state.setText(resultObj.getString("state"));
                 postalCode.setText(resultObj.getString("zip"));
                 bidAmount.setText(resultObj.getString("bidamount"));
+                id = resultObj.getInt("jobid");
+                System.out.println(id);
                 String selected = resultObj.getString("status");
                 if(selected.equals("Active")) {
                     rdbActive.setSelected(true);
@@ -98,7 +101,7 @@ public class Job extends javax.swing.JFrame {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            String query = "Update job set name =?, address=?,city=?,state=?,zip=?,bidamount=?,status=?, comments=? where name like '%"+name+"%';";
+            String query = "Update job set name =?, address=?,city=?,state=?,zip=?,bidamount=?,status=?, comments=? where jobid = "+id+" and name like '%"+EscapeCharacter.escape(name)+"%';";
             //Get Values to insert
             PreparedStatement preparedStmt =connObj.prepareStatement(query);
             preparedStmt.setString (1, jobName.getText());

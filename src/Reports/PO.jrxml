@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
-	<property name="ireport.zoom" value="3.215383215000006"/>
-	<property name="ireport.x" value="824"/>
-	<property name="ireport.y" value="774"/>
+	<property name="ireport.zoom" value="1.815000000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="160"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -513,7 +513,7 @@ where po.orderid = $P{orderid} ;]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quotedate}]]></textFieldExpression>

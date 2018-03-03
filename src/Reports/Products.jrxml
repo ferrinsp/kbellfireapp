@@ -135,6 +135,7 @@ FROM
 		<parameter name="dateto" class="java.lang.String">
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
+		<parameter name="category" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[SELECT
      p.id,
@@ -238,7 +239,7 @@ FROM
 	<title>
 		<band height="118" splitType="Stretch">
 			<staticText>
-				<reportElement x="125" y="60" width="245" height="48" uuid="a69488ba-3ee3-419f-9a0c-c799765260c5"/>
+				<reportElement x="125" y="42" width="245" height="48" uuid="a69488ba-3ee3-419f-9a0c-c799765260c5"/>
 				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
@@ -247,7 +248,7 @@ FROM
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="125" y="38" width="245" height="22" uuid="b90aee20-1145-454a-81b1-cf2a83aed01b"/>
+				<reportElement x="125" y="20" width="245" height="22" uuid="b90aee20-1145-454a-81b1-cf2a83aed01b"/>
 				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="16" isBold="true"/>
@@ -278,20 +279,32 @@ FROM
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="430" y="65" width="31" height="20" uuid="7d457109-6e86-48e9-a783-76501e255b3d"/>
+				<reportElement x="382" y="60" width="31" height="20" uuid="7d457109-6e86-48e9-a783-76501e255b3d"/>
 				<text><![CDATA[From:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="431" y="85" width="30" height="20" uuid="5547d1e5-f117-4261-9d16-0cab59c8998a"/>
+				<reportElement x="383" y="80" width="30" height="20" uuid="5547d1e5-f117-4261-9d16-0cab59c8998a"/>
 				<text><![CDATA[To:]]></text>
 			</staticText>
 			<textField pattern="dd-MMM-yy">
-				<reportElement x="461" y="84" width="100" height="20" uuid="16e7147b-ef41-499b-8d2f-bdfa0edc53e2"/>
+				<reportElement x="413" y="79" width="100" height="20" uuid="16e7147b-ef41-499b-8d2f-bdfa0edc53e2"/>
 				<textFieldExpression><![CDATA[$P{dateto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MM/dd/yyyy">
-				<reportElement x="461" y="66" width="100" height="20" uuid="95231b0b-10bd-4aa5-8eed-dd017896ec39"/>
+				<reportElement x="413" y="61" width="100" height="20" uuid="95231b0b-10bd-4aa5-8eed-dd017896ec39"/>
 				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="531" y="61" width="48" height="20" uuid="6c622950-6780-4544-b2b6-fe5db5868512"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Category:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="579" y="61" width="100" height="20" uuid="9be066ab-2211-405c-a07a-1296b590dd90"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -315,42 +328,22 @@ FROM
 			<componentElement>
 				<reportElement key="table 3" style="table 3" x="0" y="1" width="360" height="50" uuid="fddfc80c-8494-400d-9f82-bb21cc38241d"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="New Dataset 2" uuid="6c124588-4282-48bf-9270-c4565aeb87f8">
-						<parametersMapExpression><![CDATA[$P{category}]]></parametersMapExpression>
+					<datasetRun subDataset="New Dataset 2" uuid="2a669743-49d5-4c56-a98f-e8c4a5b7b357">
 						<datasetParameter name="date">
 							<datasetParameterExpression><![CDATA[$P{date}]]></datasetParameterExpression>
 						</datasetParameter>
 						<datasetParameter name="dateto">
 							<datasetParameterExpression><![CDATA[$P{dateto}]]></datasetParameterExpression>
 						</datasetParameter>
+						<datasetParameter name="category">
+							<datasetParameterExpression><![CDATA[$P{category}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="90" uuid="0fe043a4-ae44-4ed8-aad5-db4516059008">
+					<jr:column width="204" uuid="06208073-e1a7-4c21-bac8-f7d7088f314c">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="4939dae0-b425-4577-900f-d8c912f54dd2"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
-								</textElement>
-								<text><![CDATA[Category]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="20" uuid="1b0d2b8c-c44e-47d2-85f9-5dde13e879f4"/>
-								<box leftPadding="2"/>
-								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="11"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="173" uuid="06208073-e1a7-4c21-bac8-f7d7088f314c">
-						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="173" height="30" uuid="520a7b11-7487-47bb-b6ca-0d7e0f115f32"/>
+								<reportElement x="0" y="0" width="204" height="30" uuid="520a7b11-7487-47bb-b6ca-0d7e0f115f32"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -360,7 +353,7 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="173" height="20" uuid="9dcef244-cef4-41b0-9af7-9816683c7505"/>
+								<reportElement x="0" y="0" width="204" height="20" uuid="9dcef244-cef4-41b0-9af7-9816683c7505"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
