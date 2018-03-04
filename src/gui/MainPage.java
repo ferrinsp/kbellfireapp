@@ -147,6 +147,7 @@ public class MainPage extends javax.swing.JFrame {
         Create_Purchase_Order = new javax.swing.JMenuItem();
         printPO = new javax.swing.JMenuItem();
         View_Purchase_Order = new javax.swing.JMenuItem();
+        Open_Preview_PO = new javax.swing.JMenuItem();
         Credit_Memo = new javax.swing.JMenu();
         completedCM = new javax.swing.JMenuItem();
         newCreditMemo = new javax.swing.JMenuItem();
@@ -426,6 +427,14 @@ public class MainPage extends javax.swing.JFrame {
         });
         Purchase_Order.add(View_Purchase_Order);
 
+        Open_Preview_PO.setText("Open Preview Purchase Page");
+        Open_Preview_PO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Open_Preview_POActionPerformed(evt);
+            }
+        });
+        Purchase_Order.add(Open_Preview_PO);
+
         MenuBar.add(Purchase_Order);
 
         Credit_Memo.setText("Credit Memos");
@@ -468,7 +477,7 @@ public class MainPage extends javax.swing.JFrame {
 
         MenuBar.add(Credit_Memo);
 
-        Product.setText("Products");
+        Product.setText("Items");
 
         miscFunction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK));
         miscFunction.setText("Misc Functions");
@@ -798,6 +807,11 @@ public class MainPage extends javax.swing.JFrame {
         VContacts view = new VContacts();
         view.setVisible(true);
     }//GEN-LAST:event_viewContactsActionPerformed
+
+    private void Open_Preview_POActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Open_Preview_POActionPerformed
+        PreviewPurchaseOrder preview = new PreviewPurchaseOrder();
+        preview.setVisible(true);
+    }//GEN-LAST:event_Open_Preview_POActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -830,6 +844,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenu Jobs;
     private javax.swing.JPanel Main_Panel;
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenuItem Open_Preview_PO;
     private javax.swing.JMenu Product;
     private javax.swing.JMenu Purchase_Order;
     private javax.swing.JMenu Reports;

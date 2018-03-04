@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CreditMemo" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="271"/>
+	<property name="ireport.x" value="34"/>
+	<property name="ireport.y" value="0"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -246,6 +246,9 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 	<field name="createdby" class="java.lang.String"/>
 	<title>
 		<band height="175" splitType="Stretch">
+			<rectangle>
+				<reportElement x="466" y="15" width="88" height="40" backcolor="#9999FF" uuid="b5e45d1f-566f-448e-829d-0a7f82cb54fc"/>
+			</rectangle>
 			<staticText>
 				<reportElement x="130" y="33" width="245" height="22" uuid="ba2d0e7c-4ff7-439e-9e11-bb6ff7a7f562"/>
 				<textElement verticalAlignment="Middle">

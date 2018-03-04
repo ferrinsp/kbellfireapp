@@ -71,6 +71,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="View_Purchase_OrderActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="Open_Preview_PO">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Open Preview Purchase Page"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Open_Preview_POActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="Credit_Memo">
@@ -126,7 +134,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Product">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Products"/>
+            <Property name="text" type="java.lang.String" value="Items"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miscFunction">

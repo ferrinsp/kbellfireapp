@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
 	<property name="ireport.zoom" value="1.815000000000003"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="160"/>
+	<property name="ireport.x" value="226"/>
+	<property name="ireport.y" value="0"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -249,6 +249,9 @@ where po.orderid = $P{orderid} ;]]>
 	<field name="salestax" class="java.lang.String"/>
 	<title>
 		<band height="184" splitType="Stretch">
+			<rectangle>
+				<reportElement x="437" y="15" width="118" height="40" backcolor="#9999FF" uuid="0a6b0332-1d1c-4564-94e5-a701ac4e6010"/>
+			</rectangle>
 			<staticText>
 				<reportElement x="129" y="15" width="216" height="22" uuid="ba2d0e7c-4ff7-439e-9e11-bb6ff7a7f562"/>
 				<textElement verticalAlignment="Middle">

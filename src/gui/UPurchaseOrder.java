@@ -60,7 +60,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             itemTable.getColumn("total").setHeaderValue("Total");
             itemTable.repaint();
             //Populate the textfields
-            resultObj = stateObj.executeQuery("select po.orderid, j.name, po.expectedby,u.name as 'user',s.companyname,j2.name as 'shipto',po.currentTax, po.created, po.status, po.comments, po.bldg\n" +
+            resultObj = stateObj.executeQuery("select po.orderid, j.name, po.expectedby,u.name as 'user',s.companyname,j2.name as 'shipto',po.currentTax, po.created, po.status, po.comments,po.subtotal, po.bldg\n" +
 "                from purchaseorder po inner join purchaseorderdetails pod on pod.orderid=po.orderid\n" +
 "                inner join supplier s on s.supplierid=po.supplier inner join user u on u.userid=po.createdby\n" +
 "                inner join job j on j.jobid=po.job inner join job j2 on j2.jobid=po.shipto where po.orderid="+id+";");//change to passed in variable
@@ -78,6 +78,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 dateCreated.setText(df.format(d));
                 commentsArea.setText(resultObj.getString("comments"));
                 bldgTextField.setText(resultObj.getString("bldg"));
+                subTotal.setText(resultObj.getString("subtotal"));
                 switch (resultObj.getString("status")) {
                     case "Back Order":
                         rdbBackOrder.setSelected(true);
@@ -131,7 +132,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     poStatus = button.getText();
                 }
             }
-            query = "Update purchaseorder set status=?, comments=? , expectedby =? , total= ?, shipto=?, bldg=?  where orderid="+id+";";
+            query = "Update purchaseorder set status=?, comments=? , expectedby =? , subtotal= ?, shipto=?, bldg=?, tax =?, total =?  where orderid="+id+";";
             //Get Values to update
             int ship=-1;
             for (String[] job1 : job) {
@@ -146,6 +147,9 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             preparedStmt.setDouble(4,total);
             preparedStmt.setInt(5,ship);
             preparedStmt.setString (6,bldgTextField.getText());
+            double invTotal=(total* Double.parseDouble(taxRate.getText())/100)+total;
+            preparedStmt.setDouble(7,(total* Double.parseDouble(taxRate.getText())/100));
+            preparedStmt.setDouble(8,invTotal);
             preparedStmt.executeUpdate();
             connObj.close();
             this.id= -1;
@@ -211,7 +215,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        taxRate1 = new javax.swing.JTextField();
+        subTotal = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         bldgTextField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -338,14 +342,14 @@ public class UPurchaseOrder extends javax.swing.JFrame {
 
         jLabel11.setText("Sub Total:");
 
-        taxRate1.setEditable(false);
-        taxRate1.setText("SubTotal");
-        taxRate1.addFocusListener(new java.awt.event.FocusAdapter() {
+        subTotal.setEditable(false);
+        subTotal.setText("SubTotal");
+        subTotal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                taxRate1FocusGained(evt);
+                subTotalFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                taxRate1FocusLost(evt);
+                subTotalFocusLost(evt);
             }
         });
 
@@ -380,7 +384,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     .addComponent(taxRate)
                     .addComponent(expectedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(shipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(taxRate1))
+                    .addComponent(subTotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -427,7 +431,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(taxRate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(subTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -672,13 +676,13 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void taxRate1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxRate1FocusGained
+    private void subTotalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_subTotalFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_taxRate1FocusGained
+    }//GEN-LAST:event_subTotalFocusGained
 
-    private void taxRate1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_taxRate1FocusLost
+    private void subTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_subTotalFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_taxRate1FocusLost
+    }//GEN-LAST:event_subTotalFocusLost
 
     /**
      * @param args the command line arguments
@@ -753,8 +757,8 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbPending;
     private javax.swing.JComboBox<String> shipToCombo;
     private javax.swing.ButtonGroup statusGroup;
+    private javax.swing.JTextField subTotal;
     private javax.swing.JTextField supplierName;
     private javax.swing.JTextField taxRate;
-    private javax.swing.JTextField taxRate1;
     // End of variables declaration//GEN-END:variables
 }
