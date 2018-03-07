@@ -285,6 +285,7 @@ public class NDescription extends javax.swing.JFrame {
         } else {
             insertDescription();
             JOptionPane.showMessageDialog(null, "New description was entered successfully.");
+            this.dispose();
         }
     }//GEN-LAST:event_addNewDescriptionActionPerformed
 

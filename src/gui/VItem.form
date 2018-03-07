@@ -74,7 +74,7 @@
         <Component class="javax.swing.JTable" name="ItemTable">
           <Properties>
             <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="ItemTable.addMouseListener(new MouseAdapter() {&#xa;public void mousePressed(MouseEvent me) {&#xa;JTable table =(JTable) me.getSource();&#xa;Point p = me.getPoint();&#xa;int row = table.rowAtPoint(p);&#xa;if (me.getClickCount() ==2 ) {&#xa;    int prod= findProduct(ItemTable.getValueAt(row, 2).toString(),ItemTable.getValueAt(row, 1).toString(), Double.parseDouble(ItemTable.getValueAt(row, 3).toString()));&#xa;    NUItem addItem = new NUItem(prod);&#xa;    addItem.setVisible(true);&#xa;}&#xa;}&#xa;});">
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="ItemTable.addMouseListener(new MouseAdapter() {&#xa;public void mousePressed(MouseEvent me) {&#xa;JTable table =(JTable) me.getSource();&#xa;Point p = me.getPoint();&#xa;int row = table.rowAtPoint(p);&#xa;if (me.getClickCount() ==2 ) {&#xa;    int prod= (int) ItemTable.getValueAt(row, 9);&#xa;    NUItem addItem = new NUItem(prod);&#xa;    addItem.setVisible(true);&#xa;}&#xa;}&#xa;});">
               <Table columnCount="10" rowCount="1">
                 <Column editable="false" title="Category" type="java.lang.Object"/>
                 <Column editable="false" title="Description" type="java.lang.Object"/>
@@ -252,6 +252,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="showHideStatus">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Hide Inactive"/>
       </Properties>
       <Events>

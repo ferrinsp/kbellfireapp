@@ -43,7 +43,7 @@ public class VItem extends javax.swing.JFrame {
             ItemTable.setRowSorter(sorter);
         }
     }
-    private int findProduct(String supplier, String descp,Double price){
+  /*  private int findProduct(String supplier, String descp,Double price){
         int id =-1;
          try{
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
@@ -57,7 +57,7 @@ public class VItem extends javax.swing.JFrame {
             Logger.getLogger(VItem.class.getName()).log(Level.SEVERE, null, ex);
         }
          return id;
-    }
+    }*/
     private void getProduct() {
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
@@ -143,7 +143,7 @@ public class VItem extends javax.swing.JFrame {
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
                 if (me.getClickCount() ==2 ) {
-                    int prod= findProduct(ItemTable.getValueAt(row, 2).toString(),ItemTable.getValueAt(row, 1).toString(), Double.parseDouble(ItemTable.getValueAt(row, 3).toString()));
+                    int prod= (int) ItemTable.getValueAt(row, 9);
                     NUItem addItem = new NUItem(prod);
                     addItem.setVisible(true);
                 }
@@ -246,6 +246,7 @@ public class VItem extends javax.swing.JFrame {
             }
         });
 
+        showHideStatus.setSelected(true);
         showHideStatus.setText("Hide Inactive");
         showHideStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -185,7 +185,7 @@ where po.orderid=$P{orderid};]]>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select LPAD(CONVERT(po.orderid, CHAR(10)), 5, '0') as 'forderid',po.orderid,j.name,s.companyname,s.contact, po.quote, DATE_FORMAT(po.quotedate, '%m/%d/%Y' )as 'quotedate', s.address1,CONCAT(s.city,", ",s.state," ",s.postalcode) as 'suppcity',pod.orderqty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', pod.total, po.tax as 'TaxTotal', pod.cost as 'Price', pd.productDescription as 'Description', po.subtotal as 'Subtotal', po.total as 'POTotal', c.phone as 'dphone',c.name as 'dname', DATE_FORMAT(po.expectedby, '%m/%d/%Y' )as 'expectedby', CONCAT(st.name," ",po.bldg) as 'shipname',st.address as 'shipadd', CONCAT(st.city,", ",st.state," ",st.zip) as 'shipcity', u.name as 'createdby', CONCAT(po.currentTax,"%") as 'salestax', po.subtotal
+		<![CDATA[Select po.orderid as 'forderid',po.orderid,j.name,s.companyname,s.contact, po.quote, DATE_FORMAT(po.quotedate, '%m/%d/%Y' )as 'quotedate', s.address1,CONCAT(s.city,", ",s.state," ",s.postalcode) as 'suppcity',pod.orderqty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', pod.total, po.tax as 'TaxTotal', pod.cost as 'Price', pd.productDescription as 'Description', po.subtotal as 'Subtotal', po.total as 'POTotal', c.phone as 'dphone',c.name as 'dname', DATE_FORMAT(po.expectedby, '%m/%d/%Y' )as 'expectedby', CONCAT(st.name," ",po.bldg) as 'shipname',st.address as 'shipadd', CONCAT(st.city,", ",st.state," ",st.zip) as 'shipcity', u.name as 'createdby', CONCAT(po.currentTax,"%") as 'salestax', po.subtotal
 from purchaseorder po inner join job j on j.jobid=po.job 
 inner join job st on st.jobid =po.shipto 
 inner join supplier s on s.supplierid =po.supplier
@@ -196,7 +196,7 @@ inner join productdescription pd on pd.pdescID= p.description
 inner join contact c on c.contactid = po.contact 
 where po.orderid = $P{orderid} ;]]>
 	</queryString>
-	<field name="forderid" class="java.lang.String"/>
+	<field name="forderid" class="java.lang.Integer"/>
 	<field name="orderid" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>

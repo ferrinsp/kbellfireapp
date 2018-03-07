@@ -199,7 +199,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid =$
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select LPAD(CONVERT(cm.memoid,CHAR(10)), 5, '0') as 'fmemoid',cm.memoid,LPAD(CONVERT(cm.poid, CHAR(10)), 5, '0') as 'poid',j.name,cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', CONCAT('-',CONVERT(cm.total, CHAR(10))) AS 'CMTotal', CONCAT(cm.currentTax,'%') as 'currentTax',
+		<![CDATA[Select cm.memoid as 'fmemoid',cm.memoid,LPAD(CONVERT(cm.poid, CHAR(10)), 5, '0') as 'poid',j.name,cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', CONCAT('-',CONVERT(cm.total, CHAR(10))) AS 'CMTotal', CONCAT(cm.currentTax,'%') as 'currentTax',
 CONCAT('-',CONVERT(cm.tax, CHAR(10))) as 'TaxTotal', cmd.cost as 'Price', pd.productDescription as 'Description', CONCAT('-',CONVERT(cm.subTotal, CHAR(10))) as 'subTotal',s.companyname as 'Supplier',s.address1 as 'Address',
 s.contact, CONCAT(s.city,", ",s.state," ",s.postalcode) as 'supcity', u.name as 'createdby'
 from creditmemo cm inner join job j on j.jobid=cm.job
@@ -209,7 +209,7 @@ inner join creditmemodetail cmd on cmd.creditmemoid=cm.memoid
 inner join product p on cmd.product =p.id
 inner join productdescription pd on pd.pdescID= p.description where cm.memoid = $P{memoid};]]>
 	</queryString>
-	<field name="fmemoid" class="java.lang.String"/>
+	<field name="fmemoid" class="java.lang.Integer"/>
 	<field name="memoid" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
