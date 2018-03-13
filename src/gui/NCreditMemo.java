@@ -64,7 +64,7 @@ public class NCreditMemo extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select p.id from product p inner join productdescription pd on pd.pdescID = p.description where pd.productDescription LIKE '%"+prodDesc+"%' and p.supplier = "+selectedSupplier+" ;");
+            resultObj = stateObj.executeQuery("select p.id from product p inner join productdescription pd on pd.pdescID = p.description where pd.productDescription LIKE '%"+EscapeCharacter.escape(prodDesc)+"%' and p.supplier = "+selectedSupplier+" ;");
             while (resultObj.next()){
                 id =resultObj.getInt("id");
             }
