@@ -23,7 +23,8 @@ public class UDescription extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
-    String prod;
+    int desc;
+    String name;
 
     public UDescription(){
         initComponents();
@@ -32,11 +33,12 @@ public class UDescription extends javax.swing.JFrame {
      * Creates new form UDescription
      * @param prod
      */
-    public UDescription(String prod) {
-        this.prod=prod;
+    public UDescription(int desc, String name) {
+        this.desc=desc;
+        this.name=name;
         initComponents();
-        newDesc.setText(prod);
-        previousDesc.setText(prod);
+        previousDesc.setText(name);
+        newDesc.setText(name);
     }
 
     /**
@@ -87,7 +89,7 @@ public class UDescription extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addComponent(saveButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(closeButton)
@@ -96,11 +98,10 @@ public class UDescription extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton1)
                     .addComponent(closeButton))
-                .addGap(12, 12, 12))
+                .addGap(0, 23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,11 +114,13 @@ public class UDescription extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(previousDesc)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(newDesc)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 140, Short.MAX_VALUE))
+                    .addComponent(previousDesc))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +130,7 @@ public class UDescription extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(previousDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(newDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -152,7 +155,7 @@ public class UDescription extends javax.swing.JFrame {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
-            String query = "UPDATE productdescription set productDescription=? where productDescription like '%" + EscapeCharacter.escape(prod) + "%';";
+            String query = "UPDATE productdescription set productDescription=? where pdescID="+desc+";";
             PreparedStatement preparedStmt =connObj.prepareStatement(query);
             preparedStmt.setString (1, newDesc.getText());
                 preparedStmt.executeUpdate();

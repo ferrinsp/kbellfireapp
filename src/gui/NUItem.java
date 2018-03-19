@@ -90,7 +90,7 @@ public class NUItem extends javax.swing.JFrame {
             //Dynamically set supplier list size
             resultObj.last();
             category = new String[resultObj.getRow()][2];
-            resultObj.first();
+            resultObj.beforeFirst();
             int i=0;
             while (resultObj.next()){
                 category[i][0] =Integer.toString(resultObj.getInt("category_ID"));
@@ -146,10 +146,11 @@ public class NUItem extends javax.swing.JFrame {
                     lastChanged.setDate(resultObj.getDate("lastchange"));
                     priceTextField.setText(resultObj.getString("price"));
                     String contactStatus = resultObj.getString("status");
-                    if (contactStatus.equals("Active")) {
-                        itemActive.setSelected(true);
-                    } else
+                    System.out.print(contactStatus);
+                    if (contactStatus.equals("Inactive")) {
                         itemInactive.setSelected(true);
+                    } else
+                        itemActive.setSelected(true);
                 } connObj.close();
             }catch(SQLException e){
                 e.printStackTrace();
@@ -305,6 +306,7 @@ public class NUItem extends javax.swing.JFrame {
         status.setText("Status");
 
         statusGroup.add(itemActive);
+        itemActive.setSelected(true);
         itemActive.setText("Active");
 
         statusGroup.add(itemInactive);

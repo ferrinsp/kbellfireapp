@@ -77,7 +77,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select pdescID from productdescription where productDescription like '%"+EscapeCharacter.escape(desc)+"%' ;");
+            resultObj = stateObj.executeQuery("select pdescID from productdescription where productDescription like '%"+desc+"%' ;");
             while (resultObj.next()){
                 index =resultObj.getInt("pdescID");
             }

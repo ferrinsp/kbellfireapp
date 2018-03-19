@@ -158,6 +158,7 @@ public class MainPage extends javax.swing.JFrame {
         newProduct = new javax.swing.JMenuItem();
         quoteMenu = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
+        View_Description = new javax.swing.JMenuItem();
         Jobs = new javax.swing.JMenu();
         create_Job = new javax.swing.JMenuItem();
         view_Job = new javax.swing.JMenuItem();
@@ -515,6 +516,14 @@ public class MainPage extends javax.swing.JFrame {
         });
         Product.add(View_Product);
 
+        View_Description.setText("View/Update Description");
+        View_Description.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                View_DescriptionActionPerformed(evt);
+            }
+        });
+        Product.add(View_Description);
+
         MenuBar.add(Product);
 
         Jobs.setText("Jobs");
@@ -812,6 +821,11 @@ public class MainPage extends javax.swing.JFrame {
         PreviewPurchaseOrder preview = new PreviewPurchaseOrder();
         preview.setVisible(true);
     }//GEN-LAST:event_Open_Preview_POActionPerformed
+
+    private void View_DescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View_DescriptionActionPerformed
+        VDescription view = new VDescription();
+        view.setVisible(true);
+    }//GEN-LAST:event_View_DescriptionActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -851,6 +865,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem Software;
     private javax.swing.JMenu Supplier;
     private javax.swing.JTabbedPane TabbedView;
+    private javax.swing.JMenuItem View_Description;
     private javax.swing.JMenuItem View_Product;
     private javax.swing.JMenuItem View_Purchase_Order;
     private javax.swing.JMenuItem View_Supplier;

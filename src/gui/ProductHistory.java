@@ -1,12 +1,16 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import net.proteanit.sql.DbUtils;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JTable;
 
 public class ProductHistory extends javax.swing.JFrame {
 
@@ -43,7 +47,7 @@ public class ProductHistory extends javax.swing.JFrame {
                     "inner join product p on p.id = pod.product\n" +
                     "inner join supplier s on s.supplierid=po.supplier\n" +
                     "inner join productdescription pd on pd.pdescID=p.description\n" +
-                    "where pd.productDescription like '%" +desc + "%' order by s.companyname, po.orderid DESC;");
+                    "where pd.productDescription like '%" +EscapeCharacter.escape(desc) + "%' order by s.companyname, po.orderid DESC;");
             productHistoryTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             productHistoryTable.getColumn("orderid").setHeaderValue("Purchase Order Number");
             productHistoryTable.getColumn("productDescription").setHeaderValue("Product Description");
@@ -109,6 +113,17 @@ public class ProductHistory extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        productHistoryTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table =(JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() ==2 ) {
+                    UPurchaseOrder updatePO = new UPurchaseOrder((int) productHistoryTable.getValueAt(row,0));
+                    updatePO.setVisible(true);
+                }
             }
         });
         jScrollPane1.setViewportView(productHistoryTable);
