@@ -47,7 +47,7 @@ public class NCreditMemo extends javax.swing.JFrame {
     private void getComboPO() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select orderid from purchaseorder where status Like '%Completed%' ORDER BY orderid;");
             while (resultObj.next()){
@@ -62,7 +62,7 @@ public class NCreditMemo extends javax.swing.JFrame {
         int id=-1;
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select p.id from product p inner join productdescription pd on pd.pdescID = p.description where pd.productDescription LIKE '%"+EscapeCharacter.escape(prodDesc)+"%' and p.supplier = "+selectedSupplier+" ;");
             while (resultObj.next()){
@@ -77,7 +77,7 @@ public class NCreditMemo extends javax.swing.JFrame {
     private void getPurchaseOrder(int id){
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select pd.productDescription, s.companyname,  p.manufacturer, p.part_id, pod.orderqty,p.unitMeasure,p.price, pod.total from  purchaseorder po inner join purchaseorderdetails pod on po.orderid = pod.orderid "
                     + "inner join product p on p.id = pod.product inner join productdescription pd on pd.pdescID=p.description inner join supplier s on s.supplierid=p.supplier where po.orderid ="+id+";"); 
@@ -108,7 +108,7 @@ public class NCreditMemo extends javax.swing.JFrame {
     private void insertCreditMemo(){
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             String query = "INSERT into creditmemo (poid, supplier, job, tax, total, createdby, currentTax,subTotal) values(?,?,?,?,?,?,?,?);";
             PreparedStatement preparedStmt =connObj.prepareStatement(query);
             preparedStmt.setInt(1,selectedPO);
@@ -129,7 +129,7 @@ public class NCreditMemo extends javax.swing.JFrame {
         try { 
             String query;
             int memoid = -1;
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select max(memoid) as 'id' from creditmemo;");
             while (resultObj.next()){
@@ -170,7 +170,7 @@ public class NCreditMemo extends javax.swing.JFrame {
              //Generate Report
             InputStream is = getClass().getResourceAsStream("/Reports/CreditMemo.jrxml");
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();

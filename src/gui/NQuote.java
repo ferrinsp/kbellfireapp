@@ -51,7 +51,7 @@ public class NQuote extends javax.swing.JFrame {
     private void getDescriptions() {
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select category_ID, description from category ORDER BY description;");
             //Dynamically set supplier list size
@@ -73,7 +73,7 @@ public class NQuote extends javax.swing.JFrame {
     private void populateProductTable() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select DISTINCT c.description, pd.productDescription as pdescription, pd.productsize, p.unitMeasure from product p inner join category c on p.category_id =c.category_ID "
                     + "inner join productdescription pd on p.description = pd.pdescID where c.description LIKE '%"+CategoryCombo.getSelectedItem()+"%' ORDER BY pd.productDescription ;");

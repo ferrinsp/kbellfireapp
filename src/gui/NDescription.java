@@ -17,7 +17,7 @@ public class NDescription extends javax.swing.JFrame {
     private void getTax() {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
         stateObj = connObj.createStatement();
         resultObj = stateObj.executeQuery("select tax from tax;");
         while (resultObj.next()){
@@ -31,7 +31,7 @@ public class NDescription extends javax.swing.JFrame {
     private void insertDescription() {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
         String query = "INSERT into productdescription (productDescription,productsize) values(?,?);";
         //Needs form checking to ensure default values are not inserted
         
@@ -48,7 +48,7 @@ public class NDescription extends javax.swing.JFrame {
     private void setTax(double tax) {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
         PreparedStatement preparedStmt =connObj.prepareStatement("Update tax set tax =? ;");
         preparedStmt.setDouble (1, tax);
         preparedStmt.executeUpdate();

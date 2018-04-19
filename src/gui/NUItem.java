@@ -61,7 +61,7 @@ public class NUItem extends javax.swing.JFrame {
     private void getComboSupplier() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select supplierid, companyname from supplier ORDER BY companyname;");
             //Dynamically set supplier list size
@@ -84,7 +84,7 @@ public class NUItem extends javax.swing.JFrame {
     private void getComboCategory() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select category_ID, description from category;");
             //Dynamically set supplier list size
@@ -106,7 +106,7 @@ public class NUItem extends javax.swing.JFrame {
     private void getDescriptionCombo(){
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select pdescID, productDescription from productdescription order by productDescription ;");
             resultObj.last();
@@ -131,7 +131,7 @@ public class NUItem extends javax.swing.JFrame {
     public void getProductInfo(){
         if (id != -1) {
             try {
-                connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+                connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
                 stateObj = connObj.createStatement();
                 resultObj = stateObj.executeQuery("SELECT c.description, pd.productDescription, p.manufacturer, p.part_id, p.unitMeasure, s.companyname, p.lastchange, p.price, p.status\n" +
                     "from product p inner join category c on c.category_ID=p.category_id inner join productdescription pd on p.description=pd.pdescID \n" +
@@ -162,7 +162,7 @@ public class NUItem extends javax.swing.JFrame {
         try {
           String query;  
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+        connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
         if (id==-1) {
         query= "INSERT into product (category_id,description,part_id,manufacturer,supplier,price,unitMeasure,status,lastchange)"
                 + "values(?,?,?,?,?,?,?,?,?);";

@@ -36,7 +36,7 @@ public class ProductReportDates extends javax.swing.JFrame {
     private void getCategory() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select category_ID, description from category");
             //Dynamically set supplier list size
@@ -217,7 +217,7 @@ public class ProductReportDates extends javax.swing.JFrame {
         try {
             InputStream is = getClass().getResourceAsStream("/Reports/Products.jrxml");            
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbell?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
 
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             //set parameters
