@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
 	<property name="ireport.zoom" value="1.815000000000003"/>
-	<property name="ireport.x" value="226"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="347"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -356,10 +356,6 @@ where po.orderid = $P{orderid} ;]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dphone}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="1" y="15" width="115" height="81" uuid="92de5175-d5e0-4f48-82b7-401ee59763fe"/>
-				<imageExpression><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="20" y="126" width="26" height="13" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -451,10 +447,14 @@ where po.orderid = $P{orderid} ;]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{suppcity}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="15" width="115" height="81" uuid="1b6db42c-9164-41e4-a047-ce598c31024d"/>
+				<imageExpression><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="25" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField>
 				<reportElement x="435" y="5" width="80" height="15" uuid="e6bc0f06-45c3-4f4c-b0f5-1392850ccf14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
@@ -527,26 +527,28 @@ where po.orderid = $P{orderid} ;]]>
 		<band splitType="Stretch"/>
 	</detail>
 	<columnFooter>
-		<band height="5" splitType="Stretch"/>
+		<band height="2" splitType="Stretch"/>
 	</columnFooter>
 	<lastPageFooter>
 		<band height="114">
 			<staticText>
-				<reportElement x="1" y="34" width="311" height="60" uuid="16ddef7c-d3d6-4c6e-aa88-64b0c2f02503"/>
+				<reportElement x="0" y="13" width="334" height="40" uuid="16ddef7c-d3d6-4c6e-aa88-64b0c2f02503"/>
+				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[This purchase order is bound by all terms and conditions as ordered and stated in its content.  K-Bell Plumbing & Heating, Inc. reserves the right to cancel this purchase order without any financial implications to K-Bell Plumbing & Heating, Inc.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="15" width="279" height="19" uuid="d4018617-1402-48ac-9485-37788d96aa0d"/>
+				<reportElement x="0" y="1" width="279" height="12" uuid="d4018617-1402-48ac-9485-37788d96aa0d"/>
+				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Note: Please call to verify delivery date and time.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="375" y="67" width="92" height="20" uuid="b782f017-30a3-4b47-92e4-54ff80debc5d"/>
+				<reportElement x="374" y="39" width="92" height="20" uuid="b782f017-30a3-4b47-92e4-54ff80debc5d"/>
 				<box rightPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -560,7 +562,7 @@ where po.orderid = $P{orderid} ;]]>
 				<text><![CDATA[TOTAL ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="375" y="47" width="45" height="20" uuid="c42b562e-a664-40e4-b877-477535feea81"/>
+				<reportElement x="374" y="21" width="45" height="18" uuid="c42b562e-a664-40e4-b877-477535feea81"/>
 				<box rightPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -574,7 +576,7 @@ where po.orderid = $P{orderid} ;]]>
 				<text><![CDATA[TAX ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="375" y="27" width="92" height="20" uuid="6ec353dd-d9a1-4c81-8371-bdc93ddb2203"/>
+				<reportElement x="374" y="1" width="92" height="20" uuid="6ec353dd-d9a1-4c81-8371-bdc93ddb2203"/>
 				<box rightPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -588,7 +590,7 @@ where po.orderid = $P{orderid} ;]]>
 				<text><![CDATA[SUBTOTAL ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="467" y="47" width="88" height="20" uuid="6c02a555-511b-42ef-893b-614581076a2d"/>
+				<reportElement x="466" y="21" width="88" height="18" uuid="6c02a555-511b-42ef-893b-614581076a2d"/>
 				<box rightPadding="3">
 					<pen lineWidth="1.25"/>
 					<topPen lineWidth="1.25"/>
@@ -602,7 +604,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{TaxTotal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="467" y="27" width="88" height="20" uuid="703c951d-af58-4a37-9a4b-d03cb87de888"/>
+				<reportElement x="466" y="1" width="88" height="20" uuid="703c951d-af58-4a37-9a4b-d03cb87de888"/>
 				<box rightPadding="2">
 					<pen lineWidth="1.25"/>
 					<topPen lineWidth="1.25"/>
@@ -616,7 +618,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{Subtotal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="467" y="67" width="88" height="20" uuid="81c86e22-9f36-48eb-8fe9-5276e3e4bcff"/>
+				<reportElement x="466" y="39" width="88" height="20" uuid="81c86e22-9f36-48eb-8fe9-5276e3e4bcff"/>
 				<box rightPadding="3">
 					<pen lineWidth="1.25"/>
 					<topPen lineWidth="1.25"/>
@@ -630,31 +632,37 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{POTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="94" width="56" height="20" uuid="67e36b55-f35a-48a1-8a42-45c2d9095954"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="0" y="53" width="56" height="20" uuid="67e36b55-f35a-48a1-8a42-45c2d9095954"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[Issued By:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="435" y="94" width="80" height="20" uuid="5590238e-da43-4921-abd2-9d196cfa57ab"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="435" y="60" width="80" height="15" uuid="5590238e-da43-4921-abd2-9d196cfa57ab"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="515" y="94" width="40" height="20" uuid="40eac5a5-9f00-45c0-baf7-e6c7f0f42fc7"/>
+				<reportElement x="515" y="60" width="40" height="15" uuid="40eac5a5-9f00-45c0-baf7-e6c7f0f42fc7"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="56" y="94" width="100" height="20" uuid="42586d43-cd09-45a8-95fd-b29a4974c1ee"/>
-				<box leftPadding="3"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="55" y="53" width="100" height="20" uuid="42586d43-cd09-45a8-95fd-b29a4974c1ee"/>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{createdby}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="420" y="47" width="47" height="20" uuid="1fe23fb3-b359-4526-95f7-1714a1298211"/>
+				<reportElement x="419" y="21" width="47" height="18" uuid="1fe23fb3-b359-4526-95f7-1714a1298211"/>
 				<box rightPadding="2">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>

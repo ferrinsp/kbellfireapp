@@ -39,7 +39,7 @@ public class MainPage extends javax.swing.JFrame {
     private void getDashboard() {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+        connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
         stateObj = connObj.createStatement();
         resultObj = stateObj.executeQuery("select Count(*) from purchaseorder where status Like '%Issued%';");
         while (resultObj.next()){
@@ -61,7 +61,7 @@ public class MainPage extends javax.swing.JFrame {
     private void getPOStatus()    {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
             "t3.name, b.name, t1.total from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
@@ -84,7 +84,7 @@ public class MainPage extends javax.swing.JFrame {
     private void getTax() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select tax from tax;");
             while (resultObj.next()){
@@ -108,7 +108,7 @@ public class MainPage extends javax.swing.JFrame {
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
-        this.setSize(xsize, ysize-10);
+        this.setSize(xsize, ysize-25);
     }
 
     /**
@@ -159,6 +159,7 @@ public class MainPage extends javax.swing.JFrame {
         quoteMenu = new javax.swing.JMenuItem();
         View_Product = new javax.swing.JMenuItem();
         View_Description = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         Jobs = new javax.swing.JMenu();
         create_Job = new javax.swing.JMenuItem();
         view_Job = new javax.swing.JMenuItem();
@@ -525,6 +526,14 @@ public class MainPage extends javax.swing.JFrame {
         });
         Product.add(View_Description);
 
+        jMenuItem2.setText("View Items Ordered");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        Product.add(jMenuItem2);
+
         MenuBar.add(Product);
 
         Jobs.setText("Jobs");
@@ -736,7 +745,7 @@ public class MainPage extends javax.swing.JFrame {
         try {
             InputStream is = getClass().getResourceAsStream("/Reports/Jobs.jrxml");     
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();
@@ -761,7 +770,7 @@ public class MainPage extends javax.swing.JFrame {
         try {
             InputStream is = getClass().getResourceAsStream("/Reports/Suppliers.jrxml");            
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();
@@ -841,6 +850,11 @@ public class MainPage extends javax.swing.JFrame {
         JobSummary js = new JobSummary();
         js.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        ItemsOrdered io = new ItemsOrdered();
+        io.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -895,6 +909,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

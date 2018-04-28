@@ -10,14 +10,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class JobSummary extends javax.swing.JFrame {
 
@@ -97,7 +97,7 @@ public class JobSummary extends javax.swing.JFrame {
     private void getComboJob() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
             //Dynamically set job list size
@@ -119,13 +119,12 @@ public class JobSummary extends javax.swing.JFrame {
     
     private double getJobTotal(int jobid) {
         try {
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("SELECT sum(total) as Total FROM purchaseorder po where job = " + jobid + ";");
             while (resultObj.next()){
                 total = resultObj.getDouble("Total");
             }
-            System.out.println("Here is the total " +total);
             connObj.close();
         } catch (SQLException e) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
@@ -135,23 +134,22 @@ public class JobSummary extends javax.swing.JFrame {
 
     private void generateProductReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateProductReportButtonActionPerformed
         try {
-            InputStream is = getClass().getResourceAsStream("/Reports/JobSummary.jrxml");
-            JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
-
-            int j=-1;
+            String j="";
             for (String[] job1 : job) {
-                        System.out.println(job1[0] + " " +job1[1]);
                         if (JobCombo.getSelectedItem().equals(job1[1])) {
-                            j = Integer.parseInt(job1[0]);
+                            j = job1[0];
                             break;
                         }
                     }
-            System.out.println(j);
             //set parameters
             Map map = new HashMap();
-            map.put("job",j);
-            map.put("total", getJobTotal(j));
+            map.put("id",j);
+            map.put("sum", getJobTotal(Integer.parseInt(j)));
+            System.out.println(total);
+            InputStream is = getClass().getResourceAsStream("/Reports/JobSummary.jrxml");
+            JasperDesign jd= JRXmlLoader.load(is);
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);

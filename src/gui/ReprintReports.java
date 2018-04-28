@@ -137,7 +137,7 @@ public class ReprintReports extends javax.swing.JFrame {
             //Generate Report
             InputStream is = getClass().getResourceAsStream("/Reports/PO.jrxml");
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();
@@ -160,7 +160,7 @@ public class ReprintReports extends javax.swing.JFrame {
             //Generate Report
             InputStream is = getClass().getResourceAsStream("/Reports/CreditMemo.jrxml");
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();

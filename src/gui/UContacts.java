@@ -33,7 +33,7 @@ public class UContacts extends javax.swing.JFrame {
         
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
             String query;
             if (id==-1)
                 query ="insert into contact (name,phone,status) values (?,?,?);"; 
@@ -69,7 +69,7 @@ public class UContacts extends javax.swing.JFrame {
         if(id !=-1) {
             try {
                 //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-                connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+                connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
                 stateObj = connObj.createStatement();
                 resultObj = stateObj.executeQuery("select contactid, name, phone, status from contact where contactid = "+id+";");
                 while (resultObj.next()){
