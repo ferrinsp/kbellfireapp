@@ -137,7 +137,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 supplier[i][0] =Integer.toString(resultObj.getInt("supplierid"));
                 supplier[i][1]=resultObj.getString("companyname");
                 i++;
-                selectSupplierCombo.addItem(resultObj.getString("companyname"));
+                supplierCombo.addItem(resultObj.getString("companyname"));
             }
             connObj.close();
         } catch (SQLException e) {
@@ -185,7 +185,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         deliveryContactCombo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        selectSupplierCombo = new javax.swing.JComboBox<>();
+        supplierCombo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         quoteNumber = new javax.swing.JTextField();
@@ -206,35 +206,44 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         jLabel1.setText("Job:");
 
         ShipToCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ship To" }));
+        ShipToCombo.setNextFocusableComponent(supplierCombo);
 
         JobCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Job List" }));
+        JobCombo.setNextFocusableComponent(ShipToCombo);
 
         expectedDatePicker.setDate(new Date());
+        expectedDatePicker.setNextFocusableComponent(deliveryContactCombo);
 
         jLabel3.setText("Expected Date");
 
         jLabel4.setText("Delivery Contact");
 
         deliveryContactCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Delivery Contact" }));
+        deliveryContactCombo.setNextFocusableComponent(quoteNumber);
 
         jLabel5.setText("Supplier:");
 
-        selectSupplierCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Supplier" }));
+        supplierCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Supplier" }));
+        supplierCombo.setNextFocusableComponent(bldgTextField);
 
         jLabel6.setText("Quote #:");
 
         jLabel7.setText("Quote Date:");
 
         quoteNumber.setText("Quote #");
+        quoteNumber.setNextFocusableComponent(quoteDate);
         quoteNumber.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 quoteNumberFocusGained(evt);
             }
         });
 
+        quoteDate.setNextFocusableComponent(previewItemsAddedTable);
+
         jLabel8.setText("Bldg:");
 
         bldgTextField.setText(" ");
+        bldgTextField.setNextFocusableComponent(expectedDatePicker);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -250,7 +259,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(JobCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ShipToCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(selectSupplierCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(supplierCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
@@ -308,7 +317,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ShipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(selectSupplierCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(supplierCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -358,6 +367,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        previewItemsAddedTable.setNextFocusableComponent(createPurchaseOrderButton);
         previewItemsAddedTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(previewItemsAddedTable);
 
@@ -438,14 +448,14 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         int orderid=-1;
         //Preparing insert statements will need to insert into table when ready.
         if (JobCombo.getSelectedItem().equals("Job List") || ShipToCombo.getSelectedItem().equals("Ship To") || 
-                selectSupplierCombo.getSelectedItem().equals("Supplier") || deliveryContactCombo.getSelectedItem().equals("Delivery Contact")){
+                supplierCombo.getSelectedItem().equals("Supplier") || deliveryContactCombo.getSelectedItem().equals("Delivery Contact")){
             JOptionPane.showMessageDialog(null, "Make a selection for all details to create a Purchase Order.");
         }
         else {
             //Loop through table to check for matching supplier name and supplier in the table
             List<Integer> index = new ArrayList<>();
             for (int i=0;i<previewItemsAddedTable.getRowCount();i++){
-                if (previewItemsAddedTable.getValueAt(i,0).equals(selectSupplierCombo.getSelectedItem())){
+                if (previewItemsAddedTable.getValueAt(i,0).equals(supplierCombo.getSelectedItem())){
                     index.add(i);
                 }
             }
@@ -473,7 +483,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                     int ship =-1;
                     int cont =-1;
                     for (String[] supplier1 : supplier) {
-                        if (selectSupplierCombo.getSelectedItem().equals(supplier1[1])) {
+                        if (supplierCombo.getSelectedItem().equals(supplier1[1])) {
                             supp = Integer.parseInt(supplier1[0]);
                         }
                     }
@@ -624,6 +634,6 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JTable previewItemsAddedTable;
     private org.jdesktop.swingx.JXDatePicker quoteDate;
     private javax.swing.JTextField quoteNumber;
-    private javax.swing.JComboBox<String> selectSupplierCombo;
+    private javax.swing.JComboBox<String> supplierCombo;
     // End of variables declaration//GEN-END:variables
 }
