@@ -65,7 +65,7 @@ public class MainPage extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
             "t3.name, b.name, t1.total from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
-            "inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status not Like '%Completed%' order by t1.orderid DESC;");
+            "inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status not Like '%Reconciled%' order by t1.orderid DESC;");
             purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
             purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
             purchaseOrder.getColumn("companyname").setHeaderValue("Company");
@@ -143,7 +143,7 @@ public class MainPage extends javax.swing.JFrame {
         File_List = new javax.swing.JMenu();
         logOffFileMenu = new javax.swing.JMenuItem();
         Purchase_Order = new javax.swing.JMenu();
-        completedPOs = new javax.swing.JMenuItem();
+        reconciledPOs = new javax.swing.JMenuItem();
         Create_Purchase_Order = new javax.swing.JMenuItem();
         printPO = new javax.swing.JMenuItem();
         View_Purchase_Order = new javax.swing.JMenuItem();
@@ -394,14 +394,14 @@ public class MainPage extends javax.swing.JFrame {
 
         Purchase_Order.setText("Purchase Orders");
 
-        completedPOs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        completedPOs.setText("Completed Purchase Order's");
-        completedPOs.addActionListener(new java.awt.event.ActionListener() {
+        reconciledPOs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        reconciledPOs.setText("Reconiled Purchase Order's");
+        reconciledPOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                completedPOsActionPerformed(evt);
+                reconciledPOsActionPerformed(evt);
             }
         });
-        Purchase_Order.add(completedPOs);
+        Purchase_Order.add(reconciledPOs);
 
         Create_Purchase_Order.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         Create_Purchase_Order.setText("New Purchase Order");
@@ -811,10 +811,10 @@ public class MainPage extends javax.swing.JFrame {
         quote.setVisible(true);
     }//GEN-LAST:event_quoteMenuActionPerformed
 
-    private void completedPOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completedPOsActionPerformed
+    private void reconciledPOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reconciledPOsActionPerformed
         VCompletePOs cPO = new VCompletePOs();
         cPO.setVisible(true);
-    }//GEN-LAST:event_completedPOsActionPerformed
+    }//GEN-LAST:event_reconciledPOsActionPerformed
 
     private void completedCMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completedCMActionPerformed
         VCompleteCMs cCM = new VCompleteCMs();
@@ -900,7 +900,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem View_Supplier;
     private javax.swing.JTextField boCount;
     private javax.swing.JMenuItem completedCM;
-    private javax.swing.JMenuItem completedPOs;
     private javax.swing.JMenuItem create_Job;
     private javax.swing.JTextField issuedCount;
     private javax.swing.JLabel jLabel1;
@@ -925,6 +924,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem productListMenuItem;
     private javax.swing.JTable purchaseOrder;
     private javax.swing.JMenuItem quoteMenu;
+    private javax.swing.JMenuItem reconciledPOs;
     private javax.swing.JButton refresh;
     private javax.swing.JMenuItem supplierListMenuItem;
     private javax.swing.JTextField taxValue;

@@ -72,7 +72,7 @@ public class VCompletePOs extends javax.swing.JFrame {
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', t3.name, b.name, t1.total " +
 "		from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid" +
-"		inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Completed%'" +
+"		inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Reconciled%'" +
 "		and expectedby BETWEEN '" + new java.sql.Date(startDatePicker.getDate().getTime()) + "' AND '" + new java.sql.Date(endDatePicker.getDate().getTime()) + "';");
             viewCompletedPOs.setModel(DbUtils.resultSetToTableModel(resultObj));
             viewCompletedPOs.getColumn("orderid").setHeaderValue("Purchase Order Number");
@@ -111,7 +111,7 @@ public class VCompletePOs extends javax.swing.JFrame {
         endDatePicker = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Completed Purchase Orders");
+        setTitle("Reconciled Purchase Orders");
         setResizable(false);
 
         viewCompletedPOs.setModel(new javax.swing.table.DefaultTableModel(

@@ -27,15 +27,15 @@
             <Property name="text" type="java.lang.String" value="Purchase Orders"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="completedPOs">
+            <MenuItem class="javax.swing.JMenuItem" name="reconciledPOs">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+C"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Completed Purchase Order&apos;s"/>
+                <Property name="text" type="java.lang.String" value="Reconiled Purchase Order&apos;s"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="completedPOsActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reconciledPOsActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Create_Purchase_Order">

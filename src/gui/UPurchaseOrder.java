@@ -86,8 +86,11 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     case "Completed":
                         rdbCompleted.setSelected(true);
                         break;
-                        case "Pending":
+                    case "Pending":
                         rdbPending.setSelected(true);
+                        break;
+                    case "Reconciled":
+                        rdbReconciled.setSelected(true);
                         break;
                     default:
                         rdbIssued.setSelected(true);
@@ -231,6 +234,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         commentsArea = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         rdbPending = new javax.swing.JRadioButton();
+        rdbReconciled = new javax.swing.JRadioButton();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -534,6 +538,9 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         rdbPending.setSelected(true);
         rdbPending.setText("Pending");
 
+        statusGroup.add(rdbReconciled);
+        rdbReconciled.setText("Reconciled");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -552,20 +559,22 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rdbPending, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rdbIssued, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdbBackOrder)
-                        .addGap(18, 18, 18)
-                        .addComponent(rdbCompleted)
-                        .addGap(18, 18, 18)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rdbPending, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(rdbIssued, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdbBackOrder)
+                .addGap(18, 18, 18)
+                .addComponent(rdbCompleted)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rdbReconciled)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -574,14 +583,15 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(rdbIssued)
                         .addComponent(rdbCompleted)
                         .addComponent(rdbBackOrder)
-                        .addComponent(rdbPending)))
+                        .addComponent(rdbPending)
+                        .addComponent(rdbReconciled)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -589,7 +599,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel10))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -755,6 +765,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbCompleted;
     private javax.swing.JRadioButton rdbIssued;
     private javax.swing.JRadioButton rdbPending;
+    private javax.swing.JRadioButton rdbReconciled;
     private javax.swing.JComboBox<String> shipToCombo;
     private javax.swing.ButtonGroup statusGroup;
     private javax.swing.JTextField subTotal;
