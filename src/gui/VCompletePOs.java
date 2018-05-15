@@ -70,19 +70,21 @@ public class VCompletePOs extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', t3.name, b.name, t1.total " +
+            resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.terms, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', t3.name, b.name, t1.total, t1.comments " +
 "		from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid" +
 "		inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Reconciled%'" +
 "		and expectedby BETWEEN '" + new java.sql.Date(startDatePicker.getDate().getTime()) + "' AND '" + new java.sql.Date(endDatePicker.getDate().getTime()) + "';");
             viewCompletedPOs.setModel(DbUtils.resultSetToTableModel(resultObj));
             viewCompletedPOs.getColumn("orderid").setHeaderValue("Purchase Order Number");
             viewCompletedPOs.getColumn("companyname").setHeaderValue("Company");
+            viewCompletedPOs.getColumn("terms").setHeaderValue("Terms");
             viewCompletedPOs.getColumn("name").setHeaderValue("Job");
             viewCompletedPOs.getColumn("status").setHeaderValue("Status");
             viewCompletedPOs.getColumn("expectedby").setHeaderValue("Date");
             viewCompletedPOs.getColumn("name").setHeaderValue("Issued By");
             viewCompletedPOs.getColumn("name").setHeaderValue("Ship To");
             viewCompletedPOs.getColumn("total").setHeaderValue("Invoice Total");
+            viewCompletedPOs.getColumn("comments").setHeaderValue("Comments");
             viewCompletedPOs.repaint();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,11 +118,11 @@ public class VCompletePOs extends javax.swing.JFrame {
 
         viewCompletedPOs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Purchase Order", "Supplier ", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total"
+                "Purchase Order", "Supplier ", "Terms", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total", "Comments"
             }
         ));
         viewCompletedPOs.getTableHeader().setReorderingAllowed(false);
