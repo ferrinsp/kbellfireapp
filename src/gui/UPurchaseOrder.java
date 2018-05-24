@@ -1,4 +1,3 @@
-
 package gui;
 
 import java.awt.Color;
@@ -15,6 +14,7 @@ import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 public class UPurchaseOrder extends javax.swing.JFrame {
@@ -68,7 +68,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
             while (resultObj.next()){
                 purchaseOrderNum.setText(Integer.toString(resultObj.getInt("orderid")));
-                jobName.setText(resultObj.getString("name"));
+                jobComboBox.setSelectedItem(resultObj.getString("name"));
                 expectedDate.setDate(resultObj.getDate("expectedby"));
                 createdBy.setText(resultObj.getString("user"));
                 supplierName.setText(resultObj.getString("companyname"));
@@ -178,10 +178,24 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 job[i][1]=resultObj.getString("name");
                 i++;
                 shipToCombo.addItem(resultObj.getString("name"));
+                jobComboBox.addItem(resultObj.getString("name"));
             }
             connObj.close();
         } catch (SQLException e) {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    private void changeStatusToDeleted(){
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            String query = "UPDATE purchaseorder SET status = 'Deleted' where orderid = " + id + ";";
+            PreparedStatement preparedStmt =connObj.prepareStatement(query);
+            preparedStmt.executeUpdate();
+            connObj.close();
+        } catch (SQLException ex) {    
+            Logger.getLogger(NSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -199,7 +213,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        expectedBy = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         taxRate = new javax.swing.JTextField();
@@ -208,7 +221,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         createdBy = new javax.swing.JTextField();
         supplierName = new javax.swing.JTextField();
         expectedDate = new org.jdesktop.swingx.JXDatePicker();
-        jobName = new javax.swing.JTextField();
         purchaseOrderNum = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -221,6 +233,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         subTotal = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         bldgTextField = new javax.swing.JTextField();
+        jobComboBox = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         itemTable = new javax.swing.JTable();
         rdbIssued = new javax.swing.JRadioButton();
@@ -229,6 +242,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         commentsArea = new javax.swing.JTextArea();
@@ -245,17 +259,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update Purchase Order");
-
-        expectedBy.setEditable(false);
-        expectedBy.setText("Expected Date");
-        expectedBy.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                expectedByFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                expectedByFocusLost(evt);
-            }
-        });
 
         jLabel8.setText("Tax Rate:");
 
@@ -308,17 +311,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         Date date = new Date();
         expectedDate.setDate(date);
 
-        jobName.setEditable(false);
-        jobName.setText("Job");
-        jobName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jobNameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jobNameFocusLost(evt);
-            }
-        });
-
         purchaseOrderNum.setEditable(false);
         purchaseOrderNum.setText("Purchase Order #");
         purchaseOrderNum.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -361,6 +353,8 @@ public class UPurchaseOrder extends javax.swing.JFrame {
 
         bldgTextField.setText(" ");
 
+        jobComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Job" }));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -380,15 +374,15 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jobName)
                     .addComponent(purchaseOrderNum)
                     .addComponent(supplierName)
                     .addComponent(createdBy)
                     .addComponent(dateCreated)
                     .addComponent(taxRate)
                     .addComponent(expectedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(shipToCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(subTotal))
+                    .addComponent(shipToCombo, 0, 183, Short.MAX_VALUE)
+                    .addComponent(subTotal)
+                    .addComponent(jobComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -403,10 +397,10 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(purchaseOrderNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jobName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(expectedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -505,25 +499,35 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             }
         });
 
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(208, 208, 208)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addGap(254, 254, 254))
+                .addGap(18, 18, 18)
+                .addComponent(deleteButton)
+                .addGap(205, 205, 205))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap())
+                    .addComponent(jButton2)
+                    .addComponent(deleteButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel9.setText("Purchase Order Status:");
@@ -546,22 +550,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -572,9 +560,25 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                 .addComponent(rdbBackOrder)
                 .addGap(18, 18, 18)
                 .addComponent(rdbCompleted)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(rdbReconciled)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -594,12 +598,11 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -623,24 +626,6 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         if(purchaseOrderNum.getText().equals(""))
             purchaseOrderNum.setText("Purchase Order #");
     }//GEN-LAST:event_purchaseOrderNumFocusLost
-
-    private void jobNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jobNameFocusGained
-        if(jobName.getText().equals("Job"))
-            jobName.setText("");
-    }//GEN-LAST:event_jobNameFocusGained
-
-    private void jobNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jobNameFocusLost
-        if(jobName.getText().equals(""))
-            jobName.setText("Job");
-    }//GEN-LAST:event_jobNameFocusLost
-
-    private void expectedByFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedByFocusGained
-
-    }//GEN-LAST:event_expectedByFocusGained
-
-    private void expectedByFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expectedByFocusLost
-
-    }//GEN-LAST:event_expectedByFocusLost
 
     private void supplierNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplierNameFocusGained
         if(supplierName.getText().equals("Supplier"))
@@ -694,7 +679,18 @@ public class UPurchaseOrder extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_subTotalFocusLost
 
-    /**
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        int result = JOptionPane.showConfirmDialog(null, "Do you want to delete this purchase order?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.YES_OPTION) {
+            changeStatusToDeleted();
+            JOptionPane.showMessageDialog(null, "Record Deleted");
+            this.dispose(); 
+        } else if (result == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "No action performed");
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    /** 
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -734,7 +730,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JTextArea commentsArea;
     private javax.swing.JTextField createdBy;
     private javax.swing.JTextField dateCreated;
-    private javax.swing.JTextField expectedBy;
+    private javax.swing.JButton deleteButton;
     private org.jdesktop.swingx.JXDatePicker expectedDate;
     private javax.swing.JTable itemTable;
     private javax.swing.JButton jButton1;
@@ -759,7 +755,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jobName;
+    private javax.swing.JComboBox<String> jobComboBox;
     private javax.swing.JTextField purchaseOrderNum;
     private javax.swing.JRadioButton rdbBackOrder;
     private javax.swing.JRadioButton rdbCompleted;
