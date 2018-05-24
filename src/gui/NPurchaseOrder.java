@@ -114,17 +114,25 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     public void getProductDetails (int category, int description){
         try {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select s.companyname, p.unitMeasure,manufacturer, part_id, p.price, '' as 'Quantity' from product p \n" +
-"inner join supplier s on p.supplier =s.supplierid  INNER JOIN productdescription pd on pd.pdescID = p.description \n" +
-"inner join category c on c.category_ID=p.category_id where p.description ="+description +" and p.category_id="+category+" and p.status NOT LIKE '%Inactive%' order by p.price;");
+            resultObj = stateObj.executeQuery("select s.companyname, prod.unitMeasure,manufacturer, part_id, prod.price, '' as 'Quantity',if(null,0,a.Sum) as 'sum' from product prod\n" +
+"inner join supplier s on prod.supplier =s.supplierid  INNER JOIN productdescription pd on pd.pdescID = prod.description\n" +
+"inner join category c on c.category_ID=prod.category_id \n" +
+"left JOIN \n" +
+"    (select Sum(pod.orderqty) as 'Sum',p.id as 'ID'\n" +
+"                    from purchaseorder po inner join purchaseorderdetails pod on pod.orderid = po.orderid\n" +
+"                    inner join product p on p.id = pod.product inner join supplier s on s.supplierid=po.supplier inner join productdescription pd on pd.pdescID=p.description\n" +
+"                    group by ID) as a \n" +
+"               on prod.id= a.ID \n" +
+"where prod.description ="+description +" and prod.category_id="+category+" and prod.status NOT LIKE '%Inactive%' order by prod.price;");
             PriceTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             PriceTable.getColumn("companyname").setHeaderValue("Supplier");
             PriceTable.getColumn("unitMeasure").setHeaderValue("Unit");
             PriceTable.getColumn("part_id").setHeaderValue("Part ID");
             PriceTable.getColumn("manufacturer").setHeaderValue("MFC");
             PriceTable.getColumn("price").setHeaderValue("Unit Price");
+            PriceTable.getColumn("sum").setHeaderValue("Order History");
             PriceTable.repaint();
             connObj.close();
         }  catch (SQLException e) {
@@ -250,14 +258,14 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         PriceTable.setAutoCreateRowSorter(true);
         PriceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Supplier", "MFC", "Part ID", "Unit", "Qty", "Unit Price"
+                "Supplier", "MFC", "Part ID", "Unit", "Qty", "Unit Price", "Order Qty"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
