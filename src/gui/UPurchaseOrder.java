@@ -135,12 +135,18 @@ public class UPurchaseOrder extends javax.swing.JFrame {
                     poStatus = button.getText();
                 }
             }
-            query = "Update purchaseorder set status=?, comments=? , expectedby =? , subtotal= ?, shipto=?, bldg=?, tax =?, total =?  where orderid="+id+";";
+            query = "Update purchaseorder set status=?, comments=? , expectedby =? , subtotal= ?, shipto=?, bldg=?, tax =?, total =?, job=?  where orderid="+id+";";
             //Get Values to update
             int ship=-1;
+            int j=-1;
             for (String[] job1 : job) {
                         if (shipToCombo.getSelectedItem().equals(job1[1])) {
                             ship = Integer.parseInt(job1[0]);
+                        }
+                    }
+            for (String[] job1 : job) {
+                        if (jobComboBox.getSelectedItem().equals(job1[1])) {
+                            j = Integer.parseInt(job1[0]);
                         }
                     }
             preparedStmt =connObj.prepareStatement(query);
@@ -153,6 +159,7 @@ public class UPurchaseOrder extends javax.swing.JFrame {
             double invTotal=(total* Double.parseDouble(taxRate.getText())/100)+total;
             preparedStmt.setDouble(7,(total* Double.parseDouble(taxRate.getText())/100));
             preparedStmt.setDouble(8,invTotal);
+            preparedStmt.setInt(9,j);
             preparedStmt.executeUpdate();
             connObj.close();
             this.id= -1;
