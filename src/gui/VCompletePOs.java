@@ -9,12 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JRException;
@@ -51,7 +56,7 @@ public class VCompletePOs extends javax.swing.JFrame {
             //Generate Report
             InputStream is = getClass().getResourceAsStream("/Reports/PO.jrxml");
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();
@@ -68,12 +73,17 @@ public class VCompletePOs extends javax.swing.JFrame {
     private void selectCompletedPOs() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.terms, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', t3.name, b.name, t1.total, t1.comments " +
+            if(showHideStatus.isSelected()) {resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.terms, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', t3.name, b.name, t1.total,t1.exported, t1.comments " +
 "		from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid" +
 "		inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Reconciled%'" +
-"		and expectedby BETWEEN '" + new java.sql.Date(startDatePicker.getDate().getTime()) + "' AND '" + new java.sql.Date(endDatePicker.getDate().getTime()) + "';");
+"		and expectedby BETWEEN '" + new java.sql.Date(startDatePicker.getDate().getTime()) + "' AND '" + new java.sql.Date(endDatePicker.getDate().getTime()) + "' and t1.exported ='No';"); }
+            else{
+            resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.terms, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', t3.name, b.name, t1.total,t1.exported, t1.comments " +
+"		from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid" +
+"		inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Reconciled%'" +
+"		and expectedby BETWEEN '" + new java.sql.Date(startDatePicker.getDate().getTime()) + "' AND '" + new java.sql.Date(endDatePicker.getDate().getTime()) + "';"); }
             viewCompletedPOs.setModel(DbUtils.resultSetToTableModel(resultObj));
             viewCompletedPOs.getColumn("orderid").setHeaderValue("Purchase Order Number");
             viewCompletedPOs.getColumn("companyname").setHeaderValue("Company");
@@ -84,6 +94,7 @@ public class VCompletePOs extends javax.swing.JFrame {
             viewCompletedPOs.getColumn("name").setHeaderValue("Issued By");
             viewCompletedPOs.getColumn("name").setHeaderValue("Ship To");
             viewCompletedPOs.getColumn("total").setHeaderValue("Invoice Total");
+            viewCompletedPOs.getColumn("exported").setHeaderValue("Exported");
             viewCompletedPOs.getColumn("comments").setHeaderValue("Comments");
             viewCompletedPOs.repaint();
         } catch (SQLException e) {
@@ -106,11 +117,13 @@ public class VCompletePOs extends javax.swing.JFrame {
         viewCompletedPOs = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         closePOCompleteButton = new javax.swing.JButton();
+        exportButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         startDatePicker = new org.jdesktop.swingx.JXDatePicker();
         endDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        showHideStatus = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reconciled Purchase Orders");
@@ -118,11 +131,11 @@ public class VCompletePOs extends javax.swing.JFrame {
 
         viewCompletedPOs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Purchase Order", "Supplier ", "Terms", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total", "Comments"
+                "Purchase Order", "Supplier ", "Terms", "Job", "Expected Date", "Issued By", "Ship To", "Invoice Total", "Exported", "Comments"
             }
         ));
         viewCompletedPOs.getTableHeader().setReorderingAllowed(false);
@@ -162,19 +175,30 @@ public class VCompletePOs extends javax.swing.JFrame {
             }
         });
 
+        exportButton.setText("Export");
+        exportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(exportButton)
+                .addGap(18, 18, 18)
                 .addComponent(closePOCompleteButton))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(closePOCompleteButton)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(closePOCompleteButton)
+                    .addComponent(exportButton))
                 .addGap(12, 12, 12))
         );
 
@@ -194,6 +218,13 @@ public class VCompletePOs extends javax.swing.JFrame {
             }
         });
 
+        showHideStatus.setText("Hide Exported");
+        showHideStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showHideStatusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -207,7 +238,9 @@ public class VCompletePOs extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(endDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                .addGap(310, 310, 310))
+                .addGap(205, 205, 205)
+                .addComponent(showHideStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +252,8 @@ public class VCompletePOs extends javax.swing.JFrame {
                         .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(showHideStatus))
                 .addGap(12, 12, 12))
         );
 
@@ -263,6 +297,73 @@ public class VCompletePOs extends javax.swing.JFrame {
         selectCompletedPOs();
     }//GEN-LAST:event_endDatePickerActionPerformed
 
+    private void showHideStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showHideStatusActionPerformed
+        selectCompletedPOs();
+    }//GEN-LAST:event_showHideStatusActionPerformed
+
+    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+        int[] index = viewCompletedPOs.getSelectedRows();
+        if(index.length <= 0){
+            JOptionPane.showMessageDialog(null, "No items added for Export.");
+        }  else {
+            boolean error =false;
+            String s; 
+            for (int i=0;i<index.length;i++){
+                s=viewCompletedPOs.getValueAt(index[i],9).toString();
+                if(s.equals("Yes")){
+                    JOptionPane.showMessageDialog(null, "One of the items selected has been exported.");
+                    error=true;
+                }
+            }
+            if(error)
+                System.out.println("Error");
+            else {
+                BufferedWriter bfw = null;      
+                try {
+                    bfw = new BufferedWriter(new FileWriter("C:\\temp\\ItemsExported.csv"));
+                    for (int i = 0 ; i < index.length; i++)
+                    { 
+                        for(int j = 0 ; j < viewCompletedPOs.getColumnCount();j++)
+                        {
+                            if(j!=8){
+                            s =viewCompletedPOs.getValueAt(index[i],j).toString();
+                            bfw.write(s.replaceAll("(?:\\n|\\r)", ""));
+                            bfw.write(",");
+                            }
+                        }
+                        bfw.newLine();
+                    }
+                    this.setVisible(false);
+                } catch (IOException ex) {
+                    Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    try {
+                        bfw.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(NPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                try{
+                    String query;
+                    PreparedStatement preparedStmt;
+                    connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+                    for(int i=0;i<index.length;i++){
+                        int orderid = (int) viewCompletedPOs.getValueAt(index[i],0);
+                        System.out.println(orderid);
+                        query = "update purchaseorder set exported=? where orderid ="+orderid+";";
+                        preparedStmt=connObj.prepareStatement(query);
+                        preparedStmt.setString (1, "Yes");
+                        preparedStmt.executeUpdate();
+                    }
+                    connObj.close();
+                }
+                catch(SQLException ex){}
+            }
+            
+        }
+        
+    }//GEN-LAST:event_exportButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,11 +400,13 @@ public class VCompletePOs extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closePOCompleteButton;
     private org.jdesktop.swingx.JXDatePicker endDatePicker;
+    private javax.swing.JButton exportButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JCheckBox showHideStatus;
     private org.jdesktop.swingx.JXDatePicker startDatePicker;
     private javax.swing.JScrollPane viewCompletedPOScrollPane;
     private javax.swing.JTable viewCompletedPOs;
