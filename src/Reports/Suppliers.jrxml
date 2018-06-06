@@ -115,7 +115,7 @@ FROM
 			</staticText>
 			<image>
 				<reportElement x="10" y="10" width="115" height="81" uuid="17bdeffe-86d3-4f44-8f31-5a91e696654b"/>
-				<imageExpression class="java.lang.String"><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="125" y="50" width="245" height="41" uuid="bd4e0037-bb2b-4e3e-9ad7-91640b3c1d3a"/>

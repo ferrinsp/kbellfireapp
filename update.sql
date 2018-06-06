@@ -8,20 +8,20 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema kbell
+-- Schema kbellfire
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `kbell` ;
+DROP SCHEMA IF EXISTS `kbellfire` ;
 
 -- -----------------------------------------------------
--- Schema kbell
+-- Schema kbellfire
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `kbell` DEFAULT CHARACTER SET utf8 ;
-USE `kbell` ;
+CREATE SCHEMA IF NOT EXISTS `kbellfire` DEFAULT CHARACTER SET utf8 ;
+USE `kbellfire` ;
 
 -- -----------------------------------------------------
--- Table `kbell`.`category`
+-- Table `kbellfire`.`category`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`category` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`category` (
   `category_ID` SMALLINT(10) NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`category_ID`))
@@ -31,9 +31,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`contact`
+-- Table `kbellfire`.`contact`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`contact` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`contact` (
   `contactid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `phone` VARCHAR(45) NOT NULL,
@@ -45,9 +45,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`contractor`
+-- Table `kbellfire`.`contractor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`contractor` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`contractor` (
   `contractorid` SMALLINT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `contact` VARCHAR(5) NULL DEFAULT NULL,
@@ -62,9 +62,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`job`
+-- Table `kbellfire`.`job`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`job` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`job` (
   `jobid` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `address` VARCHAR(45) NOT NULL,
@@ -81,9 +81,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`user`
+-- Table `kbellfire`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`user` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`user` (
   `userid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(16) NOT NULL,
   `name` VARCHAR(25) NOT NULL,
@@ -95,9 +95,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`supplier`
+-- Table `kbellfire`.`supplier`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`supplier` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`supplier` (
   `supplierid` SMALLINT(10) NOT NULL AUTO_INCREMENT,
   `companyname` VARCHAR(120) NOT NULL,
   `contact` VARCHAR(129) NOT NULL,
@@ -116,9 +116,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`purchaseorder`
+-- Table `kbellfire`.`purchaseorder`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`purchaseorder` (
   `orderid` INT(11) NOT NULL AUTO_INCREMENT,
   `supplier` SMALLINT(10) NOT NULL,
   `job` INT(11) NOT NULL,
@@ -147,22 +147,22 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorder` (
   INDEX `contact_idx` (`contact` ASC),
   CONSTRAINT `contact`
     FOREIGN KEY (`contact`)
-    REFERENCES `kbell`.`contact` (`contactid`)
+    REFERENCES `kbellfire`.`contact` (`contactid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `creator`
     FOREIGN KEY (`createdby`)
-    REFERENCES `kbell`.`user` (`userid`)
+    REFERENCES `kbellfire`.`user` (`userid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `pojob`
     FOREIGN KEY (`job`)
-    REFERENCES `kbell`.`job` (`jobid`)
+    REFERENCES `kbellfire`.`job` (`jobid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `supplier`
     FOREIGN KEY (`supplier`)
-    REFERENCES `kbell`.`supplier` (`supplierid`)
+    REFERENCES `kbellfire`.`supplier` (`supplierid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -171,9 +171,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`creditmemo`
+-- Table `kbellfire`.`creditmemo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`creditmemo` (
   `memoid` INT(11) NOT NULL AUTO_INCREMENT,
   `poid` INT(11) NOT NULL,
   `supplier` SMALLINT(10) NOT NULL,
@@ -194,22 +194,22 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemo` (
   INDEX `cmjob_idx` (`job` ASC),
   CONSTRAINT `cmjob`
     FOREIGN KEY (`job`)
-    REFERENCES `kbell`.`job` (`jobid`)
+    REFERENCES `kbellfire`.`job` (`jobid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `createdby`
     FOREIGN KEY (`createdby`)
-    REFERENCES `kbell`.`user` (`userid`)
+    REFERENCES `kbellfire`.`user` (`userid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `poid`
     FOREIGN KEY (`poid`)
-    REFERENCES `kbell`.`purchaseorder` (`orderid`)
+    REFERENCES `kbellfire`.`purchaseorder` (`orderid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `supplierid`
     FOREIGN KEY (`supplier`)
-    REFERENCES `kbell`.`supplier` (`supplierid`)
+    REFERENCES `kbellfire`.`supplier` (`supplierid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -218,9 +218,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`productdescription`
+-- Table `kbellfire`.`productdescription`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`productdescription` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`productdescription` (
   `pdescID` INT(10) NOT NULL AUTO_INCREMENT,
   `productDescription` VARCHAR(60) NOT NULL,
   `productsize` VARCHAR(45) NULL DEFAULT NULL,
@@ -231,9 +231,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`product`
+-- Table `kbellfire`.`product`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`product` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`product` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `category_id` SMALLINT(10) NOT NULL,
   `description` INT(10) NOT NULL,
@@ -251,26 +251,26 @@ CREATE TABLE IF NOT EXISTS `kbell`.`product` (
   INDEX `prodDescript_idx` (`description` ASC),
   CONSTRAINT `prodDescript`
     FOREIGN KEY (`description`)
-    REFERENCES `kbell`.`productdescription` (`pdescID`)
+    REFERENCES `kbellfire`.`productdescription` (`pdescID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `prodSupplier`
     FOREIGN KEY (`supplier`)
-    REFERENCES `kbell`.`supplier` (`supplierid`)
+    REFERENCES `kbellfire`.`supplier` (`supplierid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `product_ibfk_2`
     FOREIGN KEY (`category_id`)
-    REFERENCES `kbell`.`category` (`category_ID`))
+    REFERENCES `kbellfire`.`category` (`category_ID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`creditmemodetail`
+-- Table `kbellfire`.`creditmemodetail`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`creditmemodetail` (
   `detailid` INT(11) NOT NULL AUTO_INCREMENT,
   `creditmemoid` INT(11) NOT NULL,
   `product` INT(11) NOT NULL,
@@ -282,12 +282,12 @@ CREATE TABLE IF NOT EXISTS `kbell`.`creditmemodetail` (
   INDEX `credit_idx` (`creditmemoid` ASC),
   CONSTRAINT `credit`
     FOREIGN KEY (`creditmemoid`)
-    REFERENCES `kbell`.`creditmemo` (`memoid`)
+    REFERENCES `kbellfire`.`creditmemo` (`memoid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `productcm`
     FOREIGN KEY (`product`)
-    REFERENCES `kbell`.`product` (`id`)
+    REFERENCES `kbellfire`.`product` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -296,9 +296,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`purchaseorderdetails`
+-- Table `kbellfire`.`purchaseorderdetails`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`purchaseorderdetails` (
   `detailsid` INT(11) NOT NULL AUTO_INCREMENT,
   `orderid` INT(11) NOT NULL,
   `product` INT(11) NOT NULL,
@@ -311,12 +311,12 @@ CREATE TABLE IF NOT EXISTS `kbell`.`purchaseorderdetails` (
   INDEX `poid_idx` (`orderid` ASC),
   CONSTRAINT `orderid`
     FOREIGN KEY (`orderid`)
-    REFERENCES `kbell`.`purchaseorder` (`orderid`)
+    REFERENCES `kbellfire`.`purchaseorder` (`orderid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `product`
     FOREIGN KEY (`product`)
-    REFERENCES `kbell`.`product` (`id`)
+    REFERENCES `kbellfire`.`product` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -325,9 +325,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `kbell`.`tax`
+-- Table `kbellfire`.`tax`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `kbell`.`tax` (
+CREATE TABLE IF NOT EXISTS `kbellfire`.`tax` (
   `tax` DECIMAL(10,2) NOT NULL)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
