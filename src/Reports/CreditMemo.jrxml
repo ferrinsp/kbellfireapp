@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CreditMemo" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="34"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.8531167061100065"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="738"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -199,7 +199,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid =$
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select cm.memoid as 'fmemoid',cm.memoid,LPAD(CONVERT(cm.poid, CHAR(10)), 5, '0') as 'poid',j.name,cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', CONCAT('-',CONVERT(cm.total, CHAR(10))) AS 'CMTotal', CONCAT(cm.currentTax,'%') as 'currentTax',
+		<![CDATA[Select LPAD(CONVERT(cm.memoid,CHAR(10)), 5, '0') as 'fmemoid',cm.memoid,LPAD(CONVERT(cm.poid, CHAR(10)), 5, '0') as 'poid',j.name,cmd.qty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', CONCAT('-',CONVERT(cm.total, CHAR(10))) AS 'CMTotal', CONCAT(cm.currentTax,'%') as 'currentTax',
 CONCAT('-',CONVERT(cm.tax, CHAR(10))) as 'TaxTotal', cmd.cost as 'Price', pd.productDescription as 'Description', CONCAT('-',CONVERT(cm.subTotal, CHAR(10))) as 'subTotal',s.companyname as 'Supplier',s.address1 as 'Address',
 s.contact, CONCAT(s.city,", ",s.state," ",s.postalcode) as 'supcity', u.name as 'createdby'
 from creditmemo cm inner join job j on j.jobid=cm.job
@@ -209,7 +209,7 @@ inner join creditmemodetail cmd on cmd.creditmemoid=cm.memoid
 inner join product p on cmd.product =p.id
 inner join productdescription pd on pd.pdescID= p.description where cm.memoid = $P{memoid};]]>
 	</queryString>
-	<field name="fmemoid" class="java.lang.Integer"/>
+	<field name="fmemoid" class="java.lang.String"/>
 	<field name="memoid" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -245,10 +245,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 	<field name="supcity" class="java.lang.String"/>
 	<field name="createdby" class="java.lang.String"/>
 	<title>
-		<band height="175" splitType="Stretch">
-			<rectangle>
-				<reportElement x="466" y="15" width="88" height="40" backcolor="#9999FF" uuid="b5e45d1f-566f-448e-829d-0a7f82cb54fc"/>
-			</rectangle>
+		<band height="183" splitType="Stretch">
 			<staticText>
 				<reportElement x="130" y="33" width="245" height="22" uuid="ba2d0e7c-4ff7-439e-9e11-bb6ff7a7f562"/>
 				<textElement verticalAlignment="Middle">
@@ -269,7 +266,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 				<reportElement x="375" y="15" width="92" height="40" uuid="fd410407-39b9-4eb5-ad76-3fe1a8385266"/>
 				<box rightPadding="5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Credit Memo # ]]></text>
 			</staticText>
@@ -283,7 +280,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial Black" size="18"/>
+					<font fontName="Arial" size="24"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fmemoid}]]></textFieldExpression>
 			</textField>
@@ -291,7 +288,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 				<reportElement x="386" y="55" width="80" height="21" uuid="8938214e-32a1-4cae-a5db-29c259716f54"/>
 				<box rightPadding="5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Job: ]]></text>
 			</staticText>
@@ -305,7 +302,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
@@ -313,12 +310,12 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 				<reportElement x="375" y="75" width="91" height="28" uuid="f93cebe8-f356-4e76-9cb2-25b6f98a3827"/>
 				<box rightPadding="5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Regarding Purchase Order #]]></text>
 			</staticText>
 			<image>
-				<reportElement x="1" y="15" width="115" height="81" uuid="92de5175-d5e0-4f48-82b7-401ee59763fe"/>
+				<reportElement x="15" y="15" width="115" height="81" uuid="92de5175-d5e0-4f48-82b7-401ee59763fe"/>
 				<imageExpression><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
 			</image>
 			<staticText>
@@ -344,7 +341,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{poid}]]></textFieldExpression>
 			</textField>
@@ -359,33 +356,29 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 			</textField>
 			<textField>
 				<reportElement x="41" y="114" width="143" height="14" uuid="1a29a886-e7e0-416e-b559-6dee448e8141"/>
-				<box leftPadding="3"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="11" isBold="true"/>
+					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Supplier}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="41" y="128" width="100" height="14" uuid="6ff865ee-5550-4f46-aa9e-7e899a416df5"/>
-				<box leftPadding="3"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="11" isBold="true"/>
+					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{contact}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="41" y="141" width="100" height="14" uuid="7017f5c0-b442-4b34-ae88-6f1b200342ac"/>
-				<box leftPadding="3"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="11" isBold="true"/>
+					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="41" y="154" width="100" height="14" uuid="9377c663-453b-4252-924e-58c0769e4588"/>
-				<box leftPadding="3"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="11" isBold="true"/>
+					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{supcity}]]></textFieldExpression>
 			</textField>
@@ -406,20 +399,20 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 			<staticText>
 				<reportElement x="1" y="34" width="311" height="60" uuid="16ddef7c-d3d6-4c6e-aa88-64b0c2f02503"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="11"/>
 				</textElement>
 				<text><![CDATA[This purchase order is bound by all terms and conditions as ordered and stated in its content.  K-Bell Plumbing & Heating, Inc. reserves the right to cancel this purchase order without any financial implications to K-Bell Plumbing & Heating, Inc.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="1" y="15" width="279" height="19" uuid="d4018617-1402-48ac-9485-37788d96aa0d"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Note: Please call to verify delivery date and time.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="375" y="67" width="92" height="20" uuid="b782f017-30a3-4b47-92e4-54ff80debc5d"/>
-				<box rightPadding="3">
+				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -433,7 +426,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 			</staticText>
 			<staticText>
 				<reportElement x="375" y="47" width="35" height="20" uuid="c42b562e-a664-40e4-b877-477535feea81"/>
-				<box rightPadding="3">
+				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -441,22 +434,20 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<text><![CDATA[TAX ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="375" y="27" width="92" height="20" uuid="6ec353dd-d9a1-4c81-8371-bdc93ddb2203"/>
-				<box rightPadding="3">
+				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
-				</textElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<text><![CDATA[SUBTOTAL ]]></text>
 			</staticText>
 			<textField>
@@ -469,7 +460,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 					<rightPen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TaxTotal}]]></textFieldExpression>
 			</textField>
@@ -483,7 +474,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 					<rightPen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{subTotal}]]></textFieldExpression>
 			</textField>
@@ -504,7 +495,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 			<staticText>
 				<reportElement x="1" y="94" width="56" height="20" uuid="67e36b55-f35a-48a1-8a42-45c2d9095954"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="11"/>
 				</textElement>
 				<text><![CDATA[Issued By:]]></text>
 			</staticText>
@@ -519,30 +510,23 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 			</textField>
 			<textField>
 				<reportElement x="56" y="94" width="100" height="20" uuid="42586d43-cd09-45a8-95fd-b29a4974c1ee"/>
-				<box leftPadding="3"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{createdby}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="410" y="47" width="57" height="20" uuid="fd8c4f06-44f9-4a6f-898f-760004509a7e"/>
-				<box rightPadding="3">
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
+				<box rightPadding="3"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{currentTax}]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>
 	<summary>
-		<band height="61" splitType="Stretch">
+		<band height="101" splitType="Stretch">
 			<componentElement>
 				<reportElement key="table 4" style="table 4" x="1" y="1" width="360" height="50" uuid="0b3e437f-cf35-4cab-8827-78a30e74c065"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
@@ -568,7 +552,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 								<reportElement x="0" y="0" width="26" height="20" uuid="69538854-4a2e-426d-a99a-6ec0418cf88b"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="9"/>
+									<font fontName="Arial" size="11"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
 							</textField>
@@ -612,7 +596,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 								<reportElement x="0" y="0" width="72" height="20" uuid="2319bda3-fdca-4575-a5ae-79b7f009e9e1"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="9"/>
+									<font fontName="Arial" size="11"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{manufacturer}]]></textFieldExpression>
 							</textField>
@@ -634,7 +618,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 								<reportElement x="0" y="0" width="103" height="20" uuid="56435bd1-ca4f-419e-8078-33e8133d95db"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="9"/>
+									<font fontName="Arial" size="11"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Part #}]]></textFieldExpression>
 							</textField>
@@ -656,7 +640,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 								<reportElement x="0" y="0" width="237" height="20" uuid="34aa09d5-d544-4e52-948c-82f413de66f4"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font fontName="Arial" size="9"/>
+									<font fontName="Arial" size="11"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Description}]]></textFieldExpression>
 							</textField>
@@ -676,9 +660,9 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="47" height="20" uuid="ec1646bd-3dff-4041-9375-16350e6d25fe"/>
-								<box leftPadding="2" rightPadding="2"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font fontName="Arial" size="9"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="11"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Price}]]></textFieldExpression>
 							</textField>
@@ -698,9 +682,9 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="57" height="20" uuid="0ac73730-24b8-4429-8a9f-ea6ed28dff90"/>
-								<box leftPadding="2" rightPadding="2"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font fontName="Arial" size="9"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="11"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{ProdTotal}]]></textFieldExpression>
 							</textField>
