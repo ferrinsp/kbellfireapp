@@ -39,7 +39,7 @@ public class MainPage extends javax.swing.JFrame {
     private void getDashboard() {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
         stateObj = connObj.createStatement();
         resultObj = stateObj.executeQuery("select Count(*) from purchaseorder where status Like '%Issued%';");
         while (resultObj.next()){
@@ -65,11 +65,11 @@ public class MainPage extends javax.swing.JFrame {
     private void getPOStatus()    {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
             "t3.name, b.name, t1.total from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
-            "inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status not Like '%Reconciled%' and t1.status not like '%Deleted%' order by t1.orderid DESC;");
+            "inner join kbellfire.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status not Like '%Reconciled%' and t1.status not like '%Deleted%' order by t1.orderid DESC;");
             purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
             purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
             purchaseOrder.getColumn("companyname").setHeaderValue("Company");
@@ -88,7 +88,7 @@ public class MainPage extends javax.swing.JFrame {
     private void getTax() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select tax from tax;");
             while (resultObj.next()){
@@ -768,7 +768,7 @@ public class MainPage extends javax.swing.JFrame {
         try {
             InputStream is = getClass().getResourceAsStream("/Reports/Jobs.jrxml");     
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();
@@ -793,7 +793,7 @@ public class MainPage extends javax.swing.JFrame {
         try {
             InputStream is = getClass().getResourceAsStream("/Reports/Suppliers.jrxml");            
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();

@@ -33,7 +33,7 @@ public class UCreditMemo extends javax.swing.JFrame {
     }
     private void selectCreditMemo(){
         try{
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select cmd.detailid,pd.productDescription, cmd.qty,cmd.cost,cmd.total from creditmemo cm\n" +
@@ -71,7 +71,7 @@ public class UCreditMemo extends javax.swing.JFrame {
     private void updateCreditMemo() {
         try {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
         String query = "UPDATE creditmemo set status=?, comments=? where memoid = " + memoid + ";";
         PreparedStatement preparedStmt =connObj.prepareStatement(query);
         String creditMemoStatus= null;

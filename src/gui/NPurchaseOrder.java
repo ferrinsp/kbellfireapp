@@ -75,7 +75,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         int index =0;
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select pdescID from productdescription where productDescription like '%"+desc+"%' ;");
             while (resultObj.next()){
@@ -91,7 +91,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private void getComboCategory() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select category_ID, description from category");
             //Dynamically set supplier list size
@@ -114,7 +114,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     public void getProductDetails (int category, int description){
         try {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select s.companyname, prod.unitMeasure,manufacturer, part_id, prod.price, '' as 'Quantity',if(null,0,a.Sum) as 'sum' from product prod\n" +
 "inner join supplier s on prod.supplier =s.supplierid  INNER JOIN productdescription pd on pd.pdescID = prod.description\n" +
@@ -142,7 +142,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     private void getProductHeader (){
         try {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select DISTINCT c.description, pd.productDescription as pdescription, pd.productsize, p.part_id from product p inner join category c on p.category_id =c.category_ID inner join productdescription pd on p.description = pd.pdescID;");
             itemsSearchTable.setModel(DbUtils.resultSetToTableModel(resultObj));

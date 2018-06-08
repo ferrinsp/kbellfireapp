@@ -33,7 +33,7 @@ public class Job extends javax.swing.JFrame {
     private void getJob() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select name,address,city,state,zip,bidamount,status,comments,jobid from job where name like '%"+EscapeCharacter.escape(name)+"%';");
             while (resultObj.next()){
@@ -66,7 +66,7 @@ public class Job extends javax.swing.JFrame {
             else {
                 if (name.equals("Add")) {
                 //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-                connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+                connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
                 String query = "INSERT into job (name,address,city,state,zip,bidamount,status,comments)"
                         + "values(?,?,?,?,?,?,?,?)";
                 String status =null;
@@ -100,7 +100,7 @@ public class Job extends javax.swing.JFrame {
     private void updateJob(){
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             String query = "Update job set name =?, address=?,city=?,state=?,zip=?,bidamount=?,status=?, comments=? where jobid = "+id+" and name like '%"+EscapeCharacter.escape(name)+"%';";
             //Get Values to insert
             PreparedStatement preparedStmt =connObj.prepareStatement(query);

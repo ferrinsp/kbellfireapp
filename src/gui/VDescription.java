@@ -41,7 +41,7 @@ public class VDescription extends javax.swing.JFrame {
     private void getDescription() {
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select productDescription,pdescID from productdescription;");
             DescriptionTable.setModel(DbUtils.resultSetToTableModel(resultObj));

@@ -56,7 +56,7 @@ public class VCompletePOs extends javax.swing.JFrame {
             //Generate Report
             InputStream is = getClass().getResourceAsStream("/Reports/PO.jrxml");
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
 
             //set parameters
             Map map = new HashMap();
@@ -73,16 +73,16 @@ public class VCompletePOs extends javax.swing.JFrame {
     private void selectCompletedPOs() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             if(showHideStatus.isSelected()) {resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.terms, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', t3.name, b.name, t1.total,t1.exported, t1.comments " +
 "		from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid" +
-"		inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Reconciled%'" +
+"		inner join kbellfire.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Reconciled%'" +
 "		and expectedby BETWEEN '" + new java.sql.Date(startDatePicker.getDate().getTime()) + "' AND '" + new java.sql.Date(endDatePicker.getDate().getTime()) + "' and t1.exported ='No';"); }
             else{
             resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.terms, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', t3.name, b.name, t1.total,t1.exported, t1.comments " +
 "		from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid" +
-"		inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Reconciled%'" +
+"		inner join kbellfire.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status like '%Reconciled%'" +
 "		and expectedby BETWEEN '" + new java.sql.Date(startDatePicker.getDate().getTime()) + "' AND '" + new java.sql.Date(endDatePicker.getDate().getTime()) + "';"); }
             viewCompletedPOs.setModel(DbUtils.resultSetToTableModel(resultObj));
             viewCompletedPOs.getColumn("orderid").setHeaderValue("Purchase Order Number");
@@ -346,7 +346,7 @@ public class VCompletePOs extends javax.swing.JFrame {
                 try{
                     String query;
                     PreparedStatement preparedStmt;
-                    connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellPlumb?useSSL=false", "admin", "1qaz2wsx");
+                    connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
                     for(int i=0;i<index.length;i++){
                         int orderid = (int) viewCompletedPOs.getValueAt(index[i],0);
                         System.out.println(orderid);

@@ -24,11 +24,11 @@ public class VPurchaseOrder extends javax.swing.JFrame {
     private void selectpo()    {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select t1.orderid, t1.status, t4.companyname, a.name, date_format(t1.expectedby, '%m/%d/%Y') as 'expectedby', \n" +
             "t3.name, b.name, t1.total from purchaseorder t1 inner join job a on t1.job = a.jobid inner join job b on t1.shipto =b.jobid\n" +
-            "inner join kbellplumb.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status not Like '%Completed%' and t1.status not like '%Deleted%' order by t1.status,t4.companyname,expectedby;");
+            "inner join kbellfire.user t3 on t1.createdby = t3.userid inner join supplier t4 on t1.supplier = t4.supplierid where t1.status not Like '%Completed%' and t1.status not like '%Deleted%' order by t1.status,t4.companyname,expectedby;");
             purchaseOrder.setModel(DbUtils.resultSetToTableModel(resultObj));
             purchaseOrder.getColumn("orderid").setHeaderValue("Purchase Order Number");
             purchaseOrder.getColumn("companyname").setHeaderValue("Company");

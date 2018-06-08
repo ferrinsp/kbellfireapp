@@ -29,7 +29,7 @@ public class ItemsOrdered extends javax.swing.JFrame {
     private void populateItemsOrderedTable() {            
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select pd.productDescription,pod.orderqty,pod.cost, pod.orderid, po.expectedby,po.created, po.status\n" +
 " from purchaseorder po inner join purchaseorderdetails pod on pod.orderid=po.orderid inner join product p on p.id=pod.product inner join productdescription pd on pd.pdescID=p.description\n" +
