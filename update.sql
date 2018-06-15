@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `kbellfire`.`supplier` (
   `comments` VARCHAR(120) NULL DEFAULT NULL,
   PRIMARY KEY (`supplierid`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 101
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `kbellfire`.`purchaseorder` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 6000
+AUTO_INCREMENT = 5000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -385,7 +385,7 @@ LOAD DATA local INFILE 'C:/temp/category2.csv'
  (pdescID,productDescription,productSize);
 
 -- Run this script to load sample of products
-LOAD DATA local INFILE 'C:/temp/testproduct.csv'
+LOAD DATA local INFILE 'C:/temp/fireprod.csv'
  into table product
  FIELDS TERMINATED BY ','
  ENCLOSED BY '"'
