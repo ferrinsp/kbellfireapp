@@ -246,8 +246,7 @@ FROM
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[K. Bell Plumbing & Heating, Inc.
-]]></text>
+				<text><![CDATA[K. Bell Fire Sprinkler Protection]]></text>
 			</staticText>
 			<image>
 				<reportElement x="10" y="20" width="115" height="81" uuid="425d155e-51d8-4f99-b824-0f39a5857621"/>

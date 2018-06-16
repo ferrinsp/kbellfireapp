@@ -110,7 +110,7 @@ FROM
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[K. Bell Plumbing & Heating, Inc.
+				<text><![CDATA[K. Bell Fire Sprinkler Protection
 ]]></text>
 			</staticText>
 			<image>

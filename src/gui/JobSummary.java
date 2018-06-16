@@ -97,7 +97,7 @@ public class JobSummary extends javax.swing.JFrame {
     private void getComboJob() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
             //Dynamically set job list size
@@ -119,7 +119,7 @@ public class JobSummary extends javax.swing.JFrame {
     
     private double getJobTotal(int jobid) {
         try {
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("SELECT sum(total) as Total FROM purchaseorder po where job = " + jobid + ";");
             while (resultObj.next()){
@@ -148,7 +148,7 @@ public class JobSummary extends javax.swing.JFrame {
             System.out.println(total);
             InputStream is = getClass().getResourceAsStream("/Reports/JobSummary.jrxml");
             JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
 
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(jd);

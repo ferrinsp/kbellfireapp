@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
 	<property name="ireport.zoom" value="1.815000000000003"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="5"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -185,7 +185,7 @@ where po.orderid=$P{orderid};]]>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select po.orderid as 'forderid',po.orderid,j.name,s.companyname,s.contact, po.quote, DATE_FORMAT(po.quotedate, '%m/%d/%Y' )as 'quotedate', s.address1,CONCAT(s.city,", ",s.state," ",s.postalcode) as 'suppcity',pod.orderqty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', pod.total, po.tax as 'TaxTotal', pod.cost as 'Price', pd.productDescription as 'Description', po.subtotal as 'Subtotal', po.total as 'POTotal', c.phone as 'dphone',c.name as 'dname', DATE_FORMAT(po.expectedby, '%m/%d/%Y' )as 'expectedby', CONCAT(st.name," ",po.bldg) as 'shipname',st.address as 'shipadd', CONCAT(st.city,", ",st.state," ",st.zip) as 'shipcity', u.name as 'createdby', CONCAT(po.currentTax,"%") as 'salestax', po.subtotal
+		<![CDATA[Select po.orderid as 'forderid',po.orderid,j.name,s.companyname,s.contact, po.quote, DATE_FORMAT(po.quotedate, '%m/%d/%Y' )as 'quotedate', s.address1,CONCAT(s.city,", ",s.state," ",s.postalcode) as 'suppcity',pod.orderqty,p.unitMeasure AS 'Unit', p.manufacturer,p.part_ID as 'Part #', pod.total, po.tax as 'TaxTotal', pod.cost as 'Price', pd.productDescription as 'Description', po.subtotal as 'Subtotal', po.total as 'POTotal', c.phone as 'dphone',c.name as 'dname', DATE_FORMAT(po.expectedby, '%m/%d/%Y' )as 'expectedby', st.name as 'shipname',st.address as 'shipadd', CONCAT(st.city,", ",st.state," ",st.zip) as 'shipcity', u.name as 'createdby', CONCAT(po.currentTax,"%") as 'salestax', po.subtotal
 from purchaseorder po inner join job j on j.jobid=po.job 
 inner join job st on st.jobid =po.shipto 
 inner join supplier s on s.supplierid =po.supplier
@@ -257,7 +257,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[K. Bell Plumbing & Heating, Inc.
+				<text><![CDATA[K. Bell Fire Sprinkler Protection
 ]]></text>
 			</staticText>
 			<staticText>
@@ -447,6 +447,10 @@ where po.orderid = $P{orderid} ;]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{suppcity}]]></textFieldExpression>
 			</textField>
+			<image scaleImage="RealSize">
+				<reportElement x="0" y="15" width="130" height="55" uuid="5284e285-7fe5-434c-8424-f29615f1ec16"/>
+				<imageExpression><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
@@ -533,7 +537,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
-				<text><![CDATA[This purchase order is bound by all terms and conditions as ordered and stated in its content.  K-Bell Plumbing & Heating, Inc. reserves the right to cancel this purchase order without any financial implications to K-Bell Plumbing & Heating, Inc.]]></text>
+				<text><![CDATA[This purchase order is bound by all terms and conditions as ordered and stated in its content.  K-Bell Fire Sprinkler Protection reserves the right to cancel this purchase order without any financial implications to K-Bell Fire Sprinkler Protection.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="1" width="279" height="12" uuid="d4018617-1402-48ac-9485-37788d96aa0d"/>

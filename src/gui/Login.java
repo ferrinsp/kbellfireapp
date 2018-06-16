@@ -242,7 +242,7 @@ public class Login extends javax.swing.JFrame {
        try {
         if (user != null && pass != null) {
             String passwd =String.valueOf(pass);
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             String query = "Select username,password from user WHERE username=? and password=?";
             PreparedStatement ps;

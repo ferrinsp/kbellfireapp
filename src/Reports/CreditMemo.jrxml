@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CreditMemo" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
 	<property name="ireport.zoom" value="2.8531167061100065"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="738"/>
+	<property name="ireport.y" value="0"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -251,7 +251,7 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[K. Bell Plumbing & Heating, Inc.
+				<text><![CDATA[K. Bell Fire Sprinkler Protection
 ]]></text>
 			</staticText>
 			<staticText>

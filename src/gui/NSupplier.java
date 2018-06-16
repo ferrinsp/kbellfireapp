@@ -19,7 +19,7 @@ public class NSupplier extends javax.swing.JFrame {
     private void updateSupplier(){
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select companyname, contact, address1, city, state, postalcode, phone, fax, terms, comments from supplier where supplierid = "+id);
             while (resultObj.next()){
@@ -43,7 +43,7 @@ public class NSupplier extends javax.swing.JFrame {
         try {
             String query;
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-        connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+        connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
         if (id == -1) {
             query = "INSERT into supplier (companyname,contact,address1,city,state,postalcode,phone,fax,terms,comments)"
                 + "values(?,?,?,?,?,?,?,?,?,?)";
