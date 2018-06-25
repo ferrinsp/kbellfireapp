@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="22"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -537,7 +537,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
-				<text><![CDATA[This purchase order is bound by all terms and conditions as ordered and stated in its content.  K-Bell Plumbing & Heating, Inc. reserves the right to cancel this purchase order without any financial implications to K-Bell Plumbing & Heating, Inc.]]></text>
+				<text><![CDATA[This purchase order is bound by all terms and conditions as ordered and stated in its content.  K-Bell Fire Sprinkler Protection reserves the right to cancel this purchase order without any financial implications to K-Bell Fire Sprinkler Protection.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="1" width="279" height="12" uuid="d4018617-1402-48ac-9485-37788d96aa0d"/>

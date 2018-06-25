@@ -209,7 +209,7 @@ public class ProductReportDates extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,15 +250,15 @@ public class ProductReportDates extends javax.swing.JFrame {
 
     private void runAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runAllButtonActionPerformed
         try {
-            InputStream is = getClass().getResourceAsStream("/Reports/Products.jrxml");            
+            InputStream is = getClass().getResourceAsStream("/Reports/AProducts.jrxml");            
             JasperDesign jd= JRXmlLoader.load(is);
             connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
 
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             //set parameters
             Map map = new HashMap();
-            map.put("date", "1900-01-01");
-            map.put("dateto", "2100-01-01");
+            map.put("date",(String)df.format(startDatePicker.getDate()));
+            map.put("dateto",(String)df.format(endDatePicker.getDate()));
 
             //compile report
             JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(jd);
