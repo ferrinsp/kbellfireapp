@@ -52,24 +52,10 @@ public class VCompletePOs extends javax.swing.JFrame {
         endDatePicker.setDate(Calendar.getInstance().getTime());
     }
     private void print(int orderid){
-        try {
-            //Generate Report
-            InputStream is = getClass().getResourceAsStream("/Reports/PO.jrxml");
-            JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
-
-            //set parameters
-            Map map = new HashMap();
-            map.put("orderid", orderid);
-            //compile report
-            JasperReport jasperReport = JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
-            //view report to UI
-            JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (SQLException | JRException ex) {
-            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        UPurchaseOrder updatePO = new UPurchaseOrder(orderid);
+        updatePO.setVisible(true);
     }
+    
     private void selectCompletedPOs() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic

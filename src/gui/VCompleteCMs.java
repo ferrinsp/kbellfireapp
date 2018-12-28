@@ -73,23 +73,8 @@ public class VCompleteCMs extends javax.swing.JFrame {
         }
     }
     private void print(int memoid){
-        try {
-            //Generate Report
-            InputStream is = getClass().getResourceAsStream("/Reports/CreditMemo.jrxml");
-            JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
-
-            //set parameters
-            Map map = new HashMap();
-            map.put("memoid", memoid);
-            //compile report
-            JasperReport jasperReport = JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
-            //view report to UI
-            JasperViewer.viewReport(jasperPrint, false);                   
-        } catch (SQLException | JRException ex) {
-            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        UCreditMemo updateCM = new UCreditMemo(memoid);
+        updateCM.setVisible(true);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
