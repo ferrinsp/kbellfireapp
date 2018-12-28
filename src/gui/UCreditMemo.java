@@ -10,6 +10,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
@@ -125,6 +127,7 @@ public class UCreditMemo extends javax.swing.JFrame {
         commentsTextArea = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         updateCreditMemoButton = new javax.swing.JButton();
+        deleteCreditMemo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update Credit Memo");
@@ -305,12 +308,21 @@ public class UCreditMemo extends javax.swing.JFrame {
             }
         });
 
+        deleteCreditMemo.setText("Delete Credit Memo");
+        deleteCreditMemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteCreditMemoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(deleteCreditMemo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateCreditMemoButton)
                 .addContainerGap())
         );
@@ -318,7 +330,9 @@ public class UCreditMemo extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(updateCreditMemoButton)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateCreditMemoButton)
+                    .addComponent(deleteCreditMemo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -352,6 +366,29 @@ public class UCreditMemo extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_updateCreditMemoButtonActionPerformed
 
+    private void deleteCreditMemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCreditMemoActionPerformed
+        int result = JOptionPane.showConfirmDialog(null, "Do you want to delete this credit memo?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.YES_OPTION) {
+            changeStatusToDeleted();
+            JOptionPane.showMessageDialog(null, "Credit Memo Deleted");
+            this.dispose(); 
+        } else if (result == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "No action performed");
+        }
+    }//GEN-LAST:event_deleteCreditMemoActionPerformed
+    
+    private void changeStatusToDeleted() {
+        try {
+            //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            String query = "UPDATE creditmemo SET status = 'Deleted' where memoid = " + memoid + ";";
+            PreparedStatement preparedStmt =connObj.prepareStatement(query);
+            preparedStmt.executeUpdate();
+            connObj.close();
+        } catch (SQLException ex) {    
+            Logger.getLogger(NSupplier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -384,6 +421,7 @@ public class UCreditMemo extends javax.swing.JFrame {
     private javax.swing.JTextField createdByTextField;
     private javax.swing.JTextField createdDateField;
     private javax.swing.JLabel createdDateLabel;
+    private javax.swing.JButton deleteCreditMemo;
     private javax.swing.JRadioButton issuedStatusButton;
     private javax.swing.JTable itemTable;
     private javax.swing.JLabel jLabel1;

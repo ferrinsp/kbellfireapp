@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
-	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="153"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="1.5394743546921197"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="213"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -675,10 +675,10 @@ where po.orderid = $P{orderid} ;]]>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="47" uuid="9cebae1c-2c08-4a57-8397-d75e04a51ee6">
+					<jr:column width="35" uuid="9cebae1c-2c08-4a57-8397-d75e04a51ee6">
 						<jr:columnHeader style="table 5_CH" height="24" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="47" height="24" uuid="47e8a472-8ff9-4163-8c6e-40b00187fa9f"/>
+								<reportElement x="0" y="0" width="34" height="24" uuid="47e8a472-8ff9-4163-8c6e-40b00187fa9f"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -688,7 +688,7 @@ where po.orderid = $P{orderid} ;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="table 5_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="47" height="20" uuid="112b6483-cbb8-490b-ae01-00ad69a87d73"/>
+								<reportElement x="0" y="0" width="34" height="20" uuid="112b6483-cbb8-490b-ae01-00ad69a87d73"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="9"/>
@@ -719,10 +719,10 @@ where po.orderid = $P{orderid} ;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="99" uuid="73fe0279-79ff-4eda-a3ae-4287b06f639e">
+					<jr:column width="68" uuid="73fe0279-79ff-4eda-a3ae-4287b06f639e">
 						<jr:columnHeader style="table 5_CH" height="24" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="99" height="24" uuid="1f2e51a3-47dd-4c27-a776-a6d4b2ec8596"/>
+								<reportElement x="0" y="0" width="68" height="24" uuid="1f2e51a3-47dd-4c27-a776-a6d4b2ec8596"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -732,7 +732,7 @@ where po.orderid = $P{orderid} ;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="table 5_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="99" height="20" uuid="80cfd3ef-6720-40da-800b-e41b7c5d684c"/>
+								<reportElement x="0" y="0" width="68" height="20" uuid="80cfd3ef-6720-40da-800b-e41b7c5d684c"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="9"/>
@@ -741,10 +741,10 @@ where po.orderid = $P{orderid} ;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="c5be75ec-75a7-4abc-a2b0-1f89efcc3fba">
+					<jr:column width="62" uuid="c5be75ec-75a7-4abc-a2b0-1f89efcc3fba">
 						<jr:columnHeader style="table 5_CH" height="24" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="24" uuid="c806d873-8263-4594-b321-0c82604ab4fd"/>
+								<reportElement x="0" y="0" width="61" height="24" uuid="c806d873-8263-4594-b321-0c82604ab4fd"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -754,7 +754,7 @@ where po.orderid = $P{orderid} ;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="table 5_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="20" uuid="554f21b6-e14e-4c56-9643-9fff227a8870"/>
+								<reportElement x="0" y="0" width="61" height="20" uuid="554f21b6-e14e-4c56-9643-9fff227a8870"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="9"/>
@@ -763,10 +763,10 @@ where po.orderid = $P{orderid} ;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="203" uuid="c1cb7fcd-cda2-41e1-a98d-9e6bb1696c05">
+					<jr:column width="293" uuid="c1cb7fcd-cda2-41e1-a98d-9e6bb1696c05">
 						<jr:columnHeader style="table 5_CH" height="24" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="203" height="24" uuid="47b677b4-4de7-4d8f-a9b5-c6b094175962"/>
+								<reportElement x="0" y="0" width="293" height="24" uuid="47b677b4-4de7-4d8f-a9b5-c6b094175962"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -776,7 +776,7 @@ where po.orderid = $P{orderid} ;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="table 5_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="203" height="20" uuid="caf5336c-76eb-49d7-b332-f19e35e03365"/>
+								<reportElement x="0" y="0" width="293" height="20" uuid="caf5336c-76eb-49d7-b332-f19e35e03365"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="9"/>
