@@ -158,7 +158,7 @@ public class VCreditMemo extends javax.swing.JFrame {
             connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select c.memoid, c.poid, s.companyname, j.name, c.status, c.total, u.name, c.created, c.comments from creditmemo c "
-                    + "inner join supplier s on s.supplierid = c.supplier inner join job j on j.jobid = c.job inner join user u on u.userid = c.createdby where c.status not like '%Completed%' order by c.status;");
+                    + "inner join supplier s on s.supplierid = c.supplier inner join job j on j.jobid = c.job inner join user u on u.userid = c.createdby where c.status not like '%Completed%' and c.status not like '%Deleted%' order by c.status;");
             viewCreditMemoTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             viewCreditMemoTable.getColumn("memoid").setHeaderValue("Memo ID");
             viewCreditMemoTable.getColumn("poid").setHeaderValue("Purchase Order ID");

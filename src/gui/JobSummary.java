@@ -1,23 +1,12 @@
 package gui;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class JobSummary extends javax.swing.JFrame {
 
@@ -26,6 +15,7 @@ public class JobSummary extends javax.swing.JFrame {
     ResultSet resultObj = null;
     String [][] job = null;
     double total = 0.0;
+    int jobid;
     
     public JobSummary() {
         initComponents();
@@ -43,7 +33,7 @@ public class JobSummary extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Job Summary");
 
-        generateProductReportButton.setText("Generate Report");
+        generateProductReportButton.setText("Generate Table");
         generateProductReportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generateProductReportButtonActionPerformed(evt);
@@ -59,7 +49,7 @@ public class JobSummary extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JobCombo, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 176, Short.MAX_VALUE)
+                        .addGap(0, 182, Short.MAX_VALUE)
                         .addComponent(generateProductReportButton)))
                 .addContainerGap())
         );
@@ -97,7 +87,7 @@ public class JobSummary extends javax.swing.JFrame {
     private void getComboJob() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
             //Dynamically set job list size
@@ -117,48 +107,10 @@ public class JobSummary extends javax.swing.JFrame {
         }
     }
     
-    private double getJobTotal(int jobid) {
-        try {
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
-            stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("SELECT sum(total) as Total FROM purchaseorder po where job = " + jobid + ";");
-            while (resultObj.next()){
-                total = resultObj.getDouble("Total");
-            }
-            connObj.close();
-        } catch (SQLException e) {
-            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return total;
-    }
-
     private void generateProductReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateProductReportButtonActionPerformed
-        try {
-            String j="";
-            for (String[] job1 : job) {
-                        if (JobCombo.getSelectedItem().equals(job1[1])) {
-                            j = job1[0];
-                            break;
-                        }
-                    }
-            //set parameters
-            Map map = new HashMap();
-            map.put("id",j);
-            map.put("sum", getJobTotal(Integer.parseInt(j)));
-            System.out.println(total);
-            InputStream is = getClass().getResourceAsStream("/Reports/JobSummary.jrxml");
-            JasperDesign jd= JRXmlLoader.load(is);
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
-
-            //compile report
-            JasperReport jasperReport = (JasperReport) JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connObj);
-            //view report to UI
-            JasperViewer.viewReport(jasperPrint, false);
-            this.dispose();
-        } catch (SQLException | JRException ex) {
-            Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        jobid = JobCombo.getSelectedIndex();
+        VJobSummary viewJobSummary = new VJobSummary(jobid);
+        viewJobSummary.setVisible(true);
     }//GEN-LAST:event_generateProductReportButtonActionPerformed
 
     public static void main(String args[]) {
