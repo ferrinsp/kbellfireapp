@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="22"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="153"/>
+	<property name="ireport.y" value="0"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -248,20 +248,12 @@ where po.orderid = $P{orderid} ;]]>
 	<field name="createdby" class="java.lang.String"/>
 	<field name="salestax" class="java.lang.String"/>
 	<title>
-		<band height="198" splitType="Stretch">
+		<band height="171" splitType="Stretch">
 			<rectangle>
 				<reportElement x="437" y="15" width="118" height="40" backcolor="#9999FF" uuid="0a6b0332-1d1c-4564-94e5-a701ac4e6010"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="4" y="58" width="216" height="22" uuid="ba2d0e7c-4ff7-439e-9e11-bb6ff7a7f562"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[K. Bell Fire Sprinkler Protection
-]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="4" y="80" width="216" height="48" uuid="5aa46128-8001-4bd1-8d82-f054039a25e8"/>
+				<reportElement x="11" y="55" width="216" height="48" uuid="5aa46128-8001-4bd1-8d82-f054039a25e8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
@@ -357,21 +349,21 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{dphone}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="21" y="136" width="26" height="13" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
+				<reportElement x="11" y="113" width="26" height="13" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<text><![CDATA[To: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="21" y="148" width="26" height="13" uuid="7061d43c-af92-4a2c-a2e0-239b9a2fd627"/>
+				<reportElement x="11" y="125" width="26" height="13" uuid="7061d43c-af92-4a2c-a2e0-239b9a2fd627"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<text><![CDATA[Attn: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="201" y="136" width="43" height="13" uuid="de43dc7d-152a-4075-a6ab-3d9442b2f89b"/>
+				<reportElement x="191" y="113" width="43" height="13" uuid="de43dc7d-152a-4075-a6ab-3d9442b2f89b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
@@ -392,7 +384,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{expectedby}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="244" y="136" width="212" height="13" uuid="f50a36d4-95a8-479d-83a4-5cf1cf1937fd"/>
+				<reportElement x="234" y="113" width="212" height="13" uuid="f50a36d4-95a8-479d-83a4-5cf1cf1937fd"/>
 				<box leftPadding="5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true"/>
@@ -400,7 +392,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{shipname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="244" y="148" width="177" height="13" uuid="d21caae6-2f2d-46f3-9da5-9c33236bede3"/>
+				<reportElement x="234" y="125" width="177" height="13" uuid="d21caae6-2f2d-46f3-9da5-9c33236bede3"/>
 				<box leftPadding="5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true"/>
@@ -408,7 +400,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{shipadd}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="244" y="161" width="177" height="13" uuid="2036be64-99a3-4ea6-b104-bcf0667b1f2b"/>
+				<reportElement x="234" y="138" width="177" height="13" uuid="2036be64-99a3-4ea6-b104-bcf0667b1f2b"/>
 				<box leftPadding="5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true"/>
@@ -416,7 +408,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{shipcity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="46" y="136" width="155" height="13" uuid="fa4cf996-ac09-4aac-b995-0c07e66724bb"/>
+				<reportElement x="36" y="113" width="155" height="13" uuid="fa4cf996-ac09-4aac-b995-0c07e66724bb"/>
 				<box leftPadding="5"/>
 				<textElement>
 					<font fontName="Arial" size="11" isBold="true"/>
@@ -424,7 +416,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{companyname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="46" y="148" width="101" height="13" uuid="e3045fc1-a62e-4d44-ace8-72f452972b7c"/>
+				<reportElement x="36" y="125" width="101" height="13" uuid="e3045fc1-a62e-4d44-ace8-72f452972b7c"/>
 				<box leftPadding="5"/>
 				<textElement>
 					<font fontName="Arial" size="11" isBold="true"/>
@@ -432,7 +424,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{contact}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="46" y="161" width="111" height="13" uuid="7960fc12-d22f-48bf-90de-a9e983282492"/>
+				<reportElement x="36" y="138" width="111" height="13" uuid="7960fc12-d22f-48bf-90de-a9e983282492"/>
 				<box leftPadding="5"/>
 				<textElement>
 					<font fontName="Arial" size="11" isBold="true"/>
@@ -440,7 +432,7 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{address1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="46" y="174" width="100" height="13" uuid="5ce57640-958d-4516-86a1-f14fd1863329"/>
+				<reportElement x="36" y="151" width="100" height="13" uuid="5ce57640-958d-4516-86a1-f14fd1863329"/>
 				<box leftPadding="5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true"/>
@@ -448,8 +440,8 @@ where po.orderid = $P{orderid} ;]]>
 				<textFieldExpression><![CDATA[$F{suppcity}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="4" y="15" width="128" height="43" uuid="45d6114b-f6cb-4115-aa35-d09ece747262"/>
-				<imageExpression><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
+				<reportElement x="11" y="6" width="168" height="49" uuid="f7287ec9-e8ba-491f-bf34-3f0ac1ea7414"/>
+				<imageExpression><![CDATA["Reports/KBellLogo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

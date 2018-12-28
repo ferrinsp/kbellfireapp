@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CreditMemo" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
-	<property name="ireport.zoom" value="2.8531167061100065"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="style1"/>
@@ -245,17 +245,9 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 	<field name="supcity" class="java.lang.String"/>
 	<field name="createdby" class="java.lang.String"/>
 	<title>
-		<band height="183" splitType="Stretch">
+		<band height="191" splitType="Stretch">
 			<staticText>
-				<reportElement x="130" y="33" width="245" height="22" uuid="ba2d0e7c-4ff7-439e-9e11-bb6ff7a7f562"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[K. Bell Fire Sprinkler Protection
-]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="130" y="55" width="245" height="48" uuid="5aa46128-8001-4bd1-8d82-f054039a25e8"/>
+				<reportElement x="12" y="65" width="245" height="48" uuid="5aa46128-8001-4bd1-8d82-f054039a25e8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
@@ -314,19 +306,15 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 				</textElement>
 				<text><![CDATA[Regarding Purchase Order #]]></text>
 			</staticText>
-			<image>
-				<reportElement x="15" y="15" width="115" height="81" uuid="92de5175-d5e0-4f48-82b7-401ee59763fe"/>
-				<imageExpression><![CDATA["Reports/KBellLogo.png"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement x="15" y="114" width="26" height="14" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
+				<reportElement x="30" y="124" width="26" height="14" uuid="1a772bd1-0f8b-4532-8f89-dfd7940759b8"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[To: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="15" y="128" width="26" height="14" uuid="7061d43c-af92-4a2c-a2e0-239b9a2fd627"/>
+				<reportElement x="30" y="138" width="26" height="14" uuid="7061d43c-af92-4a2c-a2e0-239b9a2fd627"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
@@ -346,49 +334,53 @@ inner join productdescription pd on pd.pdescID= p.description where cm.memoid = 
 				<textFieldExpression><![CDATA[$F{poid}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="435" y="148" width="80" height="20" uuid="09f19bfe-5b1c-4c43-9d6d-1e68ce65161e"/>
+				<reportElement x="435" y="167" width="80" height="20" uuid="09f19bfe-5b1c-4c43-9d6d-1e68ce65161e"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="515" y="148" width="40" height="20" uuid="cd661f0d-9f3b-4a28-a19a-fceafa9d7dc1"/>
+				<reportElement x="515" y="167" width="40" height="20" uuid="cd661f0d-9f3b-4a28-a19a-fceafa9d7dc1"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="41" y="114" width="143" height="14" uuid="1a29a886-e7e0-416e-b559-6dee448e8141"/>
+				<reportElement x="56" y="124" width="143" height="14" uuid="1a29a886-e7e0-416e-b559-6dee448e8141"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Supplier}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="41" y="128" width="100" height="14" uuid="6ff865ee-5550-4f46-aa9e-7e899a416df5"/>
+				<reportElement x="56" y="138" width="100" height="14" uuid="6ff865ee-5550-4f46-aa9e-7e899a416df5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{contact}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="41" y="141" width="100" height="14" uuid="7017f5c0-b442-4b34-ae88-6f1b200342ac"/>
+				<reportElement x="56" y="151" width="100" height="14" uuid="7017f5c0-b442-4b34-ae88-6f1b200342ac"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="41" y="154" width="100" height="14" uuid="9377c663-453b-4252-924e-58c0769e4588"/>
+				<reportElement x="56" y="164" width="100" height="14" uuid="9377c663-453b-4252-924e-58c0769e4588"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{supcity}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="156" y="0" width="177" height="33" uuid="f847b0a9-3528-4711-ac09-fd0817622a07"/>
+				<reportElement x="184" y="0" width="177" height="27" uuid="f847b0a9-3528-4711-ac09-fd0817622a07"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Black" size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CREDIT MEMO]]></text>
 			</staticText>
+			<image>
+				<reportElement x="12" y="27" width="203" height="38" uuid="bbdc86ac-55f9-4465-8831-451cc5ee3e90"/>
+				<imageExpression><![CDATA["Reports/KBellLogo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnFooter>
