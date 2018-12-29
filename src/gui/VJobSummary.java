@@ -40,8 +40,8 @@ public class VJobSummary extends javax.swing.JFrame {
             jobSummaryTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             jobSummaryTable.getColumn("orderid").setHeaderValue("Supplier ID");
             jobSummaryTable.getColumn("companyname").setHeaderValue("Company");
-            jobSummaryTable.getColumn("name").setHeaderValue("Contact");
-            jobSummaryTable.getColumn("total").setHeaderValue("Address");
+            jobSummaryTable.getColumn("job").setHeaderValue("Contact");
+            jobSummaryTable.getColumn("po_total").setHeaderValue("Address");
             jobSummaryTable.getColumn("bldg").setHeaderValue("City");
             jobSummaryTable.getColumn("status").setHeaderValue("City");
             jobSummaryTable.repaint();       
