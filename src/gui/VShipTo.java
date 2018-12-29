@@ -42,9 +42,9 @@ public class VShipTo extends javax.swing.JFrame {
             vShipTo.setModel(DbUtils.resultSetToTableModel(resultObj));
             vShipTo.getColumn("orderid").setHeaderValue("Order ID");
             vShipTo.getColumn("productDescription").setHeaderValue("Product Description");
-            vShipTo.getColumn("receivedQty").setHeaderValue("Received Qty");
-            vShipTo.getColumn("orderQty").setHeaderValue("Order Qty");
-            vShipTo.getColumn("dateCreated").setHeaderValue("Date Created");
+            vShipTo.getColumn("receivedqty").setHeaderValue("Received Qty");
+            vShipTo.getColumn("orderqty").setHeaderValue("Order Qty");
+            vShipTo.getColumn("created").setHeaderValue("Date Created");
             vShipTo.repaint();       
         } catch (SQLException e) {
             e.printStackTrace();

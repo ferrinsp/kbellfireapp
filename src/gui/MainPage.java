@@ -661,6 +661,11 @@ public class MainPage extends javax.swing.JFrame {
         Reports.add(jMenuItem1);
 
         shipToReport.setText("Ship To");
+        shipToReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shipToReportActionPerformed(evt);
+            }
+        });
         Reports.add(shipToReport);
 
         MenuBar.add(Reports);
@@ -892,6 +897,11 @@ public class MainPage extends javax.swing.JFrame {
         JobReportDates jrd = new JobReportDates();
         jrd.setVisible(true);
     }//GEN-LAST:event_ReportsActionPerformed
+
+    private void shipToReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shipToReportActionPerformed
+        JobReportDates jrd = new JobReportDates();
+        jrd.setVisible(true);
+    }//GEN-LAST:event_shipToReportActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
