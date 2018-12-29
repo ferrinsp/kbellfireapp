@@ -38,7 +38,7 @@ public class ProductHistory extends javax.swing.JFrame {
     private void populateProductHistoryTable() {            
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select po.orderid, pd.productDescription, pod.orderqty, pod.cost, s.companyname, "
                     + "date_format(po.created, '%m/%d/%Y') as 'Order Date'\n" +
@@ -65,7 +65,7 @@ public class ProductHistory extends javax.swing.JFrame {
     private void getDescriptionCombo(){
         try{
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select pdescID, productDescription from productdescription order by productDescription;");
             resultObj.last();

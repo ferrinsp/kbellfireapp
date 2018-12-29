@@ -32,7 +32,7 @@ public class VJobSummary extends javax.swing.JFrame {
     private void generateJobSummaryTable(int jobid) {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("SELECT po.job, po.orderid AS orderid, \n" +
                 "s.companyname AS companyname, po.total AS po_total, po.bldg AS bldg, po.status AS status \n" +
@@ -63,7 +63,7 @@ public class VJobSummary extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jobSummaryTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jobSummaryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PO" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c20cd22b-0c5a-4626-8625-408ecc9f4268">
 	<property name="ireport.zoom" value="1.5394743546921197"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="213"/>
+	<property name="ireport.y" value="196"/>
 	<style name="style1"/>
 	<style name="table">
 		<box>
@@ -763,10 +763,10 @@ where po.orderid = $P{orderid} ;]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="293" uuid="c1cb7fcd-cda2-41e1-a98d-9e6bb1696c05">
+					<jr:column width="268" uuid="c1cb7fcd-cda2-41e1-a98d-9e6bb1696c05">
 						<jr:columnHeader style="table 5_CH" height="24" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="293" height="24" uuid="47b677b4-4de7-4d8f-a9b5-c6b094175962"/>
+								<reportElement x="0" y="0" width="268" height="24" uuid="47b677b4-4de7-4d8f-a9b5-c6b094175962"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="11"/>
@@ -776,7 +776,7 @@ where po.orderid = $P{orderid} ;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="table 5_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="293" height="20" uuid="caf5336c-76eb-49d7-b332-f19e35e03365"/>
+								<reportElement x="0" y="0" width="268" height="20" uuid="caf5336c-76eb-49d7-b332-f19e35e03365"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Arial" size="9"/>

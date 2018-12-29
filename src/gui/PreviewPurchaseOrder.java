@@ -78,7 +78,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     private void getComboContact() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select contactid, name,phone from contact where status = 'Active' ORDER BY name;");
             //Dynamically set contact list size
@@ -101,7 +101,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     private void getComboJob() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
             //Dynamically set job list size
@@ -125,7 +125,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
     private void getComboSupplier() {
     try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select supplierid, companyname from supplier ORDER BY companyname;");
             //Dynamically set supplier list size
@@ -148,7 +148,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
         int id=-1;
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select p.id from product p inner join productdescription pd on pd.pdescID = p.description where pd.productDescription LIKE '%"+EscapeCharacter.escape(prodDesc)+"%' and p.supplier = "+suppID+" ;");
             while (resultObj.next()){
@@ -476,7 +476,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                         all=true;
                     }
                     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-                    connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+                    connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
                     PreparedStatement preparedStmt =connObj.prepareStatement(query);
                     int supp = -1;
                     int j =-1;
@@ -569,7 +569,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                 try {
                     InputStream is = getClass().getResourceAsStream("/Reports/PO.jrxml");
                     JasperDesign jd= JRXmlLoader.load(is);
-                    connObj = DriverManager.getConnection("jdbc:mysql://192.168.1.10:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+                    connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
                     
                     //set parameters
                     Map map = new HashMap();
