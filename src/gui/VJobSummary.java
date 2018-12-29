@@ -38,12 +38,12 @@ public class VJobSummary extends javax.swing.JFrame {
                 "s.companyname AS companyname, po.total AS po_total, po.bldg AS bldg, po.status AS status \n" +
                 "FROM supplier s INNER JOIN purchaseorder po ON s.supplierid = po.supplier where po.job = " + jobid + ";");
             jobSummaryTable.setModel(DbUtils.resultSetToTableModel(resultObj));
-            jobSummaryTable.getColumn("orderid").setHeaderValue("Supplier ID");
+            jobSummaryTable.getColumn("orderid").setHeaderValue("Order ID");
             jobSummaryTable.getColumn("companyname").setHeaderValue("Company");
-            jobSummaryTable.getColumn("job").setHeaderValue("Contact");
-            jobSummaryTable.getColumn("po_total").setHeaderValue("Address");
-            jobSummaryTable.getColumn("bldg").setHeaderValue("City");
-            jobSummaryTable.getColumn("status").setHeaderValue("City");
+            jobSummaryTable.getColumn("job").setHeaderValue("Job");
+            jobSummaryTable.getColumn("po_total").setHeaderValue("Total");
+            jobSummaryTable.getColumn("bldg").setHeaderValue("Bldg");
+            jobSummaryTable.getColumn("status").setHeaderValue("Status");
             jobSummaryTable.repaint();       
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,6 +65,7 @@ public class VJobSummary extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jobSummaryTable.setAutoCreateRowSorter(true);
         jobSummaryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -112,6 +113,7 @@ public class VJobSummary extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

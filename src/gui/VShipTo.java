@@ -33,19 +33,17 @@ public class VShipTo extends javax.swing.JFrame {
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select po.orderid, pod.orderqty, pod.receivedqty, po.created, prod.productDescription\n" +
-                "from purchaseorder po\n" +
-                "inner join job j on j.jobid = po.shipto\n" +
-                "inner join purchaseorderdetails pod on pod.orderid = po.orderid\n" +
-                "inner join product pd on pd.id = pod.product\n" +
-                "inner join productdescription prod on prod.pdescID = pd.description\n" +
-                "where j.jobid = "+ jobid+";");
+"                from purchaseorder po\n" +
+"inner join job j on j.jobid = po.shipto inner join purchaseorderdetails pod on pod.orderid = po.orderid\n" +
+"inner join product pd on pd.id = pod.product inner join productdescription prod on prod.pdescID = pd.description\n" +
+"where j.jobid = "+jobid+" and po.created >= STR_TO_DATE('"+fromDate+"', '%Y-%m-%d') and po.created < STR_TO_DATE('"+toDate+"', '%Y-%m-%d') order by po.created;");
             vShipTo.setModel(DbUtils.resultSetToTableModel(resultObj));
             vShipTo.getColumn("orderid").setHeaderValue("Order ID");
             vShipTo.getColumn("productDescription").setHeaderValue("Product Description");
             vShipTo.getColumn("receivedqty").setHeaderValue("Received Qty");
             vShipTo.getColumn("orderqty").setHeaderValue("Order Qty");
             vShipTo.getColumn("created").setHeaderValue("Date Created");
-            vShipTo.repaint();       
+            vShipTo.repaint();        
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,6 +111,7 @@ public class VShipTo extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
