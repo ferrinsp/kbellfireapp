@@ -48,7 +48,7 @@ public class UCreditMemo extends javax.swing.JFrame {
             itemTable.getColumn("cost").setHeaderValue("Unit Price");
             itemTable.getColumn("total").setHeaderValue("Total");
             itemTable.repaint();
-            resultObj = stateObj.executeQuery("select cm.poid,s.companyname, j.name, cm.tax,cm.total ,u.name as 'user', cm.status, cm.created\n" +
+            resultObj = stateObj.executeQuery("select cm.poid,s.companyname, j.name, cm.tax,cm.total ,u.name as 'user', cm.status, cm.comments, cm.created\n" +
 "                from creditmemo cm inner join supplier s on s.supplierid=cm.supplier inner join user u on u.userid=cm.createdby\n" +
 "                inner join job j on j.jobid=cm.job where cm.memoid="+memoid+";");
     
@@ -63,7 +63,7 @@ public class UCreditMemo extends javax.swing.JFrame {
                 taxTextField.setText(Double.toString(resultObj.getDouble("tax")));
                 d= resultObj.getDate("created");
                 createdDateField.setText(df.format(d));
-                commentsTextArea.setText("");
+                commentsTextArea.setText(resultObj.getString("comments"));
             }
                 connObj.close();
         } catch (SQLException e) {
