@@ -166,6 +166,7 @@ public class MainPage extends javax.swing.JFrame {
         View_Product = new javax.swing.JMenuItem();
         View_Description = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        updateProductPricing = new javax.swing.JMenuItem();
         Jobs = new javax.swing.JMenu();
         create_Job = new javax.swing.JMenuItem();
         view_Job = new javax.swing.JMenuItem();
@@ -558,6 +559,14 @@ public class MainPage extends javax.swing.JFrame {
         });
         Product.add(jMenuItem2);
 
+        updateProductPricing.setText("Update Bulk Product Pricing");
+        updateProductPricing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateProductPricingActionPerformed(evt);
+            }
+        });
+        Product.add(updateProductPricing);
+
         MenuBar.add(Product);
 
         Jobs.setText("Jobs");
@@ -902,6 +911,11 @@ public class MainPage extends javax.swing.JFrame {
         JobReportDates jrd = new JobReportDates();
         jrd.setVisible(true);
     }//GEN-LAST:event_shipToReportActionPerformed
+
+    private void updateProductPricingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProductPricingActionPerformed
+        UProductPricing prod = new UProductPricing();
+        prod.setVisible(true);
+    }//GEN-LAST:event_updateProductPricingActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -979,6 +993,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem supplierListMenuItem;
     private javax.swing.JTextField taxValue;
     private javax.swing.JButton updatePOMainButton;
+    private javax.swing.JMenuItem updateProductPricing;
     private javax.swing.JMenuItem viewContacts;
     private javax.swing.JMenuItem viewCreditMemo;
     private javax.swing.JScrollPane viewPurchaseOrder;
