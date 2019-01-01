@@ -87,7 +87,7 @@ public class JobSummary extends javax.swing.JFrame {
     private void getComboJob() {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("select jobid, name from job ORDER BY name;");
             //Dynamically set job list size
@@ -106,10 +106,19 @@ public class JobSummary extends javax.swing.JFrame {
             Logger.getLogger(PreviewPurchaseOrder.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+    private int getJob(String jobDes) {
+        int jobid = 0;
+        for(String[] job1 : job) {
+            if(jobDes.equals(job1[1])){
+                jobid = Integer.parseInt(job1[0]);
+            }
+        }
+        return jobid;
+    }
     
     private void generateProductReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateProductReportButtonActionPerformed
-        jobid = JobCombo.getSelectedIndex();
-        VJobSummary viewJobSummary = new VJobSummary(jobid);
+       int jid = getJob(JobCombo.getSelectedItem().toString());
+        VJobSummary viewJobSummary = new VJobSummary(jid);
         viewJobSummary.setVisible(true);
     }//GEN-LAST:event_generateProductReportButtonActionPerformed
 

@@ -3,8 +3,12 @@ package gui;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.Point;
+import javax.swing.JTable;
 import java.sql.Statement;
 import net.proteanit.sql.DbUtils;
 
@@ -32,10 +36,10 @@ public class VJobSummary extends javax.swing.JFrame {
     private void generateJobSummaryTable(int jobid) {
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
             resultObj = stateObj.executeQuery("SELECT po.job, po.orderid AS orderid, \n" +
-                "s.companyname AS companyname, po.total AS po_total, po.bldg AS bldg, po.status AS status \n" +
+                "s.companyname AS companyname, po.total AS po_total, po.bldg AS bldg, po.status AS status, po.comments \n" +
                 "FROM supplier s INNER JOIN purchaseorder po ON s.supplierid = po.supplier where po.job = " + jobid + ";");
             jobSummaryTable.setModel(DbUtils.resultSetToTableModel(resultObj));
             jobSummaryTable.getColumn("orderid").setHeaderValue("Order ID");
@@ -44,6 +48,7 @@ public class VJobSummary extends javax.swing.JFrame {
             jobSummaryTable.getColumn("po_total").setHeaderValue("Total");
             jobSummaryTable.getColumn("bldg").setHeaderValue("Bldg");
             jobSummaryTable.getColumn("status").setHeaderValue("Status");
+            jobSummaryTable.getColumn("comments").setHeaderValue("Comments");
             jobSummaryTable.repaint();       
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,15 +73,27 @@ public class VJobSummary extends javax.swing.JFrame {
         jobSummaryTable.setAutoCreateRowSorter(true);
         jobSummaryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Company Name", "Name", "Total", "Bldg", "Status"
+                "Order ID", "Company Name", "Name", "Total", "Bldg", "Status", "Comments"
             }
         ));
+        jobSummaryTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table =(JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() ==2 ) {
+                    int id= (int) jobSummaryTable.getValueAt(row, 1);
+                    UPurchaseOrder po = new UPurchaseOrder(id);
+                    po.setVisible(true);
+                }
+            }
+        });
         jScrollPane1.setViewportView(jobSummaryTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
