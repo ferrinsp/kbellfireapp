@@ -12,16 +12,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Enumeration;
+import java.util.Calendar;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.AbstractButton;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import net.proteanit.sql.DbUtils;
 
 public class UProductPricing extends javax.swing.JFrame {
 
@@ -50,6 +47,7 @@ public class UProductPricing extends javax.swing.JFrame {
         updatePricingButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Bulk Pricing Update");
 
         updatePricingTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -168,30 +166,27 @@ public class UProductPricing extends javax.swing.JFrame {
     private void importCSVButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importCSVButtonActionPerformed
         @SuppressWarnings("UnusedAssignment")
         FileInputStream File = null;
+        Vector data = new Vector();
+        Vector column = new Vector();
+        String aLine;
         try {
-            File = new FileInputStream("C:/temp/import.csv");            
-            String aLine = "";    
+            File = new FileInputStream("C:/temp/import.csv");
             BufferedReader br = new BufferedReader(new InputStreamReader(File));
-            StringTokenizer st1 = new StringTokenizer(br.readLine(), ",");
-            StringTokenizer st2 = new StringTokenizer(aLine, ",");
-            Vector columnNames = new Vector();
-            Vector row = new Vector();
-            Vector data = new Vector();
-
+            column.addElement("ID");
+            column.addElement("Price");
             while ((aLine = br.readLine()) != null) {
-                while( st1.hasMoreTokens() ) {
-                    columnNames.addElement(st1.nextToken());
-                }
-                while ((aLine = br.readLine()) != null) {
-                    while(st2.hasMoreTokens()) {
+                    StringTokenizer st2 = new StringTokenizer(aLine, ",");
+                    Vector row = new Vector();
+                    while(st2.hasMoreTokens())
+                    {
                         row.addElement(st2.nextToken());
                     }
-                    data.addElement(row);
+                    data.addElement( row );
                 }
                 br.close();
-                DefaultTableModel model = new DefaultTableModel(columnNames, data);
+                DefaultTableModel model = new DefaultTableModel(data, column);
                 updatePricingTable.setModel(model);
-            }
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(UProductPricing.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -200,20 +195,23 @@ public class UProductPricing extends javax.swing.JFrame {
     }//GEN-LAST:event_importCSVButtonActionPerformed
 
     private void updatePricingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePricingButtonActionPerformed
-        TableModel model1 = updatePricingTable.getModel();        
+        TableModel model1 = updatePricingTable.getModel();
         try {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
-            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellplumb?useSSL=false", "admin", "1qaz2wsx");
-            while(updatePricingTable.getRowCount() > 0) {
+            connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
+            for (int i=0;i<model1.getRowCount();i++){
                 String query;
-                query = "UPDATE product set price = ? where id = " + id + ";";
+                query = "UPDATE product set price = ?, lastchange =? where id = " + model1.getValueAt(i, 0) + ";";
                 PreparedStatement preparedStmt =connObj.prepareStatement(query);
+                preparedStmt.setDouble (1, Double.parseDouble(model1.getValueAt(i, 1).toString()));
+                preparedStmt.setDate(2,new java.sql.Date(Calendar.getInstance().getTime().getTime()));
                 preparedStmt.executeUpdate();
             }
             connObj.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
     }//GEN-LAST:event_updatePricingButtonActionPerformed
 
     public static void main(String args[]) {
