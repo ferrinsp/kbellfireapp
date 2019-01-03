@@ -59,6 +59,7 @@ public class VShipTo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        vShipTo.setAutoCreateRowSorter(true);
         vShipTo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
