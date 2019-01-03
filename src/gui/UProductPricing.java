@@ -28,7 +28,6 @@ public class UProductPricing extends javax.swing.JFrame {
     Connection connObj = null;
     Statement stateObj = null;
     ResultSet resultObj = null;
-    int id = -1;
     
     public UProductPricing() {
         this.cellRenderer = new AlternatingListCellRenderer();
@@ -54,17 +53,14 @@ public class UProductPricing extends javax.swing.JFrame {
 
         updatePricingTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Product ID", "Updated Price"
+                "Product ID", "Updated Price", "Description", "Supplier"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true
+                false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -187,8 +183,7 @@ public class UProductPricing extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void importCSVButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importCSVButtonActionPerformed
-        @SuppressWarnings("UnusedAssignment")
-        FileInputStream File = null;
+        FileInputStream File;
         Vector data = new Vector();
         Vector column = new Vector();
         String aLine;
@@ -197,6 +192,8 @@ public class UProductPricing extends javax.swing.JFrame {
             BufferedReader br = new BufferedReader(new InputStreamReader(File));
             column.addElement("ID");
             column.addElement("Price");
+            column.addElement("Description");
+            column.addElement("Supplier");
             while ((aLine = br.readLine()) != null) {
                     StringTokenizer st2 = new StringTokenizer(aLine, ",");
                     Vector row = new Vector();
@@ -209,7 +206,6 @@ public class UProductPricing extends javax.swing.JFrame {
                 br.close();
                 DefaultTableModel model = new DefaultTableModel(data, column);
                 updatePricingTable.setModel(model);
-
         } catch (FileNotFoundException ex) {
             Logger.getLogger(UProductPricing.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -231,7 +227,7 @@ public class UProductPricing extends javax.swing.JFrame {
                 preparedStmt.executeUpdate();
             }
             connObj.close();
-            JOptionPane.showMessageDialog(null, "Impoted prices have been updated succesfully.");
+            JOptionPane.showMessageDialog(null, "Imported prices have been updated succesfully.");
             this.dispose();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -244,7 +240,6 @@ public class UProductPricing extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void itemsAddedDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemsAddedDeleteActionPerformed
-
         DefaultTableModel model = (DefaultTableModel) updatePricingTable.getModel();
         int[] index = updatePricingTable.getSelectedRows();
         if(index.length <= 0){
