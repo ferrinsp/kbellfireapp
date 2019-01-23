@@ -32,10 +32,11 @@ public class VShipTo extends javax.swing.JFrame {
             //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select po.orderid, pod.orderqty, pod.receivedqty, po.created, prod.productDescription\n" +
+            resultObj = stateObj.executeQuery("select po.orderid, pod.orderqty, pod.receivedqty, po.created, prod.productDescription, c.name\n" +
 "                from purchaseorder po\n" +
 "inner join job j on j.jobid = po.shipto inner join purchaseorderdetails pod on pod.orderid = po.orderid\n" +
 "inner join product pd on pd.id = pod.product inner join productdescription prod on prod.pdescID = pd.description\n" +
+                    "inner join contact c on c.contactid = po.contact\n" +
 "where j.jobid = "+jobid+" and po.created >= STR_TO_DATE('"+fromDate+"', '%Y-%m-%d') and po.created < STR_TO_DATE('"+toDate+"', '%Y-%m-%d') order by po.created;");
             vShipTo.setModel(DbUtils.resultSetToTableModel(resultObj));
             vShipTo.getColumn("orderid").setHeaderValue("Order ID");
@@ -43,6 +44,7 @@ public class VShipTo extends javax.swing.JFrame {
             vShipTo.getColumn("receivedqty").setHeaderValue("Received Qty");
             vShipTo.getColumn("orderqty").setHeaderValue("Order Qty");
             vShipTo.getColumn("created").setHeaderValue("Date Created");
+            vShipTo.getColumn("name").setHeaderValue("Contact");
             vShipTo.repaint();        
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,13 +64,13 @@ public class VShipTo extends javax.swing.JFrame {
         vShipTo.setAutoCreateRowSorter(true);
         vShipTo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Product Description", "Received Qty", "Order Qty", "Date Created"
+                "Order ID", "Product Description", "Received Qty", "Order Qty", "Date Created", "Contact"
             }
         ));
         jScrollPane1.setViewportView(vShipTo);
