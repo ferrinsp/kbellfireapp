@@ -356,11 +356,11 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Supplier", "Quantity", "Unit", "MFC", "Part ID", "Description", "Unit Price", "Totals"
+                "Supplier", "Quantity", "Unit", "MFC", "Part ID", "Description", "Unit Price", "Totals", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -537,7 +537,7 @@ public class PreviewPurchaseOrder extends javax.swing.JFrame {
                         + "values(?,?,?,?,?)";
                         preparedStmt =connObj.prepareStatement(query);
                         preparedStmt.setInt (1, orderid); //PO ID
-                        preparedStmt.setInt (2, getProduct(supp, (String) previewItemsAddedTable.getValueAt(index.get(k), 5)));  //Product Number
+                        preparedStmt.setInt (2, Integer.parseInt((String)previewItemsAddedTable.getValueAt(index.get(k), 8)));  //Product Number
                         preparedStmt.setDouble(3,Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 6))); //Unit cost
                         preparedStmt.setDouble (4, Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 1))); //Order Qty
                         prodTotal = Double.parseDouble((String) previewItemsAddedTable.getValueAt(index.get(k), 6)) * Double.parseDouble((String)previewItemsAddedTable.getValueAt(index.get(k), 1));

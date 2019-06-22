@@ -77,9 +77,12 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select pdescID from productdescription where productDescription like '%"+desc+"%' ;");
+            resultObj = stateObj.executeQuery("select pdescID,productDescription from productdescription where productDescription like '%"+desc+"%' ;");
             while (resultObj.next()){
-                index =resultObj.getInt("pdescID");
+                if(desc.equals(resultObj.getString("productDescription")))
+                {
+                     index =resultObj.getInt("pdescID");
+                }
             }
             connObj.close();
         } catch (SQLException e) {
@@ -116,7 +119,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
     //use your own username and login for the second and third parameters..I'll change this in the future to be dynamic
             connObj = DriverManager.getConnection("jdbc:mysql://localhost:3306/kbellfire?useSSL=false", "admin", "1qaz2wsx");
             stateObj = connObj.createStatement();
-            resultObj = stateObj.executeQuery("select s.companyname, prod.unitMeasure,manufacturer, part_id, prod.price, '' as 'Quantity',if(null,0,a.Sum) as 'sum' from product prod\n" +
+            resultObj = stateObj.executeQuery("select s.companyname, prod.unitMeasure,manufacturer, part_id, prod.price, '' as 'Quantity',if(null,0,a.Sum) as 'sum', prod.id from product prod\n" +
 "inner join supplier s on prod.supplier =s.supplierid  INNER JOIN productdescription pd on pd.pdescID = prod.description\n" +
 "inner join category c on c.category_ID=prod.category_id \n" +
 "left JOIN \n" +
@@ -133,6 +136,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
             PriceTable.getColumn("manufacturer").setHeaderValue("MFC");
             PriceTable.getColumn("price").setHeaderValue("Unit Price");
             PriceTable.getColumn("sum").setHeaderValue("Order History");
+            PriceTable.getColumn("id").setHeaderValue("ID");
             PriceTable.repaint();
             connObj.close();
         }  catch (SQLException e) {
@@ -258,14 +262,14 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         PriceTable.setAutoCreateRowSorter(true);
         PriceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Supplier", "MFC", "Part ID", "Unit", "Qty", "Unit Price", "Order Qty"
+                "Supplier", "MFC", "Part ID", "Unit", "Qty", "Unit Price", "Order Qty", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true
+                false, false, false, false, true, true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -366,11 +370,11 @@ public class NPurchaseOrder extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Supplier", "Quantity", "Unit", "MFC", "Part ID", "Description", "Unit Price", "Total"
+                "Supplier", "Quantity", "Unit", "MFC", "Part ID", "Description", "Unit Price", "Total", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, false, true, false
+                false, true, false, false, false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -442,7 +446,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
         int[] index = itemsSearchTable.getSelectedRows();
         TableModel model2 = PriceTable.getModel();
         int[] index2 = PriceTable.getSelectedRows();
-        Object[] row = new Object[8];
+        Object[] row = new Object[9];
         DefaultTableModel model3 = (DefaultTableModel) ItemsAddedTable.getModel();
         if(index.length > 1 || index2.length >1){
             JOptionPane.showMessageDialog(null, "Please only select one row to add.");
@@ -465,6 +469,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                     row[6] = model2.getValueAt(index2[0], 4);  //Unit Price
                     total = Double.parseDouble(row[1].toString()) * Double.parseDouble(row[6].toString());
                     row[7] = String.format( "%.2f", total);  // Total
+                    row[8] = model2.getValueAt(index2[0],7);  //Product ID
                     model3.addRow(row);
                 }
             }
@@ -533,7 +538,7 @@ public class NPurchaseOrder extends javax.swing.JFrame {
                 { 
                     for(int j = 0 ; j < ItemsAddedTable.getColumnCount();j++)
                     {
-                        if (j >= (ItemsAddedTable.getColumnCount()-2)){
+                        if (j >= (ItemsAddedTable.getColumnCount()-3)){
                         
                             Object number = ItemsAddedTable.getValueAt(i,j);
                             bfw.write(number.toString());
